@@ -4,7 +4,7 @@ import { uploadAvatar } from "../../server/actions/uploadAvatar";
 
 export default function ServerUploadPage() {
   return (
-    <main>
+    <main className="mt-[100px]">
       <h1>React Server Component: Upload</h1>
       <form action={uploadAvatar}>
         <input type="file" name="file" />

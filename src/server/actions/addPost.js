@@ -1,13 +1,18 @@
+"use server";
+
+import { getServSession } from "../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../db";
 
 export const addPost = async (input) => {
+  const session = await getServSession();
+
   const post = await prisma.post.create({
     data: {
       title: input.title,
       text: input.text,
       user: {
         connect: {
-          id: input.id,
+          id: session.user.id,
         },
       },
       Reaction: {
