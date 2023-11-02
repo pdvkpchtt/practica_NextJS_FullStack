@@ -181,6 +181,7 @@ const CreatePostModal = ({
                     updateFeed(post);
                     setHeadState("");
                     setTextState("");
+                    setPickedReactions([{ type: "big_thumb" }]);
                     setLoaderState(false);
                     setClose();
 
@@ -255,7 +256,9 @@ const CreatePostModal = ({
                       updateFeed(post);
                       setHeadState("");
                       setTextState("");
+                      setPickedReactions([{ type: "big_thumb" }]);
                       setLoaderState(false);
+                      setP;
                       setClose();
 
                       // if (isMobile)
