@@ -1,0 +1,406 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+  // Further reading:
+  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+  url      = env("DB_URL")
+}
+
+model Example {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Necessary for Next auth
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  user_id           Int
+  email             String?
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Plan {
+  id String  @id @default(cuid())
+  name String
+  pitchesCount Int
+  superPitchesCount Int
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id             String           @id @default(cuid())
+  name           String?
+  username       String?          @unique
+  birthDate      String?
+  email          String?          @unique
+  emailVerified  DateTime?
+  image          String?
+  accounts       Account[]
+  sessions       Session[]
+  role           String?
+  about          String?          @db.Text
+  country        String?          @db.Text
+  city           String?          @db.Text
+  Education      Education[]
+  WorkExperience WorkExperience[]
+  UserSkills     UserSkills[]
+  views          BigInt           @default(0)
+  connections    User[]           @relation("UserConnections")
+
+  chats                Chat[]
+  messages             Message[]
+  BookMarks            Bookmarks[]
+  // This second "side" of the UserFriends relation exists solely 
+  // to satisfy prisma's requirements; we won't access it directly.
+  symmetricConnections User[]      @relation("UserConnections")
+
+  educationLevelId String?
+  educationLevel   EducationLevel? @relation(fields: [educationLevelId], references: [id])
+
+  IGetRequest  FriendRequests[] @relation("IGetRequest")
+  ISendRequest FriendRequests[] @relation("ISendRequest")
+
+  UpdatesToMe    Updates[] @relation("UpdatesToMe")
+  UpdatesFromWho Updates[] @relation("UpdatesFromWho")
+
+  myCompanyFolowers User[] @relation("FollowingSystem")
+  companiesIFollow  User[] @relation("FollowingSystem")
+
+  Post     Post[]
+  Reaction Reaction[]
+  Company  Company?
+  HR       Hr[]
+
+  extraPitches Int @default(0)
+  extraSuperPitches Int @default(0)
+}
+
+model Hr {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyId    String
+  company      Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  token        String
+  dataVerified DateTime?
+  Vacancy      Vacancy[]
+}
+
+model Updates {
+  id         String   @id @default(cuid())
+  text       String
+  type       String
+  userId     String
+  user       User     @relation("UpdatesToMe", fields: [userId], references: [id], onDelete: Cascade)
+  userFromId String
+  userFrom   User     @relation("UpdatesFromWho", fields: [userFromId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  postId     String   @default("")
+}
+
+model FriendRequests {
+  id         String   @id @default(cuid())
+  userGetId  String
+  userGet    User     @relation("IGetRequest", fields: [userGetId], references: [id], onDelete: Cascade)
+  userSendId String
+  userSend   User     @relation("ISendRequest", fields: [userSendId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+}
+
+model Company {
+  id         String           @id @default(cuid())
+  userId     String           @unique
+  username   String?          @unique
+  name       String
+  image      String?
+  slogan     String?
+  about      String?
+  country    String?          @db.Text
+  city       String?          @db.Text
+  direction  String?
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @default(now())
+  Vacancy    Vacancy[]
+  Cities     Cities[]
+  Links      Links[]
+  isStartap  Boolean  @default(false)
+  industryId String?
+  industry   CompanyIndustry? @relation(fields: [industryId], references: [id])
+  employeeId String?
+  employee   CompanyEmployee? @relation(fields: [employeeId], references: [id])
+  HR         Hr[]
+}
+
+model CompanyIndustry {
+  id      String    @id @default(cuid())
+  label   String
+  Company Company[]
+}
+
+model CompanyEmployee {
+  id      String    @id @default(cuid())
+  label   String
+  Company Company[]
+}
+
+model Links {
+  id        String  @id @default(cuid())
+  label     String
+  link      String
+  companyId String
+  Company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
+
+model Cities {
+  id        String  @id @default(cuid())
+  label     String
+  companyId String
+  Company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
+
+model Vacancy {
+  id        String  @id @default(cuid())
+  name      String
+  companyId String
+  Company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  description      String
+  shortDescription String
+
+  waitings String
+
+  conditions String
+
+  salaryStart String?
+  salaryEnd   String?
+
+  VacancySkills VacancySkills[]
+  Bookmarks     Bookmarks[]
+  Location      Location[]
+
+  distantWork    Boolean  @default(false)
+
+  formatId String?
+  format   Format? @relation(fields: [formatId], references: [id])
+
+  experienceId String?
+  experience   Experience? @relation(fields: [experienceId], references: [id])
+
+  contractId String?
+  contract   Contract? @relation(fields: [contractId], references: [id])
+
+  educationLevelId String?
+  educationLevel   EducationLevel? @relation(fields: [educationLevelId], references: [id])
+
+  currencyId String?
+  currency   Currency? @relation(fields: [currencyId], references: [id])
+
+  vacArea    VacArea[]
+  industryId String?
+  Industry   Industry? @relation(fields: [industryId], references: [id])
+
+  hrCreatorId String?
+  hrCreator   Hr? @relation(fields: [hrCreatorId], references: [id])
+}
+
+model VacArea {
+  id        String  @id @default(cuid())
+  label     String
+  vacancyId String
+  Vacancy   Vacancy @relation(fields: [vacancyId], references: [id], onDelete: Cascade)
+}
+
+model BigCity {
+  id    String @id @default(cuid())
+  label String
+}
+
+model Currency {
+  id      String    @id @default(cuid())
+  label   String
+  vacancy Vacancy[]
+}
+
+model Location {
+  id        String  @id @default(cuid())
+  label     String
+  vacancyId String
+  Vacancy   Vacancy @relation(fields: [vacancyId], references: [id], onDelete: Cascade)
+}
+
+model Experience {
+  id      String    @id @default(cuid())
+  text    String
+  vacancy Vacancy[]
+}
+
+model Contract {
+  id      String    @id @default(cuid())
+  label   String
+  vacancy Vacancy[]
+}
+
+model EducationLevel {
+  id      String    @id @default(cuid())
+  text    String
+  vacancy Vacancy[]
+  user    User[]
+}
+
+model Industry {
+  id      String    @id @default(cuid())
+  name    String
+  vacancy Vacancy[]
+}
+
+model Format {
+  id      String    @id @default(cuid())
+  text    String
+  vacancy Vacancy[]
+}
+
+model Area {
+  id    String  @id @default(cuid())
+  label String
+  skill Skill[]
+}
+
+model Bookmarks {
+  id        String  @id @default(cuid())
+  userId    String  @db.Text
+  vacancyId String  @db.Text
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vacancy   Vacancy @relation(fields: [vacancyId], references: [id], onDelete: Cascade)
+}
+
+model Post {
+  id               String          @id @default(cuid())
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @default(now())
+  title            String          @db.Text
+  text             String          @db.Text
+  userId           String
+  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Reaction         Reaction[]
+  category         PostCategories? @relation(fields: [postCategoriesId], references: [id])
+  postCategoriesId String?
+}
+
+model PostCategories {
+  id   String @id @default(cuid())
+  name String
+  post Post[]
+}
+
+model Reaction {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  type      String
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model Education {
+  id     String  @id @default(cuid())
+  name   String? @db.Text
+  degree String? @db.Text
+  userId String
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model WorkExperience {
+  id           String  @id @default(cuid())
+  organization String? @db.Text
+  post         String? @db.Text
+  start_date   String? @db.Text
+  end_date     String? @db.Text
+  userId       String
+  user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Skill {
+  id            String          @id @default(cuid())
+  name          String          @db.Text
+  type          String          @default("")
+  UserSkills    UserSkills[]
+  VacancySkills VacancySkills[]
+  areaId        String?
+  area          Area?           @relation(fields: [areaId], references: [id])
+}
+
+model UserSkills {
+  id      String @id @default(cuid())
+  userId  String @db.Text
+  skillId String @db.Text
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill   Skill  @relation(fields: [skillId], references: [id], onDelete: Cascade)
+}
+
+model VacancySkills {
+  id        String  @id @default(cuid())
+  vacancyId String  @db.Text
+  skillId   String  @db.Text
+  vacancy   Vacancy @relation(fields: [vacancyId], references: [id], onDelete: Cascade)
+  skill     Skill   @relation(fields: [skillId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Chat {
+  id           String    @id @default(cuid())
+  name         String?
+  createdAt    DateTime  @default(now())
+  participants User[]
+  messages     Message[]
+  updatedAt    DateTime @default(now())
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  chatId    String
+  userId    String
+  text      String
+  type      String   @default("")
+  Chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  unRead    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}

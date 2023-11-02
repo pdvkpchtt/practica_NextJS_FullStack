@@ -1,0 +1,139 @@
+import TextSecondary from "../../shared/Text/TextSecondary";
+import { ButtonSecondary } from "../../shared/ui/Button";
+import DropDown from "../../shared/ui/DropDown";
+import SkillCard from "../../shared/ui/SkillCard";
+import DropDownWithSearch from "../../shared/ui/DropDownWithSearch";
+
+import AddCityIcon from "../../shared/icons/AddCityIcon";
+
+const PeopleFilters = ({
+  setSkillsModal,
+  dropDataVacancies = {},
+  updatePeople = [],
+  setUpdatePeople = () => {},
+}) => {
+  return (
+    <div className="w-full  flex flex-col gap-[16px] h-fit bg-white dark:bg-[#212122] p-[12px] rounded-b-[20px]">
+      <div className="flex flex-col w-full">
+        <TextSecondary
+          text={"Город"}
+          style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+        />
+        <DropDownWithSearch
+          city={updatePeople?.peoplecity?.label}
+          setCity={(val) => {
+            setUpdatePeople({
+              ...updatePeople,
+              peoplecity: val,
+            });
+          }}
+          items={dropDataVacancies?.peoplecity?.filter((i) => i.label !== null)}
+          placeholder={"Не выбрано"}
+        />
+      </div>
+
+      <div className="flex flex-col w-full">
+        <TextSecondary
+          text={"Высшее образование"}
+          style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+        />
+        <DropDownWithSearch
+          city={updatePeople?.educationLevel?.label}
+          setCity={(val) => {
+            setUpdatePeople({
+              ...updatePeople,
+              educationLevel: val,
+            });
+          }}
+          items={dropDataVacancies?.educationLevel}
+          placeholder={"Не выбрано"}
+        />
+      </div>
+
+      <div className="flex flex-col w-full">
+        <TextSecondary
+          text={"Опыт работы"}
+          style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+        />
+        <DropDownWithSearch
+          city={updatePeople?.workExperience?.label}
+          setCity={(val) => {
+            setUpdatePeople({
+              ...updatePeople,
+              workExperience: val,
+            });
+          }}
+          items={[{ label: "Есть" }, { label: "Нет" }]}
+          placeholder={"Не выбрано"}
+        />
+      </div>
+
+      {/* skills */}
+      <div className="flex flex-col relative gap-[16px]">
+        {updatePeople.UserSkills.length === 0 ? (
+          <div className="flex flex-col">
+            <TextSecondary
+              text={"Скиллы"}
+              style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+            />
+            <AddCityIcon onClick={() => setSkillsModal(true)} />
+          </div>
+        ) : (
+          <>
+            {updatePeople.UserSkills.filter((item) => item.type !== "soft")
+              .length > 0 && (
+              <div className="flex flex-col gap-[8px]">
+                <TextSecondary
+                  text={"Хард-скиллы"}
+                  style="font-medium text-[14px] leading-[18px] tracking-[-0.013em] whitespace-nowrap"
+                />
+
+                <div className="flex flex-row gap-[8px] flex-wrap">
+                  {updatePeople.UserSkills.map(
+                    (item) =>
+                      item.type === "hard" && (
+                        <SkillCard
+                          noCopy
+                          onClick={() => setSkillsModal(true)}
+                          text={item.name}
+                          key={item.id}
+                        />
+                      )
+                  )}
+                </div>
+              </div>
+            )}
+            {updatePeople.UserSkills.filter((item) => item.type !== "hard")
+              .length > 0 && (
+              <div className="flex flex-col gap-[8px]">
+                <TextSecondary
+                  text={"Софт-скиллы"}
+                  style="font-medium text-[14px] leading-[18px] tracking-[-0.013em] whitespace-nowrap"
+                />
+
+                <div className="flex flex-row gap-[8px] flex-wrap">
+                  {updatePeople.UserSkills.map(
+                    (item) =>
+                      item.type === "soft" && (
+                        <SkillCard
+                          noCopy
+                          onClick={() => setSkillsModal(true)}
+                          soft
+                          hard={false}
+                          text={item.name}
+                          key={item.id}
+                        />
+                      )
+                  )}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+      {/* skills */}
+    </div>
+  );
+};
+
+export default PeopleFilters;

@@ -1,0 +1,300 @@
+"use client";
+
+import uuid from "react-uuid";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
+import { Oval } from "react-loader-spinner";
+import { toast } from "react-toastify";
+
+import { ButtonSecondary, OneIconButton } from "../../shared/ui/Button";
+import { Input } from "../../shared/ui/Input";
+import Education from "./Education";
+import WorkExperience from "./WorkExperience";
+import SkillCard from "../../shared/ui/SkillCard";
+import TextSecondary from "../../shared/Text/TextSecondary";
+import SkillsModalContent from "./SkillsModalContent";
+import DropDownWithSearch from "../../shared/ui/DropDownWithSearch";
+
+import CheckIcon from "../../shared/icons/CheckIcon";
+import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
+import AddCityIcon from "../../shared/icons/AddCityIcon";
+
+const EditRight = ({
+  data,
+  setDataToUpdate,
+  educationLevelData,
+  dataToUpdate,
+  updateProfileData,
+  skills,
+}) => {
+  const router = useRouter();
+
+  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
+
+  const deleteHandler = (id, setFunc, state) => {
+    setFunc(state.filter((item) => item.id !== id));
+  };
+
+  const [isOpen, toggle] = useState(false);
+
+  const [educationState, setEducationState] = useState([]);
+  const [workState, setWorkState] = useState([]);
+  const [littleLoader, setLittleLoader] = useState(false);
+
+  useEffect(() => {
+    if (data.education.length == 0)
+      setEducationState([
+        {
+          id: uuid(),
+          name: "",
+          degree: "",
+        },
+      ]);
+    else setEducationState(data.education);
+  }, []);
+
+  useEffect(() => {
+    if (data.workExperience.length == 0)
+      setWorkState([
+        {
+          id: uuid(),
+          organization: "",
+          post: "",
+          start_date: "",
+          end_date: "",
+        },
+      ]);
+    else setWorkState(data.workExperience);
+  }, []);
+
+  return (
+    <div className="w-full flex flex-col">
+      {/* header */}
+      <div
+        className={`[@media(pointer:coarse)]:fixed ${
+          isOpen
+            ? "[@media(pointer:coarse)]:z-[-1]"
+            : "[@media(pointer:coarse)]:z-[300]"
+        } [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:left-0 [@media(pointer:coarse)]:rounded-t-[0px] border-b-[0.7px] border-b-[#E7E7E7] bg-white dark:bg-[#212122] dark:border-b-[#2f2f2f] rounded-t-[20px] p-[12px]`}
+      >
+        <div className="w-full flex flex-row justify-between [@media(pointer:coarse)]:max-w-[476px] [@media(pointer:coarse)]:mx-auto">
+          <OneIconButton
+            onClick={() =>
+              router.push("/profile", { query: { data: "update" } })
+            }
+          >
+            <ArrowLeftIcon />
+          </OneIconButton>
+
+          <div
+            onClick={async () => {
+              setLittleLoader(true);
+              await updateProfileData({
+                ...dataToUpdate,
+                UserSkills: dataToUpdate.UserSkills.map(
+                  (item) => true && { skillId: item.id }
+                ),
+                education:
+                  educationState.length == 1 &&
+                  (educationState[0].name.length == 0 ||
+                    educationState[0].degree.length == 0)
+                    ? []
+                    : educationState,
+                workExperience:
+                  workState.length == 1 &&
+                  (workState[0].organization.length == 0 ||
+                    workState[0].post.length == 0 ||
+                    workState[0].start_date.length == 0 ||
+                    workState[0].end_date.length == 0)
+                    ? []
+                    : workState,
+              });
+              toast(`🦄 Изменения сохранены`, {
+                position: isMobile ? "top-center" : "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                // theme: "dark",
+                progressStyle: { background: "#5875e8" },
+                containerId: "forCopy",
+              });
+              setLittleLoader(false);
+            }}
+            className={`
+                px-[12px] py-[8px] rounded-[16px] cursor-pointer transition duration-[250ms] select-none w-fit
+                ${
+                  true
+                    ? "bg-[#8295DE] hover:bg-[#5875E8] active:bg-[#3A56C5]"
+                    : "bg-[#74899B] bg-opacity-[8%]"
+                }
+              `}
+          >
+            {littleLoader ? (
+              <Oval
+                height={19}
+                width={19}
+                color="#fff"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="oval-loading"
+                secondaryColor="rgba(255,255,255, 0.3)"
+                strokeWidth={6}
+                strokeWidthSecondary={6}
+              />
+            ) : (
+              <CheckIcon fill={true ? "#fff" : "#bfbfbf"} />
+            )}
+          </div>
+        </div>
+      </div>
+      {/* header */}
+
+      {/* body */}
+      <div className="[@media(hover)]:max-h-full hideScrollbarNavMobile [@media(hover)]:h-fit [@media(hover)]:overflow-y-auto p-[12px] flex flex-col gap-[16px] rounded-b-[20px] [@media(pointer:coarse)]:rounded-[20px] bg-white dark:bg-[#212122]">
+        {/* about me */}
+        <Input
+          placeholder="Ваше отношение к жизни"
+          label="Обо мне"
+          value={dataToUpdate.about}
+          onChange={(about) =>
+            setDataToUpdate({
+              ...dataToUpdate,
+              about: about,
+            })
+          }
+        />
+        {/* about me */}
+
+        {/* EducationLevel */}
+        <div className="flex flex-col w-full">
+          <TextSecondary
+            text={"Высшее образование"}
+            style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+          />
+          <DropDownWithSearch
+            city={
+              dataToUpdate?.educationLevel === null
+                ? ""
+                : dataToUpdate?.educationLevel?.text
+            }
+            setCity={(val) => {
+              setDataToUpdate({
+                ...dataToUpdate,
+                educationLevel: val,
+              });
+            }}
+            items={educationLevelData}
+            placeholder={"Да"}
+          />
+        </div>
+        {/* EducationLevel */}
+
+        {/* education */}
+        <Education
+          educationState={educationState}
+          setEducationState={(choise) => setEducationState(choise)}
+          deleteHandler={(id, setState, state) =>
+            deleteHandler(id, setState, state)
+          }
+        />
+        {/* education */}
+
+        {/* work expirience */}
+        <WorkExperience
+          workState={workState}
+          setWorkState={(choise) => setWorkState(choise)}
+          deleteHandler={(id, setState, state) =>
+            deleteHandler(id, setState, state)
+          }
+        />
+        {/* work expirience */}
+
+        {/* skills */}
+        {/* skills */}
+        <div className="flex flex-col relative gap-[16px]">
+          {dataToUpdate.UserSkills.length === 0 ? (
+            <div className="flex flex-col">
+              <TextSecondary
+                text={"Скиллы"}
+                style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+              />
+              <AddCityIcon onClick={() => toggle(true)} />
+            </div>
+          ) : (
+            <>
+              {dataToUpdate.UserSkills.filter((item) => item.type !== "soft")
+                .length > 0 && (
+                <div className="flex flex-col gap-[8px]">
+                  <TextSecondary
+                    text={"Хард-скиллы"}
+                    style="font-medium text-[14px] leading-[18px] tracking-[-0.013em] whitespace-nowrap"
+                  />
+
+                  <div className="flex flex-row gap-[8px] flex-wrap">
+                    {dataToUpdate.UserSkills.map(
+                      (item) =>
+                        item.type === "hard" && (
+                          <SkillCard
+                            noCopy
+                            onClick={() => toggle(true)}
+                            text={item.name}
+                            key={item.id}
+                          />
+                        )
+                    )}
+                  </div>
+                </div>
+              )}
+              {dataToUpdate.UserSkills.filter((item) => item.type !== "hard")
+                .length > 0 && (
+                <div className="flex flex-col gap-[8px]">
+                  <TextSecondary
+                    text={"Софт-скиллы"}
+                    style="font-medium text-[14px] leading-[18px] tracking-[-0.013em] whitespace-nowrap"
+                  />
+
+                  <div className="flex flex-row gap-[8px] flex-wrap">
+                    {dataToUpdate.UserSkills.map(
+                      (item) =>
+                        item.type === "soft" && (
+                          <SkillCard
+                            noCopy
+                            onClick={() => toggle(true)}
+                            soft
+                            hard={false}
+                            text={item.name}
+                            key={item.id}
+                          />
+                        )
+                    )}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+        {/* skills */}
+        {/* skills */}
+      </div>
+      {/* body */}
+
+      {/* skills modal */}
+      <SkillsModalContent
+        data={dataToUpdate.UserSkills}
+        isOpen={isOpen}
+        handleClose={() => toggle(false)}
+        setDataToUpdate={setDataToUpdate}
+        dataToUpdate={dataToUpdate}
+        skills={skills}
+      />
+      {/* skills modal */}
+    </div>
+  );
+};
+
+export default EditRight;

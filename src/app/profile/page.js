@@ -1,0 +1,45 @@
+import { getServSession } from "../api/auth/[...nextauth]/route";
+import { getProfile } from "../../server/actions/getProfile";
+import { getUserPosts } from "../../server/actions/getUserPosts";
+import { reactOnPost } from "../../server/actions/reactOnPost";
+import Profile from "../../components/Profile/Profile";
+
+const ProfiePage = async () => {
+  const session = await getServSession();
+
+  const data = await getProfile({
+    userId: session.user.id,
+  });
+
+  console.log("profile", data);
+
+  async function getUserFeed(cursor) {
+    "use server";
+    const session = await getServSession();
+    const posts = await getUserPosts(session.user.id, cursor);
+
+    return posts;
+  }
+  async function addReaction(postId, type) {
+    "use server";
+    const session = await getServSession();
+    const data = await reactOnPost({
+      id: session.user.id,
+      type: type,
+      postId,
+    });
+
+    return data;
+  }
+
+  return (
+    <Profile
+      data={data}
+      getUserFeed={getUserFeed}
+      addReaction={addReaction}
+      userId={session.user.id}
+    />
+  );
+};
+
+export default ProfiePage;
