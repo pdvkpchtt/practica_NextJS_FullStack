@@ -53,12 +53,12 @@ const CreatePostModal = ({
 
   const [categories, setCategories] = useState([]);
 
-  // useEffect(() => {
-  //   if (isMobile) {
-  //     if (open) document.body.style.overflow = "hidden";
-  //     else document.body.style.overflow = "unset";
-  //   }
-  // }, [open, isMobile]);
+  useEffect(() => {
+    if (isMobile) {
+      if (open) document.body.style.overflow = "hidden";
+      else document.body.style.overflow = "unset";
+    }
+  }, [open, isMobile]);
 
   const [reactions, setReactitons] = useState([
     { type: "fire", ...fire, active: false },
