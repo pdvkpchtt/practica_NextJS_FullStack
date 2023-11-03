@@ -3,13 +3,15 @@ import ChatInfo from "../../../components/messenger/ChatInfo";
 import Chats from "../../../components/messenger/Chats";
 import { getProfileByChatId } from "../../../server/actions/messenger/getProfileByChatId";
 import MessengrLeft from "../../../components/messenger/MessengrLeft";
+import { getInfoAboutPremium } from "../../../server/actions/messenger/getInfoAboutPremium";
 
 const ChatPage = async ({ params: { chatId }, searchParams }) => {
   const user_id = searchParams?.user_id;
 
   const type = await checkCircles(user_id, chatId);
   const profileData = await getProfileByChatId(user_id, chatId);
-  console.log("ya narik", profileData);
+  const premSender = await getInfoAboutPremium(profileData.id);
+
   // тут проверяем если юзер в 1 круге
   // const checkCirclesHandler = async () => {
   //   setLoading(true);
@@ -76,7 +78,13 @@ const ChatPage = async ({ params: { chatId }, searchParams }) => {
 
   return (
     <>
-      <Chats chatId={chatId} user_id={user_id} type={type.circle} />
+      <Chats
+        chatId={chatId}
+        user_id={user_id}
+        type={type.circle}
+        profileData={profileData}
+        premSender={premSender}
+      />
       <MessengrLeft data={profileData} />
     </>
   );

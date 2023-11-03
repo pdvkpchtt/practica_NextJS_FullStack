@@ -45,7 +45,8 @@ import PitchIcon from "../../shared/icons/PitchIcon";
 import BigLogoSvg from "../../shared/icons/BigLogoSvg";
 import { getInfoAboutPremium } from "server/actions/messenger/getInfoAboutPremium";
 
-const Chats = ({ chatId, user_id, type }) => {
+const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
+  console.log(premSender, "jopajuika");
   const { getUserChatsWithTimer, lastDate } = useContext(MessengerContext);
 
   const pathname = usePathname();
@@ -66,9 +67,10 @@ const Chats = ({ chatId, user_id, type }) => {
     }
   };
 
-  const isPitchIcon = type === "pitch" && pathname.includes("/preview");
+  const isPitchIcon =
+    type === "pitch" && premSender.whoIsSender !== profileData.id;
   const isSuperPitchIcon =
-    type === "superpitch" && pathname.includes("/preview");
+    type === "superpitch" && premSender.whoIsSender !== profileData.id;
 
   const [loading, setLoading] = useState(false);
   const [cursor, setCursor] = useState("");
@@ -98,18 +100,6 @@ const Chats = ({ chatId, user_id, type }) => {
     setCursor("");
     getMessages("");
   }, [fetchMessages, searchInput]);
-
-  // ------------------------------------------------------- work with pitches
-  const checkWhoSentPremiumMessage = async () => {
-    // const data = await getInfoAboutPremium(user_id);
-  };
-
-  useEffect(() => {
-    if (!pathname.includes("/prview")) {
-      checkWhoSentPremiumMessage();
-    }
-  }, [pathname]);
-  // ------------------------------------------------------- work with pitches
 
   // with timer
   const getUserMessengerWithTimer = async (lastDate2) => {
@@ -181,7 +171,9 @@ const Chats = ({ chatId, user_id, type }) => {
             />
           </div>
 
-          <EmptyAvatar thirty />
+          <div className="min-w-[44px] ml-[16px]">
+            <EmptyAvatar thirty />
+          </div>
         </div>
       </div>
       {/* mobile header */}
