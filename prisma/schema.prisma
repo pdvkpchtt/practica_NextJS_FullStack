@@ -74,13 +74,13 @@ model User {
   WorkExperience WorkExperience[]
   UserSkills     UserSkills[]
   views          BigInt           @default(0)
-  connections    User[]           @relation("UserConnections")
 
   chats                Chat[]
   messages             Message[]
   BookMarks            Bookmarks[]
   // This second "side" of the UserFriends relation exists solely 
   // to satisfy prisma's requirements; we won't access it directly.
+  connections    User[]           @relation("UserConnections")
   symmetricConnections User[]      @relation("UserConnections")
 
   educationLevelId String?
@@ -89,8 +89,14 @@ model User {
   IGetRequest  FriendRequests[] @relation("IGetRequest")
   ISendRequest FriendRequests[] @relation("ISendRequest")
 
+  PremiumMessageGet  PremiumMessage[] @relation("PremiumMessageGet")
+  PremiumMessageSent PremiumMessage[] @relation("PremiumMessageSent")
+
   UpdatesToMe    Updates[] @relation("UpdatesToMe")
   UpdatesFromWho Updates[] @relation("UpdatesFromWho")
+
+  // UpdatesToMe    Updates[] @relation("UpdatesToMe")
+  // UpdatesFromWho Updates[] @relation("UpdatesFromWho")
 
   myCompanyFolowers User[] @relation("FollowingSystem")
   companiesIFollow  User[] @relation("FollowingSystem")
@@ -103,6 +109,17 @@ model User {
   extraPitches Int @default(0)
   extraSuperPitches Int @default(0)
 }
+
+model PremiumMessage {
+  id         String   @id @default(cuid())
+  type       String
+  userGetId  String
+  userGet    User     @relation("PremiumMessageGet", fields: [userGetId], references: [id], onDelete: Cascade)
+  userSendId String
+  userSend   User     @relation("PremiumMessageSent", fields: [userSendId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+}
+
 
 model Hr {
   id           String    @id @default(cuid())

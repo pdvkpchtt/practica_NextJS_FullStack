@@ -43,6 +43,7 @@ import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import BigLogoSvg from "../../shared/icons/BigLogoSvg";
+import { getInfoAboutPremium } from "server/actions/messenger/getInfoAboutPremium";
 
 const Chats = ({ chatId, user_id, type }) => {
   const { getUserChatsWithTimer, lastDate } = useContext(MessengerContext);
@@ -59,11 +60,15 @@ const Chats = ({ chatId, user_id, type }) => {
     if (input.length !== 0) {
       setWait(true);
       console.log(input);
-      await sendMessage(input, chatId);
+      await sendMessage(input, chatId, type);
       setInput("");
       setWait(false);
     }
   };
+
+  const isPitchIcon = type === "pitch" && pathname.includes("/preview");
+  const isSuperPitchIcon =
+    type === "superpitch" && pathname.includes("/preview");
 
   const [loading, setLoading] = useState(false);
   const [cursor, setCursor] = useState("");
@@ -93,6 +98,18 @@ const Chats = ({ chatId, user_id, type }) => {
     setCursor("");
     getMessages("");
   }, [fetchMessages, searchInput]);
+
+  // ------------------------------------------------------- work with pitches
+  const checkWhoSentPremiumMessage = async () => {
+    // const data = await getInfoAboutPremium(user_id);
+  };
+
+  useEffect(() => {
+    if (!pathname.includes("/prview")) {
+      checkWhoSentPremiumMessage();
+    }
+  }, [pathname]);
+  // ------------------------------------------------------- work with pitches
 
   // with timer
   const getUserMessengerWithTimer = async (lastDate2) => {
@@ -146,7 +163,10 @@ const Chats = ({ chatId, user_id, type }) => {
         "
       >
         <div className="items-center flex flex-row w-full max-w-[468px] max-auto">
-          <OneIconButton onClick={() => router.back()} style="mr-[16px]">
+          <OneIconButton
+            onClick={() => router.push("/messenger")}
+            style="mr-[16px]"
+          >
             <ArrowLeftIcon />
           </OneIconButton>
 
@@ -305,6 +325,10 @@ const Chats = ({ chatId, user_id, type }) => {
               strokeWidth={5}
               strokeWidthSecondary={5}
             />
+          ) : isPitchIcon ? (
+            <PitchIcon blue={false} white />
+          ) : isSuperPitchIcon ? (
+            <SuperpitchIcon blue={false} white />
           ) : (
             <SendIcon />
           )}

@@ -59,7 +59,9 @@ const ConnectionCard = ({
             <Image
               src={friend ? item?.image : item?.userFrom?.image}
               alt="Profile image"
-              className="min-h-[50px] min-w-[50px] [@media(pointer:coarse)]:min-w-[40px] [@media(pointer:coarse)]:min-h-[40px]"
+              width={50}
+              height={50}
+              className="h-[50px] w-[50px] [@media(pointer:coarse)]:w-[40px] [@media(pointer:coarse)]:h-[40px]"
             />
           ) : (
             <EmptyAvatar

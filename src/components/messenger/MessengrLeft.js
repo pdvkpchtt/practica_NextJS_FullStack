@@ -37,15 +37,11 @@ import CheckIcon from "../../shared/icons/CheckIcon";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 
-const OthersLeft = ({ navState, data }) => {
+const MessengrLeft = ({ navState, data }) => {
   const router = useRouter();
-  console.log(data, "other profile");
 
-  const ref = useRef(null);
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
-  const { height, width } = useWindowDimensions();
 
-  const [modalState, setModalState] = useState(false);
   const [requestStatus, setRequestStatus] = useState(false);
   const [friendStatus, setFriendStatus] = useState(false);
   const [ifHeSentRequest, setIfHeSentRequest] = useState(false);
@@ -60,21 +56,6 @@ const OthersLeft = ({ navState, data }) => {
     setIfChatExist(await chechIfChatExist(data.id));
     setloading(false);
   };
-
-  const [trigger, setTrigger] = useState(false);
-  const [opacity, setOpacity] = useState(false);
-  useLayoutEffect(() => {
-    if (typeof window !== "undefined")
-      setTrigger(height - ref?.current?.clientHeight < 86);
-  }, [height]);
-
-  const changeOpacity = () => {
-    if (window.scrollY >= 16) setOpacity(true);
-    if (window.scrollY < 16) setOpacity(false);
-  };
-
-  if (typeof window !== "undefined")
-    window.addEventListener("scroll", changeOpacity);
 
   useEffect(() => {
     allChecks();
@@ -104,32 +85,10 @@ const OthersLeft = ({ navState, data }) => {
 
   return (
     <>
-      <motion.div
-        whileHover={
-          navState
-            ? trigger && !isMobile
-              ? { y: height - ref?.current?.clientHeight - 86 - 24 }
-              : { y: 0 }
-            : {}
-        }
-        animate={
-          trigger
-            ? opacity && !isMobile
-              ? {
-                  y: height - ref?.current?.clientHeight - 86 - 24,
-                }
-              : { y: 0 }
-            : { y: 0 }
-        }
-        transition={{ duration: 0.01 }}
-        className={`${
-          navState == true
-            ? "[@media(hover)]:flex [@media(pointer:coarse)]:flex flex-col gap-[16px] [@media(pointer:coarse)]:gap-[12px]"
-            : "[@media(hover)]:flex [@media(pointer:coarse)]:hidden flex-col gap-[16px] [@media(pointer:coarse)]:gap-[12px]"
-        }
+      <div
+        className={`${"[@media(hover)]:flex [@media(pointer:coarse)]:hidden flex-col gap-[16px] [@media(pointer:coarse)]:gap-[12px]"}
  
-transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@media(hover)]:max-w-[260px]  w-full`}
-        ref={ref}
+transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:max-w-[260px]`}
       >
         <Card
           style="[@media(hover)]:max-w-[260px] w-full flex flex-col gap-[12px]"
@@ -204,10 +163,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
 
             {/* views and connections */}
             <div className="flex flex-col gap-[8px] mt-[12px]">
-              <div
-                className="flex flex-row gap-[4px] cursor-pointer"
-                onClick={() => setModalState(true)}
-              >
+              <div className="flex flex-row gap-[4px]">
                 <TextMain
                   text={data.connections}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
@@ -269,38 +225,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
 
         {/* ёбка с питчами */}
         {data.isFirstCircle ? (
-          <Card
-            style={`max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] flex flex-col gap-[8px] ${
-              loading && "items-center"
-            }`}
-            padding={12}
-          >
-            {loading && (
-              <CustomLoader
-                diameter={28}
-                strokeWidth={6}
-                strokeWidthSecondary={6}
-              />
-            )}
-            {!ifChatExist.id && !loading && (
-              <ButtonGhost
-                text="Отправить сообщение"
-                onClick={() =>
-                  router.push(`/messenger/preview?user_id=${data.id}`)
-                }
-              >
-                <MessengeIcon fill={"#5875e8"} />
-              </ButtonGhost>
-            )}
-            {ifChatExist.id && !loading && (
-              <ButtonGhost
-                text="Отправить сообщение"
-                onClick={() => router.push(`/messenger/${ifChatExist.id}`)}
-              >
-                <MessengeIcon fill={"#5875e8"} />
-              </ButtonGhost>
-            )}
-          </Card>
+          <></>
         ) : data.isSecondCircle.find((i2) => i2 === true) ? (
           <div
             className={`${
@@ -314,16 +239,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 strokeWidthSecondary={6}
               />
             ) : (
-              <ButtonGhost
-                text={pitchesState + " " + getNoun(pitchesState)}
-                onClick={() => {
-                  router.push(
-                    !ifChatExist.id
-                      ? `/messenger/preview?user_id=${data.id}`
-                      : `/messenger/${ifChatExist.id}`
-                  );
-                }}
-              >
+              <ButtonGhost text={pitchesState + " " + getNoun(pitchesState)}>
                 <PitchIcon />
               </ButtonGhost>
             )}
@@ -343,13 +259,6 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
             ) : (
               <ButtonGhost
                 text={superpitchesState + " супер" + getNoun(superpitchesState)}
-                onClick={() => {
-                  router.push(
-                    !ifChatExist.id
-                      ? `/messenger/preview?user_id=${data.id}`
-                      : `/messenger/${ifChatExist.id}`
-                  );
-                }}
               >
                 <SuperpitchIcon />
               </ButtonGhost>
@@ -370,13 +279,6 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
             ) : (
               <ButtonGhost
                 text={superpitchesState + " супер" + getNoun(superpitchesState)}
-                onClick={() => {
-                  router.push(
-                    !ifChatExist.id
-                      ? `/messenger/preview?user_id=${data.id}`
-                      : `/messenger/${ifChatExist.id}`
-                  );
-                }}
               >
                 <SuperpitchIcon />
               </ButtonGhost>
@@ -498,17 +400,9 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
           </Card>
         )}
         {/* тут кнопки все, которые будут, можешь потестить */}
-      </motion.div>
-
-      {/* modal for connections handling */}
-      <ConnectionsModal
-        userId={data.id}
-        modalState={modalState}
-        setModalState={setModalState}
-      />
-      {/* modal for connections handling */}
+      </div>
     </>
   );
 };
 
-export default OthersLeft;
+export default MessengrLeft;

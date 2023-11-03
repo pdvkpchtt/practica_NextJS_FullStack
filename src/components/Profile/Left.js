@@ -107,12 +107,12 @@ const Left = ({ navState, data }) => {
           style="[@media(hover)]:max-w-[260px] w-full flex flex-col gap-[12px]"
           padding={12}
         >
-          <div className="rounded-[8px] overflow-hidden w-full [@media(hover)]:max-w-[236px]">
+          <div className="rounded-[8px] overflow-hidden [@media(pointer:coarse)]:w-full [@media(hover)]:w-[236px]">
             {data.image ? (
               <Image
                 src={data.image}
                 alt="Profile photo"
-                className="[@media(hover)]:max-w-[236px] w-full"
+                className="[@media(hover)]:w-[236px] [@media(hover)]:h-[236px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full"
                 width={236}
                 height={236}
                 quality={100}

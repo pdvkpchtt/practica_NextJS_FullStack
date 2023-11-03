@@ -22,6 +22,10 @@ const PeopleCard = ({ item }) => {
           <Image
             src={item.image}
             alt="Profile image"
+            // loading="lazy"
+            quality={100}
+            width={67}
+            height={67}
             className="h-[67px] w-[67px] rounded-[8px]"
           />
         ) : (
