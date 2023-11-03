@@ -19,6 +19,21 @@ export const createChat = async (otherId, message, type) => {
     },
   });
 
+  if (type === "pitch" || type === "superpitch") {
+    const sentPitch = await prisma.PremiumMessage.create({
+      data: {
+        type: type,
+        userGet: {
+          connect: {
+            id: otherId,
+          },
+        },
+        userSend: {
+          connect: { id: session?.user?.id },
+        },
+      },
+    });
+  }
   const newmessage = await prisma.message.create({
     data: {
       text: message,

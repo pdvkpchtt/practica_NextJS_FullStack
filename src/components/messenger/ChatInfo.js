@@ -29,7 +29,7 @@ const ChatInfo = ({ navState }) => {
   return (
     <Card
       style=" 
-        max-w-[260px] fixed [@media(pointer:coarse)]:hidden ml-[728px] h-fit [@media(hover)]:mt-[62px] w-full [@media(pointer:coarse)]:max-w-[100%] 
+        w-[260px] [@media(pointer:coarse)]:hidden h-fit [@media(hover)]:mt-[62px]
         flex flex-col gap-[12px]"
       padding={12}
     >

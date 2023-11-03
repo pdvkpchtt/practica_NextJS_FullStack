@@ -61,16 +61,26 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
     if (input.length !== 0) {
       setWait(true);
       console.log(input);
-      await sendMessage(input, chatId, type);
+      await sendMessage(
+        input,
+        chatId,
+        type,
+        premSender.whoIsSender,
+        profileData.id
+      );
       setInput("");
       setWait(false);
     }
   };
 
   const isPitchIcon =
-    type === "pitch" && premSender.whoIsSender !== profileData.id;
+    type === "pitch" &&
+    (premSender.whoIsSender !== profileData.id ||
+      premSender.whoIsSender === "noone");
   const isSuperPitchIcon =
-    type === "superpitch" && premSender.whoIsSender !== profileData.id;
+    type === "superpitch" &&
+    (premSender.whoIsSender !== profileData.id ||
+      premSender.whoIsSender === "noone");
 
   const [loading, setLoading] = useState(false);
   const [cursor, setCursor] = useState("");
@@ -272,7 +282,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
               if (pathname.includes("/messenger/preview")) {
                 setWait(true);
                 setInput("");
-                const chatId = await createChat(user_id, input);
+                const chatId = await createChat(user_id, input, type);
                 setWait(false);
 
                 router.push(`/messenger/${chatId}`);
@@ -291,7 +301,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
               if (pathname.includes("/messenger/preview")) {
                 setWait(true);
                 setInput("");
-                const chatId = await createChat(user_id, input);
+                const chatId = await createChat(user_id, input, type);
                 setWait(false);
 
                 router.push(`/messenger/${chatId}`);
@@ -349,7 +359,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
                 if (pathname.includes("/messenger/preview")) {
                   setWait(true);
                   setInput("");
-                  const chatId = await createChat(user_id, input);
+                  const chatId = await createChat(user_id, input, type);
                   setWait(false);
 
                   router.push(`/messenger/${chatId}`);
@@ -368,7 +378,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
                 if (pathname.includes("/messenger/preview")) {
                   setWait(true);
                   setInput("");
-                  const chatId = await createChat(user_id, input);
+                  const chatId = await createChat(user_id, input, type);
                   setWait(false);
 
                   router.push(`/messenger/${chatId}`);

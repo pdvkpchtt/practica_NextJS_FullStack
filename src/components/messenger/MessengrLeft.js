@@ -59,7 +59,7 @@ const MessengrLeft = ({ navState, data }) => {
 
   useEffect(() => {
     allChecks();
-  }, []);
+  }, [data]);
 
   const location = [data.city, data.contry];
 
@@ -86,7 +86,7 @@ const MessengrLeft = ({ navState, data }) => {
   return (
     <>
       <div
-        className={`${"[@media(hover)]:flex [@media(pointer:coarse)]:hidden flex-col gap-[16px] [@media(pointer:coarse)]:gap-[12px]"}
+        className={`${"[@media(hover)]:flex [@media(pointer:coarse)]:hidden ml-[728px] fixed flex-col gap-[16px] [@media(pointer:coarse)]:gap-[12px]"}
  
 transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:max-w-[260px]`}
       >
@@ -123,7 +123,8 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:max-w-[260
                     ? " • 3-ий"
                     : " • 3+"
                 }`}
-                style="font-medium text-[18px] leading-[21.6px] tracking-[-0.025em]"
+                style="font-medium cursor-pointer text-[18px] leading-[21.6px] tracking-[-0.025em]"
+                onClick={() => router.push(`/profile/${data.username}`)}
               />
               <TextSecondary
                 text={`@${data.username}`}
