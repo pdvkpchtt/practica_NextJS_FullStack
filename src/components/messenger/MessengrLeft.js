@@ -33,6 +33,7 @@ import CustomLoader from "../../shared/ui/CustomLoader";
 import useWindowDimensions from "../../components/Profile/useWindowDimensions";
 import { chechIfChatExist } from "../../server/actions/messenger/chechIfChatExist";
 import ConnectionsModal from "../../components/Profile/ConnectionsModal";
+import { getProfileByChatId } from "../../server/actions/messenger/getProfileByChatId";
 import { MessengerContext } from "./MessengerContextWrap";
 import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 
@@ -44,7 +45,7 @@ import CheckIcon from "../../shared/icons/CheckIcon";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 
-const MessengrLeft = ({ navState, profileData }) => {
+const MessengrLeft = ({ navState, chatId, user_id }) => {
   const router = useRouter();
 
   const { pitchesState, superpitchesState, getUserChatsWithTimer } =
@@ -59,13 +60,21 @@ const MessengrLeft = ({ navState, profileData }) => {
   const [loading2, setloading2] = useState(null);
 
   const allChecks = async () => {
+    await getUserInfoHandler();
     setloading2(true);
-    setRequestStatus(await checkIfRequestSent(profileData.id));
-    setFriendStatus(await checkIfFriend(profileData.id));
-    setIfHeSentRequest(await checkIfOtherSentRequest(profileData.id));
-    setIfChatExist(await chechIfChatExist(profileData.id));
-    console.log("fuck u");
+    if (profileData !== null) {
+      setRequestStatus(await checkIfRequestSent(profileData.id));
+      setFriendStatus(await checkIfFriend(profileData.id));
+      setIfHeSentRequest(await checkIfOtherSentRequest(profileData.id));
+      setIfChatExist(await chechIfChatExist(profileData.id));
+      console.log("fuck u");
+    }
     setloading2(false);
+  };
+  const [profileData, setProfileData] = useState(null);
+
+  const getUserInfoHandler = async () => {
+    setProfileData(await getProfileByChatId(user_id, chatId));
   };
 
   useEffect(() => {

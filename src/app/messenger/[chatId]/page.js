@@ -21,7 +21,11 @@ const ChatPage = async ({ params: { chatId }, searchParams }) => {
         profileData={profileData}
         premSender={premSender}
       />
-      <MessengrLeft profileData={profileData} />
+      <MessengrLeft
+        chatId={chatId}
+        user_id={user_id}
+        // profileData={profileData}
+      />
     </>
   );
 };

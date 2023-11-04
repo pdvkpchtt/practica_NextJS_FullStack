@@ -33,7 +33,9 @@ const ChatInfo = ({ navState }) => {
         flex flex-col gap-[12px]"
       padding={12}
     >
-      <EmptyAvatar />
+      <div className="rounded-[8px] overflow-hidden [@media(pointer:coarse)]:w-full [@media(hover)]:w-[236px]">
+        <EmptyAvatar />
+      </div>
     </Card>
   );
 };
