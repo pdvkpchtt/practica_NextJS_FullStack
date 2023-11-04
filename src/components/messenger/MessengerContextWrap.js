@@ -1,7 +1,8 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
+import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 import { fetchChats } from "../../server/actions/messenger/fetchChats";
 
 export const MessengerContext = createContext();
@@ -48,6 +49,18 @@ const MessengerContextWrap = ({ children }) => {
     setLoading(false);
   };
 
+  const [pitchesState, setPitchesState] = useState(null);
+  const [superpitchesState, setSuperPitchesState] = useState(null);
+
+  const getPitchesCountHanler = async () => {
+    setPitchesState(await getPitchesCount());
+    setSuperPitchesState(await getPitchesCount("superpitch"));
+  };
+
+  useEffect(() => {
+    getPitchesCountHanler();
+  }, [getUserChatsWithTimer]);
+
   return (
     <MessengerContext.Provider
       value={{
@@ -67,6 +80,11 @@ const MessengerContextWrap = ({ children }) => {
         setCount,
         getUserChats,
         getUserChatsWithTimer,
+        pitchesState,
+        setPitchesState,
+        superpitchesState,
+        setSuperPitchesState,
+        getPitchesCountHanler,
       }}
     >
       {children}

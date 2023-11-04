@@ -12,70 +12,6 @@ const ChatPage = async ({ params: { chatId }, searchParams }) => {
   const profileData = await getProfileByChatId(user_id, chatId);
   const premSender = await getInfoAboutPremium(profileData.id);
 
-  // тут проверяем если юзер в 1 круге
-  // const checkCirclesHandler = async () => {
-  //   setLoading(true);
-  //   if (user_id !== null) {
-  //     // если чата нет
-  //     const data = await checkCircles(user_id);
-  //     console.log(data, "jopa2");
-  //     if (
-  //       data.firstCircle === null &&
-  //       data.secondCircle === null &&
-  //       data.thirdCircle === null &&
-  //       type !== "superpitch"
-  //     )
-  //       router.push(`/messenger/preview?user_id=${user_id}&type=superpitch`);
-  //     else if (data.firstCircle !== null && type !== null)
-  //       router.push(`/messenger/preview?user_id=${user_id}`);
-  //     else if (
-  //       data.firstCircle === null &&
-  //       data.secondCircle !== null &&
-  //       (type === null || type !== "pitch")
-  //     )
-  //       router.push(`/messenger/preview?user_id=${user_id}&type=pitch`);
-  //     else if (
-  //       data.firstCircle === null &&
-  //       data.secondCircle === null &&
-  //       data.thirdCircle !== null &&
-  //       (type === null || type !== "superpitch")
-  //     )
-  //       router.push(`/messenger/preview?user_id=${user_id}&type=superpitch`);
-  //   } else {
-  //     // если чат уже есть
-  //     const data = await checkCircles2(chatId);
-  //     console.log(data, "jopa2");
-  //     if (
-  //       data.firstCircle === null &&
-  //       data.secondCircle === null &&
-  //       data.thirdCircle === null &&
-  //       type !== "superpitch"
-  //     )
-  //       router.push(`/messenger/${chatId}?type=superpitch`);
-  //     else if (data.firstCircle !== null && type !== null)
-  //       router.push(`/messenger/${chatId}`);
-  //     else if (
-  //       data.firstCircle === null &&
-  //       data.secondCircle !== null &&
-  //       (type === null || type !== "pitch")
-  //     )
-  //       router.push(`/messenger/${chatId}?type=pitch`);
-  //     else if (
-  //       data.firstCircle === null &&
-  //       data.secondCircle === null &&
-  //       data.thirdCircle !== null &&
-  //       (type === null || type !== "superpitch")
-  //     )
-  //       router.push(`/messenger/${chatId}?type=superpitch`);
-  //   }
-  //   setLoading(false);
-  // };
-
-  // useEffect(() => {
-  //   checkCirclesHandler();
-  // }, [searchParams]);
-  // тут проверяем если юзер в 1 круге
-
   return (
     <>
       <Chats
@@ -85,7 +21,7 @@ const ChatPage = async ({ params: { chatId }, searchParams }) => {
         profileData={profileData}
         premSender={premSender}
       />
-      <MessengrLeft data={profileData} />
+      <MessengrLeft profileData={profileData} />
     </>
   );
 };

@@ -47,7 +47,8 @@ import { getInfoAboutPremium } from "server/actions/messenger/getInfoAboutPremiu
 
 const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
   console.log(premSender, "jopajuika");
-  const { getUserChatsWithTimer, lastDate } = useContext(MessengerContext);
+  const { getUserChatsWithTimer, lastDate, getPitchesCountHanler } =
+    useContext(MessengerContext);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -68,6 +69,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
         premSender.whoIsSender,
         profileData.id
       );
+      await getPitchesCountHanler();
       setInput("");
       setWait(false);
     }
