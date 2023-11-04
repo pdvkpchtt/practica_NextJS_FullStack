@@ -4,7 +4,6 @@ import { createContext, useState, useEffect } from "react";
 
 import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 import { fetchChats } from "../../server/actions/messenger/fetchChats";
-import { getInfoAboutPremium } from "../../server/actions/messenger/getInfoAboutPremium";
 
 export const MessengerContext = createContext();
 
@@ -16,7 +15,6 @@ const MessengerContextWrap = ({ children }) => {
   const [chatsState, setChatsState] = useState(null);
   const [searchInputValue, setSearchInputValue] = useState("");
   const [count, setCount] = useState(0);
-  const [premSender, setPremSender] = useState(null);
 
   const getUserChatsWithTimer = async (lastDate) => {
     console.log("timer fetching");
@@ -31,10 +29,6 @@ const MessengerContextWrap = ({ children }) => {
 
     setCursor(data?.cursor);
     setHasNextPage(data?.hasNextPage);
-  };
-
-  const returnPremSender = async (id) => {
-    setPremSender(await getInfoAboutPremium(id));
   };
 
   const getUserChats = async (cursor) => {
@@ -91,8 +85,6 @@ const MessengerContextWrap = ({ children }) => {
         superpitchesState,
         setSuperPitchesState,
         getPitchesCountHanler,
-        returnPremSender,
-        premSender,
       }}
     >
       {children}

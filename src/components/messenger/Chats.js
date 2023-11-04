@@ -43,17 +43,13 @@ import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import BigLogoSvg from "../../shared/icons/BigLogoSvg";
-import { getInfoAboutPremium } from "../../server/actions/messenger/getInfoAboutPremium";
-import { checkCircles } from "../../server/actions/messenger/checkCircles";
+import { getInfoAboutPremium } from "server/actions/messenger/getInfoAboutPremium";
 
-const Chats = ({ chatId, user_id, type, profileData }) => {
-  // const type = await checkCircles(user_id, chatId);
-  // console.log(type.circle, "jopajuika");
-
-  const { getUserChatsWithTimer, lastDate, getPitchesCountHanler, premSender } =
+const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
+  console.log(premSender, "jopajuika");
+  const { getUserChatsWithTimer, lastDate, getPitchesCountHanler } =
     useContext(MessengerContext);
 
-  console.log(premSender, "jopajuika");
   const pathname = usePathname();
   const router = useRouter();
 
@@ -70,23 +66,23 @@ const Chats = ({ chatId, user_id, type, profileData }) => {
         input,
         chatId,
         type,
-        premSender?.whoIsSender,
+        premSender.whoIsSender,
         profileData.id
       );
-      setInput("");
       await getPitchesCountHanler();
+      setInput("");
       setWait(false);
     }
   };
 
   const isPitchIcon =
     type === "pitch" &&
-    (premSender?.whoIsSender !== profileData.id ||
-      premSender?.whoIsSender === "noone");
+    (premSender.whoIsSender !== profileData.id ||
+      premSender.whoIsSender === "noone");
   const isSuperPitchIcon =
     type === "superpitch" &&
-    (premSender?.whoIsSender !== profileData.id ||
-      premSender?.whoIsSender === "noone");
+    (premSender.whoIsSender !== profileData.id ||
+      premSender.whoIsSender === "noone");
 
   const [loading, setLoading] = useState(false);
   const [cursor, setCursor] = useState("");
@@ -196,7 +192,7 @@ const Chats = ({ chatId, user_id, type, profileData }) => {
 
       {/* body */}
       <div className="overflow-y-auto flex flex-col-reverse relative [@media(pointer:coarse)]:h-full hideScrollbarNavMobile h-full [@media(hover)]:h-[calc(100%-67px)] pt-[6px] pb-[8px] px-[8px] bg-white dark:bg-[#212122]">
-        {!dataState || premSender === null ? (
+        {!dataState ? (
           <div className="w-full flex justify-center items-center h-full">
             <CustomLoader diameter={36} />
           </div>
