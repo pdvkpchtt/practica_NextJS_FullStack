@@ -8,9 +8,9 @@ import { getInfoAboutPremium } from "../../../server/actions/messenger/getInfoAb
 const ChatPage = async ({ params: { chatId }, searchParams }) => {
   const user_id = searchParams?.user_id;
 
-  const type = await checkCircles(user_id, chatId);
   const profileData = await getProfileByChatId(user_id, chatId);
-  const premSender = await getInfoAboutPremium(profileData.id);
+  const type = await checkCircles(user_id, chatId);
+  // const premSender = await getInfoAboutPremium(profileData.id);
 
   return (
     <>
@@ -19,7 +19,7 @@ const ChatPage = async ({ params: { chatId }, searchParams }) => {
         user_id={user_id}
         type={type.circle}
         profileData={profileData}
-        premSender={premSender}
+        // premSender={premSender}
       />
       <MessengrLeft
         chatId={chatId}

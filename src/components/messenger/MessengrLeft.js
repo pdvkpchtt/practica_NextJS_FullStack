@@ -48,8 +48,12 @@ import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 const MessengrLeft = ({ navState, chatId, user_id }) => {
   const router = useRouter();
 
-  const { pitchesState, superpitchesState, getUserChatsWithTimer } =
-    useContext(MessengerContext);
+  const {
+    pitchesState,
+    superpitchesState,
+    getUserChatsWithTimer,
+    returnPremSender,
+  } = useContext(MessengerContext);
 
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
@@ -63,6 +67,7 @@ const MessengrLeft = ({ navState, chatId, user_id }) => {
     await getUserInfoHandler();
     setloading2(true);
     if (profileData !== null) {
+      await returnPremSender(profileData.id);
       setRequestStatus(await checkIfRequestSent(profileData.id));
       setFriendStatus(await checkIfFriend(profileData.id));
       setIfHeSentRequest(await checkIfOtherSentRequest(profileData.id));
