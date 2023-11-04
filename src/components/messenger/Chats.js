@@ -43,10 +43,10 @@ import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import BigLogoSvg from "../../shared/icons/BigLogoSvg";
-import { getInfoAboutPremium } from "server/actions/messenger/getInfoAboutPremium";
+import { getInfoAboutPremium } from "../../server/actions/messenger/getInfoAboutPremium";
+import { checkCircles } from "../../server/actions/messenger/checkCircles";
 
-const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
-  console.log(premSender, "jopajuika");
+const Chats = ({ chatId, user_id, profileData }) => {
   const { getUserChatsWithTimer, lastDate, getPitchesCountHanler } =
     useContext(MessengerContext);
 
@@ -59,7 +59,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
   const [wait, setWait] = useState(false);
 
   const sendMsg = async () => {
-    if (input.length !== 0) {
+    if (input.length !== 0 && type != null && premSender != null) {
       setWait(true);
       console.log(input);
       await sendMessage(
@@ -69,12 +69,15 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
         premSender.whoIsSender,
         profileData.id
       );
-      await getPitchesCountHanler();
       setInput("");
+      await getPitchesCountHanler();
       setWait(false);
     }
   };
+  const [type, setType] = useState(null);
+  const [premSender, setPremSender] = useState(null);
 
+  console.log(type, premSender, "saasasas");
   const isPitchIcon =
     type === "pitch" &&
     (premSender.whoIsSender !== profileData.id ||
@@ -91,6 +94,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
   const [count, setCount] = useState(0);
   const [lastDate2, setLastDate] = useState("");
 
+  // const type = ;
   const getMessages = async (cursor) => {
     console.log("fetching");
     // if (loading) return;
@@ -108,10 +112,21 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
     setLoading(false);
   };
 
+  const getType = async () => {
+    const typeWithoutCircle = await checkCircles(user_id, chatId);
+    const premSenderNotState = await getInfoAboutPremium(profileData.id);
+    setType(typeWithoutCircle.circle);
+    setPremSender(premSenderNotState);
+  };
+
   useEffect(() => {
     setCursor("");
     getMessages("");
   }, [fetchMessages, searchInput]);
+
+  useEffect(() => {
+    getType();
+  }, [getUserChatsWithTimer]);
 
   // with timer
   const getUserMessengerWithTimer = async (lastDate2) => {
@@ -120,7 +135,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
 
     console.log(lastDate2);
     const data = await fetchMessages(chatId, lastDate2, searchInput, true);
-    console.log("chats update", data);
+    console.log("messenges update", data);
 
     setDataState(data?.data);
 
@@ -192,7 +207,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
 
       {/* body */}
       <div className="overflow-y-auto flex flex-col-reverse relative [@media(pointer:coarse)]:h-full hideScrollbarNavMobile h-full [@media(hover)]:h-[calc(100%-67px)] pt-[6px] pb-[8px] px-[8px] bg-white dark:bg-[#212122]">
-        {!dataState ? (
+        {!dataState || type === null || premSender === null ? (
           <div className="w-full flex justify-center items-center h-full">
             <CustomLoader diameter={36} />
           </div>
@@ -280,7 +295,12 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
             setInput(e);
           }}
           onKeyDown={async (event) => {
-            if (event === "Enter" && input.length !== 0) {
+            if (
+              event === "Enter" &&
+              input.length !== 0 &&
+              type != null &&
+              premSender != null
+            ) {
               if (pathname.includes("/messenger/preview")) {
                 setWait(true);
                 setInput("");
@@ -299,7 +319,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
         />
         <SendButton
           onClick={async () => {
-            if (input.length !== 0) {
+            if (input.length !== 0 && type != null && premSender != null) {
               if (pathname.includes("/messenger/preview")) {
                 setWait(true);
                 setInput("");
@@ -316,7 +336,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
             }
           }}
         >
-          {wait ? (
+          {wait || type === null ? (
             <Oval
               height={20}
               width={20}
@@ -357,7 +377,12 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
               setInput(e);
             }}
             onKeyDown={async (event) => {
-              if (event === "Enter" && input.length !== 0) {
+              if (
+                event === "Enter" &&
+                input.length !== 0 &&
+                type != null &&
+                premSender != null
+              ) {
                 if (pathname.includes("/messenger/preview")) {
                   setWait(true);
                   setInput("");
@@ -376,7 +401,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
           />
           <SendButton
             onClick={async () => {
-              if (input.length !== 0) {
+              if (input.length !== 0 && type != null && premSender != null) {
                 if (pathname.includes("/messenger/preview")) {
                   setWait(true);
                   setInput("");
@@ -393,7 +418,7 @@ const Chats = ({ chatId, user_id, type, profileData, premSender }) => {
               }
             }}
           >
-            {wait ? (
+            {wait || type === null || premSender === null ? (
               <Oval
                 height={20}
                 width={20}

@@ -8,19 +8,11 @@ import { getInfoAboutPremium } from "../../../server/actions/messenger/getInfoAb
 const ChatPage = async ({ params: { chatId }, searchParams }) => {
   const user_id = searchParams?.user_id;
 
-  const type = await checkCircles(user_id, chatId);
   const profileData = await getProfileByChatId(user_id, chatId);
-  const premSender = await getInfoAboutPremium(profileData.id);
 
   return (
     <>
-      <Chats
-        chatId={chatId}
-        user_id={user_id}
-        type={type.circle}
-        profileData={profileData}
-        premSender={premSender}
-      />
+      <Chats chatId={chatId} user_id={user_id} profileData={profileData} />
       <MessengrLeft
         chatId={chatId}
         user_id={user_id}
