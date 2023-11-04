@@ -16,9 +16,9 @@ const MessageItem = ({ item, style, last = false, image }) => {
       }`}
     >
       {!item.myMessage &&
-        (item.image ? (
+        (item.user.image ? (
           <Image
-            src={image}
+            src={item.user.image}
             alt="person image"
             height={30}
             width={30}

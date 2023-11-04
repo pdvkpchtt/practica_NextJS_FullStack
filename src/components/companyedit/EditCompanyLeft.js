@@ -3,6 +3,7 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import { useMediaQuery } from "react-responsive";
 import { signOut } from "next-auth/react";
+import "react-toastify/dist/ReactToastify.css";
 
 import Card from "../../shared/ui/Card";
 import { Input } from "../../shared/ui/Input";

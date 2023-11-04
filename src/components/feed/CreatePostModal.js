@@ -4,6 +4,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { useState, useRef, useEffect } from "react";
 import { Oval } from "react-loader-spinner";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useMediaQuery } from "react-responsive";
 
 import CircularProggressBar from "../../shared/ui/CircularProggressBar";

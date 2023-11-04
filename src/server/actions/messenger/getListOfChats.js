@@ -13,6 +13,7 @@ export const getListOfChats = async (id, cursor, searchInput) => {
         select: {
           id: true,
           name: true,
+          image: true,
         },
       },
       messages: {
@@ -52,7 +53,8 @@ export const getListOfChats = async (id, cursor, searchInput) => {
     if (chat.participants.length === 2) {
       const chatLabel = chat.participants.filter((item) => item.id !== id)[0]
         .name;
-
+      const chatImage = chat.participants.filter((item) => item.id !== id)[0]
+        .image;
       // если сообщений в чате нет, то lasnMessage для картоки это заготовленный текст
       let chatText = "";
       let chatIsUnread = false;
@@ -76,6 +78,7 @@ export const getListOfChats = async (id, cursor, searchInput) => {
         myMessageIsLast: chat.messages[chat.messages.length - 1].userId === id,
         lastMessageCreatedAt: lastMessageCreatedAt,
 
+        chatImage: chatImage,
         chatLabel: chatLabel,
         chatText: chatText,
         chatIsUnread: chatIsUnread,

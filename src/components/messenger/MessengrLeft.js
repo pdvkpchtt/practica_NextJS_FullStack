@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import React, {
   useContext,
@@ -11,7 +12,6 @@ import React, {
   useState,
 } from "react";
 import { useMediaQuery } from "react-responsive";
-
 import { useRouter } from "next/navigation";
 
 import TextMain from "../..//shared/Text/TextMain ";
@@ -329,6 +329,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                       progressStyle: { background: "#5875e8" },
                       containerId: "forCopy",
                     });
+                    router.refresh();
                   }}
                 >
                   <CrossIcon size={20} fill={"#5875e8"} hard={false} soft />
@@ -381,6 +382,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                       progressStyle: { background: "#5875e8" },
                       containerId: "forCopy",
                     });
+                    // router.refresh();
                   }}
                 >
                   <AddFriendIcon fill={"#5875e8"} />
@@ -408,6 +410,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                       progressStyle: { background: "#5875e8" },
                       containerId: "forCopy",
                     });
+                    router.refresh();
                   }}
                 >
                   <CheckIcon fill={"#5875e8"} />

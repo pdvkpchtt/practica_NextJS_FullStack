@@ -3,6 +3,7 @@
 import { ThemeProvider } from "next-themes";
 import { usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Layout = ({ children }) => {
   const pathname = usePathname();

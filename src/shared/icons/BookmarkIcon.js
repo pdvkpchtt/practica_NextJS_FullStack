@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
 import { addToBookmarks } from "../../server/actions/bookmarks/addToBookmarks";

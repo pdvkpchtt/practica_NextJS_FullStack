@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Oval } from "react-loader-spinner";
+import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
 import { ButtonSecondary, OneIconButton } from "../../shared/ui/Button";
