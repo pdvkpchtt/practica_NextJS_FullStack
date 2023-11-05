@@ -46,6 +46,9 @@ model Plan {
   name String
   pitchesCount Int
   superPitchesCount Int
+  contacts Int @default(0)
+  durationDays Int @default(0)
+  price Int @default(0)
 }
 
 model Session {
