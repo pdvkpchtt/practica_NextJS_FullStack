@@ -108,7 +108,7 @@ export const getCompanyProfile = async ({ userId, role = "company" }) => {
       userId: companyInfo?.company?.userId,
       // followersCount: userEmail?._count?.myCompanyFolowers,
       name: companyInfo?.company?.name,
-      image: companyInfo?.image,
+      image: companyInfo?.company?.image,
       username: companyInfo?.company?.username,
       slogan: companyInfo?.company?.slogan,
       about: companyInfo?.company?.about,
