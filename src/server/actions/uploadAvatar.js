@@ -22,14 +22,14 @@ export const uploadAvatar = async (data) => {
 
   // With the file data in the buffer, you can do whatever you want with it.
   // For this, we'll just write it to the filesystem in a new location
-  const path = join("/", "tmp", id + p.extname(file.name));
+  const path = join("/", "var/www/practica/images", id + p.extname(file.name));
   await writeFile(path, buffer);
   console.log(`open ${path} to see the uploaded file`);
 
   const user = await prisma.User.update({
     where: { id: session.user.id },
     data: {
-      image: "/img/" + id + p.extname(file.name),
+      image: "https://practica.team/img/" + id + p.extname(file.name),
     },
   });
 

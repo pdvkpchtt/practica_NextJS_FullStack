@@ -8,11 +8,13 @@ import { Input } from "../../shared/ui/Input";
 import { uploadAvatar } from "../../server/actions/uploadAvatar";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 import { updateEmail } from "../../server/actions/company/updateCompanyProfile";
+import UpploadAvatarModal from "./UpploadAvatarModal";
 
 const EditLeft = ({ data, setDataToUpdate, dataToUpdate }) => {
   const [birthValue, setBirthValue] = useState(data.birthDate || "");
   const [myMail, setMyMail] = useState(data.email);
   const [error, setError] = useState(false);
+  const [bottomModal, setBottomModal] = useState(false);
 
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -70,7 +72,10 @@ const EditLeft = ({ data, setDataToUpdate, dataToUpdate }) => {
         flex flex-col gap-[16px] h-fit"
         padding={12}
       >
-        <div className="rounded-[8px] overflow-hidden [@media(pointer:coarse)]:w-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
+        <div
+          className="rounded-[8px] overflow-hidden cursor-pointer [@media(pointer:coarse)]:w-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]"
+          onClick={() => setBottomModal(true)}
+        >
           {data.image ? (
             <Image
               src={data.image}
@@ -175,6 +180,11 @@ const EditLeft = ({ data, setDataToUpdate, dataToUpdate }) => {
         </p>
       </Card>
       {/* изменить почту */}
+
+      <UpploadAvatarModal
+        isOpen={bottomModal}
+        handleClose={() => setBottomModal(false)}
+      />
     </div>
   );
 };

@@ -1,18 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
 
 import TextMain from "../../shared/Text/TextMain ";
 
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
-import MoonIcon from "../../shared/icons/MoonIcon";
-import SunIcon from "../../shared/icons/SunIcon";
-import EyeIcon from "../../shared/icons/EyeIcon";
+import TextSecondary from "../../shared/Text/TextSecondary";
 
 import subscriptions from "../../assets/subscriptions.png";
-import TextSecondary from "shared/Text/TextSecondary";
 
 const Subscriptions = ({ data }) => {
   const router = useRouter();
