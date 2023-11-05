@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { ButtonSecondary, OneIconButton } from "../../shared/ui/Button";
 import { Input, TextArea } from "../../shared/ui/Input";
 import DropDown from "../../shared/ui/DropDown";
-import SkillsModalContent from "../edit/SkillsModalContent";
+import SkillsModalContent from "../Edit/SkillsModalContent";
 import SkillCard from "../../shared/ui/SkillCard";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import { createVacancyHandler } from "../../server/actions/company/createVacancyHandler";
@@ -19,7 +19,7 @@ import CustomLoader from "../../shared/ui/CustomLoader";
 import Card from "../../shared/ui/Card";
 import DropDownWithSearch from "../../shared/ui/DropDownWithSearch";
 import DropDownWithChoise from "../../shared/ui/DropDownWithChoise";
-import SkillsModalVacs from "../edit/SkillsModalVacs";
+import SkillsModalVacs from "../Edit/SkillsModalVacs";
 
 import CheckIcon from "../../shared/icons/CheckIcon";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";

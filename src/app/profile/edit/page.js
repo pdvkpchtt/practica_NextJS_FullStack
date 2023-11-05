@@ -1,4 +1,4 @@
-import EditProfile from "../../../components/edit/EditProfile";
+import EditProfile from "../../../components/Edit/EditProfile";
 import { getServSession } from "../../api/auth/[...nextauth]/route";
 import { getProfile } from "../../../server/actions/getProfile";
 import { updateProfile } from "../../../server/actions/updateProfile";

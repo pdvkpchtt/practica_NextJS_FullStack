@@ -6,11 +6,11 @@ import { usePathname } from "next/navigation";
 import PcFilters from "./PcFilters";
 import MobileFilters from "./MobileFilters";
 import MobileModal from "../../shared/ui/MobileModal";
-import SkillsModalContent from "../edit/SkillsModalContent";
+import SkillsModalContent from "../Edit/SkillsModalContent";
 import { SearchNavContext } from "./SearchNavContext";
 import { fetchFiltersInfo } from "../../server/actions/vacancy/fetchFiltersInfo";
 import CustomLoader from "../../shared/ui/CustomLoader";
-import SkillsModalVacs from "../edit/SkillsModalVacs";
+import SkillsModalVacs from "../Edit/SkillsModalVacs";
 
 const FiltersWrap = () => {
   const {
