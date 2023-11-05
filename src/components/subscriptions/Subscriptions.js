@@ -87,7 +87,7 @@ const Subscriptions = ({ data }) => {
 
         {/* body */}
         <div className="flex  [@media(pointer:coarse)]:p-[12px] flex-row [@media(pointer:coarse)]:flex-col gap-[12px] [@media(pointer:coarse)]:dark:bg-[#141414] justify-between h-full p-[12px] [@media(pointer:coarse)]:mt-[19px]">
-          {data.map((i, key) => (
+          {data.reverse().map((i, key) => (
             <div className="bg-[#74899B] bg-opacity-[8%] cursor-pointer w-full [@media(hover)]:w-[224px] h-[245px] rounded-[20px] flex flex-col gap-[8px] p-[16px]">
               <TextSecondary
                 text="Все регионы"
