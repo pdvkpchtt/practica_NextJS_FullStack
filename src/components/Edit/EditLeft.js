@@ -8,7 +8,7 @@ import { Input } from "../../shared/ui/Input";
 import { uploadAvatar } from "../../server/actions/uploadAvatar";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 import { updateEmail } from "../../server/actions/company/updateCompanyProfile";
-import UpploadAvatarModal from "./UpploadAvatarModal";
+import UpploadAvatarModal from "../../shared/ui/UpploadAvatarModal";
 
 const EditLeft = ({ data, setDataToUpdate, dataToUpdate }) => {
   const [birthValue, setBirthValue] = useState(data.birthDate || "");
