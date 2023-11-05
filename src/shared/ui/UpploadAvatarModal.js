@@ -1,8 +1,8 @@
-import TextMain from "../../shared/Text/TextMain ";
-import BottomModal from "../../shared/ui/BottomModal";
+import TextMain from "../Text/TextMain ";
+import BottomModal from "./BottomModal";
 import { uploadAvatar } from "../../server/actions/uploadAvatar";
 
-import AvatarIcon from "../../shared/icons/AvatarIcon";
+import AvatarIcon from "../icons/AvatarIcon";
 import { useRef } from "react";
 
 const UpploadAvatarModal = ({ isOpen = false, handleClose = () => {} }) => {
