@@ -1,5 +1,5 @@
 "use client";
-import UpploadAvatarModal from "components/edit/UpploadAvatarModal";
+import UpploadAvatarModal from "../../components/edit/UpploadAvatarModal";
 import { useState } from "react";
 import { uploadAvatar } from "../../server/actions/uploadAvatar";
 
