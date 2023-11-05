@@ -14,6 +14,7 @@ export const getProfile = async ({ userId }) => {
       role: true,
       image: true,
       about: true,
+      email: true,
       country: true,
       city: true,
       views: true,
@@ -111,6 +112,8 @@ export const getProfile = async ({ userId }) => {
       image: user.image,
       about: user.about,
       country: user.country,
+      email: user.email,
+
       city: user.city,
       views: JSON.stringify(user.views),
       birthDate: user.birthDate,
@@ -167,6 +170,7 @@ export const getProfile = async ({ userId }) => {
       about: user.about,
       country: user.country,
       city: user.city,
+      email: user.email,
       views: JSON.stringify(user.views),
       birthDate: user.birthDate,
       education: user.Education.map((education) => ({

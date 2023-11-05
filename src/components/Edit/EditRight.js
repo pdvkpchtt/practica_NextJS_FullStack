@@ -156,7 +156,7 @@ const EditRight = ({
       {/* header */}
 
       {/* body */}
-      <div className="[@media(hover)]:max-h-full hideScrollbarNavMobile [@media(hover)]:h-fit [@media(hover)]:overflow-y-auto p-[12px] flex flex-col gap-[16px] rounded-b-[20px] [@media(pointer:coarse)]:rounded-[20px] bg-white dark:bg-[#212122]">
+      <div className="p-[12px] flex flex-col gap-[16px] rounded-b-[20px] [@media(pointer:coarse)]:rounded-[20px] bg-white dark:bg-[#212122]">
         {/* about me */}
         <Input
           placeholder="Ваше отношение к жизни"

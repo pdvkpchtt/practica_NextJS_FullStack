@@ -13,7 +13,7 @@ export const updateEmail = async (data) => {
     data: {
       email: data,
       emailVerified: null,
-      HR: { select: { company: { select: { id: true } } } },
+      // HR: { select: { company: { select: { id: true } } } },
     },
   });
 

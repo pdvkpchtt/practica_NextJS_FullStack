@@ -32,7 +32,10 @@ const Layout = ({ children }) => {
             pathname.includes("/vacancy/")) &&
           "h-full [@media(hover)]:py-[0px]"
         }
-        ${pathname === "/companyprofile/edit" && "h-full"}
+        ${
+          pathname === "/companyprofile/edit" ||
+          (pathname === "/profile/edit" && "h-full")
+        }
         [@media(pointer:coarse)]:h-[100vh]
         flex flex-col justify-start
         max-w-[1012px] [@media(hover)]:min-w-[1012px] [@media(pointer:coarse)]:max-w-[500px] mx-auto 
