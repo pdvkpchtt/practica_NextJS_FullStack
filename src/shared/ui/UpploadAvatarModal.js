@@ -1,18 +1,24 @@
+import { useRef } from "react";
+
 import TextMain from "../Text/TextMain ";
 import BottomModal from "./BottomModal";
 import { uploadAvatar } from "../../server/actions/uploadAvatar";
+import { uploadAvatarCompany } from "../../server/actions/uploadAvatarCompany";
 
 import AvatarIcon from "../icons/AvatarIcon";
-import { useRef } from "react";
 
-const UpploadAvatarModal = ({ isOpen = false, handleClose = () => {} }) => {
+const UpploadAvatarModal = ({
+  isOpen = false,
+  handleClose = () => {},
+  company = false,
+}) => {
   const inputRef = useRef(null);
   const buttRef = useRef(null);
 
   return (
     <BottomModal isOpen={isOpen} handleClose={handleClose}>
       <div className="p-[12px]">
-        <form action={uploadAvatar}>
+        <form action={company ? uploadAvatarCompany : uploadAvatar}>
           <input
             type="file"
             name="file"

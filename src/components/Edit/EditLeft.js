@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -9,8 +10,11 @@ import { uploadAvatar } from "../../server/actions/uploadAvatar";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 import { updateEmail } from "../../server/actions/company/updateCompanyProfile";
 import UpploadAvatarModal from "../../shared/ui/UpploadAvatarModal";
+import ImageIcon from "../../shared/icons/ImageIcon";
 
 const EditLeft = ({ data, setDataToUpdate, dataToUpdate }) => {
+  const router = useRouter();
+
   const [birthValue, setBirthValue] = useState(data.birthDate || "");
   const [myMail, setMyMail] = useState(data.email);
   const [error, setError] = useState(false);
@@ -73,9 +77,12 @@ const EditLeft = ({ data, setDataToUpdate, dataToUpdate }) => {
         padding={12}
       >
         <div
-          className="rounded-[8px] overflow-hidden cursor-pointer [@media(pointer:coarse)]:w-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]"
+          className="rounded-[8px] relative overflow-hidden cursor-pointer [@media(pointer:coarse)]:w-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]"
           onClick={() => setBottomModal(true)}
         >
+          <div className="absolute flex items-center justify-center w-full h-full bg-transparent group hover:bg-black hover:bg-opacity-25 transition duration-[150ms]">
+            <ImageIcon style="opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition duration-[150ms]" />
+          </div>
           {data.image ? (
             <Image
               src={data.image}
@@ -183,7 +190,10 @@ const EditLeft = ({ data, setDataToUpdate, dataToUpdate }) => {
 
       <UpploadAvatarModal
         isOpen={bottomModal}
-        handleClose={() => setBottomModal(false)}
+        handleClose={() => {
+          setBottomModal(false);
+          router.refresh();
+        }}
       />
     </div>
   );

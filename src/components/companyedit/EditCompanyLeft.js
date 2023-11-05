@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 import { toast } from "react-toastify";
@@ -12,8 +13,10 @@ import DropDownWithChoise from "../../shared/ui/DropDownWithChoise";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import { updateEmail } from "../../server/actions/company/updateCompanyProfile";
 import { invite } from "../../server/actions/hr/invite";
+import UpploadAvatarModal from "../../shared/ui/UpploadAvatarModal";
 
 import AddCityIcon from "../../shared/icons/AddCityIcon";
+import ImageIcon from "../../shared/icons/ImageIcon";
 
 const EditCompanyLeft = ({
   data,
@@ -22,11 +25,14 @@ const EditCompanyLeft = ({
   itemsForDD3,
 }) => {
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
+  const router = useRouter();
+
   const [state, setState] = useState(false);
   const [myMail, setMyMail] = useState(dataToUpdate.email);
   const [hrMail, setHrMail] = useState("");
   const [linkName, setLinkName] = useState("");
   const [linkLink, setLinkLink] = useState("");
+  const [bottomModal, setBottomModal] = useState(false);
   const [error, setError] = useState(false);
 
   const inviteHandler = async (hrMail, compId) => {
@@ -51,12 +57,21 @@ const EditCompanyLeft = ({
         hideScrollbarNavMobile [@media(hover)]:h-fit"
         padding={12}
       >
-        <div className="relative overflow-hidden rounded-full h-[110px] w-[110px] mx-auto">
+        <div
+          className="relative cursor-pointer overflow-hidden rounded-full [@media(hover)]:min-w-[110px] [@media(hover)]:min-h-[110px]  [@media(hover)]:w-[110px] [@media(hover)]:h-[110px] mx-auto"
+          onClick={() => setBottomModal(true)}
+        >
+          <div className="absolute flex items-center justify-center w-full h-full bg-transparent group hover:bg-black hover:bg-opacity-25 transition duration-[150ms]">
+            <ImageIcon
+              size={35}
+              style="opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition duration-[150ms]"
+            />
+          </div>
           {data.image ? (
             <Image
               src={data.image}
               alt="Profile photo"
-              className="[@media(hover)]:w-[110px] w-full"
+              className="[@media(hover)]:min-w-[110px]  [@media(hover)]:w-[110px] [@media(hover)]:h-[110px] [@media(hover)]:min-h-[110px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full w-full"
               width={110}
               height={110}
               quality={100}
@@ -306,6 +321,15 @@ const EditCompanyLeft = ({
         </p>
       </Card>
       {/* добавить рекрутера */}
+
+      <UpploadAvatarModal
+        isOpen={bottomModal}
+        handleClose={() => {
+          setBottomModal(false);
+          router.refresh();
+        }}
+        company
+      />
     </div>
   );
 };
