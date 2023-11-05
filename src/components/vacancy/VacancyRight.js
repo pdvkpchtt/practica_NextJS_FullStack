@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { ButtonSecondary, OneIconButton } from "../../shared/ui/Button";
 import { Input, TextArea } from "../../shared/ui/Input";
 import DropDown from "../../shared/ui/DropDown";
-import SkillsModalContent from "../../components/edit/SkillsModalContent";
+import SkillsModalContent from "../edit/SkillsModalContent";
 import SkillCard from "../../shared/ui/SkillCard";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import TextMain from "../../shared/Text/TextMain ";
