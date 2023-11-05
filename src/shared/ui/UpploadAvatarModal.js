@@ -18,7 +18,10 @@ const UpploadAvatarModal = ({ isOpen = false, handleClose = () => {} }) => {
             name="file"
             className="hidden"
             ref={inputRef}
-            onChange={() => buttRef.current.click()}
+            onChange={() => {
+              buttRef.current.click();
+              handleClose();
+            }}
           />
           <input
             type="submit"
