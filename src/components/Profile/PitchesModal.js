@@ -55,7 +55,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
               <TextMain
                 text="Отправить питч"
                 style={
-                  "font-medium leading-[20px] text-[16px] tracking-[-0.24px]"
+                  "font-medium select-none leading-[20px] text-[16px] tracking-[-0.24px]"
                 }
               />
             </div>
@@ -84,7 +84,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
               <TextMain
                 text="Отправить суперпитч"
                 style={
-                  "font-medium leading-[20px] text-[16px] tracking-[-0.24px]"
+                  "font-medium select-none leading-[20px] text-[16px] tracking-[-0.24px]"
                 }
               />
             </div>
@@ -135,7 +135,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
               <TextMain
                 text="Отправить питч"
                 style={
-                  "font-medium leading-[20px] text-[16px] tracking-[-0.24px]"
+                  "font-medium select-none leading-[20px] text-[16px] tracking-[-0.24px]"
                 }
               />
             </div>
@@ -164,7 +164,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
               <TextMain
                 text="Отправить суперпитч"
                 style={
-                  "font-medium leading-[20px] text-[16px] tracking-[-0.24px]"
+                  "font-medium select-none leading-[20px] text-[16px] tracking-[-0.24px]"
                 }
               />
             </div>

@@ -19,18 +19,26 @@ import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 import BookmarkIcon from "../../shared/icons/BookmarkIcon";
+import ReplyModal from "./ReplyModal";
 
 const VacancyRight = ({ data, role = "student", userId }) => {
   const router = useRouter();
 
   const [littleLoader, setLittleLoader] = useState(false);
+  const [modalState, setModalState] = useState(false);
 
   console.log(data, "vac data");
 
   return (
     <div className="w-full flex flex-col [@media(pointer:coarse)]:p-[12px]">
       {/* header */}
-      <div className="[@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:z-[300] [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:left-0 [@media(pointer:coarse)]:rounded-t-[0px] border-b-[0.7px] border-b-[#E7E7E7] bg-white dark:bg-[#212122] dark:border-b-[#2f2f2f] rounded-t-[20px] p-[12px]">
+      <div
+        className={`${
+          modalState
+            ? "[@media(pointer:coarse)]:z-[-1]"
+            : "[@media(pointer:coarse)]:z-[300]"
+        } [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:left-0 [@media(pointer:coarse)]:rounded-t-[0px] border-b-[0.7px] border-b-[#E7E7E7] bg-white dark:bg-[#212122] dark:border-b-[#2f2f2f] rounded-t-[20px] p-[12px]`}
+      >
         <div className="w-full flex flex-row justify-between [@media(pointer:coarse)]:max-w-[476px] [@media(pointer:coarse)]:mx-auto">
           <OneIconButton onClick={() => router.back()}>
             <ArrowLeftIcon />
@@ -42,7 +50,7 @@ const VacancyRight = ({ data, role = "student", userId }) => {
                 className={`rounded-[30px] w-[112px] h-[33px] transition duration-[250ms] px-[12px] py-[7.5px] flex items-center justify-center font-medium text-[14px] leading-[16px] tracking-[-0.013125em] select-none
                 active:bg-[#2C429C] hover:bg-[#3A56C5] bg-[#5875e8] text-white  cursor-pointer
             `}
-                onClick={() => {}}
+                onClick={() => setModalState(true)}
               >
                 {littleLoader ? (
                   <Oval
@@ -194,6 +202,11 @@ const VacancyRight = ({ data, role = "student", userId }) => {
         </div>
       </div>
       {/* body */}
+
+      <ReplyModal
+        modalState={modalState}
+        setModalState={() => setModalState(false)}
+      />
     </div>
   );
 };
