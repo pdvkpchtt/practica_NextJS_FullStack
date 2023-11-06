@@ -1,17 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Waypoint } from "react-waypoint";
 
 import Modal from "../../shared/ui/Modal";
 import MobileModal from "../../shared/ui/MobileModal";
 import MobileHeader from "../../shared/ui/MobileHeader";
 import TextSecondary from "../../shared/Text/TextSecondary";
-
-import Cross2 from "../../shared/icons/Cross2";
 import TextMain from "../../shared/Text/TextMain ";
 
+import Cross2 from "../../shared/icons/Cross2";
+import PitchIcon from "../../shared/icons/PitchIcon";
+import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
+
 const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
+  const router = useRouter();
+
   return (
     <>
       <Modal isOpen={modalState}>
@@ -24,7 +29,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
         {/* header */}
 
         {/* body */}
-        <div className="h-[371px] mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px] gap-[34px]">
+        <div className="h-fit mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px] gap-[34px]">
           <div className="flex flex-col">
             <TextMain
               text="Питч-сообщение"
@@ -44,6 +49,16 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
                 "text-[16px] font-normal leading-[19px] tracking-[-0.24px]"
               }
             />
+
+            <div className="bg-[#74899B] bg-opacity-[8%] w-fit mt-[16px] rounded-[16px] p-[12px] flex flex-row gap-[8px]">
+              <PitchIcon black blue={false} />
+              <TextMain
+                text="Отправить питч"
+                style={
+                  "font-medium leading-[20px] text-[16px] tracking-[-0.24px]"
+                }
+              />
+            </div>
           </div>
           <div className="flex flex-col">
             <TextMain
@@ -64,6 +79,25 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
                 "text-[16px] font-normal leading-[19px] tracking-[-0.24px]"
               }
             />
+            <div className="bg-[#74899B] bg-opacity-[8%] w-fit mt-[16px] rounded-[16px] p-[12px] flex flex-row gap-[8px]">
+              <SuperpitchIcon black blue={false} />
+              <TextMain
+                text="Отправить суперпитч"
+                style={
+                  "font-medium leading-[20px] text-[16px] tracking-[-0.24px]"
+                }
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-[16px]">
+            <div className="w-full h-[1px] bg-[#e7e7e7] dark:bg-[#282828]" />
+            <p
+              onClick={() => router.push("/subscriptions")}
+              className="text-[#5875e8] hover:text-[#3A56C5] cursor-pointer active:text-[#2C429C] transition duration-[250ms] font-normal text-[16px] tracking-[-0.24px] leading-[19px]"
+            >
+              Как получить больше?
+            </p>
           </div>
         </div>
         {/* body */}
@@ -75,8 +109,76 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
         {/* header */}
 
         {/* body */}
-        <div className="mt-[61px] flex flex-col gap-[6px] p-[12px] overflow-y-scroll h-[100vh]">
-          asas
+        <div className="mt-[61px] flex flex-col gap-[34px] p-[12px] overflow-y-scroll h-[calc(100%-61px)]">
+          <div className="flex flex-col">
+            <TextMain
+              text="Питч-сообщение"
+              style={
+                "text-[20px] font-medium leading-[22px] tracking-[-0.4px] mb-[16px]"
+              }
+            />
+            <TextMain
+              text="— короткое сообщение, которые вы можете отправить, чтобы познакомиться с другом вашего друга"
+              style={
+                "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mb-[4px]"
+              }
+            />
+            <TextSecondary
+              text="Каждый день вам начисляется 3 питч-сообщения"
+              style={
+                "text-[16px] font-normal leading-[19px] tracking-[-0.24px]"
+              }
+            />
+
+            <div className="bg-[#74899B] bg-opacity-[8%] w-fit mt-[16px] rounded-[16px] p-[12px] flex flex-row gap-[8px]">
+              <PitchIcon black blue={false} />
+              <TextMain
+                text="Отправить питч"
+                style={
+                  "font-medium leading-[20px] text-[16px] tracking-[-0.24px]"
+                }
+              />
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <TextMain
+              text="Суперпитч-сообщение"
+              style={
+                "text-[20px] font-medium leading-[22px] tracking-[-0.4px] mb-[16px]"
+              }
+            />
+            <TextMain
+              text="— короткое сообщение, которые вы можете отправить любому человеку"
+              style={
+                "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mb-[4px]"
+              }
+            />
+            <TextSecondary
+              text="Каждый день вам начисляется 1 суперпитч-сообщение"
+              style={
+                "text-[16px] font-normal leading-[19px] tracking-[-0.24px]"
+              }
+            />
+            <div className="bg-[#74899B] bg-opacity-[8%] w-fit mt-[16px] rounded-[16px] p-[12px] flex flex-row gap-[8px]">
+              <SuperpitchIcon black blue={false} />
+              <TextMain
+                text="Отправить суперпитч"
+                style={
+                  "font-medium leading-[20px] text-[16px] tracking-[-0.24px]"
+                }
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-[16px]">
+            <div className="w-full h-[1px] bg-[#e7e7e7] dark:bg-[#282828]" />
+            <p
+              onClick={() => router.push("/subscriptions")}
+              className="text-[#5875e8] hover:text-[#3A56C5] cursor-pointer active:text-[#2C429C] transition duration-[250ms] font-normal text-[16px] tracking-[-0.24px] leading-[19px]"
+            >
+              Как получить больше?
+            </p>
+          </div>
         </div>
         {/* body */}
       </MobileModal>

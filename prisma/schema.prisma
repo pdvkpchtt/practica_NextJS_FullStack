@@ -42,13 +42,13 @@ model Account {
 }
 
 model Plan {
-  id String  @id @default(cuid())
-  name String
-  pitchesCount Int
+  id                String @id @default(cuid())
+  name              String
+  pitchesCount      Int
   superPitchesCount Int
-  contacts Int @default(0)
-  durationDays Int @default(0)
-  price Int @default(0)
+  contacts          Int    @default(0)
+  durationDays      Int    @default(0)
+  price             Int    @default(0)
 }
 
 model Session {
@@ -83,7 +83,7 @@ model User {
   BookMarks            Bookmarks[]
   // This second "side" of the UserFriends relation exists solely 
   // to satisfy prisma's requirements; we won't access it directly.
-  connections    User[]           @relation("UserConnections")
+  connections          User[]      @relation("UserConnections")
   symmetricConnections User[]      @relation("UserConnections")
 
   educationLevelId String?
@@ -109,8 +109,31 @@ model User {
   Company  Company?
   HR       Hr[]
 
-  extraPitches Int @default(0)
-  extraSuperPitches Int @default(0)
+  extraPitches      Int            @default(0)
+  extraSuperPitches Int            @default(0)
+  VacancyReply      VacancyReply[]
+  File              File[]
+}
+
+model VacancyReply {
+  id        String  @id @default(cuid())
+  user      User    @relation(fields: [userId], references: [id])
+  vacancy   Vacancy @relation(fields: [vacancyId], references: [id])
+  message   String?
+  file      File[]
+  userId    String
+  link String?
+  vacancyId String
+}
+
+model File {
+  id             String        @id @default(cuid())
+  user           User          @relation(fields: [userId], references: [id])
+  vacancyReply   VacancyReply? @relation(fields: [vacancyReplyId], references: [id])
+  path           String
+  name           String
+  userId         String
+  vacancyReplyId String?
 }
 
 model PremiumMessage {
@@ -122,7 +145,6 @@ model PremiumMessage {
   userSend   User     @relation("PremiumMessageSent", fields: [userSendId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
 }
-
 
 model Hr {
   id           String    @id @default(cuid())
@@ -173,7 +195,7 @@ model Company {
   Vacancy    Vacancy[]
   Cities     Cities[]
   Links      Links[]
-  isStartap  Boolean  @default(false)
+  isStartap  Boolean          @default(false)
   industryId String?
   industry   CompanyIndustry? @relation(fields: [industryId], references: [id])
   employeeId String?
@@ -228,7 +250,7 @@ model Vacancy {
   Bookmarks     Bookmarks[]
   Location      Location[]
 
-  distantWork    Boolean  @default(false)
+  distantWork Boolean @default(false)
 
   formatId String?
   format   Format? @relation(fields: [formatId], references: [id])
@@ -249,8 +271,9 @@ model Vacancy {
   industryId String?
   Industry   Industry? @relation(fields: [industryId], references: [id])
 
-  hrCreatorId String?
-  hrCreator   Hr? @relation(fields: [hrCreatorId], references: [id])
+  hrCreatorId  String?
+  hrCreator    Hr?            @relation(fields: [hrCreatorId], references: [id])
+  VacancyReply VacancyReply[]
 }
 
 model VacArea {
@@ -410,7 +433,7 @@ model Chat {
   createdAt    DateTime  @default(now())
   participants User[]
   messages     Message[]
-  updatedAt    DateTime @default(now())
+  updatedAt    DateTime  @default(now())
 }
 
 model Message {

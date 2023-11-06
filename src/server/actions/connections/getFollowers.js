@@ -8,7 +8,13 @@ export const getFollowers = async (companyId, cursor, input) => {
 
   const followers = await prisma.user.findMany({
     take: 11,
-    where: { companiesIFollow: { some: { Company: { id: companyId } } } },
+    where:
+      input?.length === 0
+        ? { companiesIFollow: { some: { Company: { id: companyId } } } }
+        : {
+            companiesIFollow: { some: { Company: { id: companyId } } },
+            name: { contains: input, mode: "insensitive" },
+          },
     // input?.length === 0
     //   ? { companyId: companyId, dataVerified: { not: null } }
     //   : {

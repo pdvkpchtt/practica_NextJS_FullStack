@@ -71,12 +71,21 @@ const ConnectionsModal = ({
                 <CustomLoader diameter={36} />
               </div>
             ) : users?.length === 0 ? (
-              <div className="flex w-full justify-center">
-                <TextCaption
-                  text={`У вас нет друзей...`}
-                  style="text-[18px] leading-[21.6px] tracking-[-0.025em]"
-                />
-              </div>
+              input.length === 0 ? (
+                <div className="flex w-full justify-center">
+                  <TextCaption
+                    text={`У вас нет друзей...`}
+                    style="text-[18px] leading-[21.6px] tracking-[-0.025em]"
+                  />
+                </div>
+              ) : (
+                <div className="flex w-full justify-center">
+                  <TextCaption
+                    text={`Ничего не найдено...`}
+                    style="text-[18px] leading-[21.6px] tracking-[-0.025em]"
+                  />
+                </div>
+              )
             ) : (
               <>
                 {users.map((item, key) => (
@@ -131,12 +140,21 @@ const ConnectionsModal = ({
                 <CustomLoader diameter={36} />
               </div>
             ) : users?.length === 0 ? (
-              <div className="flex w-full justify-center">
-                <TextCaption
-                  text={`У вас нет друзей...`}
-                  style="text-[18px] leading-[21.6px] tracking-[-0.025em]"
-                />
-              </div>
+              input.length === 0 ? (
+                <div className="flex w-full justify-center">
+                  <TextCaption
+                    text={`У вас нет друзей...`}
+                    style="text-[18px] leading-[21.6px] tracking-[-0.025em]"
+                  />
+                </div>
+              ) : (
+                <div className="flex w-full justify-center">
+                  <TextCaption
+                    text={`Ничего не найдено...`}
+                    style="text-[18px] leading-[21.6px] tracking-[-0.025em]"
+                  />
+                </div>
+              )
             ) : (
               <>
                 {users.map((item, key) => (

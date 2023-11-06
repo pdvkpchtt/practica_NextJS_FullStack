@@ -131,7 +131,7 @@ const ConnectionCard = ({
 
         {item?.type === "request sent" && !friend && <ClockWaitIcon />}
 
-        {friend && (
+        {/* {friend && (
           <>
             <MessageInCircleIcon
               onClick={() => {
@@ -149,7 +149,7 @@ const ConnectionCard = ({
               }}
             />
           </>
-        )}
+        )} */}
       </div>
       {/* buttons */}
     </div>

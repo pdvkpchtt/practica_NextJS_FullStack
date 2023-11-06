@@ -18,12 +18,14 @@ const VacancyCard = ({ item, role = "student", userId }) => {
       {/* image name time */}
       <div className="flex flex-row justify-between">
         <div className="flex flex-row gap-[12px]">
-          <div className="min-w-[67px] h-[67px] w-[67px] min-h-[67px] overflow-hidden rounded-full">
+          <div className="min-w-[67px] h-[67px] w-[67px] min-h-[67px]  max-w-[67px] max-h-[67px] overflow-hidden rounded-full">
             {item.Company.image ? (
               <Image
                 src={item.Company.image}
+                width={67}
+                height={67}
                 alt="Profile image"
-                className="min-w-[67px] h-[67px] w-[67px] min-h-[67px]"
+                className="min-w-[67px] max-w-[67px] max-h-[67px] h-[67px] w-[67px] min-h-[67px]"
               />
             ) : (
               <EmptyAvatar sixtySeven />
