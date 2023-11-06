@@ -162,7 +162,7 @@ const VacancyRight = ({ data, role = "student", userId }) => {
                 <div className="relative overflow-hidden rounded-[8px] h-[50px] w-[50px]">
                   {data?.hrCreator?.image ? (
                     <Image
-                      src={data.image}
+                      src={data.hrCreator.image}
                       alt="Profile photo"
                       className="w-[50px] h-[50px]"
                       width={50}

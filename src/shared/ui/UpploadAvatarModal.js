@@ -22,6 +22,7 @@ const UpploadAvatarModal = ({
           <input
             type="file"
             name="file"
+            accept="image/*"
             className="hidden"
             ref={inputRef}
             onChange={() => {

@@ -22,7 +22,7 @@ export const uploadAvatarCompany = async (data) => {
 
   // With the file data in the buffer, you can do whatever you want with it.
   // For this, we'll just write it to the filesystem in a new location
-  const path = join("/", "var/www/practica/images", id + p.extname(file.name));
+  const path = join("/", "var/www/practica/files", id + p.extname(file.name));
   await writeFile(path, buffer);
   console.log(`open ${path} to see the uploaded file`);
 
@@ -35,7 +35,7 @@ export const uploadAvatarCompany = async (data) => {
   const company = await prisma.Company.update({
     where: { id: user.companyId },
     data: {
-      image: "https://practica.team/img/" + id + p.extname(file.name),
+      image: "https://practica.team/file/" + id + p.extname(file.name),
     },
   });
 
