@@ -12,10 +12,15 @@ import TextMain from "../../shared/Text/TextMain ";
 import { Input, TextArea } from "../../shared/ui/Input";
 import { fetchFiles } from "../../server/actions/replyToVac/fetchFiles";
 import { uploadFile } from "../../server/actions/replyToVac/uploadFile";
+import CustomLoader from "../../shared/ui/CustomLoader";
+import { deleteFile } from "../../server/actions/replyToVac/deleteFile";
 
 import Cross2 from "../../shared/icons/Cross2";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
+import TrashIcon from "../../shared/icons/TrashIcon";
+
+import { motion } from "framer-motion";
 
 const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
   const router = useRouter();
@@ -24,6 +29,7 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
   const buttRef = useRef(null);
 
   const [loading, setLoading] = useState(false);
+  const [drag, setDrag] = useState(false);
   const [resumeInput, setResumeInput] = useState("");
   const [filesState, setFilesState] = useState([]);
   const [letterInput, setLetterInput] = useState("");
@@ -40,7 +46,7 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
 
   useEffect(() => {
     fetchHandler();
-  }, [uploadFile, modalState]);
+  }, [uploadFile, modalState, deleteFile]);
 
   return (
     <>
@@ -81,8 +87,27 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
             {/* input for files */}
             <form
               action={uploadFile}
-              onClick={() => inputRef.current.click()}
-              className="py-[32px] cursor-pointer px-[52px] rounded-[24px] flex flex-col gap-[12px] border-dashed border-[1px] border-[#BFBFBF]"
+              onDragStart={(e) => {
+                e.preventDefault();
+                setDrag(true);
+              }}
+              onDragLeave={(e) => {
+                e.preventDefault();
+                setDrag(false);
+              }}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setDrag(true);
+              }}
+              onDrop={(e) => {
+                e.preventDefault();
+                buttRef.current.click();
+                fetchHandler();
+              }}
+              onClick={() => !drag && inputRef.current.click()}
+              className={`${
+                drag && "scale-[0.95]"
+              } py-[32px] cursor-pointer px-[52px] transition duration-[250ms] rounded-[24px] flex flex-col gap-[12px] border-dashed border-[1px] border-[#BFBFBF]`}
             >
               <input
                 type="file"
@@ -92,6 +117,7 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
                 ref={inputRef}
                 onChange={() => {
                   buttRef.current.click();
+                  fetchHandler();
                 }}
               />
               <input
@@ -104,10 +130,10 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
               <TextMain
                 text="Перетащите резюме в эту область или нажмите здесть, чтобы загрузить"
                 style={
-                  "font-medium leading-[18px] w-[256px] text-[14px] tracking-[-0.182px] text-center w-full"
+                  "font-medium select-none leading-[18px] w-[256px] text-[14px] tracking-[-0.182px] text-center w-full"
                 }
               />
-              <p className="break-words text-[#8f8f8f] font-normal leading-[16px] text-[13px] tracking-[-0.351px] text-center">
+              <p className="break-words select-none text-[#8f8f8f] font-normal leading-[16px] text-[13px] tracking-[-0.351px] text-center">
                 PDF
                 <br />
                 Не более 10 МБ
@@ -115,23 +141,37 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
             </form>
             {/* input for files */}
 
-            {filesState.length !== 0 && (
-              <>
-                <TextMain
-                  text="Загруженные файлы"
-                  style={
-                    "text-[14px] mt-[4px] text-start w-full font-medium mx-auto leading-[18px] tracking-[-0.182px]"
-                  }
-                />
+            {loading ? (
+              <div className="w-full flex items-center justify-center">
+                <CustomLoader diameter={25} strokeWidth={5} />
+              </div>
+            ) : (
+              filesState.length !== 0 && (
+                <>
+                  <TextMain
+                    text="Загруженные файлы"
+                    style={
+                      "text-[14px] mt-[4px] text-start w-full font-medium mx-auto leading-[18px] tracking-[-0.182px]"
+                    }
+                  />
 
-                {filesState.map((i, key) => (
-                  <div className="flex flex-row justify-between">
-                    <p className="text-[#5875e8] text-[16px] font-normal leading-[19px] tracking-[-0.24px] underline cursor-pointer">
-                      {i.name}
-                    </p>
-                  </div>
-                ))}
-              </>
+                  {filesState.map((i, key) => (
+                    <div className="flex flex-row justify-between items-center">
+                      <p className="text-[#5875e8] flex-1 truncate hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] text-[16px] font-normal leading-[19px] tracking-[-0.24px] underline cursor-pointer">
+                        {i.name}
+                      </p>
+
+                      <TrashIcon
+                        gray
+                        onClick={() => {
+                          deleteFile(i.id);
+                          fetchHandler();
+                        }}
+                      />
+                    </div>
+                  ))}
+                </>
+              )
             )}
 
             <TextArea
