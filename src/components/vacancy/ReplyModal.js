@@ -97,10 +97,11 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
               }}
               onDragOver={(e) => {
                 e.preventDefault();
-                setDrag(false);
+                setDrag(true);
               }}
               onDrop={(e) => {
                 e.preventDefault();
+                setDrag(false);
                 buttRef.current.click();
                 fetchHandler();
               }}
