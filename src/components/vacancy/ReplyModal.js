@@ -97,7 +97,7 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
               }}
               onDragOver={(e) => {
                 e.preventDefault();
-                setDrag(true);
+                setDrag(false);
               }}
               onDrop={(e) => {
                 e.preventDefault();
