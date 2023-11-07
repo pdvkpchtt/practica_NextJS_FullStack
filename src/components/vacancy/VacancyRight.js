@@ -24,7 +24,6 @@ import ReplyModal from "./ReplyModal";
 const VacancyRight = ({ data, role = "student", userId }) => {
   const router = useRouter();
 
-  const [littleLoader, setLittleLoader] = useState(false);
   const [modalState, setModalState] = useState(false);
 
   console.log(data, "vac data");
@@ -52,22 +51,7 @@ const VacancyRight = ({ data, role = "student", userId }) => {
             `}
                 onClick={() => setModalState(true)}
               >
-                {littleLoader ? (
-                  <Oval
-                    height={19}
-                    width={19}
-                    color="#fff"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                    ariaLabel="oval-loading"
-                    secondaryColor="rgba(255,255,255, 0.3)"
-                    strokeWidth={6}
-                    strokeWidthSecondary={6}
-                  />
-                ) : (
-                  "Откликнуться"
-                )}
+                Откликнуться
               </div>
             )}
 

@@ -88,6 +88,7 @@ export const SearchInput = ({
 export const TextArea = ({
   label,
   caption,
+  style = "",
   defaultValue,
   placeholder = "",
   value,
@@ -98,7 +99,7 @@ export const TextArea = ({
   maxLength,
 }) => {
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${style}`}>
       {label && (
         <TextSecondary
           text={label}

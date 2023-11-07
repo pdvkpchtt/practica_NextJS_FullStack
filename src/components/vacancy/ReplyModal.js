@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Waypoint } from "react-waypoint";
 
@@ -9,16 +9,32 @@ import MobileModal from "../../shared/ui/MobileModal";
 import MobileHeader from "../../shared/ui/MobileHeader";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import TextMain from "../../shared/Text/TextMain ";
+import { Input, TextArea } from "../../shared/ui/Input";
+import { fetchFiles } from "../../server/actions/replyToVac/fetchFiles";
+import { uploadFile } from "../../server/actions/replyToVac/uploadFile";
 
 import Cross2 from "../../shared/icons/Cross2";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
-import { Input } from "shared/ui/Input";
 
 const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
   const router = useRouter();
 
+  const inputRef = useRef(null);
+  const buttRef = useRef(null);
+
   const [resumeInput, setResumeInput] = useState("");
+  const [filesState, setFilesState] = useState([]);
+  const [letterInput, setLetterInput] = useState("");
+
+  const fetchHandler = async () => {
+    setFilesState(await fetchFiles());
+    console.log("modal files", filesState);
+  };
+
+  useEffect(() => {
+    fetchHandler();
+  }, [uploadFile]);
 
   return (
     <>
@@ -57,21 +73,75 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
             />
 
             {/* input for files */}
-            <div className="py-[32px] cursor-pointer px-[52px] rounded-[24px] flex flex-col gap-[12px] border-dashed border-[1px] border-[#BFBFBF]">
+            <form
+              action={uploadFile}
+              onClick={() => inputRef.current.click()}
+              className="py-[32px] cursor-pointer px-[52px] rounded-[24px] flex flex-col gap-[12px] border-dashed border-[1px] border-[#BFBFBF]"
+            >
+              <input
+                type="file"
+                name="file"
+                accept="application/pdf"
+                className="hidden"
+                ref={inputRef}
+                onChange={() => {
+                  buttRef.current.click();
+                }}
+              />
+              <input
+                type="submit"
+                value="Upload"
+                ref={buttRef}
+                className="hidden"
+              />
+
               <TextMain
                 text="Перетащите резюме в эту область или нажмите здесть, чтобы загрузить"
                 style={
-                  "font-medium leading-[18px] text-[14px] tracking-[-0.182px] text-center w-full"
+                  "font-medium leading-[18px] w-[256px] text-[14px] tracking-[-0.182px] text-center w-full"
                 }
               />
-              <TextSecondary
-                text="PDF Не более 10 МБ"
-                style={
-                  "font-normal leading-[16px] text-[13px] tracking-[-0.351px] text-center"
-                }
-              />
-            </div>
+              <p className="break-words text-[#8f8f8f] font-normal leading-[16px] text-[13px] tracking-[-0.351px] text-center">
+                PDF
+                <br />
+                Не более 10 МБ
+              </p>
+            </form>
             {/* input for files */}
+
+            {filesState.length !== 0 && (
+              <>
+                <TextMain
+                  text="Загруженные файлы"
+                  style={
+                    "text-[14px] mt-[4px] font-medium mx-auto leading-[18px] tracking-[-0.182px]"
+                  }
+                />
+
+                {filesState.map((i, key) => (
+                  <div className="">asss</div>
+                ))}
+              </>
+            )}
+
+            <TextArea
+              label={"Сопроводительное письмо"}
+              style="mt-[12px]"
+              value={letterInput}
+              onChange={(val) => setLetterInput(val)}
+              placeholder="Напишите о своих достижениях или мотивации, если хотите"
+              minRows={3}
+              maxRows={5}
+            />
+          </div>
+
+          <div
+            className={`rounded-[30px] w-[112px] h-[33px] transition duration-[250ms] px-[12px] py-[7.5px] flex items-center justify-center font-medium text-[14px] leading-[16px] tracking-[-0.013125em] select-none
+                active:bg-[#2C429C] hover:bg-[#3A56C5] bg-[#5875e8] text-white  cursor-pointer mb-[12px]
+            `}
+            // onClick={() => setModalState(true)}
+          >
+            Откликнуться
           </div>
         </div>
         {/* body */}

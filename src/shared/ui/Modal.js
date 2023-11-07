@@ -34,7 +34,7 @@ const Modal = ({
       {isOpen && (
         <>
           <motion.div
-            className="fixed [@media(pointer:coarse)]:hidden top-0 left-0 w-full h-full bg-[#4A5479] dark:bg-black dark:bg-opacity-[50%] bg-opacity-[20%] z-[60]"
+            className="fixed [@media(pointer:coarse)]:hidden top-0 left-0 w-full h-full bg-[#4A5479] dark:bg-black dark:bg-opacity-[50%] bg-opacity-[20%] z-[100]"
             initial={"initial"}
             animate={"isOpen"}
             exit={"exit"}
