@@ -23,18 +23,24 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
   const inputRef = useRef(null);
   const buttRef = useRef(null);
 
+  const [loading, setLoading] = useState(false);
   const [resumeInput, setResumeInput] = useState("");
   const [filesState, setFilesState] = useState([]);
   const [letterInput, setLetterInput] = useState("");
 
   const fetchHandler = async () => {
-    setFilesState(await fetchFiles());
-    console.log("modal files", filesState);
+    if (loading) return;
+
+    setLoading(true);
+    const files = await fetchFiles();
+    setFilesState(files);
+    console.log("modal files", files);
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchHandler();
-  }, [uploadFile]);
+  }, [uploadFile, modalState]);
 
   return (
     <>
@@ -114,12 +120,16 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
                 <TextMain
                   text="Загруженные файлы"
                   style={
-                    "text-[14px] mt-[4px] font-medium mx-auto leading-[18px] tracking-[-0.182px]"
+                    "text-[14px] mt-[4px] text-start w-full font-medium mx-auto leading-[18px] tracking-[-0.182px]"
                   }
                 />
 
                 {filesState.map((i, key) => (
-                  <div className="">asss</div>
+                  <div className="flex flex-row justify-between">
+                    <p className="text-[#5875e8] text-[16px] font-normal leading-[19px] tracking-[-0.24px] underline cursor-pointer">
+                      {i.name}
+                    </p>
+                  </div>
                 ))}
               </>
             )}
