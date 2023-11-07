@@ -158,9 +158,13 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
 
                   {filesState.map((i, key) => (
                     <div className="flex flex-row justify-between items-center">
-                      <p className="text-[#5875e8] flex-1 truncate hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] text-[16px] font-normal leading-[19px] tracking-[-0.24px] underline cursor-pointer">
+                      <a
+                        href={i.path}
+                        target="_blank"
+                        className="text-[#5875e8] flex-1 truncate hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] text-[16px] font-normal leading-[19px] tracking-[-0.24px] underline cursor-pointer"
+                      >
                         {i.name}
-                      </p>
+                      </a>
 
                       <TrashIcon
                         gray
