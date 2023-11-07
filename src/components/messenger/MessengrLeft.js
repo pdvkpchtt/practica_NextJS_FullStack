@@ -110,9 +110,9 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
           padding={12}
         >
           <div className="rounded-[8px] overflow-hidden aspect-square [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
-            {data.image ? (
+            {profileData.image ? (
               <Image
-                src={data.image}
+                src={profileData.image}
                 alt="Profile photo"
                 className="[@media(hover)]:min-w-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px] [@media(hover)]:min-h-[236px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full"
                 width={236}
