@@ -25,7 +25,7 @@ export const uploadFile = async (data) => {
   const path = join(
     "/",
     "var/www/practica/files",
-    id + p.extname(Buffer.from(file.name).toString("utf8"))
+    id + p.extname(decodeURIComponent(escape(file.name)))
   );
   await writeFile(path, buffer);
   console.log(`open ${path} to see the uploaded file`);
@@ -35,8 +35,8 @@ export const uploadFile = async (data) => {
       path:
         "https://practica.team/file/" +
         id +
-        p.extname(Buffer.from(file.name).toString("utf8")),
-      name: Buffer.from(file.name).toString("utf8"),
+        p.extname(decodeURIComponent(escape(file.name))),
+      name: decodeURIComponent(escape(file.name)),
       user: {
         connect: {
           id: session?.user?.id,

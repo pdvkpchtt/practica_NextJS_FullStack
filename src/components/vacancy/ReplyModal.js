@@ -127,7 +127,7 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
                 {filesState.map((i, key) => (
                   <div className="flex flex-row justify-between">
                     <p className="text-[#5875e8] text-[16px] font-normal leading-[19px] tracking-[-0.24px] underline cursor-pointer">
-                      {i.name}
+                      {decodeURIComponent(escape(i.name))}
                     </p>
                   </div>
                 ))}
