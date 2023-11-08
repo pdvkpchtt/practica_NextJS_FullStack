@@ -110,6 +110,12 @@ export const getVacancyById = async (id) => {
     },
   });
 
+  const myReply = await prisma.VacancyReply.findFirst({
+    where: {
+      AND: [{ vacancyId: currentVacancy.id }, { userId: session?.user?.id }],
+    },
+  });
+
   return {
     id: currentVacancy.id,
     name: currentVacancy.name,
@@ -134,5 +140,6 @@ export const getVacancyById = async (id) => {
     hrcount: currentVacancy?.Company?.HR?.filter((i) => i.dataVerified !== null)
       ?.length,
     followersCount: currentVacancy?.Company?.user?._count?.myCompanyFolowers,
+    hasMyReply: myReply,
   };
 };
