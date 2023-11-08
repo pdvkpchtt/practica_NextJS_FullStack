@@ -88,8 +88,9 @@ const PcFilters = ({
         <div className="w-full items-center flex flex-row justify-end [@media(pointer:coarse)]:max-w-[476px] [@media(pointer:coarse)]:mx-auto">
           <div
             className={`
-                px-[12px] py-[8px] rounded-[16px] mr-[8px] cursor-pointer transition duration-[250ms] select-none w-fit
-                bg-[#74899B] bg-opacity-[8%] cursor-default"
+            ${(ifVacancies || ifCompany || ifPeople) && "cursor-pointer"}
+                px-[12px] py-[8px] rounded-[16px] mr-[8px]  transition duration-[250ms] select-none w-fit
+                bg-[#74899B] bg-opacity-[8%] "
                 group
             `}
             onClick={
@@ -103,10 +104,10 @@ const PcFilters = ({
 
           <div
             className={`
-                px-[12px] py-[8px] rounded-[16px] cursor-pointer transition duration-[250ms] select-none w-fit
+                px-[12px] py-[8px] rounded-[16px] transition duration-[250ms] select-none w-fit
                 ${
                   ifVacancies || ifCompany || ifPeople
-                    ? "bg-[#5875e8] hover:bg-[#3A56C5] active:bg-[#2C429C]"
+                    ? "bg-[#5875e8] hover:bg-[#3A56C5] active:bg-[#2C429C] cursor-pointer"
                     : "bg-[#74899B] bg-opacity-[8%] cursor-default"
                 }
             `}
