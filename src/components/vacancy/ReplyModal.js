@@ -102,7 +102,11 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
               onDrop={(e) => {
                 e.preventDefault();
                 setDrag(false);
-                buttRef.current.click();
+                let files = [...e.dataTransfer.files];
+                const formData = new FormData();
+                formData.append("file", files[0]);
+                uploadFile(formData);
+                // buttRef.current.click();
                 fetchHandler();
               }}
               onClick={() => !drag && inputRef.current.click()}

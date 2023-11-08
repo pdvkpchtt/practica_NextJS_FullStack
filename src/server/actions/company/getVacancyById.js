@@ -1,6 +1,11 @@
+"use server";
+
+import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../../db";
 
 export const getVacancyById = async (id) => {
+  const session = await getServSession();
+
   const currentVacancy = await prisma.vacancy.findUnique({
     where: {
       id: id,
@@ -93,6 +98,7 @@ export const getVacancyById = async (id) => {
         select: {
           user: {
             select: {
+              id: true,
               username: true,
               name: true,
               image: true,
@@ -124,6 +130,7 @@ export const getVacancyById = async (id) => {
     Company: currentVacancy.Company,
     distantWork: currentVacancy.distantWork,
     hrCreator: currentVacancy?.hrCreator?.user,
+    amICreator: currentVacancy?.hrCreator?.user?.id === session?.user?.id,
     hrcount: currentVacancy?.Company?.HR?.filter((i) => i.dataVerified !== null)
       ?.length,
     followersCount: currentVacancy?.Company?.user?._count?.myCompanyFolowers,

@@ -44,7 +44,7 @@ const VacancyRight = ({ data, role = "student", userId }) => {
           </OneIconButton>
 
           <div className="flex flex-row gap-[6px] items-center">
-            {(role === "student" || role === "hr") && (
+            {(role === "student" || role === "hr") && !data.amICreator && (
               <div
                 className={`rounded-[30px] w-[112px] h-[33px] transition duration-[250ms] px-[12px] py-[7.5px] flex items-center justify-center font-medium text-[14px] leading-[16px] tracking-[-0.013125em] select-none
                 active:bg-[#2C429C] hover:bg-[#3A56C5] bg-[#5875e8] text-white  cursor-pointer
