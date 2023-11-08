@@ -1,6 +1,11 @@
+"use server";
+
+import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../../db";
 
 export const getUsersBookmarks = async (userId, cursor) => {
+  const session = await getServSession();
+
   const bookmarks = await prisma.bookmarks.findMany({
     take: 11,
     ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
@@ -20,6 +25,7 @@ export const getUsersBookmarks = async (userId, cursor) => {
           waitings: true,
           salaryStart: true,
           salaryEnd: true,
+          VacancyReply: { select: { userId: true } },
           format: {
             select: {
               id: true,
@@ -105,6 +111,11 @@ export const getUsersBookmarks = async (userId, cursor) => {
 
   const result = slicedPosts.map((item) => {
     item.vacancy.hrCreator = item?.vacancy?.hrCreator?.user;
+    const myReply = item.vacancy.VacancyReply.find(
+      (i) => i.userId === session?.user?.id
+    );
+    item.vacancy.hasMyReply = myReply;
+
     return item;
   });
   const lastPostInResults = result[result.length - 1];

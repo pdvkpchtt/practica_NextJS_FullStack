@@ -62,7 +62,8 @@ const VacancyRight = ({ data, role = "student", userId }) => {
               </div>
             )}
 
-            {role === "student" && <BookmarkIcon item={data} userId={userId} />}
+            {role === "student" ||
+              (role === "hr" && <BookmarkIcon item={data} userId={userId} />)}
           </div>
         </div>
       </div>

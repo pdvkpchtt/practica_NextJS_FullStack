@@ -19,7 +19,7 @@ const VacancyCard = ({ item, role = "student", userId }) => {
       <div className="flex flex-row justify-between">
         <div className="flex flex-row gap-[12px]">
           <div className="min-w-[67px] h-[67px] w-[67px] min-h-[67px]  max-w-[67px] max-h-[67px] overflow-hidden rounded-full">
-            {item.Company.image ? (
+            {item?.Company?.image ? (
               <Image
                 src={item.Company.image}
                 width={67}
@@ -92,9 +92,20 @@ const VacancyCard = ({ item, role = "student", userId }) => {
             )}
           </div>
         </div>
-        {(role === "student" || role === "hr") && (
-          <BookmarkIcon item={item} userId={userId} />
-        )}
+        <div className="flex flex-row gap-[8px] items-center h-fit">
+          {item?.hasMyReply && (
+            <TextSecondary
+              text="Отклик отправлен"
+              style={
+                "text-[14px] font-medium leading-[18px] tracking-[-0.182px]"
+              }
+            />
+          )}
+
+          {(role === "student" || role === "hr") && (
+            <BookmarkIcon item={item} userId={userId} />
+          )}
+        </div>
       </div>
       {/* image name time */}
 

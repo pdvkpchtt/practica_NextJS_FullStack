@@ -25,6 +25,8 @@ import BellIcon from "../../shared/icons/BellIcon";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "shared/icons/SuperpitchIcon";
 import PitchesModal from "./PitchesModal";
+import ContactsIcon from "shared/icons/ContactsIcon";
+import ContactsModal from "./ContactsModal";
 
 const Left = ({ navState, data }) => {
   // console.log(data, "saasassaasas2");
@@ -47,6 +49,7 @@ const Left = ({ navState, data }) => {
   const [modalState, setModalState] = useState(false);
   const [modal2State, setModal2State] = useState(false);
   const [pitchesModalState, setPitchesModalState] = useState(false);
+  const [contactsModalState, setContactsModalState] = useState(false);
 
   useLayoutEffect(() => {
     if (typeof window !== "undefined")
@@ -234,6 +237,22 @@ const Left = ({ navState, data }) => {
         )}
         {/* hr */}
 
+        {/* contacts */}
+        <div
+          className={` p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+        >
+          <button
+            className={`group text-center h-[28px] w-fit whitespace-nowrap items-center flex-row gap-[8px] flex 
+          font-medium leading-[20px] text-[16px] tracking-[-0.015em]
+       cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
+            onClick={() => setContactsModalState(true)}
+          >
+            <ContactsIcon />
+            {"Контакты отсутсвуют"}
+          </button>
+        </div>
+        {/* contacts */}
+
         {/* pitches + superpitches */}
         <div
           className={`${
@@ -333,6 +352,13 @@ const Left = ({ navState, data }) => {
         setModalState={setPitchesModalState}
       />
       {/* pitchesModal */}
+
+      {/* contactsModal */}
+      <ContactsModal
+        modalState={contactsModalState}
+        setModalState={setContactsModalState}
+      />
+      {/* contactsModal */}
     </>
   );
 };
