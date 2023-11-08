@@ -66,8 +66,8 @@ model User {
   birthDate      String?
   email          String?          @unique
   emailVerified  DateTime?
-  phone          String?          @unique
-  phoneVerified  DateTime?
+  phone          String?          
+  phoneVerified  DateTime?        
   image          String?
   accounts       Account[]
   sessions       Session[]
