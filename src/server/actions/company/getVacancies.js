@@ -116,16 +116,23 @@ export const getVacancies = async (cursor, filters) => {
                     },
                   }
                 : {},
-            Location: {
-              some: {
-                label: {
-                  contains: filters?.location?.label,
-                  mode: "insensitive",
-                },
-              },
-            },
+            distantWork:
+              filters?.distantWork === null ? false : filters?.distantWork,
+            Location:
+              filters?.location?.length > 0
+                ? {
+                    some: {
+                      label: {
+                        contains: filters?.location?.label,
+                        mode: "insensitive",
+                      },
+                    },
+                  }
+                : {},
           }
         : {
+            distantWork:
+              filters?.distantWork === null ? false : filters?.distantWork,
             VacancySkills:
               filters?.VacancySkills?.length > 0
                 ? {
@@ -149,14 +156,17 @@ export const getVacancies = async (cursor, filters) => {
                   }
                 : {},
 
-            Location: {
-              some: {
-                label: {
-                  contains: filters?.location?.label,
-                  mode: "insensitive",
-                },
-              },
-            },
+            Location:
+              filters?.location?.length > 0
+                ? {
+                    some: {
+                      label: {
+                        contains: filters?.location?.label,
+                        mode: "insensitive",
+                      },
+                    },
+                  }
+                : {},
           }
       : filters?.input.length > 0
       ? {

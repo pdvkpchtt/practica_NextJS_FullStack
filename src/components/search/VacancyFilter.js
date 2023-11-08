@@ -6,6 +6,7 @@ import DropDown from "../../shared/ui/DropDown";
 import SkillCard from "../../shared/ui/SkillCard";
 import DropDownWithSearch from "../../shared/ui/DropDownWithSearch";
 import DropDownWithChoise from "../../shared/ui/DropDownWithChoise";
+import CheckBox from "../../shared/ui/CheckBox";
 
 import PlusIcon from "../../shared/icons/PlusIcon";
 import AddCityIcon from "../../shared/icons/AddCityIcon";
@@ -37,6 +38,31 @@ const VacancyFilter = ({
           placeholder={"Не выбрано"}
         />
       </div>
+
+      {/* isDistantWork */}
+      <div className="flex flex-col w-full">
+        <TextSecondary
+          text={"Возможно удаленно"}
+          style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+        />
+        <CheckBox
+          active={
+            updateVacancies.distantWork !== null
+              ? updateVacancies.distantWork
+              : false
+          }
+          onClick={() =>
+            setUpdateVacancies({
+              ...updateVacancies,
+              distantWork:
+                updateVacancies.distantWork !== null
+                  ? !updateVacancies.distantWork
+                  : true,
+            })
+          }
+        />
+      </div>
+      {/* isDistantWork */}
 
       <div className="flex flex-col relative">
         <TextSecondary

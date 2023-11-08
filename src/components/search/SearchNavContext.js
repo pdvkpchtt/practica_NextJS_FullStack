@@ -41,6 +41,7 @@ const SearchNavContextWrap = ({ children }) => {
     startFiltering: false,
     input: "",
     location: { label: "" },
+    distantWork: null,
     area: [],
     VacancySkills: [],
   });
@@ -59,7 +60,7 @@ const SearchNavContextWrap = ({ children }) => {
     workExperience: { label: "" },
     UserSkills: [],
   });
-  console.log(updateCompanies);
+  console.log(updateVacancies);
   return (
     <SearchNavContext.Provider
       value={{

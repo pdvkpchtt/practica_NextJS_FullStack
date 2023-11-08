@@ -203,6 +203,8 @@ const ReplyModal = ({
             `}
             onClick={() => {
               replyToVacancy(vacId, resumeInput, letterInput);
+              setModalState();
+              router.refresh();
             }}
           >
             Откликнуться

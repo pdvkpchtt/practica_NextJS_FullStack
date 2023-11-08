@@ -26,6 +26,7 @@ const PcFilters = ({
   const ifVacancies =
     pathname === navState[0].route &&
     (updateVacancies.location.label !== "" ||
+      updateVacancies.distantWork !== null ||
       updateVacancies.area.length !== 0 ||
       updateVacancies.VacancySkills.length !== 0);
 
@@ -46,6 +47,7 @@ const PcFilters = ({
     if (pathname === navState[0].route)
       setUpdateVacancies({
         startFiltering: false,
+        distantWork: null,
         input: "",
         location: { label: "" },
         area: [],
