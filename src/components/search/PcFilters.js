@@ -80,7 +80,7 @@ const PcFilters = ({
   };
 
   return (
-    <div className="flex flex-col border-[#E7E7E7] dark:border-[#2f2f2f] max-w-[260px] [@media(hover)]:max-h-[calc(100%-32px)] [@media(hover)]:mt-[16px] h-fit w-full rounded-[20px] bg-white dark:bg-[#212122] [@media(pointer:coarse)]:hidden">
+    <div className="flex flex-col border-[#E7E7E7] dark:border-[#2f2f2f] max-w-[260px] [@media(hover)]:max-h-[calc(100%-48px)] [@media(hover)]:mt-[24px] h-fit w-full rounded-[20px] bg-white dark:bg-[#212122] [@media(pointer:coarse)]:hidden">
       {/* header */}
       <div className="border-b-[0.7px] border-b-[#E7E7E7] dark:border-b-[#2f2f2f] bg-white dark:bg-[#212122] rounded-t-[20px] p-[12px]">
         <div className="w-full items-center flex flex-row justify-end [@media(pointer:coarse)]:max-w-[476px] [@media(pointer:coarse)]:mx-auto">

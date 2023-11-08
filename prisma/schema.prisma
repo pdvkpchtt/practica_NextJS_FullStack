@@ -120,7 +120,7 @@ model VacancyReply {
   user      User    @relation(fields: [userId], references: [id])
   vacancy   Vacancy @relation(fields: [vacancyId], references: [id])
   message   String?
-  file      File[]
+  // file      File[]
   userId    String
   link String?
   vacancyId String
@@ -129,11 +129,11 @@ model VacancyReply {
 model File {
   id             String        @id @default(cuid())
   user           User          @relation(fields: [userId], references: [id])
-  vacancyReply   VacancyReply? @relation(fields: [vacancyReplyId], references: [id])
+  // vacancyReply   VacancyReply? @relation(fields: [vacancyReplyId], references: [id])
   path           String
   name           String
   userId         String
-  vacancyReplyId String?
+  // vacancyReplyId String?
 }
 
 model PremiumMessage {

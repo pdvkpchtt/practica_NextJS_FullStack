@@ -48,12 +48,12 @@ const SearchNav = () => {
         animate={
           newScroll > 76 && !isMobile && trigger
             ? {
-                y: -86,
+                y: -100,
               }
             : { y: 0 }
         }
         transition={{ duration: 0.2 }}
-        className={`p-[12px] rounded-[20px] border-[1px] border-[#E7E7E7] dark:border-[#2f2f2f] flex flex-row gap-[12px] items-center [@media(hover)]:fixed [@media(hover)]:mt-[16px] [@media(hover)]:w-[704px] [@media(pointer:coarse)]:hidden bg-white dark:bg-[#212122]`}
+        className={`p-[12px] rounded-[20px] border-[1px] border-[#E7E7E7] dark:border-[#2f2f2f] flex flex-row gap-[12px] items-center [@media(hover)]:fixed [@media(hover)]:mt-[24px] [@media(hover)]:w-[704px] [@media(pointer:coarse)]:hidden bg-white dark:bg-[#212122]`}
       >
         <SearchInput
           placeholder="Поиск"

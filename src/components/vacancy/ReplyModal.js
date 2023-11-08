@@ -14,15 +14,18 @@ import { fetchFiles } from "../../server/actions/replyToVac/fetchFiles";
 import { uploadFile } from "../../server/actions/replyToVac/uploadFile";
 import CustomLoader from "../../shared/ui/CustomLoader";
 import { deleteFile } from "../../server/actions/replyToVac/deleteFile";
+import { replyToVacancy } from "../../server/actions/replyToVac/replyToVacancy";
 
 import Cross2 from "../../shared/icons/Cross2";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import TrashIcon from "../../shared/icons/TrashIcon";
 
-import { motion } from "framer-motion";
-
-const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
+const ReplyModal = ({
+  vacId,
+  modalState = false,
+  setModalState = () => {},
+}) => {
   const router = useRouter();
 
   const inputRef = useRef(null);
@@ -198,7 +201,9 @@ const ReplyModal = ({ modalState = false, setModalState = () => {} }) => {
             className={`rounded-[30px] w-[112px] h-[33px] transition duration-[250ms] px-[12px] py-[7.5px] flex items-center justify-center font-medium text-[14px] leading-[16px] tracking-[-0.013125em] select-none
                 active:bg-[#2C429C] hover:bg-[#3A56C5] bg-[#5875e8] text-white  cursor-pointer mb-[12px]
             `}
-            // onClick={() => setModalState(true)}
+            onClick={() => {
+              replyToVacancy(vacId, resumeInput, letterInput);
+            }}
           >
             Откликнуться
           </div>
