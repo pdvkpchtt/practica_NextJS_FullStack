@@ -8,16 +8,16 @@ import { getInfoAboutPremium } from "../../../server/actions/messenger/getInfoAb
 const ChatPage = async ({ params: { chatId }, searchParams }) => {
   const user_id = searchParams?.user_id;
 
-  const profileData = await getProfileByChatId(user_id, chatId);
+  // const profileData = await getProfileByChatId(user_id, chatId);
 
   return (
     <>
-      <Chats chatId={chatId} user_id={user_id} profileData={profileData} />
-      <MessengrLeft
+      <Chats chatId={chatId} user_id={user_id} />
+      {/* <MessengrLeft
         chatId={chatId}
         user_id={user_id}
         // profileData={profileData}
-      />
+      /> */}
     </>
   );
 };

@@ -46,9 +46,8 @@ import BigLogoSvg from "../../shared/icons/BigLogoSvg";
 import { getInfoAboutPremium } from "../../server/actions/messenger/getInfoAboutPremium";
 import { checkCircles } from "../../server/actions/messenger/checkCircles";
 
-const Chats = ({ chatId, user_id, profileData }) => {
-  const { getUserChatsWithTimer, lastDate, getPitchesCountHanler } =
-    useContext(MessengerContext);
+const Chats = ({ chatId, user_id }) => {
+  const { getUserChatsWithTimer, lastDate } = useContext(MessengerContext);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -59,33 +58,15 @@ const Chats = ({ chatId, user_id, profileData }) => {
   const [wait, setWait] = useState(false);
 
   const sendMsg = async () => {
-    if (input.length !== 0 && type != null && premSender != null) {
+    if (input.length !== 0) {
       setWait(true);
       console.log(input);
-      await sendMessage(
-        input,
-        chatId,
-        type,
-        premSender.whoIsSender,
-        profileData.id
-      );
+      await sendMessage(input, chatId);
       setInput("");
-      await getPitchesCountHanler();
+      // await getPitchesCountHanler();
       setWait(false);
     }
   };
-  const [type, setType] = useState(null);
-  const [premSender, setPremSender] = useState(null);
-
-  console.log(type, premSender, "saasasas");
-  const isPitchIcon =
-    type === "pitch" &&
-    (premSender.whoIsSender !== profileData.id ||
-      premSender.whoIsSender === "noone");
-  const isSuperPitchIcon =
-    type === "superpitch" &&
-    (premSender.whoIsSender !== profileData.id ||
-      premSender.whoIsSender === "noone");
 
   const [loading, setLoading] = useState(false);
   const [cursor, setCursor] = useState("");
@@ -112,21 +93,10 @@ const Chats = ({ chatId, user_id, profileData }) => {
     setLoading(false);
   };
 
-  const getType = async () => {
-    const typeWithoutCircle = await checkCircles(user_id, chatId);
-    const premSenderNotState = await getInfoAboutPremium(profileData.id);
-    setType(typeWithoutCircle.circle);
-    setPremSender(premSenderNotState);
-  };
-
   useEffect(() => {
     setCursor("");
     getMessages("");
   }, [fetchMessages, searchInput]);
-
-  useEffect(() => {
-    getType();
-  }, [getUserChatsWithTimer]);
 
   // with timer
   const getUserMessengerWithTimer = async (lastDate2) => {
@@ -207,7 +177,7 @@ const Chats = ({ chatId, user_id, profileData }) => {
 
       {/* body */}
       <div className="overflow-y-auto flex flex-col-reverse relative [@media(pointer:coarse)]:h-full hideScrollbarNavMobile h-full [@media(hover)]:h-[calc(100%-67px)] pt-[6px] pb-[8px] px-[8px] bg-white dark:bg-[#212122]">
-        {!dataState || type === null || premSender === null ? (
+        {!dataState ? (
           <div className="w-full flex justify-center items-center h-full">
             <CustomLoader diameter={36} />
           </div>
@@ -295,16 +265,11 @@ const Chats = ({ chatId, user_id, profileData }) => {
             setInput(e);
           }}
           onKeyDown={async (event) => {
-            if (
-              event === "Enter" &&
-              input.length !== 0 &&
-              type != null &&
-              premSender != null
-            ) {
+            if (event === "Enter" && input.length !== 0) {
               if (pathname.includes("/messenger/preview")) {
                 setWait(true);
                 setInput("");
-                const chatId = await createChat(user_id, input, type);
+                const chatId = await createChat(user_id, input);
                 setWait(false);
 
                 router.push(`/messenger/${chatId}`);
@@ -319,11 +284,11 @@ const Chats = ({ chatId, user_id, profileData }) => {
         />
         <SendButton
           onClick={async () => {
-            if (input.length !== 0 && type != null && premSender != null) {
+            if (input.length !== 0) {
               if (pathname.includes("/messenger/preview")) {
                 setWait(true);
                 setInput("");
-                const chatId = await createChat(user_id, input, type);
+                const chatId = await createChat(user_id, input);
                 setWait(false);
 
                 router.push(`/messenger/${chatId}`);
@@ -336,7 +301,7 @@ const Chats = ({ chatId, user_id, profileData }) => {
             }
           }}
         >
-          {wait || type === null ? (
+          {wait ? (
             <Oval
               height={20}
               width={20}
@@ -349,10 +314,6 @@ const Chats = ({ chatId, user_id, profileData }) => {
               strokeWidth={5}
               strokeWidthSecondary={5}
             />
-          ) : isPitchIcon ? (
-            <PitchIcon blue={false} white />
-          ) : isSuperPitchIcon ? (
-            <SuperpitchIcon blue={false} white />
           ) : (
             <SendIcon />
           )}
@@ -377,16 +338,11 @@ const Chats = ({ chatId, user_id, profileData }) => {
               setInput(e);
             }}
             onKeyDown={async (event) => {
-              if (
-                event === "Enter" &&
-                input.length !== 0 &&
-                type != null &&
-                premSender != null
-              ) {
+              if (event === "Enter" && input.length !== 0) {
                 if (pathname.includes("/messenger/preview")) {
                   setWait(true);
                   setInput("");
-                  const chatId = await createChat(user_id, input, type);
+                  const chatId = await createChat(user_id, input);
                   setWait(false);
 
                   router.push(`/messenger/${chatId}`);
@@ -401,11 +357,11 @@ const Chats = ({ chatId, user_id, profileData }) => {
           />
           <SendButton
             onClick={async () => {
-              if (input.length !== 0 && type != null && premSender != null) {
+              if (input.length !== 0) {
                 if (pathname.includes("/messenger/preview")) {
                   setWait(true);
                   setInput("");
-                  const chatId = await createChat(user_id, input, type);
+                  const chatId = await createChat(user_id, input);
                   setWait(false);
 
                   router.push(`/messenger/${chatId}`);
@@ -418,7 +374,7 @@ const Chats = ({ chatId, user_id, profileData }) => {
               }
             }}
           >
-            {wait || type === null || premSender === null ? (
+            {wait ? (
               <Oval
                 height={20}
                 width={20}

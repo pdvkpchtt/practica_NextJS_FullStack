@@ -3,19 +3,14 @@
 import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../../db";
 
-const sendMessage = async (input, chatId, type, whoIsSender, otherId) => {
+const sendMessage = async (input, chatId) => {
   const session = await getServSession();
 
   const message = await prisma.message.create({
     data: {
       text: input,
       unRead: true,
-      type:
-        whoIsSender === "noone"
-          ? type
-          : whoIsSender === session.user.id
-          ? type
-          : "",
+      type: "",
       Chat: {
         connect: { id: chatId },
       },
@@ -24,22 +19,6 @@ const sendMessage = async (input, chatId, type, whoIsSender, otherId) => {
       },
     },
   });
-
-  if (whoIsSender === "noone") {
-    const sentPitch = await prisma.PremiumMessage.create({
-      data: {
-        type: type,
-        userGet: {
-          connect: {
-            id: otherId,
-          },
-        },
-        userSend: {
-          connect: { id: session?.user?.id },
-        },
-      },
-    });
-  }
 
   const chat = await prisma.chat.update({
     where: { id: chatId },
