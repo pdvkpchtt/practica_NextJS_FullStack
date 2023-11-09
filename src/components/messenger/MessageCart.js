@@ -29,7 +29,13 @@ const MessageCart = ({ item, onClick, active = false, last = false }) => {
       >
         <div className="relative z-0 rounded-[8px] mr-[8px] overflow-hidden">
           {item.chatImage ? (
-            <Image src={item.chatImage} className="" width={67} height={67} />
+            <Image
+              src={item.chatImage}
+              className="object-cover h-[67px] min-h-[67px] max-h-[67px]"
+              alt="Profile photo"
+              width={67}
+              height={67}
+            />
           ) : (
             <EmptyAvatar sixtySeven />
           )}

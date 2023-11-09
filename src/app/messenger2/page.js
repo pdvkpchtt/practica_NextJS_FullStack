@@ -1,7 +1,7 @@
 import ChatsEmpty from "../../components/messenger/ChatsEmpty";
 import ChatInfo from "../../components/messenger/ChatInfo";
 
-const TestMessengerPage = () => {
+const MessengerPage = () => {
   return (
     <>
       <ChatsEmpty />
@@ -10,4 +10,4 @@ const TestMessengerPage = () => {
   );
 };
 
-export default TestMessengerPage;
+export default MessengerPage;

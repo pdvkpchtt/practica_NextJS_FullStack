@@ -36,95 +36,34 @@ import sendMessage from "../../server/actions/messenger/sendMessage";
 import SendIcon from "../../shared/icons/SendIcon";
 import { fetchMessages } from "../../server/actions/messenger/fetchMessages";
 import { createChat } from "../../server/actions/messenger/createChat";
-import { MessengerContext } from "./MessengerContextWrap";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 import TextMain from "../../shared/Text/TextMain ";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
-import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
-import PitchIcon from "../../shared/icons/PitchIcon";
-import BigLogoSvg from "../../shared/icons/BigLogoSvg";
-import { getInfoAboutPremium } from "../../server/actions/messenger/getInfoAboutPremium";
-import { checkCircles } from "../../server/actions/messenger/checkCircles";
+import { MesContext } from "./MesContextWrap";
 
-const Chats = ({ chatId, user_id }) => {
-  const { getUserChatsWithTimer, lastDate } = useContext(MessengerContext);
+const ChatsPanel = ({ chatId, user_id }) => {
+  const {
+    input, // Messages
+    setInput, // Messages
+    wait, // Messages
+    setWait, // Messages
+    searchInput, // Messages
+    setSearchInput, // Messages
+    loadingMessages, // Messages
+    setLoadingMessages, // Messages
+    cursorMessages, // Messages
+    setCursorMessages, // Messages
+    hasNextPageMessages, // Messages
+    setHasNextPageMessages, // Messages
+    dataStateMessages, // Messages
+    setDataStateMessages, // Messages
+    lastDateMessages, // Messages
+    setLastDateMessages, // Messages
+    sendMsg,
+  } = useContext(MesContext);
 
   const pathname = usePathname();
   const router = useRouter();
-
-  const [searchInput, setSearchInput] = useState("");
-
-  const [input, setInput] = useState("");
-  const [wait, setWait] = useState(false);
-
-  const sendMsg = async () => {
-    if (input.length !== 0) {
-      setWait(true);
-      console.log(input);
-      await sendMessage(input, chatId);
-      setInput("");
-      setWait(false);
-    }
-  };
-
-  const [loading, setLoading] = useState(false);
-  const [cursor, setCursor] = useState("");
-  const [hasNextPage, setHasNextPage] = useState(true);
-  const [dataState, setDataState] = useState(null);
-  const [count, setCount] = useState(0);
-  const [lastDate2, setLastDate] = useState("");
-
-  const getMessages = async (cursor) => {
-    console.log("fetching");
-    // if (loading) return;
-    setLoading(true);
-    const data = await fetchMessages(chatId, cursor, searchInput);
-    console.log("client messages", data);
-    if (cursor.length) {
-      setDataState([...dataState, ...data.data]);
-    } else {
-      setDataState(data.data);
-    }
-    setCursor(data.cursor);
-    setHasNextPage(data.hasNextPage);
-    setLastDate(data.lastDate);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    setCursor("");
-    getMessages("");
-  }, [fetchMessages, searchInput]);
-
-  // with timer
-  const getUserMessengerWithTimer = async (lastDate2) => {
-    console.log("timer messages");
-    if (loading) return;
-
-    console.log(lastDate2);
-    const data = await fetchMessages(chatId, lastDate2, searchInput, true);
-    console.log("messenges update", data);
-
-    setDataState(data?.data);
-
-    setCursor(data?.cursor);
-    setHasNextPage(data?.hasNextPage);
-  };
-
-  useEffect(() => {
-    if (searchInput.length === 0) {
-      const timeout = setTimeout(() => {
-        if (count === 0) setCount(1);
-        else setCount(0);
-        getUserMessengerWithTimer(lastDate2);
-      }, [5000]);
-
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-  }, [count]);
-  // with timer
 
   return (
     <div className="[@media(hover)]:mt-[62px] [@media(hover)]:w-[436px] w-full [@media(pointer:coarse)]:mb-[-80px]">
@@ -175,11 +114,11 @@ const Chats = ({ chatId, user_id }) => {
 
       {/* body */}
       <div className="overflow-y-auto flex flex-col-reverse relative [@media(pointer:coarse)]:h-full hideScrollbarNavMobile h-full [@media(hover)]:h-[calc(100%-67px)] pt-[6px] pb-[8px] px-[8px] bg-white dark:bg-[#212122]">
-        {!dataState ? (
+        {!dataStateMessages ? (
           <div className="w-full flex justify-center items-center h-full">
             <CustomLoader diameter={36} />
           </div>
-        ) : dataState?.length === 0 ? (
+        ) : dataStateMessages?.length === 0 ? (
           <TextSecondary
             text={
               pathname.includes("/preview")
@@ -190,10 +129,10 @@ const Chats = ({ chatId, user_id }) => {
           />
         ) : (
           <>
-            {/* {dataState?.length === 1 &&
-              dataState[dataState.length - 1].type === "superpitch" &&
-              dataState[dataState.length - 1].myMessage && <BigLogoSvg />} */}
-            {dataState.map((item, key, messages) => (
+            {/* {dataStateMessages?.length === 1 &&
+              dataStateMessages[dataStateMessages.length - 1].type === "superpitch" &&
+              dataStateMessages[dataStateMessages.length - 1].myMessage && <BigLogoSvg />} */}
+            {dataStateMessages.map((item, key, messages) => (
               <>
                 {key > 0 &&
                 !dayjs(item.createdAt).isSame(
@@ -216,7 +155,9 @@ const Chats = ({ chatId, user_id }) => {
                   item={item}
                   key={key}
                   style={`${
-                    dataState[key + 1]?.myMessage ? "mt-[2px]" : "mt-[2px]"
+                    dataStateMessages[key + 1]?.myMessage
+                      ? "mt-[2px]"
+                      : "mt-[2px]"
                   }
                `}
                 />
@@ -236,11 +177,11 @@ const Chats = ({ chatId, user_id }) => {
                 ) : null}
               </>
             ))}
-            {hasNextPage ? (
+            {hasNextPageMessages ? (
               <Waypoint
                 onEnter={async () => {
                   console.log("Enter waypoint");
-                  await getMessages(cursor);
+                  await getMessages();
                 }}
                 topOffset="-50px"
               >
@@ -277,9 +218,6 @@ const Chats = ({ chatId, user_id }) => {
                 router.push(`/messenger/${chatId}`);
               } else {
                 sendMsg();
-                setCursor("");
-                await getMessages("");
-                getUserChatsWithTimer(lastDate);
               }
             }
           }}
@@ -296,9 +234,6 @@ const Chats = ({ chatId, user_id }) => {
                 router.push(`/messenger/${chatId}`);
               } else {
                 sendMsg();
-                setCursor("");
-                await getMessages("");
-                getUserChatsWithTimer(lastDate);
               }
             }
           }}
@@ -311,7 +246,7 @@ const Chats = ({ chatId, user_id }) => {
               wrapperStyle={{}}
               wrapperClass=""
               visible={true}
-              ariaLabel="oval-loading"
+              ariaLabel="oval-loadingMessages"
               secondaryColor="rgba(255, 255, 255, 0.3)"
               strokeWidth={5}
               strokeWidthSecondary={5}
@@ -350,9 +285,6 @@ const Chats = ({ chatId, user_id }) => {
                   router.push(`/messenger/${chatId}`);
                 } else {
                   sendMsg();
-                  setCursor("");
-                  await getMessages("");
-                  getUserChatsWithTimer(lastDate);
                 }
               }
             }}
@@ -369,9 +301,6 @@ const Chats = ({ chatId, user_id }) => {
                   router.push(`/messenger/${chatId}`);
                 } else {
                   sendMsg();
-                  setCursor("");
-                  await getMessages("");
-                  getUserChatsWithTimer(lastDate);
                 }
               }
             }}
@@ -384,7 +313,7 @@ const Chats = ({ chatId, user_id }) => {
                 wrapperStyle={{}}
                 wrapperClass=""
                 visible={true}
-                ariaLabel="oval-loading"
+                ariaLabel="oval-loadingMessages"
                 secondaryColor="rgba(255, 255, 255, 0.3)"
                 strokeWidth={5}
                 strokeWidthSecondary={5}
@@ -399,4 +328,4 @@ const Chats = ({ chatId, user_id }) => {
   );
 };
 
-export default Chats;
+export default ChatsPanel;

@@ -1,15 +1,12 @@
 "use client";
 
-import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
-import MesContextWrap from "../../components/messenger/MesContextWrap";
-import ChatsList from "../../components/messenger/ChatsList";
+import MessengerContextWrap from "components/messenger/MessengerContextWrap";
+import ListOfChats from "../../components/messenger/ListOfChats";
 
-const TestLayout = ({ children }) => {
+const MessengerLayout = ({ children }) => {
   const pathname = usePathname();
-  const searchParams = useParams();
-
-  const chatId = searchParams.chatId;
 
   return (
     <div
@@ -21,12 +18,12 @@ const TestLayout = ({ children }) => {
         "[@media(pointer:coarse)]:mt-[57px] [@media(pointer:coarse)]:pb-[143px]"
       } [@media(pointer:coarse)]:overflow-y-hidden h-full flex-row gap-[16px] w-full`}
     >
-      <MesContextWrap chatId={chatId}>
-        <ChatsList />
+      <MessengerContextWrap>
+        <ListOfChats />
         {children}
-      </MesContextWrap>
+      </MessengerContextWrap>
     </div>
   );
 };
 
-export default TestLayout;
+export default MessengerLayout;

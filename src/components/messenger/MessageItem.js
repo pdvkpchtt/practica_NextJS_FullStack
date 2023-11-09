@@ -22,7 +22,8 @@ const MessageItem = ({ item, style, last = false }) => {
             alt="person image"
             height={30}
             width={30}
-            className={`h-[30px] w-[30px] rounded-[12px] [@media(pointer:coarse)]:hidden`}
+            quality={100}
+            className={`h-[30px] w-[30px] object-cover rounded-[12px] [@media(pointer:coarse)]:hidden`}
           />
         ) : (
           <EmptyAvatar thirty />
@@ -40,7 +41,7 @@ const MessageItem = ({ item, style, last = false }) => {
         style="font-normal text-[14px] select-none flex flex-row items-center leading-[16.8px] tracking-[-0.013em] h-full"
       />
 
-      {item.unRead && (
+      {item.unRead && item.myMessage && (
         <div className="bg-[#5875e8] rounded-full min-[12px] max-h-[12px] h-[12px] w-[12px] min-w-[12px] max-w-[12px]" />
       )}
     </div>

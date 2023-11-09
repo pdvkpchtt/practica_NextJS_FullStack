@@ -32,14 +32,14 @@ const updateMessages = async (chatId, userId, lastDate, searchInput) => {
   });
 
   // unread
-  const notUnread = await prisma.message.updateMany({
-    data: {
-      unRead: false,
-    },
-    where: {
-      AND: [{ chatId: chatId }, { User: { id: !userId } }],
-    },
-  });
+  // const notUnread = await prisma.message.updateMany({
+  //   data: {
+  //     unRead: false,
+  //   },
+  //   where: {
+  //     AND: [{ chatId: chatId }, { User: { id: !userId } }],
+  //   },
+  // });
   // unread
 
   const hasNextPage = data.length > 20;
