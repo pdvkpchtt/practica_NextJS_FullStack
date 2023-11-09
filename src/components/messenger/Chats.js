@@ -183,7 +183,11 @@ const Chats = ({ chatId, user_id }) => {
           </div>
         ) : dataState?.length === 0 ? (
           <TextSecondary
-            text={"Нет сообщений"}
+            text={
+              pathname.includes("/preview")
+                ? "Здесь пока ничего нет"
+                : "Нет сообщений"
+            }
             style={"h-full w-full flex justify-center items-center select-none"}
           />
         ) : (

@@ -8,7 +8,7 @@ import TextMain from "../../shared/Text/TextMain ";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 
-const MessageItem = ({ item, style, last = false, image }) => {
+const MessageItem = ({ item, style, last = false }) => {
   return (
     <div
       className={`${style} flex items-center ${
@@ -39,6 +39,10 @@ const MessageItem = ({ item, style, last = false, image }) => {
         text={dayjs(item.createdAt).format("HH:mm")}
         style="font-normal text-[14px] select-none flex flex-row items-center leading-[16.8px] tracking-[-0.013em] h-full"
       />
+
+      {item.unRead && (
+        <div className="bg-[#5875e8] rounded-full min-[12px] max-h-[12px] h-[12px] w-[12px] min-w-[12px] max-w-[12px]" />
+      )}
     </div>
   );
 };

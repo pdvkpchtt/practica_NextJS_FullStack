@@ -32,6 +32,17 @@ const getMessages = async (chatId, userId, cursor, searchInput) => {
     },
   });
 
+  // unread
+  const notUnread = await prisma.message.updateMany({
+    data: {
+      unRead: false,
+    },
+    where: {
+      AND: [{ chatId: chatId }, { User: { id: !userId } }],
+    },
+  });
+  // unread
+
   const hasNextPage = data.length > 20;
   let slicedPosts = data;
   if (data.length > 20) {
