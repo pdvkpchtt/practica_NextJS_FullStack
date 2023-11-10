@@ -4,6 +4,7 @@ import { useParams, usePathname, useSearchParams } from "next/navigation";
 
 import MesContextWrap from "../../components/messenger/MesContextWrap";
 import ChatsList from "../../components/messenger/ChatsList";
+import { useEffect } from "react";
 
 const TestLayout = ({ children }) => {
   const pathname = usePathname();

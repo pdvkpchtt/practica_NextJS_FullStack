@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 import { fetchMessages } from "../../server/actions/messenger/fetchMessages";
 import { fetchChats } from "../../server/actions/messenger/fetchChats";
@@ -9,6 +10,8 @@ import sendMessage from "../../server/actions/messenger/sendMessage";
 export const MesContext = createContext();
 
 const MesContextWrap = ({ children, chatId }) => {
+  const pathname = usePathname();
+
   console.log(chatId, "jop");
   const [cursor, setCursor] = useState(""); // ChatsList
   const [lastDate, setLastDate] = useState(""); // ChatsList

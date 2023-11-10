@@ -14,7 +14,8 @@ const BottomNav = ({ role }) => {
     pathname.includes("/auth") ||
     pathname.includes("/edit") ||
     pathname.includes("/companyprofile/createvacancy") ||
-    pathname.includes("/messenger/");
+    pathname.includes("/messenger/") ||
+    pathname === "/landing";
 
   return (
     <>

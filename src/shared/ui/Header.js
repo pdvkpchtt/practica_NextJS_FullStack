@@ -12,7 +12,7 @@ const Header = ({ role }) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const isHideHeader = pathname.includes("/auth");
+  const isHideHeader = pathname.includes("/auth") || pathname === "/landing";
 
   if (!isHideHeader)
     return (
