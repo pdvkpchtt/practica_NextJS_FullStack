@@ -43,24 +43,26 @@ import { MesContext } from "./MesContextWrap";
 
 const ChatsPanel = ({ user_id }) => {
   const {
+    // Messages
     chatId,
-    input, // Messages
-    setInput, // Messages
-    wait, // Messages
-    setWait, // Messages
-    searchInput, // Messages
-    setSearchInput, // Messages
-    loadingMessages, // Messages
-    setLoadingMessages, // Messages
-    cursorMessages, // Messages
-    setCursorMessages, // Messages
-    hasNextPageMessages, // Messages
-    setHasNextPageMessages, // Messages
-    dataStateMessages, // Messages
-    setDataStateMessages, // Messages
-    lastDateMessages, // Messages
-    setLastDateMessages, // Messages
+    input,
+    setInput,
+    wait,
+    setWait,
+    searchInput,
+    setSearchInput,
+    loadingMessages,
+    setLoadingMessages,
+    cursorMessages,
+    setCursorMessages,
+    hasNextPageMessages,
+    setHasNextPageMessages,
+    dataStateMessages,
+    setDataStateMessages,
+    lastDateMessages,
+    setLastDateMessages,
     sendMsg,
+    // Messages
   } = useContext(MesContext);
 
   const pathname = usePathname();

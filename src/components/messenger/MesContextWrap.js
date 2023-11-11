@@ -73,8 +73,8 @@ const MesContextWrap = ({ children, chatId }) => {
     if (loadingMessages) return;
     setDataStateMessages(data?.data);
 
-    setCursorMessages(data?.cursorMessages);
-    setHasNextPageMessages(data?.hasNextPageMessages);
+    // setCursorMessages(data?.cursorMessages);
+    // setHasNextPageMessages(data?.hasNextPageMessages);
   };
   // -------------- messages
 
@@ -91,8 +91,8 @@ const MesContextWrap = ({ children, chatId }) => {
     if (loading) return;
     setChatsState(data?.data);
 
-    setCursor(data?.cursor);
-    setHasNextPage(data?.hasNextPage);
+    // setCursor(data?.cursor);
+    // setHasNextPage(data?.hasNextPage);
   };
 
   const getUserChats = async () => {
