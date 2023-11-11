@@ -9,20 +9,64 @@ import CustomLoader from "../../shared/ui/CustomLoader";
 import { MessengerSearchInput } from "../../shared/ui/Input";
 import MessageCart from "./MessageCart";
 import { MesContext } from "./MesContextWrap";
+import { fetchChats } from "../../server/actions/messenger/fetchChats";
 
 const ChatsList = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const {
-    hasNextPage,
-    loading,
-    chatsState,
-    searchInputValue,
-    setSearchInputValue,
-    getUserChats,
-    getUserChatsWithTimer,
-  } = useContext(MesContext);
+  const { currentChatCursor } = useContext(MesContext);
+
+  const [cursor, setCursor] = useState(""); // ChatsList
+  const [lastDate, setLastDate] = useState(""); // ChatsList
+  const [hasNextPage, setHasNextPage] = useState(true); // ChatsList
+  const [loading, setLoading] = useState(false); // ChatsList
+  const [chatsState, setChatsState] = useState(null); // ChatsList
+  const [searchInputValue, setSearchInputValue] = useState(""); // ChatsList
+
+  const getUserChatsWithTimer = async () => {
+    console.log("timer fetching");
+    if (loading) return;
+
+    console.log(lastDate);
+    const data = await fetchChats(lastDate, searchInputValue, true);
+    console.log("chats update", data);
+
+    if (loading) return;
+    setChatsState(data?.data);
+
+    // setCursor(data?.cursor);
+    // setHasNextPage(data?.hasNextPage);
+  };
+
+  const getUserChats = async () => {
+    console.log("fetching");
+    // if (loading) return;
+    setLoading(true);
+    const data = await fetchChats(cursor, searchInputValue, false);
+    console.log("client chats", data);
+    if (cursor?.length) {
+      setChatsState([...chatsState, ...data.data]);
+    } else {
+      setChatsState(data.data);
+    }
+    setCursor(data.cursor);
+    setHasNextPage(data.hasNextPage);
+    setLastDate(data.lastDate);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getUserChatsWithTimer();
+    const timer = setInterval(() => {
+      console.log("chat list timer");
+      getUserChatsWithTimer();
+    }, [5000]);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [currentChatCursor]);
 
   return (
     <>

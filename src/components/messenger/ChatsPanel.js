@@ -41,33 +41,87 @@ import TextMain from "../../shared/Text/TextMain ";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 import { MesContext } from "./MesContextWrap";
 
-const ChatsPanel = ({ user_id }) => {
-  const {
-    // Messages
-    chatId,
-    input,
-    setInput,
-    wait,
-    setWait,
-    searchInput,
-    setSearchInput,
-    loadingMessages,
-    setLoadingMessages,
-    cursorMessages,
-    setCursorMessages,
-    hasNextPageMessages,
-    setHasNextPageMessages,
-    dataStateMessages,
-    setDataStateMessages,
-    lastDateMessages,
-    setLastDateMessages,
-    sendMsg,
-    getMessages,
-    // Messages
-  } = useContext(MesContext);
+const ChatsPanel = ({ chatId, user_id }) => {
+  const { currentChatCursor, setCurrentChatCursor } = useContext(MesContext);
 
   const pathname = usePathname();
   const router = useRouter();
+
+  const [input, setInput] = useState(""); // Messages
+  const [wait, setWait] = useState(false); // Messages
+  const [searchInput, setSearchInput] = useState(""); // Messages
+  const [hasNextPageMessages, setHasNextPageMessages] = useState(true);
+  const [dataStateMessages, setDataStateMessages] = useState(null);
+  const [loadingMessages, setLoadingMessages] = useState(false);
+  const [lastDateMessages, setLastDateMessages] = useState("");
+
+  // -------------- messages
+  const getMessages = async () => {
+    console.log("fetching");
+    // if (loadingMessages) return;
+    setLoadingMessages(true);
+    const data = await fetchMessages(
+      chatId,
+      currentChatCursor,
+      searchInput,
+      false
+    );
+    console.log("client messages", data);
+    if (currentChatCursor?.length) {
+      setDataStateMessages([...dataStateMessages, ...data.data]);
+    } else {
+      setDataStateMessages(data.data);
+    }
+    setCurrentChatCursor(data.cursor);
+    setHasNextPageMessages(data.hasNextPage);
+    setLastDateMessages(data.lastDate);
+    setLoadingMessages(false);
+  };
+
+  // with timer
+  const getUserMessengerWithTimer = async () => {
+    console.log("timer messages");
+    if (loadingMessages) return;
+
+    console.log(lastDateMessages);
+    const data = await fetchMessages(
+      chatId,
+      lastDateMessages,
+      searchInput,
+      true
+    );
+    console.log("messenges update", data);
+    if (loadingMessages) return;
+    setDataStateMessages(data?.data);
+
+    // setCursorMessages(data?.cursorMessages);
+    // setHasNextPageMessages(data?.hasNextPageMessages);
+  };
+  // -------------- messages
+
+  const sendMsg = async () => {
+    if (input.length !== 0) {
+      setWait(true);
+      console.log(input);
+      await sendMessage(input, chatId);
+      setInput("");
+      setCurrentChatCursor("");
+      await getMessages("");
+      setWait(false);
+    }
+  };
+
+  useEffect(() => {
+    getUserMessengerWithTimer();
+    const timer = setInterval(() => {
+      console.log("messages list timer");
+      getUserMessengerWithTimer();
+    }, [5000]);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [currentChatCursor]);
 
   if (chatId === undefined || chatId === null)
     return (

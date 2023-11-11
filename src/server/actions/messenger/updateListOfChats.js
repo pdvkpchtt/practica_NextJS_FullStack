@@ -1,6 +1,6 @@
 import { prisma } from "../../db";
 
-export const updateListOfChats = async (id, lastDate) => {
+export const updateListOfChats = async (id, lastDate, searchInputValue) => {
   const chats = await prisma.chat.findMany({
     select: {
       id: true,
@@ -116,5 +116,14 @@ export const updateListOfChats = async (id, lastDate) => {
     }
   });
 
-  return { data: result };
+  return {
+    data:
+      searchInputValue.length === 0
+        ? result
+        : result.filter((i) =>
+            i.participants.find((i2) =>
+              i2.name.toLowerCase().includes(searchInputValue.toLowerCase())
+            )
+          ),
+  };
 };
