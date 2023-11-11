@@ -128,6 +128,7 @@ const MesContextWrap = ({ children, chatId }) => {
   const interval = useRef();
 
   useEffect(() => {
+    getUserChatsWithTimer();
     interval.current = setInterval(() => {
       console.log("test");
       getUserChatsWithTimer();
