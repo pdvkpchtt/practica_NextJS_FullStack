@@ -62,6 +62,7 @@ const ChatsPanel = ({ user_id }) => {
     lastDateMessages,
     setLastDateMessages,
     sendMsg,
+    getMessages,
     // Messages
   } = useContext(MesContext);
 

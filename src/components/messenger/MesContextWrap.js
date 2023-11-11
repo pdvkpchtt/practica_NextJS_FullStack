@@ -47,7 +47,7 @@ const MesContextWrap = ({ children, chatId }) => {
       setDataStateMessages(data.data);
     }
     setCursorMessages(data.cursorMessages);
-    setHasNextPageMessages(data.hasNextPageMessages);
+    setHasNextPageMessages(data.hasNextPage);
     setLastDate(data.lastDate);
     setLoadingMessages(false);
   };
