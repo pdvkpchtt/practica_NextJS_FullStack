@@ -11,7 +11,7 @@ const TestLayout = ({ children }) => {
   const searchParams = useParams();
 
   const chatId = searchParams.chatId;
-
+  console.log(chatId, "kotopes");
   return (
     <div
       className={`flex ${

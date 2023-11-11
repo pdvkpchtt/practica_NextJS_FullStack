@@ -57,7 +57,7 @@ const MessageCart = ({ item, onClick, active = false, last = false }) => {
         </div>
 
         <div className={`ml-[8px] my-auto`}>
-          {!item.isRead && item.recipientId == 1 ? (
+          {item.chatIsUnread && item.myMessageIsLast ? (
             <ChatReadStatus fill={"#5875e8"} />
           ) : null}
         </div>

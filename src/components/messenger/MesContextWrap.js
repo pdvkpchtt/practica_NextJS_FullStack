@@ -138,17 +138,16 @@ const MesContextWrap = ({ children, chatId }) => {
     return () => {
       clearInterval(interval.current);
     };
-  }, []);
+  }, [chatId]);
 
   useEffect(() => {
     console.log("test search messages");
     getMessages();
-  }, [searchInput]);
+  }, [searchInput, chatId]);
 
   useEffect(() => {
     getUserChats();
   }, [searchInputValue]);
-
   // -------------- list of chats
 
   return (
@@ -165,6 +164,7 @@ const MesContextWrap = ({ children, chatId }) => {
         // передаём в ChatsList
 
         // Messages
+        chatId,
         input,
         setInput,
         wait,

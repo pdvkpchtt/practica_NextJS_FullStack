@@ -5,7 +5,7 @@ const TestMessengerPage = () => {
   return (
     <>
       <ChatsEmpty />
-      <ChatInfo />
+      {/* <ChatInfo /> */}
     </>
   );
 };

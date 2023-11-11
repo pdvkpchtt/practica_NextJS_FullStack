@@ -32,6 +32,7 @@ const ListOfChats = () => {
     setCount,
     getUserChats,
     getUserChatsWithTimer,
+    getMessages,
   } = useContext(MessengerContext);
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const ListOfChats = () => {
     <>
       {/* list of chats */}
       <div
-        className={`w-[260px] [@media(hover)]:mt-[62px] h-full [@media(pointer:coarse)]:w-[100%] flex-col ${
+        className={`[@media(hover)]:min-w-[260px] [@media(hover)]:w-[260px] [@media(hover)]:mt-[62px] h-full [@media(pointer:coarse)]:w-[100%] flex-col ${
           pathname.includes("/messenger/") && "[@media(pointer:coarse)]:hidden"
         }`}
       >
@@ -114,7 +115,10 @@ const ListOfChats = () => {
                   // active={pathname.slice(11, -1) === item.id}
                   key={key}
                   item={item}
-                  onClick={() => router.push(`/messenger/${item.id}`)}
+                  onClick={() => {
+                    router.push(`/messenger/${item.id}`);
+                    getMessages();
+                  }}
                   // active={item.userid == activeChatId ? true : false}
                   last={key == chatsState.length - 1}
                 />
