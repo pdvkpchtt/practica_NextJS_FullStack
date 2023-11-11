@@ -40,6 +40,7 @@ import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 import TextMain from "../../shared/Text/TextMain ";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 import { MesContext } from "./MesContextWrap";
+import useInterval from "use-interval";
 
 const ChatsPanel = ({ chatId, user_id }) => {
   const { currentChatCursor, setCurrentChatCursor } = useContext(MesContext);
@@ -106,22 +107,24 @@ const ChatsPanel = ({ chatId, user_id }) => {
       await sendMessage(input, chatId);
       setInput("");
       setCurrentChatCursor("");
-      await getMessages("");
+      // await getMessages("");
       setWait(false);
     }
   };
 
-  useEffect(() => {
-    getUserMessengerWithTimer();
-    const timer = setInterval(() => {
-      console.log("messages list timer");
-      getUserMessengerWithTimer();
-    }, [5000]);
+  const [delay, setDelay] = useState(2000);
+  const [isRunning, setIsRunning] = useState(true);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, [currentChatCursor]);
+  useInterval(
+    () => {
+      getUserMessengerWithTimer();
+    },
+    isRunning ? delay : null
+  );
+
+  useEffect(() => {
+    getMessages();
+  }, []);
 
   if (chatId === undefined || chatId === null)
     return (

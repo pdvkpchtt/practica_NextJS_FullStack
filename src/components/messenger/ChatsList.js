@@ -10,6 +10,7 @@ import { MessengerSearchInput } from "../../shared/ui/Input";
 import MessageCart from "./MessageCart";
 import { MesContext } from "./MesContextWrap";
 import { fetchChats } from "../../server/actions/messenger/fetchChats";
+import useInterval from "use-interval";
 
 const ChatsList = () => {
   const router = useRouter();
@@ -56,17 +57,34 @@ const ChatsList = () => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    getUserChatsWithTimer();
-    const timer = setInterval(() => {
-      console.log("chat list timer");
-      getUserChatsWithTimer();
-    }, [5000]);
+  const [delay, setDelay] = useState(2000);
+  const [isRunning, setIsRunning] = useState(true);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, [currentChatCursor]);
+  useInterval(
+    () => {
+      getUserChatsWithTimer();
+    },
+    isRunning ? delay : null
+  );
+
+  useEffect(() => {
+    getUserChats();
+  }, []);
+
+  // useEffect(() => {
+  //   //getUserChatsWithTimer();
+  //   if (!chatsState) {
+  //     getUserChats();
+  //   }
+  //   const timer = setInterval(() => {
+  //     console.log("chat list timer");
+  //     getUserChatsWithTimer();
+  //   }, [5000]);
+
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // }, [currentChatCursor]);
 
   return (
     <>
