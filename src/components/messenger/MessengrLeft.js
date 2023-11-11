@@ -45,11 +45,8 @@ import CheckIcon from "../../shared/icons/CheckIcon";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 
-const MessengrLeft = ({ navState, chatId, user_id }) => {
+const MessengrLeft = ({ profileData, chatId, user_id }) => {
   const router = useRouter();
-
-  const { pitchesState, superpitchesState, getUserChatsWithTimer } =
-    useContext(MessengerContext);
 
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
@@ -73,13 +70,9 @@ const MessengrLeft = ({ navState, chatId, user_id }) => {
   };
   const [profileData, setProfileData] = useState(null);
 
-  const getUserInfoHandler = async () => {
-    setProfileData(await getProfileByChatId(user_id, chatId));
-  };
-
   useEffect(() => {
     allChecks();
-  }, [getUserChatsWithTimer]);
+  }, []);
 
   // here we are getting pitches count
   const getNoun = (dig) => {

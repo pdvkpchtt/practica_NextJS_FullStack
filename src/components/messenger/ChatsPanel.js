@@ -43,10 +43,11 @@ import { MesContext } from "./MesContextWrap";
 import useInterval from "use-interval";
 
 const ChatsPanel = ({ chatId, user_id }) => {
-  const { currentChatCursor, setCurrentChatCursor } = useContext(MesContext);
+  // const { currentChatCursor, setCurrentChatCursor } = useContext(MesContext);
 
   const pathname = usePathname();
   const router = useRouter();
+  const [currentChatCursor, setCurrentChatCursor] = useState("");
 
   const [input, setInput] = useState(""); // Messages
   const [wait, setWait] = useState(false); // Messages

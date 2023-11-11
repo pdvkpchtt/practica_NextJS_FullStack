@@ -20,23 +20,6 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         city: true,
         views: true,
         birthDate: true,
-        Education: {
-          select: {
-            id: true,
-            name: true,
-            degree: true,
-          },
-        },
-        educationLevel: true,
-        WorkExperience: {
-          select: {
-            id: true,
-            organization: true,
-            post: true,
-            start_date: true,
-            end_date: true,
-          },
-        },
         Company: {
           select: {
             name: true,
@@ -46,17 +29,6 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
             country: true,
             city: true,
             direction: true,
-          },
-        },
-        UserSkills: {
-          select: {
-            skill: {
-              select: {
-                id: true,
-                name: true,
-                type: true,
-              },
-            },
           },
         },
         _count: {
@@ -71,7 +43,6 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         },
         ISendRequest: true,
         IGetRequest: true,
-        UpdatesToMe: true,
       },
       // include: {
       //   Education: true,
@@ -116,24 +87,6 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         city: user.city,
         views: JSON.stringify(user.views),
         birthDate: user.birthDate,
-        education: user.Education.map((education) => ({
-          id: education.id,
-          name: education.name,
-          degree: education.degree,
-        })),
-        educationLevel: user.educationLevel,
-        workExperience: user.WorkExperience.map((workExperience) => ({
-          id: workExperience.id,
-          organization: workExperience.organization,
-          post: workExperience.post,
-          start_date: workExperience.start_date,
-          end_date: workExperience.end_date,
-        })),
-        UserSkills: user.UserSkills.map((userSkill) => ({
-          id: userSkill.skill.id,
-          name: userSkill.skill.name,
-          type: userSkill.skill.type,
-        })),
         connections: user._count.connections,
         connectionsArr: user.connections,
         ISendRequest: user.ISendRequest,
@@ -171,24 +124,6 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         city: user.city,
         views: JSON.stringify(user.views),
         birthDate: user.birthDate,
-        education: user.Education.map((education) => ({
-          id: education.id,
-          name: education.name,
-          degree: education.degree,
-        })),
-        educationLevel: user.educationLevel,
-        workExperience: user.WorkExperience.map((workExperience) => ({
-          id: workExperience.id,
-          organization: workExperience.organization,
-          post: workExperience.post,
-          start_date: workExperience.start_date,
-          end_date: workExperience.end_date,
-        })),
-        UserSkills: user.UserSkills.map((userSkill) => ({
-          id: userSkill.skill.id,
-          name: userSkill.skill.name,
-          type: userSkill.skill.type,
-        })),
         connections: user._count.connections,
         connectionsArr: user.connections,
         ISendRequest: user.ISendRequest,
@@ -202,7 +137,6 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
           city: user?.Company?.city,
           direction: user?.Company?.direction,
         },
-        UpdatesToMe: user?.UpdatesToMe,
         isFirstCircle: user.connections.find((i) => i.id === session.user.id),
         isSecondCircle: user.connections
           .map((i2) => i2.connections.map((i) => i.id === session.user.id))
@@ -228,23 +162,6 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
             city: true,
             views: true,
             birthDate: true,
-            Education: {
-              select: {
-                id: true,
-                name: true,
-                degree: true,
-              },
-            },
-            educationLevel: true,
-            WorkExperience: {
-              select: {
-                id: true,
-                organization: true,
-                post: true,
-                start_date: true,
-                end_date: true,
-              },
-            },
             Company: {
               select: {
                 name: true,
@@ -254,17 +171,6 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
                 country: true,
                 city: true,
                 direction: true,
-              },
-            },
-            UserSkills: {
-              select: {
-                skill: {
-                  select: {
-                    id: true,
-                    name: true,
-                    type: true,
-                  },
-                },
               },
             },
             _count: {

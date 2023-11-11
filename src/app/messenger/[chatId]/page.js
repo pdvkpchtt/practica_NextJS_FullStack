@@ -1,3 +1,4 @@
+import ChatParent from "../../../components/messenger/ChatParent";
 import ChatsPanel from "../../../components/messenger/ChatsPanel";
 
 const TestChatPage = async ({ params: { chatId }, searchParams }) => {
@@ -5,12 +6,7 @@ const TestChatPage = async ({ params: { chatId }, searchParams }) => {
 
   return (
     <>
-      <ChatsPanel chatId={chatId} user_id={user_id} />
-      {/* <MessengrLeft
-        chatId={chatId}
-        user_id={user_id}
-        // profileData={profileData}
-      /> */}
+      <ChatParent chatId={chatId} user_id={user_id} />
     </>
   );
 };
