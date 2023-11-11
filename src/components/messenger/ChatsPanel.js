@@ -100,7 +100,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
   // -------------- messages
 
   const sendMsg = async () => {
-    if (input.length !== 0) {
+    if (input.length !== 0 && !wait) {
       setWait(true);
       console.log(input);
       await sendMessage(input, chatId);
