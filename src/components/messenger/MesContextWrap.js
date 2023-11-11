@@ -119,10 +119,9 @@ const MesContextWrap = ({ children, chatId }) => {
       console.log(input);
       await sendMessage(input, chatId);
       setInput("");
-      setWait(false);
       setCursorMessages("");
-      getMessages("");
-      getUserChatsWithTimer();
+      await getMessages("");
+      setWait(false);
     }
   };
 
@@ -138,7 +137,7 @@ const MesContextWrap = ({ children, chatId }) => {
     return () => {
       clearInterval(interval.current);
     };
-  }, [chatId]);
+  }, [chatId, cursorMessages]);
 
   useEffect(() => {
     console.log("test search messages");
