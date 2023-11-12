@@ -110,12 +110,12 @@ const Left = ({ navState, data }) => {
           style="[@media(hover)]:max-w-[260px] w-full flex flex-col gap-[12px]"
           padding={12}
         >
-          <div className="rounded-[8px] overflow-hidden aspect-square [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
+          <div className="rounded-[8px] overflow-hidden aspect-square object-cover [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
             {data.image ? (
               <Image
                 src={data.image}
                 alt="Profile photo"
-                className="[@media(hover)]:min-w-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px] [@media(hover)]:min-h-[236px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full"
+                className="[@media(hover)]:min-w-[236px] aspect-square object-cover [@media(hover)]:w-[236px] [@media(hover)]:h-[236px] [@media(hover)]:min-h-[236px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full"
                 width={236}
                 height={236}
                 quality={100}
@@ -142,20 +142,26 @@ const Left = ({ navState, data }) => {
 
             {/* location and birth date */}
             <div className="flex flex-col">
-              {(location[0] != null || location[1] != null) &&
-              (location[0] != undefined || location[1] != undefined) ? (
+              {(data.city === null && data.country === null) ||
+              (data.city?.length === 0 && data.country?.length === 0) ? null : (
                 <div className="flex flex-row gap-[8px] mt-[12px]">
                   <LocationIcon />
                   <TextSecondary
-                    text={
-                      data.city != null && data.country != null
-                        ? location.join(", ")
-                        : location
-                    }
+                    text={location.map((i, key) =>
+                      !i
+                        ? ""
+                        : `${i}${
+                            location[key + 1] === null ||
+                            location[key + 1]?.length === 0 ||
+                            key === location.length - 1
+                              ? ""
+                              : ", "
+                          }`
+                    )}
                     style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                   />
                 </div>
-              ) : null}
+              )}
 
               {data.birthDate && (
                 <div className="flex flex-row gap-[8px] mt-[12px]">

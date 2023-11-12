@@ -5,6 +5,7 @@ import useInterval from "use-interval";
 
 import { getProfileByChatId } from "../../server/actions/messenger/getProfileByChatId";
 import ChatsPanel from "./ChatsPanel";
+import MessengerRight from "./MessengerRight";
 
 const ChatParent = ({ chatId, user_id }) => {
   const [profileData, setProfileData] = useState(null);
@@ -33,11 +34,7 @@ const ChatParent = ({ chatId, user_id }) => {
   return (
     <>
       <ChatsPanel chatId={chatId} user_id={user_id} />
-      {/* <MessengrLeft
-        chatId={chatId}
-        user_id={user_id}
-        profileData={profileData}
-      /> */}
+      <MessengerRight profileData={profileData} />
     </>
   );
 };

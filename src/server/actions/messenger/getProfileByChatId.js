@@ -43,6 +43,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         },
         ISendRequest: true,
         IGetRequest: true,
+        plan: true,
       },
       // include: {
       //   Education: true,
@@ -91,6 +92,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         connectionsArr: user.connections,
         ISendRequest: user.ISendRequest,
         IGetRequest: user.IGetRequest,
+        plan: user.plan,
         Company: {
           name: user?.Company?.name,
           username: user?.Company?.username,
@@ -107,6 +109,24 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
           .map((i2) => i2.connections.map((i) => i.id === session.user.id))
           .map((i) => i.find((i2) => i2 === true)),
         isThirdCircle: arr2.find((i) => i.id === session.user.id),
+
+        requestStatus:
+          user?.IGetRequest?.find(
+            (item) => item.userSendId === session?.user?.id
+          ) !== undefined
+            ? true
+            : false,
+        friendStatus:
+          user?.connections?.find((item) => item.id === session.user.id) !==
+          undefined
+            ? true
+            : false,
+        ifHeSentRequest:
+          user?.ISendRequest?.find(
+            (item) => item.userGetId === session.user.id
+          ) !== undefined
+            ? true
+            : false,
       };
     } else {
       const arr2 = [];
@@ -126,6 +146,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         birthDate: user.birthDate,
         connections: user._count.connections,
         connectionsArr: user.connections,
+        plan: user.plan,
         ISendRequest: user.ISendRequest,
         IGetRequest: user.IGetRequest,
         Company: {
@@ -141,9 +162,25 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         isSecondCircle: user.connections
           .map((i2) => i2.connections.map((i) => i.id === session.user.id))
           .map((i) => i.find((i2) => i2 === true)),
-        // isThirdCircle: user.connections
-        //   .map((i) => i.connections.map((i2) => i2.connections.find(i3 => i3.connections.)))
         isThirdCircle: arr2.find((i) => i.id === session.user.id),
+
+        requestStatus:
+          user?.IGetRequest?.find(
+            (item) => item.userSendId === session?.user?.id
+          ) !== undefined
+            ? true
+            : false,
+        friendStatus:
+          user?.connections?.find((item) => item.id === session.user.id) !==
+          undefined
+            ? true
+            : false,
+        ifHeSentRequest:
+          user?.ISendRequest?.find(
+            (item) => item.userGetId === session.user.id
+          ) !== undefined
+            ? true
+            : false,
       };
     }
   } else {
@@ -162,6 +199,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
             city: true,
             views: true,
             birthDate: true,
+            plan: true,
             Company: {
               select: {
                 name: true,
@@ -227,6 +265,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         country: user?.participants[0].country,
         city: user?.participants[0].city,
         views: JSON.stringify(user?.participants[0].views),
+        plan: user.participants[0].plan,
         birthDate: user?.participants[0].birthDate,
         connections: user?.participants[0]._count.connections,
         connectionsArr: user?.participants[0].connections,
@@ -250,6 +289,25 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
           .map((i2) => i2.connections.map((i) => i.id === session.user.id))
           .map((i) => i.find((i2) => i2 === true)),
         isThirdCircle: arr2.find((i) => i.id === session.user.id),
+
+        requestStatus:
+          user?.participants[0].IGetRequest?.find(
+            (item) => item.userSendId === session?.user?.id
+          ) !== undefined
+            ? true
+            : false,
+        friendStatus:
+          user?.participants[0].connections?.find(
+            (item) => item.id === session.user.id
+          ) !== undefined
+            ? true
+            : false,
+        ifHeSentRequest:
+          user?.participants[0].ISendRequest?.find(
+            (item) => item.userGetId === session.user.id
+          ) !== undefined
+            ? true
+            : false,
       };
     } else {
       const arr2 = [];
@@ -290,6 +348,25 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         // isThirdCircle: user.connections
         //   .map((i) => i.connections.map((i2) => i2.connections.find(i3 => i3.connections.)))
         isThirdCircle: arr2.find((i) => i.id === session.user.id),
+
+        requestStatus:
+          user?.participants[0].IGetRequest?.find(
+            (item) => item.userSendId === session?.user?.id
+          ) !== undefined
+            ? true
+            : false,
+        friendStatus:
+          user?.participants[0].connections?.find(
+            (item) => item.id === session.user.id
+          ) !== undefined
+            ? true
+            : false,
+        ifHeSentRequest:
+          user?.participants[0].ISendRequest?.find(
+            (item) => item.userGetId === session.user.id
+          ) !== undefined
+            ? true
+            : false,
       };
     }
   }

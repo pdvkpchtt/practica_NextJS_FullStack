@@ -23,7 +23,7 @@ const MessageItem = ({ item, style, last = false }) => {
             height={30}
             width={30}
             quality={100}
-            className={`h-[30px] w-[30px] object-cover rounded-[12px] [@media(pointer:coarse)]:hidden`}
+            className={`h-[30px] w-[30px] select-none object-cover rounded-[12px] [@media(pointer:coarse)]:hidden`}
           />
         ) : (
           <EmptyAvatar thirty />

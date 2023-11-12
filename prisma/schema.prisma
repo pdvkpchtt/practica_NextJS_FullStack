@@ -41,16 +41,6 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-model Plan {
-  id                String @id @default(cuid())
-  name              String
-  pitchesCount      Int
-  superPitchesCount Int
-  contacts          Int    @default(0)
-  durationDays      Int    @default(0)
-  price             Int    @default(0)
-}
-
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
@@ -66,8 +56,8 @@ model User {
   birthDate      String?
   email          String?          @unique
   emailVerified  DateTime?
-  phone          String?          
-  phoneVerified  DateTime?        
+  phone          String?
+  phoneVerified  DateTime?
   image          String?
   accounts       Account[]
   sessions       Session[]
@@ -94,8 +84,8 @@ model User {
   IGetRequest  FriendRequests[] @relation("IGetRequest")
   ISendRequest FriendRequests[] @relation("ISendRequest")
 
-  PremiumMessageGet  PremiumMessage[] @relation("PremiumMessageGet")
-  PremiumMessageSent PremiumMessage[] @relation("PremiumMessageSent")
+  // PremiumMessageGet  PremiumMessage[] @relation("PremiumMessageGet")
+  // PremiumMessageSent PremiumMessage[] @relation("PremiumMessageSent")
 
   UpdatesToMe    Updates[] @relation("UpdatesToMe")
   UpdatesFromWho Updates[] @relation("UpdatesFromWho")
@@ -115,6 +105,20 @@ model User {
   extraSuperPitches Int            @default(0)
   VacancyReply      VacancyReply[]
   File              File[]
+
+  planId String?
+  plan   Plan?   @relation(fields: [planId], references: [id])
+}
+
+model Plan {
+  id                String @id @default(cuid())
+  name              String
+  pitchesCount      Int
+  superPitchesCount Int
+  contacts          Int    @default(0)
+  durationDays      Int    @default(0)
+  price             Int    @default(0)
+  User              User[]
 }
 
 model VacancyReply {
@@ -124,29 +128,29 @@ model VacancyReply {
   message   String?
   // file      File[]
   userId    String
-  link String?
+  link      String?
   vacancyId String
 }
 
 model File {
-  id             String        @id @default(cuid())
-  user           User          @relation(fields: [userId], references: [id])
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
   // vacancyReply   VacancyReply? @relation(fields: [vacancyReplyId], references: [id])
-  path           String
-  name           String
-  userId         String
+  path   String
+  name   String
+  userId String
   // vacancyReplyId String?
 }
 
-model PremiumMessage {
-  id         String   @id @default(cuid())
-  type       String
-  userGetId  String
-  userGet    User     @relation("PremiumMessageGet", fields: [userGetId], references: [id], onDelete: Cascade)
-  userSendId String
-  userSend   User     @relation("PremiumMessageSent", fields: [userSendId], references: [id], onDelete: Cascade)
-  createdAt  DateTime @default(now())
-}
+// model PremiumMessage {
+//   id         String   @id @default(cuid())
+//   type       String
+//   userGetId  String
+//   userGet    User     @relation("PremiumMessageGet", fields: [userGetId], references: [id], onDelete: Cascade)
+//   userSendId String
+//   userSend   User     @relation("PremiumMessageSent", fields: [userSendId], references: [id], onDelete: Cascade)
+//   createdAt  DateTime @default(now())
+// }
 
 model Hr {
   id           String    @id @default(cuid())

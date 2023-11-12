@@ -37,17 +37,23 @@ const PeopleCard = ({ item }) => {
             style="font-medium text-[16px] cursor-pointer leading-[19.2px] tracking-[-0.015em]"
             onClick={() => router.push(`/profile/${item.username || item.id}`)}
           />
-          {(location[0] != null || location[1] != null) &&
-          (location[0] != undefined || location[1] != undefined) ? (
+          {(item.city === null && item.country === null) ||
+          (item.city?.length === 0 && item.country?.length === 0) ? null : (
             <TextSecondary
-              text={
-                item.city != null && item.country != null
-                  ? location.join(", ")
-                  : location
-              }
-              style="font-medium text-[14px] leading-[18px] tracking-[-0.013em]"
+              text={location.map((i, key) =>
+                !i
+                  ? ""
+                  : `${i}${
+                      location[key + 1] === null ||
+                      location[key + 1]?.length === 0 ||
+                      key === location.length - 1
+                        ? ""
+                        : ", "
+                    }`
+              )}
+              style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
             />
-          ) : null}
+          )}
         </div>
       </div>
       {/* image name time */}
