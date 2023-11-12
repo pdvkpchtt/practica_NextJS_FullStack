@@ -31,7 +31,7 @@ const MessageCart = ({ item, onClick, active = false, last = false }) => {
           {item.chatImage ? (
             <Image
               src={item.chatImage}
-              className="object-cover h-[67px] min-h-[67px] max-h-[67px]"
+              className="object-cover select-none h-[67px] min-h-[67px] max-h-[67px]"
               alt="Profile photo"
               width={67}
               height={67}

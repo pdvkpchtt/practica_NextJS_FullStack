@@ -81,7 +81,7 @@ const OthersLeft = ({ navState, data }) => {
     allChecks();
   }, []);
 
-  const location = [data.city, data.contry];
+  const location = [data.city, data.country];
 
   // here we are getting pitches count
   const getNoun = (dig) => {
@@ -136,12 +136,12 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
           style="[@media(hover)]:max-w-[260px] w-full flex flex-col gap-[12px]"
           padding={12}
         >
-          <div className="rounded-[8px] overflow-hidden object-cover aspect-square [@media(pointer:coarse)]:w-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
+          <div className="rounded-[8px] overflow-hidden  aspect-square [@media(pointer:coarse)]:w-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
             {data.image ? (
               <Image
                 src={data.image}
                 alt="Profile photo"
-                className="object-cover aspect-square [@media(hover)]:min-w-[236px] [@media(hover)]:w-[236px] [@media(hover)]:h-[236px] [@media(hover)]:min-h-[236px]  [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full"
+                className="object-cover [@media(hover)]:min-w-[236px] [@media(hover)]:w-[236px] [@media(hover)]:h-[236px] [@media(hover)]:min-h-[236px]  [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full"
                 width={236}
                 height={236}
                 quality={100}

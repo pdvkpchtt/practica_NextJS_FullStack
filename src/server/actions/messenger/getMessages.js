@@ -1,6 +1,23 @@
 import { prisma } from "../../db";
+import { checkCircles } from "./checkCircles";
 
 const getMessages = async (chatId, userId, cursor, searchInput) => {
+  const circle = await checkCircles(null, chatId);
+
+  var d = new Date();
+  d.setDate(d.getDate() - 4);
+
+  const check = await prisma.message.findFirst({
+    where: {
+      AND: [
+        { chatId: chatId },
+        { type: circle.circle },
+        { createdAt: { gte: new Date(d.toString()).toISOString() } },
+      ],
+    },
+    select: { id: true, type: true },
+  });
+
   const data = await prisma.message.findMany({
     take: 21,
     ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
@@ -83,6 +100,8 @@ const getMessages = async (chatId, userId, cursor, searchInput) => {
     hasNextPage: hasNextPage,
     cursor: newCursor,
     lastDate,
+    check: check,
+    circle: circle.circle,
   };
 };
 

@@ -50,23 +50,4 @@ export const addConnection = async (userConnectId) => {
       ],
     },
   });
-
-  await prisma.PremiumMessage.deleteMany({
-    where: {
-      OR: [
-        {
-          AND: [
-            { userGetId: { equals: session?.user?.id } },
-            { userSendId: { equals: userConnectId } },
-          ],
-        },
-        {
-          AND: [
-            { userGetId: { equals: userConnectId } },
-            { userSendId: { equals: session?.user?.id } },
-          ],
-        },
-      ],
-    },
-  });
 };

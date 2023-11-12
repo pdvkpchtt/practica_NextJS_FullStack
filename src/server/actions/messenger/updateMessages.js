@@ -1,6 +1,23 @@
 import { prisma } from "../../db";
+import { checkCircles } from "./checkCircles";
 
 const updateMessages = async (chatId, userId, lastDate, searchInput) => {
+  const circle = await checkCircles(null, chatId);
+
+  var d = new Date();
+  d.setDate(d.getDate() - 4);
+
+  const check = await prisma.message.findFirst({
+    where: {
+      AND: [
+        { chatId: chatId },
+        { type: circle.circle },
+        { createdAt: { gte: new Date(d.toString()).toISOString() } },
+      ],
+    },
+    select: { id: true, type: true },
+  });
+
   const data = await prisma.message.findMany({
     select: {
       id: true,
@@ -59,6 +76,8 @@ const updateMessages = async (chatId, userId, lastDate, searchInput) => {
         myMessage: true,
         createdAt: item.createdAt,
         type: item.type,
+        check: check,
+        circle: circle.circle,
       };
     else
       return {
@@ -70,6 +89,8 @@ const updateMessages = async (chatId, userId, lastDate, searchInput) => {
         myMessage: false,
         createdAt: item.createdAt,
         type: item.type,
+        check: check,
+        circle: circle.circle,
       };
   });
 
@@ -77,7 +98,7 @@ const updateMessages = async (chatId, userId, lastDate, searchInput) => {
   const newCursor = lastPostInResults?.id || "";
   //const lastDate = lastPostInResults?.createdAt || "";
 
-  return { data: result };
+  return { data: result, check: check, circle: circle.circle };
 };
 
 export default updateMessages;

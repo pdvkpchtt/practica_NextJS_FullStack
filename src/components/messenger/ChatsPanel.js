@@ -41,6 +41,8 @@ import TextMain from "../../shared/Text/TextMain ";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 import { MesContext } from "./MesContextWrap";
 import useInterval from "use-interval";
+import PitchIcon from "../../shared/icons/PitchIcon";
+import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 
 const ChatsPanel = ({ chatId, user_id }) => {
   // const { currentChatCursor, setCurrentChatCursor } = useContext(MesContext);
@@ -56,6 +58,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
   const [dataStateMessages, setDataStateMessages] = useState(null);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [lastDateMessages, setLastDateMessages] = useState("");
+  const [circle, setCircle] = useState(null);
 
   // -------------- messages
   const getMessages = async () => {
@@ -74,6 +77,9 @@ const ChatsPanel = ({ chatId, user_id }) => {
     } else {
       setDataStateMessages(data.data);
     }
+    if (!data.check) setCircle(data.circle);
+    else setCircle("");
+    console.log(data, "fucking slave");
     setCurrentChatCursor(data.cursor);
     setHasNextPageMessages(data.hasNextPage);
     setLastDateMessages(data.lastDate);
@@ -92,6 +98,9 @@ const ChatsPanel = ({ chatId, user_id }) => {
       searchInput,
       true
     );
+    if (!data.check) setCircle(data.circle);
+    else setCircle("");
+    console.log(circle, "fucking slave");
     console.log("messenges update", data);
     if (loadingMessages) return;
     setDataStateMessages(data?.data);
@@ -307,7 +316,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
             }
           }}
         >
-          {wait ? (
+          {wait || !dataStateMessages ? (
             <Oval
               height={20}
               width={20}
@@ -320,6 +329,10 @@ const ChatsPanel = ({ chatId, user_id }) => {
               strokeWidth={5}
               strokeWidthSecondary={5}
             />
+          ) : circle === "pitch" ? (
+            <PitchIcon blue={false} white />
+          ) : circle === "superpitch" ? (
+            <SuperpitchIcon blue={false} white />
           ) : (
             <SendIcon />
           )}
@@ -374,7 +387,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
               }
             }}
           >
-            {wait ? (
+            {wait || !dataStateMessages ? (
               <Oval
                 height={20}
                 width={20}
@@ -387,6 +400,10 @@ const ChatsPanel = ({ chatId, user_id }) => {
                 strokeWidth={5}
                 strokeWidthSecondary={5}
               />
+            ) : circle === "pitch" ? (
+              <PitchIcon blue={false} white />
+            ) : circle === "superpitch" ? (
+              <SuperpitchIcon blue={false} white />
             ) : (
               <SendIcon />
             )}
