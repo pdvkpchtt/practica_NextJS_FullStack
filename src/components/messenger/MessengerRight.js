@@ -1,18 +1,43 @@
-import { useRouter } from "next/navigation";
+import { useMediaQuery } from "react-responsive";
+import { usePathname, useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import Image from "next/image";
+import "react-toastify/dist/ReactToastify.css";
 
-import TextMain from "../../shared/Text/TextMain ";
-import TextSecondary from "../../shared/Text/TextSecondary";
-import Card from "../../shared/ui/Card";
+import TextMain from "../..//shared/Text/TextMain ";
+import TextSecondary from "../..//shared/Text/TextSecondary";
+import { ButtonGhost } from "../..//shared/ui/Button";
+import Card from "../..//shared/ui/Card";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
+import { sendFriendRequest } from "../../server/actions/connections/sendFriendRequest";
+import { cancelFriendRequest } from "../../server/actions/connections/cancelFriendRequest";
+import { checkIfRequestSent } from "../../server/actions/connections/checkIfRequestSent";
+import { checkIfFriend } from "../../server/actions/connections/checkIfFriend";
+import { removeConnection } from "../../server/actions/connections/removeConnection";
+import { checkIfOtherSentRequest } from "../../server/actions/connections/checkIfOtherSentRequest";
+import { addConnection } from "../../server/actions/connections/addConnection";
 import CustomLoader from "../../shared/ui/CustomLoader";
-import { ButtonGhost } from "../../shared/ui/Button";
+import useWindowDimensions from "../../components/Profile/useWindowDimensions";
+import { chechIfChatExist } from "../../server/actions/messenger/chechIfChatExist";
+import ConnectionsModal from "../../components/Profile/ConnectionsModal";
+import { getProfileByChatId } from "../../server/actions/messenger/getProfileByChatId";
+import { MessengerContext } from "./MessengerContextWrap";
+import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 
 import CalendarIcon from "../../shared/icons/CalendarIcon";
 import LocationIcon from "../../shared/icons/LocationIcon";
+import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
+import PitchIcon from "../../shared/icons/PitchIcon";
+import AddFriendIcon from "../../shared/icons/AddFriendIcon";
+import ClockIcon from "../../shared/icons/ClockIcon";
+import MessengeIcon from "../../shared/icons/MessengeIcon";
+import CrossIcon from "../../shared/icons/CrossIcon";
+import CheckIcon from "../../shared/icons/CheckIcon";
 
-const MessengerRight = ({ profileData }) => {
+const MessengerRight = ({ profileData, pitchesState, superpitchesState }) => {
+  const pathname = usePathname();
   const router = useRouter();
+  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
   const getNoun = (dig) => {
     if (dig === 0 || dig >= 5 || dig % 10 === 0 || dig % 10 >= 5)
@@ -41,9 +66,9 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
         padding={12}
       >
         <div className="rounded-[8px] overflow-hidden aspect-square [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
-          {profileData.image ? (
+          {profileData?.image ? (
             <Image
-              src={profileData.image}
+              src={profileData?.image}
               alt="Profile photo"
               className="object-cover aspect-square [@media(hover)]:min-w-[236px] [@media(hover)]:w-[236px] [@media(hover)]:h-[236px] [@media(hover)]:min-h-[236px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full"
               width={236}
@@ -178,7 +203,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
       {/* hr */}
 
       {/* ёбка с питчами */}
-      {/* {profileData.isFirstCircle ? (
+      {profileData.isFirstCircle ? (
         <></>
       ) : profileData.isSecondCircle.find((i2) => i2 === true) ? (
         <div
@@ -238,7 +263,118 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
             </ButtonGhost>
           )}
         </div>
-      )} */}
+      )}
+
+      {/* тут кнопки все, которые будут, можешь потестить */}
+      {(!pathname.includes("/preview") || profileData.isFirstCircle) && (
+        <Card
+          style={`max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] flex flex-col gap-[8px] ${
+            false && "items-center"
+          }`}
+          padding={12}
+        >
+          {profileData.friendStatus &&
+            !profileData.ifHeSentRequest &&
+            !profileData.requestStatus && (
+              <ButtonGhost
+                text="Удалить из друзей"
+                onClick={async () => {
+                  await removeConnection(profileData.id);
+                  toast(`🦄 Пользователь удалён из друзей`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  router.refresh();
+                }}
+              >
+                <CrossIcon size={20} fill={"#5875e8"} hard={false} soft />
+              </ButtonGhost>
+            )}
+          {profileData.requestStatus &&
+            !profileData.ifHeSentRequest &&
+            !profileData.friendStatus && (
+              <ButtonGhost
+                text="Заявка на рассмотрении"
+                onClick={async () => {
+                  await cancelFriendRequest(profileData.id);
+                  toast(`🦄 Заявка в друзья отменена`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                }}
+              >
+                <ClockIcon fill={"#5875e8"} />
+              </ButtonGhost>
+            )}
+          {!profileData.requestStatus &&
+            !profileData.friendStatus &&
+            !profileData.ifHeSentRequest && (
+              <ButtonGhost
+                text="Подружиться"
+                onClick={async () => {
+                  await sendFriendRequest(profileData.id);
+                  toast(`🦄 Заявка в друзья отправлена`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  // router.refresh();
+                }}
+              >
+                <AddFriendIcon fill={"#5875e8"} />
+              </ButtonGhost>
+            )}
+          {profileData.ifHeSentRequest &&
+            !profileData.requestStatus &&
+            !profileData.friendStatus && (
+              <ButtonGhost
+                text="Принять заявку"
+                onClick={async () => {
+                  await addConnection(profileData.id);
+                  toast(`🦄 Заявка принята`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  router.refresh();
+                }}
+              >
+                <CheckIcon fill={"#5875e8"} />
+              </ButtonGhost>
+            )}
+        </Card>
+      )}
+      {/* тут кнопки все, которые будут, можешь потестить */}
     </div>
   );
 };

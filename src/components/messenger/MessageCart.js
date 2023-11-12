@@ -39,7 +39,7 @@ const MessageCart = ({ item, onClick, active = false, last = false }) => {
           ) : (
             <EmptyAvatar sixtySeven />
           )}
-          <div className="absolute bottom-0 left-0 bg-[#282828] bg-opacity-[80%] rounded-[8px] text-[#fff] font-medium text-[9px] leading-[15px] tracking-[-0.013em] px-[4px]">
+          <div className="absolute bottom-0 left-0 bg-[#282828] bg-opacity-[80%] select-none rounded-[8px] text-[#fff] font-medium text-[9px] leading-[15px] tracking-[-0.013em] px-[4px]">
             {dayjs(item.lastMessageCreatedAt).format("HH:mm")}
           </div>
         </div>

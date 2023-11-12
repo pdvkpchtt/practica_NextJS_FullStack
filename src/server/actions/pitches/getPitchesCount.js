@@ -7,13 +7,16 @@ import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 // лучше не передавать план в функцию, а тянуть его из юзера по session.user.id
 // надо хранить план юзера в юзере
 
-export const getPitchesCount = async (type = "pitch", plan = "standart") => {
+export const getPitchesCount = async (type = "pitch") => {
   const session = await getServSession();
+
+  const user = await prisma.user.findUnique({
+    where: { id: session?.user.id },
+    select: { planId: true },
+  });
 
   let lastDay = new Date(new Date().setHours(0, 0, 0, 0));
   lastDay = new Date(lastDay).toISOString();
-
-  console.log(lastDay, "jopa");
 
   const todayMessages = await prisma.Message.findMany({
     select: {
@@ -32,12 +35,13 @@ export const getPitchesCount = async (type = "pitch", plan = "standart") => {
 
   const pitchesByPlan = await prisma.Plan.findMany({
     select: {
+      id: true,
       pitchesCount: true,
       superPitchesCount: true,
       name: true,
     },
     where: {
-      name: plan,
+      id: user.planId,
     },
   });
 
