@@ -7,7 +7,7 @@ import { prisma } from "server/db";
 import { uuid } from "uuidv4";
 var p = require("path");
 
-export const uploadFile = async (data) => {
+export const uploadFile = async (data, vacId) => {
   const session = await getServSession();
 
   const file = data.get("file");
@@ -40,6 +40,11 @@ export const uploadFile = async (data) => {
       user: {
         connect: {
           id: session?.user?.id,
+        },
+      },
+      vacancy: {
+        connect: {
+          id: vacId,
         },
       },
     },
