@@ -173,18 +173,19 @@ const EditLeft = ({ data, setDataToUpdate, dataToUpdate }) => {
           value={myMail}
           onChange={(val) => setMyMail(val)}
         />
-        <p
-          onClick={() => {
-            changeEmail();
-          }}
-          className={`${
-            myMail !== data.email
-              ? "cursor-pointer text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C]"
-              : "text-[#bfbfbf] cursor-default"
-          } text-[16px] w-fit select-none font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms]`}
-        >
-          Изменить
-        </p>
+        {myMail !== data.email && (
+          <p
+            onClick={() => {
+              changeEmail();
+            }}
+            className={`${
+              "cursor-pointer text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C]"
+              // : "text-[#bfbfbf] cursor-default"
+            } text-[16px] w-fit select-none font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms]`}
+          >
+            Сохранить
+          </p>
+        )}
       </Card>
       {/* изменить почту */}
 

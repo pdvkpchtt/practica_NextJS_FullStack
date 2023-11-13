@@ -291,12 +291,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               {/* location */}
 
               {/* distantWork */}
-              <div className="flex flex-col w-full">
-                <TextSecondary
-                  text={"Возможно удалённо"}
-                  style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
-                />
-
+              <div className="flex flex-row items-center w-full">
                 <CheckBox
                   active={dataToUpdate.distantWork}
                   onClick={() =>
@@ -305,6 +300,10 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                       distantWork: !dataToUpdate.distantWork,
                     })
                   }
+                />
+                <TextSecondary
+                  text={"Возможно удалённо"}
+                  style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] ml-[6px]"
                 />
               </div>
               {/* distantWork */}

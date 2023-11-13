@@ -40,11 +40,7 @@ const VacancyFilter = ({
       </div>
 
       {/* isDistantWork */}
-      <div className="flex flex-col w-full">
-        <TextSecondary
-          text={"Возможно удаленно"}
-          style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
-        />
+      <div className="flex flex-row w-full items-center">
         <CheckBox
           active={
             updateVacancies.distantWork !== null
@@ -60,6 +56,10 @@ const VacancyFilter = ({
                   : true,
             })
           }
+        />
+        <TextSecondary
+          text={"Возможно удаленно"}
+          style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] ml-[6px]"
         />
       </div>
       {/* isDistantWork */}

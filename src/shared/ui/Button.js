@@ -212,7 +212,7 @@ export const MenuButton = ({
 }) => {
   return (
     <div
-      className={`${style} relative  items-center w-full cursor-pointer transition duration-[250ms] bg-[#74899B] bg-opacity-[8%] hover:bg-[#647F9826] hover:bg-opacity-[15%] p-[16px] flex flex-row justify-between`}
+      className={`${style} relative  items-center w-full cursor-pointer transition duration-[250ms] bg-[#CFCFCF] bg-opacity-[8%] p-[16px] flex flex-row justify-between`}
     >
       {borderTop && (
         <div className="absolute top-0 left-0 w-full border-t-[1px] border-t-[#e4e6e5] dark:border-t-[#3d3d3d]" />

@@ -2,7 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Waypoint } from "react-waypoint";
+import { Oval } from "react-loader-spinner";
+import { useMediaQuery } from "react-responsive";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Modal from "../../shared/ui/Modal";
 import MobileModal from "../../shared/ui/MobileModal";
@@ -15,6 +18,7 @@ import { uploadFile } from "../../server/actions/replyToVac/uploadFile";
 import CustomLoader from "../../shared/ui/CustomLoader";
 import { deleteFile } from "../../server/actions/replyToVac/deleteFile";
 import { replyToVacancy } from "../../server/actions/replyToVac/replyToVacancy";
+import { chechIfChatExist } from "../../server/actions/messenger/chechIfChatExist";
 
 import Cross2 from "../../shared/icons/Cross2";
 import PitchIcon from "../../shared/icons/PitchIcon";
@@ -22,16 +26,20 @@ import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import TrashIcon from "../../shared/icons/TrashIcon";
 
 const ReplyModal = ({
+  hrId,
   vacId,
   modalState = false,
   setModalState = () => {},
 }) => {
+  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
+
   const router = useRouter();
 
   const inputRef = useRef(null);
   const buttRef = useRef(null);
 
   const [loading, setLoading] = useState(false);
+  const [loadingButton, setLoadingButton] = useState(false);
   const [drag, setDrag] = useState(false);
   const [resumeInput, setResumeInput] = useState("");
   const [filesState, setFilesState] = useState([]);
@@ -209,12 +217,45 @@ const ReplyModal = ({
                 active:bg-[#2C429C] hover:bg-[#3A56C5] bg-[#5875e8] text-white  cursor-pointer mb-[12px]
             `}
             onClick={async () => {
+              setLoadingButton(true);
               await replyToVacancy(vacId, resumeInput, letterInput);
+              let chatId = await chechIfChatExist(hrId);
+              toast(`🦄 Вы откликнулись`, {
+                position: isMobile ? "top-center" : "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                // theme: "dark",
+                progressStyle: { background: "#5875e8" },
+                containerId: "forCopy",
+                bodyStyle: { color: "#5875e8" },
+
+                onClick: () => router.push(`/messenger/${chatId.id}`),
+              });
               setModalState();
+              setLoadingButton(false);
               router.refresh();
             }}
           >
-            Откликнуться
+            {loadingButton ? (
+              <Oval
+                height={19}
+                width={19}
+                color="rgba(255, 255, 255, 1)"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="oval-loading"
+                secondaryColor="rgba(255, 255, 255, 0.3)"
+                strokeWidth={6}
+                strokeWidthSecondary={6}
+              />
+            ) : (
+              "Откликнуться"
+            )}
           </div>
         </div>
         {/* body */}

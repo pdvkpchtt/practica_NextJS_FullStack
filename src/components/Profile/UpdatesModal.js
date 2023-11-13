@@ -64,7 +64,7 @@ const UpdatesModal = ({ modalState = false, setModalState = () => {} }) => {
             ) : users?.length === 0 ? (
               <div className="flex w-full justify-center">
                 <TextCaption
-                  text={`У вас нет уведомлений...`}
+                  text={`У вас нет обновлений...`}
                   style="text-[18px] leading-[21.6px] tracking-[-0.025em]"
                 />
               </div>
@@ -116,7 +116,7 @@ const UpdatesModal = ({ modalState = false, setModalState = () => {} }) => {
             ) : users?.length === 0 ? (
               <div className="flex w-full justify-center">
                 <TextCaption
-                  text={`У вас нет уведомлений...`}
+                  text={`У вас нет обновлений...`}
                   style="text-[18px] leading-[21.6px] tracking-[-0.025em]"
                 />
               </div>

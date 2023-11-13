@@ -186,7 +186,6 @@ const CreatePostModal = ({
                     setLoaderState(false);
                     setClose();
 
-                    // if (!isMobile)
                     //   toast(`🦄 Scroll to post?`, {
                     //     position: isMobile ? "top-center" : "bottom-center",
                     //     autoClose: 2000,

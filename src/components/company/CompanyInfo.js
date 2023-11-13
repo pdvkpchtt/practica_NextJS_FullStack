@@ -55,7 +55,7 @@ const CompanyInfo = ({ data, others = false }) => {
         <div className="flex flex-col gap-[8px]">
           <TextSecondary
             text={"Слоган"}
-            style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
+            style="font-medium select-none leading-[18px] traking-[-0.013em] text-[14px]"
           />
 
           <TextMain
@@ -71,7 +71,7 @@ const CompanyInfo = ({ data, others = false }) => {
         <div className="flex flex-col gap-[8px]">
           <TextSecondary
             text="Отрасль"
-            style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
+            style="font-medium select-none leading-[18px] traking-[-0.013em] text-[14px]"
           />
 
           <TextMain
@@ -87,7 +87,7 @@ const CompanyInfo = ({ data, others = false }) => {
         <div className="flex flex-col gap-[8px]">
           <TextSecondary
             text="Сотрудники"
-            style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
+            style="font-medium select-none leading-[18px] traking-[-0.013em] text-[14px]"
           />
 
           <TextMain

@@ -198,6 +198,7 @@ const VacancyRight = ({ data, role = "student", userId }) => {
       {data.hasMyReply === null && (
         <ReplyModal
           vacId={data?.id}
+          hrId={data?.hrCreator?.id}
           modalState={modalState}
           setModalState={() => setModalState(false)}
         />

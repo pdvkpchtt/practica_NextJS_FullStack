@@ -181,11 +181,7 @@ const EditCompanyRight = ({
         {/* employee */}
 
         {/* isStartap */}
-        <div className="flex flex-col">
-          <TextSecondary
-            text={"Вы стартап?"}
-            style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
-          />
+        <div className="flex flex-row items-center">
           <CheckBox
             active={dataToUpdate.isStartap}
             onClick={() =>
@@ -194,6 +190,10 @@ const EditCompanyRight = ({
                 isStartap: !dataToUpdate.isStartap,
               })
             }
+          />
+          <TextSecondary
+            text={"Вы стартап?"}
+            style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] ml-[6px]"
           />
         </div>
         {/* isStartap */}
