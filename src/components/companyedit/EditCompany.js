@@ -8,6 +8,7 @@ import EditCompanyRight from "./EditCompanyRight";
 
 const EditCompany = ({
   data,
+  dataToCompare,
   updateCompanyData,
   itemsForDD,
   itemsForDD2,
@@ -27,6 +28,7 @@ const EditCompany = ({
       />
       <EditCompanyRight
         data={data}
+        dataToCompare={dataToCompare}
         setDataToUpdate={setDataToUpdate}
         dataToUpdate={dataToUpdate}
         updateCompanyData={updateCompanyData}

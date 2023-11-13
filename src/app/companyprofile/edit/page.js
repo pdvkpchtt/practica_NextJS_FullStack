@@ -40,6 +40,7 @@ const CompanyEditPage = async () => {
       itemsForDD2={itemsForDD2}
       itemsForDD3={itemsForDD3}
       data={data}
+      dataToCompare={data}
       updateCompanyData={updateCompanyData}
       userId={session.user.id}
     />

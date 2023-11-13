@@ -139,7 +139,7 @@ const EditRight = ({
             className={`
                 px-[12px] py-[8px] rounded-[16px] transition duration-[250ms] select-none w-fit
                 ${
-                  isDataChanged
+                  isDataChanged && educationState.length > 0
                     ? "bg-[#5875e8] hover:bg-[#3A56C5] active:bg-[#2C429C] cursor-pointer"
                     : "bg-[#74899B] bg-opacity-[8%] cursor-default"
                 }

@@ -17,7 +17,7 @@ import CheckIcon from "../../shared/icons/CheckIcon";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 
 const EditCompanyRight = ({
-  data,
+  dataToCompare,
   setDataToUpdate,
   dataToUpdate,
   updateCompanyData,
@@ -32,6 +32,16 @@ const EditCompanyRight = ({
   const [state, setState] = useState(false);
   const [state2, setState2] = useState(false);
 
+  // это основополагающий базис practica
+  let isDataChanged =
+    JSON.stringify(dataToUpdate) !== JSON.stringify(dataToCompare);
+  console.log(
+    isDataChanged,
+    "sosi hui",
+    dataToCompare.industry.label !== dataToUpdate.industry.label
+  );
+  // это основополагающий базис practica
+
   return (
     <div className="w-full flex flex-col hideScrollbarNavMobile">
       {/* header */}
@@ -43,33 +53,35 @@ const EditCompanyRight = ({
 
           <div
             onClick={async () => {
-              setLittleLoader(true);
-              // try {
-              await updateCompanyData(dataToUpdate);
+              if (isDataChanged) {
+                setLittleLoader(true);
+                // try {
+                await updateCompanyData(dataToUpdate);
 
-              toast(`🦄 Изменения сохранены`, {
-                position: isMobile ? "top-center" : "bottom-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                // theme: "dark",
-                progressStyle: { background: "#5875e8" },
-                containerId: "forCopy",
-              });
-              // } catch (err) {
-              // console.log("err");
-              // }
-              setLittleLoader(false);
+                toast(`🦄 Изменения сохранены`, {
+                  position: isMobile ? "top-center" : "bottom-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: false,
+                  draggable: true,
+                  progress: undefined,
+                  // theme: "dark",
+                  progressStyle: { background: "#5875e8" },
+                  containerId: "forCopy",
+                });
+                // } catch (err) {
+                // console.log("err");
+                // }
+                setLittleLoader(false);
+              }
             }}
             className={`
-                px-[12px] py-[8px] h-[36px] w-[44px] rounded-[16px] cursor-pointer transition duration-[250ms] select-none 
+                px-[12px] py-[8px] h-[36px] w-[44px] rounded-[16px]  transition duration-[250ms] select-none 
                 ${
-                  true
-                    ? "bg-[#8295DE] hover:bg-[#5875E8] active:bg-[#3A56C5]"
-                    : "bg-[#74899B] bg-opacity-[8%]"
+                  isDataChanged
+                    ? "bg-[#5875e8] hover:bg-[#3A56C5] active:bg-[#2C429C] cursor-pointer"
+                    : "bg-[#74899B] bg-opacity-[8%] cursor-default"
                 }
               `}
           >
