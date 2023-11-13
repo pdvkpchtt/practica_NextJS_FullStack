@@ -6,7 +6,7 @@ export const getFiles = async (userId, vacId) => {
   const data = await prisma.File.findMany({
     where: {
       userId: userId,
-      vacancyReplyId: vacId,
+      vacancyId: vacId,
     },
   });
 
