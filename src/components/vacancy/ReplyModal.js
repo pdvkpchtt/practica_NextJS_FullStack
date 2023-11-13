@@ -37,6 +37,10 @@ const ReplyModal = ({
   const [filesState, setFilesState] = useState([]);
   const [letterInput, setLetterInput] = useState("");
 
+  const somethingHapeningFunc = (something) => {
+    uploadFile(something, vacId);
+  };
+
   const fetchHandler = async () => {
     if (loading) return;
 
@@ -89,12 +93,7 @@ const ReplyModal = ({
 
             {/* input for files */}
             <form
-              action={(e) => {
-                let files = [...e.target.files];
-                const formData = new FormData();
-                formData.append("file", files[0]);
-                uploadFile(formData, vacId);
-              }}
+              action={somethingHapeningFunc}
               onDragStart={(e) => {
                 e.preventDefault();
                 setDrag(true);
@@ -113,7 +112,7 @@ const ReplyModal = ({
                 let files = [...e.dataTransfer.files];
                 const formData = new FormData();
                 formData.append("file", files[0]);
-                uploadFile(formData, vacId);
+                uploadFile(formData);
                 // buttRef.current.click();
                 fetchHandler();
               }}
