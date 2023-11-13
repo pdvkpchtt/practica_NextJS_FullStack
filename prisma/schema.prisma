@@ -135,11 +135,13 @@ model VacancyReply {
 model File {
   id     String @id @default(cuid())
   user   User   @relation(fields: [userId], references: [id])
+  vacancyReplyId String?
   vacancyReply   VacancyReply? @relation(fields: [vacancyReplyId], references: [id])
   path   String
   name   String
   userId String
-  vacancyReplyId String?
+  vacancyId String?
+  vacancy   Vacancy? @relation(fields: [vacancyId], references: [id])
 }
 
 model Hr {
@@ -270,6 +272,7 @@ model Vacancy {
   hrCreatorId  String?
   hrCreator    Hr?            @relation(fields: [hrCreatorId], references: [id])
   VacancyReply VacancyReply[]
+  file      File[]
 }
 
 model VacArea {
