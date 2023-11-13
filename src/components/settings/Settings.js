@@ -63,12 +63,12 @@ const Settings = () => {
                 px-[12px] py-[10px] rounded-[16px] cursor-pointer transition duration-[250ms] select-none
                 font-medium text-[14px] leading-[16px] tracking-[-0.015em]
                 ${
-                  theme == "system"
+                  theme !== "system"
                     ? "bg-[#8295DE] hover:bg-[#5875E8] active:bg-[#3A56C5]"
                     : "bg-[#74899B] bg-opacity-[8%]"
                 }
                 ${
-                  theme == "system"
+                  theme !== "system"
                     ? "text-white"
                     : "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C]"
                 } 
