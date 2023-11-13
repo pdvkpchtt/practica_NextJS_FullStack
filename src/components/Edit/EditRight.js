@@ -23,6 +23,7 @@ import AddCityIcon from "../../shared/icons/AddCityIcon";
 
 const EditRight = ({
   data,
+  dataToCompare,
   setDataToUpdate,
   educationLevelData,
   dataToUpdate,
@@ -69,6 +70,14 @@ const EditRight = ({
     else setWorkState(data.workExperience);
   }, []);
 
+  // это основополагающий базис practica
+  let isDataChanged =
+    JSON.stringify(dataToUpdate) !== JSON.stringify(dataToCompare) ||
+    JSON.stringify(dataToUpdate.education) !== JSON.stringify(educationState) ||
+    JSON.stringify(dataToUpdate.workExperience) !== JSON.stringify(workState);
+  console.log(isDataChanged, "sosi hui");
+  // это основополагающий базис practica
+
   return (
     <div className="w-full flex flex-col">
       {/* header */}
@@ -90,47 +99,49 @@ const EditRight = ({
 
           <div
             onClick={async () => {
-              setLittleLoader(true);
-              await updateProfileData({
-                ...dataToUpdate,
-                UserSkills: dataToUpdate.UserSkills.map(
-                  (item) => true && { skillId: item.id }
-                ),
-                education:
-                  educationState.length == 1 &&
-                  (educationState[0].name.length == 0 ||
-                    educationState[0].degree.length == 0)
-                    ? []
-                    : educationState,
-                workExperience:
-                  workState.length == 1 &&
-                  (workState[0].organization.length == 0 ||
-                    workState[0].post.length == 0 ||
-                    workState[0].start_date.length == 0 ||
-                    workState[0].end_date.length == 0)
-                    ? []
-                    : workState,
-              });
-              toast(`🦄 Изменения сохранены`, {
-                position: isMobile ? "top-center" : "bottom-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                // theme: "dark",
-                progressStyle: { background: "#5875e8" },
-                containerId: "forCopy",
-              });
-              setLittleLoader(false);
+              if (isDataChanged) {
+                setLittleLoader(true);
+                await updateProfileData({
+                  ...dataToUpdate,
+                  UserSkills: dataToUpdate.UserSkills.map(
+                    (item) => true && { skillId: item.id }
+                  ),
+                  education:
+                    educationState.length == 1 &&
+                    (educationState[0].name.length == 0 ||
+                      educationState[0].degree.length == 0)
+                      ? []
+                      : educationState,
+                  workExperience:
+                    workState.length == 1 &&
+                    (workState[0].organization.length == 0 ||
+                      workState[0].post.length == 0 ||
+                      workState[0].start_date.length == 0 ||
+                      workState[0].end_date.length == 0)
+                      ? []
+                      : workState,
+                });
+                toast(`🦄 Изменения сохранены`, {
+                  position: isMobile ? "top-center" : "bottom-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: false,
+                  draggable: true,
+                  progress: undefined,
+                  // theme: "dark",
+                  progressStyle: { background: "#5875e8" },
+                  containerId: "forCopy",
+                });
+                setLittleLoader(false);
+              }
             }}
             className={`
-                px-[12px] py-[8px] rounded-[16px] cursor-pointer transition duration-[250ms] select-none w-fit
+                px-[12px] py-[8px] rounded-[16px] transition duration-[250ms] select-none w-fit
                 ${
-                  true
-                    ? "bg-[#8295DE] hover:bg-[#5875E8] active:bg-[#3A56C5]"
-                    : "bg-[#74899B] bg-opacity-[8%]"
+                  isDataChanged
+                    ? "bg-[#5875e8] hover:bg-[#3A56C5] active:bg-[#2C429C] cursor-pointer"
+                    : "bg-[#74899B] bg-opacity-[8%] cursor-default"
                 }
               `}
           >

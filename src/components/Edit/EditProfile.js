@@ -9,6 +9,7 @@ import EditRight from "./EditRight";
 
 const EditProfile = ({
   data,
+  dataToCompare,
   updateProfileData,
   skills,
   userId,
@@ -17,6 +18,8 @@ const EditProfile = ({
   const router = useRouter();
 
   const [dataToUpdate, setDataToUpdate] = useState(data);
+
+  console.log(dataToUpdate, "dataToUpdate");
 
   return (
     <>
@@ -29,6 +32,7 @@ const EditProfile = ({
         userId={userId}
         skills={skills}
         data={data}
+        dataToCompare={dataToCompare}
         educationLevelData={educationLevelData}
         setDataToUpdate={setDataToUpdate}
         dataToUpdate={dataToUpdate}

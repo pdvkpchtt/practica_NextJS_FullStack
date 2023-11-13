@@ -28,6 +28,7 @@ const EditPage = async () => {
   return (
     <EditProfile
       data={data}
+      dataToCompare={data}
       educationLevelData={educationLevelData}
       skills={skills}
       updateProfileData={updateProfileData}
