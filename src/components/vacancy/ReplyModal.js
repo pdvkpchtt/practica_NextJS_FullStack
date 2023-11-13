@@ -90,7 +90,7 @@ const ReplyModal = ({
             {/* input for files */}
             <form
               action={(e) => {
-                let files = [...e.dataTransfer.files];
+                let files = [...e.target.files];
                 const formData = new FormData();
                 formData.append("file", files[0]);
                 uploadFile(formData, vacId);
