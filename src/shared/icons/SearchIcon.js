@@ -8,7 +8,7 @@ const SearchIcon = ({ fill = "#000", size = 25 }) => {
   const pathname = usePathname();
 
   return (
-    <Link href={"/search"}>
+    <Link href={"/search"} className="group">
       <svg
         width={size}
         height={size}
@@ -24,8 +24,8 @@ const SearchIcon = ({ fill = "#000", size = 25 }) => {
           stroke-linejoin="round"
           className={`${
             pathname.includes("/search")
-              ? "stroke-[#5875e8]"
-              : "stroke-[#bfbfbf] dark:stroke-[#8f8f8f]"
+              ? "stroke-[#5875e8] group-active:stroke-[#2C429C] group-hover:stroke-[#3A56C5] transition duration-[250ms]"
+              : "stroke-[#bfbfbf] dark:stroke-[#8f8f8f] transition duration-[250ms]"
           }`}
         />
         <path
@@ -35,8 +35,8 @@ const SearchIcon = ({ fill = "#000", size = 25 }) => {
           stroke-linejoin="round"
           className={`${
             pathname.includes("/search")
-              ? "stroke-[#5875e8]"
-              : "stroke-[#bfbfbf] dark:stroke-[#8f8f8f]"
+              ? "stroke-[#5875e8] group-active:stroke-[#2C429C] group-hover:stroke-[#3A56C5] transition duration-[250ms]"
+              : "stroke-[#bfbfbf] dark:stroke-[#8f8f8f] transition duration-[250ms]"
           }`}
         />
       </svg>
