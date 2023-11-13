@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 
 const Modal = ({
   isOpen = false,
@@ -28,6 +29,11 @@ const Modal = ({
       ? { scale: 0.7, translateX: "-50%", top: "86px" }
       : { top: slideToTop ? "-100%" : "100%" },
   };
+
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+  }, [isOpen]);
 
   return (
     <AnimatePresence>

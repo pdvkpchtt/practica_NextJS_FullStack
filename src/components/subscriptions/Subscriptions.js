@@ -83,7 +83,7 @@ const Subscriptions = ({ data }) => {
         {/* body */}
         <div className="flex  [@media(pointer:coarse)]:p-[12px] [@media(pointer:coarse)]:overflow-y-auto [@media(pointer:coarse)]:mb-[80px] flex-row [@media(pointer:coarse)]:flex-col gap-[12px] [@media(pointer:coarse)]:dark:bg-[#141414] justify-between h-full p-[12px] [@media(pointer:coarse)]:mt-[19px]">
           {data.reverse().map((i, key) => (
-            <div className="bg-[#74899B] bg-opacity-[8%] cursor-pointer w-full [@media(hover)]:w-[224px] h-[245px] rounded-[20px] flex flex-col gap-[8px] p-[16px]">
+            <div className="bg-[#74899B] bg-opacity-[8%] cursor-pointer w-full [@media(hover)]:w-[224px] h-[261px] min-h-[261px] rounded-[20px] flex flex-col gap-[8px] p-[16px]">
               <TextSecondary
                 text="Все регионы"
                 style={
@@ -126,6 +126,10 @@ const Subscriptions = ({ data }) => {
                   "text-[14px] leading-[18px] tracking-[-0.182px] font-normal"
                 }
               />
+
+              <div className="bg-[#5875e8] hover:bg-[#3A56C5] mt-auto rounded-[16px] active:bg-[#2C429C] py-[12px] font-medium leading-[19px] tracking-[-0.24px] text-[16px] w-full text-center flex items-center text-white transition duration-[250ms] justify-center">
+                Купить
+              </div>
             </div>
           ))}
         </div>

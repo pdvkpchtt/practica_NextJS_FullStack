@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 
 import Cross2 from "../../shared/icons/Cross2";
 
@@ -21,10 +22,10 @@ const BottomModal = ({
   isOpen,
   translate = "translate(-50%, 0%)",
 }) => {
-  // useEffect(() => {
-  //   if (isOpen) document.body.style.overflow = "hidden";
-  //   else document.body.style.overflow = "unset";
-  // }, [isOpen]);
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+  }, [isOpen]);
 
   return (
     <AnimatePresence>

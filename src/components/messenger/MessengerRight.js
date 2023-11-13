@@ -273,7 +273,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
           }`}
           padding={12}
         >
-          {profileData.friendStatus &&
+          {/* {profileData.friendStatus &&
             !profileData.ifHeSentRequest &&
             !profileData.requestStatus && (
               <ButtonGhost
@@ -297,7 +297,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
               >
                 <CrossIcon size={20} fill={"#5875e8"} hard={false} soft />
               </ButtonGhost>
-            )}
+            )} */}
           {profileData.requestStatus &&
             !profileData.ifHeSentRequest &&
             !profileData.friendStatus && (
