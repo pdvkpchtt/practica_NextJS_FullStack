@@ -110,11 +110,13 @@ const VacancyCard = ({ item, role = "student", userId }) => {
       {/* image name time */}
 
       {/* name and short desc */}
-      <TextMain
-        text={item.name}
-        style="font-medium cursor-pointer text-[16px] leading-[19.2px] tracking-[-0.24px]"
-        onClick={() => router.push(`/vacancy/${item.id}`)}
-      />
+      <a href={`/vacancy/${item.id}`} target="_blank">
+        <TextMain
+          text={item.name}
+          style="font-medium cursor-pointer text-[16px] leading-[19.2px] tracking-[-0.24px]"
+          // onClick={() => router.push()}
+        />
+      </a>
       <TextSecondary
         text={item.shortDescription}
         style={"text-[14px] leading-[17px] tracking-[-0.252px]"}

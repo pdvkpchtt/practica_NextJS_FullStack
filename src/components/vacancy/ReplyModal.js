@@ -41,7 +41,7 @@ const ReplyModal = ({
     if (loading) return;
 
     setLoading(true);
-    const files = await fetchFiles();
+    const files = await fetchFiles(vacId);
     setFilesState(files);
     console.log("modal files", files);
     setLoading(false);
