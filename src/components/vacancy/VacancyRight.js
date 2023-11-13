@@ -40,7 +40,7 @@ const VacancyRight = ({ data, role = "student", userId }) => {
         } [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:left-0 [@media(pointer:coarse)]:rounded-t-[0px] border-b-[0.7px] border-b-[#E7E7E7] bg-white dark:bg-[#212122] dark:border-b-[#2f2f2f] rounded-t-[20px] p-[12px]`}
       >
         <div className="w-full flex flex-row justify-between [@media(pointer:coarse)]:max-w-[476px] [@media(pointer:coarse)]:mx-auto">
-          <OneIconButton onClick={() => router.back()}>
+          <OneIconButton onClick={() => router.push("/search/vacancies")}>
             <ArrowLeftIcon />
           </OneIconButton>
 

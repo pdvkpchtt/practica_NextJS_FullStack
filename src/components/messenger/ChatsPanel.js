@@ -43,6 +43,7 @@ import { MesContext } from "./MesContextWrap";
 import useInterval from "use-interval";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
+import ReplyItem from "./ReplyItem";
 
 const ChatsPanel = ({ chatId, user_id }) => {
   // const { currentChatCursor, setCurrentChatCursor } = useContext(MesContext);
@@ -229,16 +230,29 @@ const ChatsPanel = ({ chatId, user_id }) => {
                     style="flex items-center mt-[16px] mb-[14px] select-none justify-center"
                   />
                 ) : null}
-                <MessageItem
-                  item={item}
-                  key={key}
-                  style={`${
-                    dataStateMessages[key + 1]?.myMessage
-                      ? "mt-[2px]"
-                      : "mt-[2px]"
-                  }
-               `}
-                />
+                {item.type === "vacancyReply" ? (
+                  <ReplyItem
+                    item={item}
+                    key={key}
+                    style={`${
+                      dataStateMessages[key + 1]?.myMessage
+                        ? "mt-[2px]"
+                        : "mt-[2px]"
+                    }
+                    `}
+                  />
+                ) : (
+                  <MessageItem
+                    item={item}
+                    key={key}
+                    style={`${
+                      dataStateMessages[key + 1]?.myMessage
+                        ? "mt-[2px]"
+                        : "mt-[2px]"
+                    }
+                    `}
+                  />
+                )}
 
                 {messages.length - 1 == key ? (
                   <TextSecondary

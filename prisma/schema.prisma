@@ -127,6 +127,7 @@ model VacancyReply {
   vacancy   Vacancy @relation(fields: [vacancyId], references: [id])
   message   String?
   file      File[]
+  messages  Message[]
   userId    String
   link      String?
   vacancyId String
@@ -445,4 +446,6 @@ model Message {
   User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   unRead    Boolean  @default(true)
   createdAt DateTime @default(now())
+  vacancyReplyId String?
+  vacancyReply   VacancyReply? @relation(fields: [vacancyReplyId], references: [id])
 }

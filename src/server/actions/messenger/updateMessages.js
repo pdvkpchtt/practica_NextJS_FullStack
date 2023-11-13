@@ -2,7 +2,7 @@ import { prisma } from "../../db";
 import { checkCircles } from "./checkCircles";
 
 const updateMessages = async (chatId, userId, lastDate, searchInput) => {
-  const circle = await checkCircles(null, chatId);
+  const circle = await checkCircles(userId, chatId);
 
   var d = new Date();
   d.setDate(d.getDate() - 4);
@@ -34,6 +34,16 @@ const updateMessages = async (chatId, userId, lastDate, searchInput) => {
       type: true,
       unRead: true,
       createdAt: true,
+      vacancyReply: {
+        select: {
+          id: true,
+          vacancy: true,
+          file: true,
+          link: true,
+          vacancyId: true,
+          message: true,
+        },
+      },
     },
     where:
       searchInput.length === 0
@@ -78,6 +88,7 @@ const updateMessages = async (chatId, userId, lastDate, searchInput) => {
         type: item.type,
         check: check,
         circle: circle.circle,
+        vacancyReply: item?.vacancyReply,
       };
     else
       return {
@@ -91,6 +102,7 @@ const updateMessages = async (chatId, userId, lastDate, searchInput) => {
         type: item.type,
         check: check,
         circle: circle.circle,
+        vacancyReply: item?.vacancyReply,
       };
   });
 
