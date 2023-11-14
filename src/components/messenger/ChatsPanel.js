@@ -78,7 +78,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
     } else {
       setDataStateMessages(data.data);
     }
-    if (!data.check || !data.checkVacReply) setCircle(data.circle);
+    if (!data.check && !data.checkVacReply) setCircle(data.circle);
     else setCircle("");
     console.log(data, "fucking slave");
     setCurrentChatCursor(data.cursor);
@@ -99,7 +99,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
       searchInput,
       true
     );
-    if (!data.check || !data.checkVacReply) setCircle(data.circle);
+    if (!data.check && !data.checkVacReply) setCircle(data.circle);
     else setCircle("");
     console.log(circle, "fucking slave");
     console.log("messenges update", data);

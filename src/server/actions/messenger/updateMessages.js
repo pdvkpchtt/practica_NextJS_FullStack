@@ -25,7 +25,7 @@ const updateMessages = async (chatId, userId, lastDate, searchInput) => {
     where: {
       AND: [
         { chatId: chatId },
-        { type: circle.circle },
+        { type: "vacancyReply" },
         { createdAt: { gte: new Date(d2.toString()).toISOString() } },
       ],
     },

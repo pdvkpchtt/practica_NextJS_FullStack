@@ -25,7 +25,7 @@ const getMessages = async (chatId, userId, cursor, searchInput) => {
     where: {
       AND: [
         { chatId: chatId },
-        { type: circle.circle },
+        { type: "vacancyReply" },
         { createdAt: { gte: new Date(d2.toString()).toISOString() } },
       ],
     },
