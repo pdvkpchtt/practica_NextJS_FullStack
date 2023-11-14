@@ -5,6 +5,7 @@ import { LayoutGroup, motion } from "framer-motion";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useRouter } from "next/navigation";
+import useInterval from "use-interval";
 
 import TextMain from "../../shared/Text/TextMain ";
 import TextSecondary from "../../shared/Text/TextSecondary";
@@ -16,6 +17,7 @@ import UpdatesModal from "./UpdatesModal";
 import useWindowDimensions from "./useWindowDimensions";
 import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 import CustomLoader from "../../shared/ui/CustomLoader";
+import { getMyProfileInfoTimer } from "../../server/actions/profileTimer/getMyProfileInfoTimer";
 
 import LocationIcon from "../../shared/icons/LocationIcon";
 import CalendarIcon from "../../shared/icons/CalendarIcon";
@@ -50,6 +52,24 @@ const Left = ({ navState, data }) => {
   const [modal2State, setModal2State] = useState(false);
   const [pitchesModalState, setPitchesModalState] = useState(false);
   const [contactsModalState, setContactsModalState] = useState(false);
+
+  const [updatesState, setUpdatesState] = useState(null);
+
+  const getInfoAboutUpdates = async () => {
+    const updatesCount = await getMyProfileInfoTimer();
+    console.log(updatesCount, "jopa");
+    setUpdatesState(updatesCount);
+  };
+
+  const [delay, setDelay] = useState(2000);
+  const [isRunning, setIsRunning] = useState(true);
+
+  useInterval(
+    () => {
+      getInfoAboutUpdates();
+    },
+    isRunning ? delay : null
+  );
 
   useLayoutEffect(() => {
     if (typeof window !== "undefined")
@@ -201,9 +221,13 @@ const Left = ({ navState, data }) => {
           <ButtonGhost text="Обновления" onClick={() => setModal2State(true)}>
             <BellIcon />
           </ButtonGhost>
-          {data.UpdatesToMe.length > 0 && (
-            <div className="w-[8px] h-[8px] bg-[#5875e8] rounded-full ml-[8px]" />
-          )}
+          {updatesState === null
+            ? data.UpdatesToMe.length > 0 && (
+                <div className="w-[8px] h-[8px] bg-[#5875e8] rounded-full ml-[8px]" />
+              )
+            : updatesState > 0 && (
+                <div className="w-[8px] h-[8px] bg-[#5875e8] rounded-full ml-[8px]" />
+              )}
         </div>
 
         {/* hr */}
