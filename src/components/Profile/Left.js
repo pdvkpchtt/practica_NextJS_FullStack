@@ -192,16 +192,6 @@ const Left = ({ navState, data }) => {
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>
-              {/* <div className="flex flex-row gap-[4px]">
-                <TextMain
-                  text={data.views}
-                  style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
-                />
-                <TextSecondary
-                  text="Просмотров"
-                  style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
-                />
-              </div> */}
             </div>
             {/* views and connections */}
           </div>

@@ -176,8 +176,8 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
 
             {/* location and birth date */}
             <div className="flex flex-col">
-              {(data.city === null && data.contry === null) ||
-              (data.city?.length === 0 && data.contry?.length === 0) ? null : (
+              {(data.city === null && data.country === null) ||
+              (data.city?.length === 0 && data.country?.length === 0) ? null : (
                 <div className="flex flex-row gap-[8px] mt-[12px]">
                   <LocationIcon />
                   <TextSecondary
