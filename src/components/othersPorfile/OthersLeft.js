@@ -61,6 +61,7 @@ const OthersLeft = ({ navState, data, ifChatExist }) => {
     setRequestStatus(dataTimer.requestStatus);
     setFriendStatus(dataTimer.friendStatus);
     setIfHeSentRequest(dataTimer.ifHeSentRequest);
+    setloading(false);
   };
 
   const [trigger, setTrigger] = useState(false);
@@ -81,7 +82,6 @@ const OthersLeft = ({ navState, data, ifChatExist }) => {
   useEffect(() => {
     setloading(true);
     allChecks();
-    setloading(false);
   }, []);
 
   useEffect(() => {

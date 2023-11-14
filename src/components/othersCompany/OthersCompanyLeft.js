@@ -27,6 +27,7 @@ import RecruterIcon from "../../shared/icons/RecruterIcon";
 import PenIcon from "../../shared/icons/PenIcon";
 import SettingsIcon from "../../shared/icons/SettingsIcon";
 import AddVacancyIcon from "../../shared/icons/AddVacancyIcon";
+import useInterval from "use-interval";
 
 const OthersCompanyLeft = ({ navState, data }) => {
   const router = useRouter();
@@ -58,12 +59,24 @@ const OthersCompanyLeft = ({ navState, data }) => {
   const [loading, setloading] = useState(true);
 
   const checkIffollow = async () => {
-    setloading(true);
-    setIfFollow(await checkIfIFollowCompany(data.user.id));
+    const followInfo = await checkIfIFollowCompany(data.user.id);
+    console.log(followInfo, "followInfo");
+    setIfFollow(followInfo);
     setloading(false);
   };
 
+  const [delay, setDelay] = useState(2000);
+  const [isRunning, setIsRunning] = useState(true);
+
+  useInterval(
+    () => {
+      checkIffollow();
+    },
+    isRunning ? delay : null
+  );
+
   useEffect(() => {
+    setloading(true);
     checkIffollow();
   }, []);
 
@@ -272,7 +285,6 @@ const OthersCompanyLeft = ({ navState, data }) => {
               text="Подписаться"
               onClick={async () => {
                 await followCompany(data.user.id);
-                setIfFollow(true);
                 toast(`🦄 Вы подписались`, {
                   position: isMobile ? "top-center" : "bottom-right",
                   autoClose: 2000,
@@ -295,7 +307,6 @@ const OthersCompanyLeft = ({ navState, data }) => {
               text="Отписаться"
               onClick={async () => {
                 await unfollowCompany(data.user.id);
-                setIfFollow(false);
                 toast(`🦄 Вы отписались`, {
                   position: isMobile ? "top-center" : "bottom-right",
                   autoClose: 2000,
