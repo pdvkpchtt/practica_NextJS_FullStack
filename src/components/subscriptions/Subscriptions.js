@@ -127,7 +127,7 @@ const Subscriptions = ({ data }) => {
                 }
               />
 
-              <div className="bg-[#5875e8] hover:bg-[#3A56C5] mt-auto rounded-[16px] active:bg-[#2C429C] py-[12px] font-medium leading-[19px] tracking-[-0.24px] text-[16px] w-full text-center flex items-center text-white transition duration-[250ms] justify-center">
+              <div className="bg-[#5875e8] hover:bg-[#3A56C5] select-none mt-auto rounded-[16px] active:bg-[#2C429C] py-[12px] font-medium leading-[19px] tracking-[-0.24px] text-[16px] w-full text-center flex items-center text-white transition duration-[250ms] justify-center">
                 Купить
               </div>
             </div>
