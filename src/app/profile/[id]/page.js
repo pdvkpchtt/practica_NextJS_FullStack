@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { chechIfChatExist } from "../../../server/actions/messenger/chechIfChatExist";
 import OthersProfileWithNav from "../../../components/othersPorfile/OthersProfileWithNav";
 import { getProfile } from "../../../server/actions/getProfile";
 import { getUserPosts } from "../../../server/actions/getUserPosts";
@@ -20,6 +21,8 @@ const OthersProfilePage = async ({ params: { id } }) => {
   if (!data) {
     redirect("/not-found");
   }
+
+  const ifChatExist = await chechIfChatExist(data.id);
 
   console.log("profile", data);
 
@@ -49,6 +52,7 @@ const OthersProfilePage = async ({ params: { id } }) => {
       "
     >
       <OthersProfileWithNav
+        ifChatExist={ifChatExist}
         otherId={data.id}
         data={data}
         getUserFeed={getUserFeed}

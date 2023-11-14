@@ -29,6 +29,7 @@ import useWindowDimensions from "../../components/Profile/useWindowDimensions";
 import { chechIfChatExist } from "../../server/actions/messenger/chechIfChatExist";
 import ConnectionsModal from "../../components/Profile/ConnectionsModal";
 import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
+import { getOtherProfileWithTimer } from "../../server/actions/profileTimer/getOtherProfileWithTimer";
 
 import AddFriendIcon from "../../shared/icons/AddFriendIcon";
 import ClockIcon from "../../shared/icons/ClockIcon";
@@ -39,7 +40,7 @@ import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import useInterval from "use-interval";
 
-const OthersLeft = ({ navState, data }) => {
+const OthersLeft = ({ navState, data, ifChatExist }) => {
   const router = useRouter();
   console.log(data, "other profile");
 
@@ -51,14 +52,15 @@ const OthersLeft = ({ navState, data }) => {
   const [requestStatus, setRequestStatus] = useState(false);
   const [friendStatus, setFriendStatus] = useState(false);
   const [ifHeSentRequest, setIfHeSentRequest] = useState(false);
-  const [ifChatExist, setIfChatExist] = useState({ id: undefined });
+  const [circle, setCircle] = useState(null);
   const [loading, setloading] = useState(true);
 
   const allChecks = async () => {
-    setRequestStatus(await checkIfRequestSent(data.id));
-    setFriendStatus(await checkIfFriend(data.id));
-    setIfHeSentRequest(await checkIfOtherSentRequest(data.id));
-    setIfChatExist(await chechIfChatExist(data.id));
+    const dataTimer = await getOtherProfileWithTimer({ userId: data.id });
+    console.log(dataTimer, "data timer");
+    setRequestStatus(dataTimer.requestStatus);
+    setFriendStatus(dataTimer.friendStatus);
+    setIfHeSentRequest(dataTimer.ifHeSentRequest);
   };
 
   const [trigger, setTrigger] = useState(false);
@@ -81,6 +83,10 @@ const OthersLeft = ({ navState, data }) => {
     allChecks();
     setloading(false);
   }, []);
+
+  useEffect(() => {
+    router.refresh();
+  }, [friendStatus]);
 
   const location = [data.city, data.country];
 
@@ -420,7 +426,8 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 text="Удалить из друзей"
                 onClick={async () => {
                   await removeConnection(data.id);
-                  // setFriendStatus(false);
+                  router.refresh();
+
                   toast(`🦄 Пользователь удалён из друзей`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 2000,
@@ -493,7 +500,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 onClick={async () => {
                   await addConnection(data.id);
                   // setIfHeSentRequest(false);
-                  // setFriendStatus(true);
+                  router.refresh();
                   toast(`🦄 Заявка принята`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 2000,

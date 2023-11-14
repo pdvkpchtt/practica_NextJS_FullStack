@@ -77,6 +77,13 @@ export const checkCircles = async (otherUserId = null, chatId = null) => {
         : arr3.length
         ? "superpitch"
         : "superpitch",
+      status: firstCircle?.connections?.length
+        ? "1-ый"
+        : arr2.length
+        ? "2-ой"
+        : arr3.length
+        ? "3-ий"
+        : "3+",
     };
   } else {
     const thisUser = await prisma.Chat.findUnique({
@@ -171,6 +178,13 @@ export const checkCircles = async (otherUserId = null, chatId = null) => {
         : arr3.length
         ? "superpitch"
         : "superpitch",
+      status: firstCircle?.connections?.length
+        ? "1-ый"
+        : arr2.length
+        ? "2-ой"
+        : arr3.length
+        ? "3-ий"
+        : "3+",
     };
   }
 };

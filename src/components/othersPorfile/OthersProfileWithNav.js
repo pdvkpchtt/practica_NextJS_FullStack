@@ -9,7 +9,13 @@ import ProfileInfo from "../../components/Profile/ProfileInfo";
 import ProfileLiked from "../../components/Profile/ProfileLiked";
 import ProfilePosts from "../../components/Profile/ProfilePosts";
 
-const OthersProfileWithNav = ({ data, getUserFeed, addReaction, otherId }) => {
+const OthersProfileWithNav = ({
+  data,
+  getUserFeed,
+  addReaction,
+  otherId,
+  ifChatExist,
+}) => {
   console.log("client other profile", data);
   const [navState, setNavState] = useState([
     {
@@ -51,7 +57,11 @@ const OthersProfileWithNav = ({ data, getUserFeed, addReaction, otherId }) => {
         useState={(value) => handleClick(value)}
         layoutId="mobileothers"
       />
-      <OthersLeft navState={navState[0].active} data={data} />
+      <OthersLeft
+        navState={navState[0].active}
+        data={data}
+        ifChatExist={ifChatExist}
+      />
       <Right
         handleClick={(value) => handleClick(value)}
         navState={navState}
