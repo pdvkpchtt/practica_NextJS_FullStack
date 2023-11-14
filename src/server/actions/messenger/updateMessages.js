@@ -7,12 +7,26 @@ const updateMessages = async (chatId, userId, lastDate, searchInput) => {
   var d = new Date();
   d.setDate(d.getDate() - 4);
 
+  var d2 = new Date();
+  d2.setDate(d2.getDate() - 6);
+
   const check = await prisma.message.findFirst({
     where: {
       AND: [
         { chatId: chatId },
         { type: circle.circle },
         { createdAt: { gte: new Date(d.toString()).toISOString() } },
+      ],
+    },
+    select: { id: true, type: true },
+  });
+
+  const checkVacReply = await prisma.message.findFirst({
+    where: {
+      AND: [
+        { chatId: chatId },
+        { type: circle.circle },
+        { createdAt: { gte: new Date(d2.toString()).toISOString() } },
       ],
     },
     select: { id: true, type: true },
@@ -87,6 +101,7 @@ const updateMessages = async (chatId, userId, lastDate, searchInput) => {
         createdAt: item.createdAt,
         type: item.type,
         check: check,
+        checkVacReply: checkVacReply,
         circle: circle.circle,
         vacancyReply: item?.vacancyReply,
       };
@@ -101,6 +116,7 @@ const updateMessages = async (chatId, userId, lastDate, searchInput) => {
         createdAt: item.createdAt,
         type: item.type,
         check: check,
+        checkVacReply: checkVacReply,
         circle: circle.circle,
         vacancyReply: item?.vacancyReply,
       };
@@ -110,7 +126,12 @@ const updateMessages = async (chatId, userId, lastDate, searchInput) => {
   const newCursor = lastPostInResults?.id || "";
   //const lastDate = lastPostInResults?.createdAt || "";
 
-  return { data: result, check: check, circle: circle.circle };
+  return {
+    data: result,
+    check: check,
+    circle: circle.circle,
+    checkVacReply: checkVacReply,
+  };
 };
 
 export default updateMessages;

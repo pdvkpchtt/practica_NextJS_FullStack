@@ -47,7 +47,11 @@ const EditCompanyRight = ({
       {/* header */}
       <div className="[@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:z-[300] [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:left-0 [@media(pointer:coarse)]:rounded-t-[0px] border-b-[0.7px] border-b-[#E7E7E7] bg-white dark:bg-[#212122] dark:border-b-[#2f2f2f] rounded-t-[20px] p-[12px]">
         <div className="w-full flex flex-row  justify-between [@media(pointer:coarse)]:max-w-[476px] [@media(pointer:coarse)]:mx-auto">
-          <OneIconButton onClick={() => router.push(`/companyprofile`)}>
+          <OneIconButton
+            onClick={() =>
+              router.push(`/companyprofile`, { query: { data: "update" } })
+            }
+          >
             <ArrowLeftIcon />
           </OneIconButton>
 
@@ -74,6 +78,7 @@ const EditCompanyRight = ({
                 // console.log("err");
                 // }
                 setLittleLoader(false);
+                router.refresh();
               }
             }}
             className={`

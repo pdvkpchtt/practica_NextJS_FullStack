@@ -133,6 +133,7 @@ const EditRight = ({
                   progressStyle: { background: "#5875e8" },
                   containerId: "forCopy",
                 });
+                router.refresh();
                 setLittleLoader(false);
               }
             }}
