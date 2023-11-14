@@ -37,6 +37,7 @@ import CrossIcon from "../../shared/icons/CrossIcon";
 import CheckIcon from "../../shared/icons/CheckIcon";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
+import useInterval from "use-interval";
 
 const OthersLeft = ({ navState, data }) => {
   const router = useRouter();
@@ -54,12 +55,10 @@ const OthersLeft = ({ navState, data }) => {
   const [loading, setloading] = useState(true);
 
   const allChecks = async () => {
-    setloading(true);
     setRequestStatus(await checkIfRequestSent(data.id));
     setFriendStatus(await checkIfFriend(data.id));
     setIfHeSentRequest(await checkIfOtherSentRequest(data.id));
     setIfChatExist(await chechIfChatExist(data.id));
-    setloading(false);
   };
 
   const [trigger, setTrigger] = useState(false);
@@ -78,7 +77,9 @@ const OthersLeft = ({ navState, data }) => {
     window.addEventListener("scroll", changeOpacity);
 
   useEffect(() => {
+    setloading(true);
     allChecks();
+    setloading(false);
   }, []);
 
   const location = [data.city, data.country];
@@ -98,9 +99,17 @@ const OthersLeft = ({ navState, data }) => {
     setSuperPitchesState(await getPitchesCount("superpitch"));
   };
 
-  useEffect(() => {
-    getPitchesCountHanler();
-  }, []);
+  const [delay, setDelay] = useState(2000);
+  const [isRunning, setIsRunning] = useState(true);
+
+  useInterval(
+    () => {
+      allChecks();
+      getPitchesCountHanler();
+    },
+    isRunning ? delay : null
+  );
+
   // here we are getting pitches count
 
   return (
@@ -411,7 +420,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 text="Удалить из друзей"
                 onClick={async () => {
                   await removeConnection(data.id);
-                  setFriendStatus(false);
+                  // setFriendStatus(false);
                   toast(`🦄 Пользователь удалён из друзей`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 2000,
@@ -446,7 +455,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                     progressStyle: { background: "#5875e8" },
                     containerId: "forCopy",
                   });
-                  setRequestStatus(false);
+                  // setRequestStatus(false);
                 }}
               >
                 <ClockIcon fill={"#5875e8"} />
@@ -460,7 +469,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   text="Подружиться"
                   onClick={async () => {
                     await sendFriendRequest(data.id);
-                    setRequestStatus(true);
+                    // setRequestStatus(true);
                     toast(`🦄 Заявка в друзья отправлена`, {
                       position: isMobile ? "top-center" : "bottom-right",
                       autoClose: 2000,
@@ -483,8 +492,8 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 text="Принять заявку"
                 onClick={async () => {
                   await addConnection(data.id);
-                  setIfHeSentRequest(false);
-                  setFriendStatus(true);
+                  // setIfHeSentRequest(false);
+                  // setFriendStatus(true);
                   toast(`🦄 Заявка принята`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 2000,
