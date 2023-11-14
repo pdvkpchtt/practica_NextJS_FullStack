@@ -40,8 +40,9 @@ const Left = ({ navState, data }) => {
   const location = [data.city, data.country];
 
   const getNoun = (dig) => {
-    if (dig === 0 || dig >= 5) return "питчей";
-    if (dig > 1 && dig < 5) return "питча";
+    if (dig === 0 || dig >= 5 || dig % 10 === 0 || dig % 10 >= 5)
+      return "питчев";
+    if ((dig > 1 && dig < 5) || (dig % 10 > 1 && dig % 10 < 5)) return "питча";
     else return "питч";
   };
 
@@ -67,6 +68,7 @@ const Left = ({ navState, data }) => {
   useInterval(
     () => {
       getInfoAboutUpdates();
+      getPitchesCountHanler();
     },
     isRunning ? delay : null
   );
@@ -91,12 +93,11 @@ const Left = ({ navState, data }) => {
   const getPitchesCountHanler = async () => {
     setPitchesState(await getPitchesCount());
     setSuperPitchesState(await getPitchesCount("superpitch"));
-    // await getPitchesCount();
   };
 
-  useEffect(() => {
-    getPitchesCountHanler();
-  }, []);
+  // useEffect(() => {
+  //   getPitchesCountHanler();
+  // }, []);
   // here we are getting pitches count
 
   return (
