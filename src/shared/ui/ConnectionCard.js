@@ -76,14 +76,23 @@ const ConnectionCard = ({
         <div className="flex flex-col [@media(pointer:coarse)]:gap-[4px] gap-[5px] w-full overflow-hidden">
           {update ? (
             <div className="flex flex-row gap-[8px] ">
-              <p
+              <TextMain
+                text={item?.userFrom?.name}
+                style="font-medium text-[16px] cursor-pointer leading-[19.2px] tracking-[-0.015em] whitespace-nowrap truncate"
+                onClick={() =>
+                  router.push(
+                    `/profile/${item?.userFrom?.username || item?.userFrom?.id}`
+                  )
+                }
+              />
+              {/* <p
                 className={`${
                   //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
                   "text-[#cfcfcf] cursor-default"
                 } text-[16px] truncate break-words font-medium tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal transition duration-[250ms] leading-[19px]`}
               >
                 @{item?.userFrom?.username}
-              </p>
+              </p> */}
               <TextSecondary
                 text={dayjs().to(item?.createdAt)}
                 style="font-medium truncate text-[16px] leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal truncate select-none"
