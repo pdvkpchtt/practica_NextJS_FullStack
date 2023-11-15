@@ -73,7 +73,10 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
           chatText = myMessageIsLast
             ? "Вы отправили отклик"
             : chat.messages[chat.messages.length - 1].text;
-        // else if
+        else if (chat.messages[chat.messages.length - 1].type === "pitch")
+          chatText = myMessageIsLast ? "Питч" : "Питч";
+        else if (chat.messages[chat.messages.length - 1].type === "superpitch")
+          chatText = myMessageIsLast ? "Суперпитч" : "Суперпитч";
         else chatText = chat.messages[chat.messages.length - 1].text;
       }
 
@@ -114,6 +117,10 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
           chatText = myMessageIsLast
             ? "Вы отправили отклик"
             : chat.messages[chat.messages.length - 1].text;
+        else if (chat.messages[chat.messages.length - 1].type === "pitch")
+          chatText = myMessageIsLast ? "Питч" : "Питч";
+        else if (chat.messages[chat.messages.length - 1].type === "superpitch")
+          chatText = myMessageIsLast ? "Суперпитч" : "Суперпитч";
         else chatText = chat.messages[chat.messages.length - 1].text;
       }
 

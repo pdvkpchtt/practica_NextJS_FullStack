@@ -296,6 +296,30 @@ const ChatsPanel = ({ chatId, user_id }) => {
                         </p>
                       </div>
                     )}
+                  {dataStateMessages?.length === 1 &&
+                    dataStateMessages[0]?.type === "superpitch" && (
+                      <div className="w-full items-center justify-center flex text-center flex-col gap-[8px]">
+                        <BigLogoSvg />
+                        <TextMain
+                          text={
+                            dataStateMessages[0]?.myMessage
+                              ? "Вы отправили суперпитч"
+                              : `Новый суперпитч`
+                          }
+                          style="mt-[8px] select-none font-medium text-[20px] leading-[22px] tracking-[-0.4px]"
+                        />
+                        <TextSecondary
+                          style={
+                            "mb-[42px] text-[16px] leading-[20px] tracking-[-0.24px]"
+                          }
+                          text={
+                            dataStateMessages[0]?.myMessage
+                              ? "Теперь нужно немного подождать. Cобеседник ответит вам, если захочет"
+                              : `@${dataStateMessages[0]?.user?.username} отправил вам питч. Можете ответить, если хотите дружить с этим человеком`
+                          }
+                        />
+                      </div>
+                    )}
                   {/* логика первого сообщения */}
 
                   {messages.length - 1 == key ? (

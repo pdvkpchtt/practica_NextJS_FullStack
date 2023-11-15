@@ -11,6 +11,7 @@ import TextMain from "../../shared/Text/TextMain ";
 import ChatReadStatus from "../../shared/icons/ChatReadStatus";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import EmptyAvatar from "shared/ui/EmptyAvatar";
+import LittlePitchIcon from "../../shared/icons/LittlePitchIcon";
 
 const MessageCart = ({ item, onClick, active = false, last = false }) => {
   const pathname = usePathname();
@@ -68,6 +69,30 @@ const MessageCart = ({ item, onClick, active = false, last = false }) => {
                 {item.chatText}
               </p>
             )
+          )}
+          {item.lastMessageType === "superpitch" && (
+            <p
+              className={`${
+                item.myMessageIsLast ? "text-[#8f8f8f]" : "text-[#5875e8]"
+              } font-medium [@media(pointer:coarse)]:select-none gap-[4px] text-[14px] leading-[18px] tracking-[-0.013em] flex flex-row line-clamp-2`}
+            >
+              <LittlePitchIcon
+                fill={item.myMessageIsLast ? "#8f8f8f" : "#5875e8"}
+              />
+              {item.chatText}
+            </p>
+          )}
+          {item.lastMessageType === "pitch" && (
+            <p
+              className={`${
+                item.myMessageIsLast ? "text-[#8f8f8f]" : "text-[#5875e8]"
+              } font-medium [@media(pointer:coarse)]:select-none gap-[4px] text-[14px] leading-[18px] tracking-[-0.013em] flex flex-row line-clamp-2`}
+            >
+              <LittlePitchIcon
+                fill={item.myMessageIsLast ? "#8f8f8f" : "#5875e8"}
+              />
+              {item.chatText}
+            </p>
           )}
         </div>
 
