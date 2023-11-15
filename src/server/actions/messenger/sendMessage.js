@@ -12,6 +12,9 @@ const sendMessage = async (input, chatId) => {
   var d = new Date();
   d.setDate(d.getDate() - 4);
 
+  var d2 = new Date();
+  d2.setDate(d2.getDate() - 6);
+
   const check = await prisma.message.findFirst({
     where: {
       AND: [
@@ -23,11 +26,22 @@ const sendMessage = async (input, chatId) => {
     select: { id: true },
   });
 
+  const checkVacReply = await prisma.message.findFirst({
+    where: {
+      AND: [
+        { chatId: chatId },
+        { type: "vacancyReply" },
+        { createdAt: { gte: new Date(d2.toString()).toISOString() } },
+      ],
+    },
+    select: { id: true, type: true },
+  });
+
   const message = await prisma.message.create({
     data: {
       text: input,
       unRead: true,
-      type: check?.id ? "" : circle.circle,
+      type: check?.id || checkVacReply?.id ? "" : circle.circle,
       Chat: {
         connect: { id: chatId },
       },

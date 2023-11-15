@@ -44,6 +44,7 @@ import useInterval from "use-interval";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import ReplyItem from "./ReplyItem";
+import BigLogoSvg from "../../shared/icons/BigLogoSvg";
 
 const ChatsPanel = ({ chatId, user_id }) => {
   // const { currentChatCursor, setCurrentChatCursor } = useContext(MesContext);
@@ -230,43 +231,75 @@ const ChatsPanel = ({ chatId, user_id }) => {
                     style="flex items-center mt-[16px] mb-[14px] select-none justify-center"
                   />
                 ) : null}
-                {item.type === "vacancyReply" ? (
-                  <ReplyItem
-                    item={item}
-                    key={key}
-                    style={`${
-                      dataStateMessages[key + 1]?.myMessage
-                        ? "mt-[2px]"
-                        : "mt-[2px]"
-                    }
+                <>
+                  {item.type === "vacancyReply" ? (
+                    <ReplyItem
+                      item={item}
+                      key={key}
+                      style={`${
+                        dataStateMessages[key + 1]?.myMessage
+                          ? "mt-[2px]"
+                          : "mt-[2px]"
+                      }
                     `}
-                  />
-                ) : (
-                  <MessageItem
-                    item={item}
-                    key={key}
-                    style={`${
-                      dataStateMessages[key + 1]?.myMessage
-                        ? "mt-[2px]"
-                        : "mt-[2px]"
-                    }
+                    />
+                  ) : (
+                    <MessageItem
+                      item={item}
+                      key={key}
+                      style={`${
+                        dataStateMessages[key + 1]?.myMessage
+                          ? "mt-[2px]"
+                          : "mt-[2px]"
+                      }
                     `}
-                  />
-                )}
+                    />
+                  )}
 
-                {messages.length - 1 == key ? (
-                  <TextSecondary
-                    text={dayjs(item.createdAt).calendar(dayjs(), {
-                      sameDay: "[Сегодня]", // В тот же день (сегодня в 2:30 утра)
-                      nextDay: "[Завтра]", // Позавчера (вчера в 2:30 ночи)
-                      nextWeek: "DD MMMM", // На следующей неделе (воскресенье в 2:30 ночи)
-                      lastDay: "[Вчера]", // Позавчера (вчера в 2:30 ночи)
-                      lastWeek: "DD MMMM", // Прошлая неделя (последний понедельник в 2:30 ночи)
-                      sameElse: "DD MMMM", // Всё остальное ( 17/10/2011 )
-                    })}
-                    style="flex items-center mt-[16px] mb-[14px] select-none justify-center"
-                  />
-                ) : null}
+                  {/* логика первого сообщения */}
+                  {dataStateMessages?.length === 1 &&
+                    dataStateMessages[0]?.vacancyReply && (
+                      <div className="w-full items-center justify-center flex text-center flex-col gap-[8px]">
+                        <BigLogoSvg style="fill-[#F6F6F8] dark:fill-[#141414]" />
+                        <TextMain
+                          text={
+                            dataStateMessages[0]?.myMessage
+                              ? "Вы откликнулись на вакансию"
+                              : `@${dataStateMessages[0]?.user?.username} откликнулся на вакансию`
+                          }
+                          style="mt-[8px] select-none font-medium text-[20px] leading-[22px] tracking-[-0.4px]"
+                        />
+                        <p
+                          onClick={() => {
+                            console.log(
+                              dataStateMessages[0]?.vacancyReply.vacancy?.id
+                            );
+                            router.push(
+                              `/vacancy/${dataStateMessages[0]?.vacancyReply.vacancy?.id}`
+                            );
+                          }}
+                          className="text-[#5875e8] mb-[42px]  hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] cursor-pointer text-[14px] font-medium leading-[18px] tracking-[-0.182px]"
+                        >
+                          {dataStateMessages[0]?.vacancyReply?.vacancy?.name}
+                        </p>
+                      </div>
+                    )}
+                  {/* логика первого сообщения */}
+
+                  {messages.length - 1 == key ? (
+                    <TextSecondary
+                      text={dayjs(item.createdAt).calendar(dayjs(), {
+                        sameDay: "[Сегодня]", // В тот же день (сегодня в 2:30 утра)
+                        nextDay: "[Завтра]", // Позавчера (вчера в 2:30 ночи)
+                        nextWeek: "DD MMMM", // На следующей неделе (воскресенье в 2:30 ночи)
+                        lastDay: "[Вчера]", // Позавчера (вчера в 2:30 ночи)
+                        lastWeek: "DD MMMM", // Прошлая неделя (последний понедельник в 2:30 ночи)
+                        sameElse: "DD MMMM", // Всё остальное ( 17/10/2011 )
+                      })}
+                      style="flex items-center mt-[16px] mb-[14px] select-none justify-center"
+                    />
+                  ) : null}
+                </>
               </>
             ))}
             {hasNextPageMessages ? (
