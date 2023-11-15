@@ -50,10 +50,25 @@ const MessageCart = ({ item, onClick, active = false, last = false }) => {
             style="font-medium [@media(pointer:coarse)]:select-none text-[16px] leading-[16.8px] tracking-[-0.015em] h-[19px] whitespace-nowrap truncate"
           />
 
-          <TextSecondary
-            text={item.myMessageIsLast ? "Вы: " + item.chatText : item.chatText}
-            style="font-medium [@media(pointer:coarse)]:select-none text-[14px] leading-[18px] tracking-[-0.013em] flex-1 line-clamp-2"
-          />
+          {item?.lastMessageType !== "vacancyReply" &&
+          !item?.lastMessageType?.includes("pitch") ? (
+            <TextSecondary
+              text={
+                item.myMessageIsLast ? "Вы: " + item.chatText : item.chatText
+              }
+              style="font-medium [@media(pointer:coarse)]:select-none text-[14px] leading-[18px] tracking-[-0.013em] flex-1 line-clamp-2"
+            />
+          ) : (
+            item.lastMessageType === "vacancyReply" && (
+              <p
+                className={`${
+                  item.myMessageIsLast ? "text-[#8f8f8f]" : "text-[#5875e8]"
+                } font-medium [@media(pointer:coarse)]:select-none text-[14px] leading-[18px] tracking-[-0.013em] flex-1 line-clamp-2`}
+              >
+                {item.chatText}
+              </p>
+            )
+          )}
         </div>
 
         <div className={`ml-[8px] my-auto`}>

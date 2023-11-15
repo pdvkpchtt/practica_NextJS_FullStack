@@ -20,6 +20,7 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
           createdAt: true,
           unRead: true,
           userId: true,
+          type: true,
         },
         take: -1,
       },
@@ -58,14 +59,22 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
       let chatIsUnread = false;
       let myMessageIsLast = false;
       let lastMessageCreatedAt = "";
+      let lastMessageType = "";
       if (chat.messages.length === 0)
         chatText = "Начните диалог в беседе прямо сейчас";
       else {
-        chatText = chat.messages[chat.messages.length - 1].text;
+        lastMessageType = chat.messages[chat.messages.length - 1].type;
         chatIsUnread = chat.messages[chat.messages.length - 1].unRead;
         myMessageIsLast = chat.messages[chat.messages.length - 1].userId === id;
         lastMessageCreatedAt =
           chat.messages[chat.messages.length - 1].createdAt;
+
+        if (chat.messages[chat.messages.length - 1].type === "vacancyReply")
+          chatText = myMessageIsLast
+            ? "Вы отправили отклик"
+            : chat.messages[chat.messages.length - 1].text;
+        // else if
+        else chatText = chat.messages[chat.messages.length - 1].text;
       }
 
       return {
@@ -80,6 +89,7 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
         chatImage: chatImage,
         chatLabel: chatLabel,
         chatText: chatText,
+        lastMessageType: lastMessageType,
         chatIsUnread: chatIsUnread,
       };
     } else {
@@ -90,14 +100,21 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
       let chatIsUnread = false;
       let myMessageIsLast = false;
       let lastMessageCreatedAt = "";
+      let lastMessageType = "";
       if (chat.messages.length === 0)
         chatText = "Начните диалог в беседе прямо сейчас";
       else {
-        chatText = chat.messages[chat.messages.length - 1].text;
+        lastMessageType = chat.messages[chat.messages.length - 1].type;
         chatIsUnread = chat.messages[chat.messages.length - 1].unRead;
         myMessageIsLast = chat.messages[chat.messages.length - 1].userId === id;
         lastMessageCreatedAt =
           chat.messages[chat.messages.length - 1].createdAt;
+
+        if (chat.messages[chat.messages.length - 1].type === "vacancyReply")
+          chatText = myMessageIsLast
+            ? "Вы отправили отклик"
+            : chat.messages[chat.messages.length - 1].text;
+        else chatText = chat.messages[chat.messages.length - 1].text;
       }
 
       return {
@@ -109,6 +126,7 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
         myMessageIsLast: myMessageIsLast,
         lastMessageCreatedAt: lastMessageCreatedAt,
 
+        lastMessageType: lastMessageType,
         chatLabel: chat.name,
         chatText: chatText,
         chatIsUnread: chatIsUnread,

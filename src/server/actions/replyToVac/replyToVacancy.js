@@ -101,7 +101,7 @@ export const replyToVacancy = async (vacId, link, message) => {
 
     const newmessage = await prisma.message.create({
       data: {
-        text: "Я отклик",
+        text: "Отклик на вакансию",
         type: "vacancyReply",
         unRead: true,
         Chat: {
@@ -123,7 +123,7 @@ export const replyToVacancy = async (vacId, link, message) => {
   } else {
     const newmessage = await prisma.message.create({
       data: {
-        text: "Я отклик",
+        text: "Отклик на вакансию",
         type: "vacancyReply",
         unRead: true,
         Chat: {
@@ -144,5 +144,5 @@ export const replyToVacancy = async (vacId, link, message) => {
     });
   }
 
-  console.log("digitstestomg", foundChat, hrCreator?.hrCreator?.userId);
+  // console.log("digitstestomg", foundChat, hrCreator?.hrCreator?.userId);s
 };

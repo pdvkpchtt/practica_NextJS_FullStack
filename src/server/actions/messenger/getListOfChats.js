@@ -24,6 +24,7 @@ export const getListOfChats = async (id, cursor, searchInput) => {
           text: true,
           unRead: true,
           createdAt: true,
+          type: true,
         },
         take: -1,
       },
@@ -58,14 +59,23 @@ export const getListOfChats = async (id, cursor, searchInput) => {
       // если сообщений в чате нет, то lasnMessage для картоки это заготовленный текст
       let chatText = "";
       let chatIsUnread = false;
+      let myMessageIsLast = false;
       let lastMessageCreatedAt = "";
+      let lastMessageType = "";
       if (chat.messages.length === 0)
         chatText = "Начните диалог в беседе прямо сейчас";
       else {
-        chatText = chat.messages[chat.messages.length - 1].text;
+        lastMessageType = chat.messages[chat.messages.length - 1].type;
         chatIsUnread = chat.messages[chat.messages.length - 1].unRead;
+        myMessageIsLast = chat.messages[chat.messages.length - 1].userId === id;
         lastMessageCreatedAt =
           chat.messages[chat.messages.length - 1].createdAt;
+
+        if (chat.messages[chat.messages.length - 1].type === "vacancyReply")
+          chatText = myMessageIsLast
+            ? "Вы отправили отклик"
+            : chat.messages[chat.messages.length - 1].text;
+        else chatText = chat.messages[chat.messages.length - 1].text;
       }
 
       return {
@@ -78,6 +88,7 @@ export const getListOfChats = async (id, cursor, searchInput) => {
         myMessageIsLast: chat.messages[chat.messages.length - 1].userId === id,
         lastMessageCreatedAt: lastMessageCreatedAt,
 
+        lastMessageType: lastMessageType,
         chatImage: chatImage,
         chatLabel: chatLabel,
         chatText: chatText,
@@ -90,13 +101,21 @@ export const getListOfChats = async (id, cursor, searchInput) => {
       let chatText = "";
       let chatIsUnread = false;
       let lastMessageCreatedAt = "";
+      let lastMessageType = "";
       if (chat.messages.length === 0)
         chatText = "Начните диалог в беседе прямо сейчас";
       else {
-        chatText = chat.messages[chat.messages.length - 1].text;
+        lastMessageType = chat.messages[chat.messages.length - 1].type;
         chatIsUnread = chat.messages[chat.messages.length - 1].unRead;
+        myMessageIsLast = chat.messages[chat.messages.length - 1].userId === id;
         lastMessageCreatedAt =
           chat.messages[chat.messages.length - 1].createdAt;
+
+        if (chat.messages[chat.messages.length - 1].type === "vacancyReply")
+          chatText = myMessageIsLast
+            ? "Вы отправили отклик"
+            : chat.messages[chat.messages.length - 1].text;
+        else chatText = chat.messages[chat.messages.length - 1].text;
       }
 
       return {
@@ -109,6 +128,7 @@ export const getListOfChats = async (id, cursor, searchInput) => {
         myMessageIsLast: chat.messages[chat.messages.length - 1].userId === id,
         lastMessageCreatedAt: lastMessageCreatedAt,
 
+        lastMessageType: lastMessageType,
         chatLabel: chat.name,
         chatText: chatText,
         chatIsUnread: chatIsUnread,
