@@ -71,7 +71,8 @@ const ChatsPanel = ({ chatId, user_id }) => {
       chatId,
       currentChatCursor,
       searchInput,
-      false
+      false,
+      user_id
     );
     console.log("client messages", data);
     if (currentChatCursor?.length) {
@@ -98,7 +99,8 @@ const ChatsPanel = ({ chatId, user_id }) => {
       chatId,
       lastDateMessages,
       searchInput,
-      true
+      true,
+      user_id
     );
     if (!data.check && !data.checkVacReply) setCircle(data.circle);
     else setCircle("");
@@ -199,14 +201,24 @@ const ChatsPanel = ({ chatId, user_id }) => {
             <CustomLoader diameter={36} />
           </div>
         ) : dataStateMessages?.length === 0 ? (
-          <TextSecondary
-            text={
-              pathname.includes("/preview")
-                ? "Здесь пока ничего нет"
-                : "Нет сообщений"
-            }
-            style={"h-full w-full flex justify-center items-center select-none"}
-          />
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="w-[234px]">
+              <TextSecondary
+                text={
+                  pathname.includes("/preview")
+                    ? circle === "pitch"
+                      ? "Отправляя питч незнакомцу, постарайтесь написать локанично и кратко"
+                      : circle === "superpitch"
+                      ? "Отправляя суперпитч незнакомцу, постарайтесь написать локанично и кратко"
+                      : "Здесь пока ничего нет"
+                    : "Нет сообщений"
+                }
+                style={
+                  "h-full text-center w-full flex justify-center items-center select-none"
+                }
+              />
+            </div>
+          </div>
         ) : (
           <>
             {/* {dataStateMessages?.length === 1 &&

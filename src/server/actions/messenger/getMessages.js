@@ -1,8 +1,14 @@
 import { prisma } from "../../db";
 import { checkCircles } from "./checkCircles";
 
-const getMessages = async (chatId, userId, cursor, searchInput) => {
-  const circle = await checkCircles(userId, chatId);
+const getMessages = async (
+  chatId,
+  userId,
+  cursor,
+  searchInput,
+  otherUserId
+) => {
+  const circle = await checkCircles(otherUserId, chatId);
 
   var d = new Date();
   d.setDate(d.getDate() - 4);

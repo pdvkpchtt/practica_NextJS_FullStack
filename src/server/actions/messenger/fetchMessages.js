@@ -8,7 +8,8 @@ export async function fetchMessages(
   chatId,
   cursor,
   searchInput,
-  isUpdate = false
+  isUpdate = false,
+  user_id
 ) {
   const session = await getServSession();
 
@@ -17,7 +18,8 @@ export async function fetchMessages(
       chatId,
       session?.user?.id,
       cursor,
-      searchInput
+      searchInput,
+      user_id
     );
     return data;
   } else {
@@ -25,7 +27,8 @@ export async function fetchMessages(
       chatId,
       session?.user?.id,
       cursor,
-      searchInput
+      searchInput,
+      user_id
     );
     return data;
   }
