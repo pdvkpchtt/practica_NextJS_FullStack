@@ -248,6 +248,7 @@ const SkillsModalVacs = ({
                       (item) =>
                         item.type === "soft" && (
                           <PickSkillCard
+                            hard={false}
                             text={item.name}
                             key={item.id}
                             del
