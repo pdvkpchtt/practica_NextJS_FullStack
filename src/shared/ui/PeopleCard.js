@@ -70,15 +70,30 @@ const PeopleCard = ({ item }) => {
       {/* skills */}
       {item.UserSkills.length > 0 && (
         <div className="flex flex-row flex-wrap overflow-hidden gap-[8px] h-[24px]">
-          {item.UserSkills.map((item) => (
-            <SkillCard
-              hard={item.skill.type == "hard"}
-              soft={item.skill.type == "soft"}
-              key={item.id}
-              style="mr-[4px]"
-              text={item.skill.name}
-            />
-          ))}
+          {item.UserSkills.map(
+            (item) =>
+              item.skill.type === "hard" && (
+                <SkillCard
+                  hard={item.skill.type == "hard"}
+                  soft={item.skill.type == "soft"}
+                  key={item.id}
+                  style="mr-[4px]"
+                  text={item.skill.name}
+                />
+              )
+          )}
+          {item.UserSkills.map(
+            (item) =>
+              item.skill.type === "soft" && (
+                <SkillCard
+                  hard={item.skill.type == "hard"}
+                  soft={item.skill.type == "soft"}
+                  key={item.id}
+                  style="mr-[4px]"
+                  text={item.skill.name}
+                />
+              )
+          )}
         </div>
       )}
       {/* skills */}
