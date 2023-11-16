@@ -9,6 +9,7 @@ import TextSecondary from "../../shared/Text/TextSecondary";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 
 const MessageItem = ({ item, style, last = false }) => {
+  // console.log("img", item.user.image);
   return (
     <div
       className={`${style} flex items-center ${

@@ -269,6 +269,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
                   )}
 
                   {/* логика первого сообщения */}
+                  {/* отклик */}
                   {dataStateMessages?.length === 1 &&
                     dataStateMessages[0]?.vacancyReply && (
                       <div className="w-full items-center justify-center flex text-center flex-col gap-[8px]">
@@ -296,6 +297,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
                         </p>
                       </div>
                     )}
+                  {/* суперпитч */}
                   {dataStateMessages?.length === 1 &&
                     dataStateMessages[0]?.type === "superpitch" && (
                       <div className="w-full items-center justify-center flex text-center flex-col gap-[8px]">
@@ -310,7 +312,32 @@ const ChatsPanel = ({ chatId, user_id }) => {
                         />
                         <TextSecondary
                           style={
-                            "mb-[42px] text-[16px] leading-[20px] tracking-[-0.24px]"
+                            "mb-[42px] text-[16px] leading-[20px] select-none tracking-[-0.24px]"
+                          }
+                          text={
+                            dataStateMessages[0]?.myMessage
+                              ? "Теперь нужно немного подождать. Cобеседник ответит вам, если захочет"
+                              : `@${dataStateMessages[0]?.user?.username} отправил вам суперпитч. Можете ответить, если хотите дружить с этим человеком`
+                          }
+                        />
+                      </div>
+                    )}
+                  {/* питч */}
+                  {dataStateMessages?.length === 1 &&
+                    dataStateMessages[0]?.type === "pitch" && (
+                      <div className="w-full items-center justify-center flex text-center flex-col gap-[8px]">
+                        <BigLogoSvg style="fill-[#F6F6F8] dark:fill-[#141414]" />
+                        <TextMain
+                          text={
+                            dataStateMessages[0]?.myMessage
+                              ? "Вы отправили питч"
+                              : `Новый питч`
+                          }
+                          style="mt-[8px] select-none font-medium text-[20px] leading-[22px] tracking-[-0.4px]"
+                        />
+                        <TextSecondary
+                          style={
+                            "mb-[42px] text-[16px] leading-[20px] select-none tracking-[-0.24px]"
                           }
                           text={
                             dataStateMessages[0]?.myMessage
