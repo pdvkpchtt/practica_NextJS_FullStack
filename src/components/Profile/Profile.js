@@ -10,7 +10,14 @@ import ProfileLiked from "../../components/Profile/ProfileLiked";
 import ProfilePosts from "../../components/Profile/ProfilePosts";
 import ProfileBookmarks from "../../components/Profile/ProfileBookmarks";
 
-const Profile = ({ data, getUserFeed, addReaction, userId }) => {
+const Profile = ({
+  data,
+  getUserFeed,
+  addReaction,
+  userId,
+  pitchesFirst,
+  superPitchesFirst,
+}) => {
   console.log("client profile", data);
   const [navState, setNavState] = useState([
     {
@@ -53,7 +60,12 @@ const Profile = ({ data, getUserFeed, addReaction, userId }) => {
         useState={(value) => handleClick(value)}
         layoutId="mobile"
       />
-      <Left navState={navState[0].active} data={data} />
+      <Left
+        navState={navState[0].active}
+        data={data}
+        pitchesFirst={pitchesFirst}
+        superPitchesFirst={superPitchesFirst}
+      />
       <Right handleClick={(value) => handleClick(value)} navState={navState} />
     </>
   );

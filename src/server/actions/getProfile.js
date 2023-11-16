@@ -18,7 +18,10 @@ export const getProfile = async ({ userId }) => {
       country: true,
       city: true,
       views: true,
+      inSearch: true,
       birthDate: true,
+      phone: true,
+      phoneVerified: true,
       Education: {
         select: {
           id: true,
@@ -113,8 +116,11 @@ export const getProfile = async ({ userId }) => {
       about: user.about,
       country: user.country,
       email: user.email,
-
+      phone: user.phone,
+      phoneVerified: user.phoneVerified,
+      inSearch: user.inSearch,
       city: user.city,
+
       views: JSON.stringify(user.views),
       birthDate: user.birthDate,
       education: user.Education.map((education) => ({
@@ -170,6 +176,10 @@ export const getProfile = async ({ userId }) => {
       about: user.about,
       country: user.country,
       city: user.city,
+      phone: user.phone,
+      phoneVerified: user.phoneVerified,
+      inSearch: user.inSearch,
+
       email: user.email,
       views: JSON.stringify(user.views),
       birthDate: user.birthDate,

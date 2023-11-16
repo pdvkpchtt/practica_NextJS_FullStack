@@ -3,6 +3,7 @@ import { getProfile } from "../../server/actions/getProfile";
 import { getUserPosts } from "../../server/actions/getUserPosts";
 import { reactOnPost } from "../../server/actions/reactOnPost";
 import Profile from "../../components/Profile/Profile";
+import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 
 const ProfiePage = async () => {
   const session = await getServSession();
@@ -32,12 +33,17 @@ const ProfiePage = async () => {
     return data;
   }
 
+  const pitchesFirst = await getPitchesCount();
+  const superPitchesFirst = await getPitchesCount("superpitch");
+
   return (
     <Profile
       data={data}
       getUserFeed={getUserFeed}
       addReaction={addReaction}
       userId={session.user.id}
+      pitchesFirst={pitchesFirst}
+      superPitchesFirst={superPitchesFirst}
     />
   );
 };

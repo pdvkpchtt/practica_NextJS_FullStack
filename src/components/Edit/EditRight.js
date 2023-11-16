@@ -16,6 +16,7 @@ import SkillCard from "../../shared/ui/SkillCard";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import SkillsModalContent from "./SkillsModalContent";
 import DropDownWithSearch from "../../shared/ui/DropDownWithSearch";
+import CheckBox from "../../shared/ui/CheckBox";
 
 import CheckIcon from "../../shared/icons/CheckIcon";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
@@ -182,6 +183,32 @@ const EditRight = ({
           }
         />
         {/* about me */}
+
+        {/* isStartap */}
+        <div className="flex flex-row items-center">
+          {data.phone && data.phoneVerified ? (
+            <CheckBox
+              active={dataToUpdate.inSearch}
+              onClick={() =>
+                setDataToUpdate({
+                  ...dataToUpdate,
+                  inSearch: !dataToUpdate.inSearch,
+                })
+              }
+            />
+          ) : (
+            <CheckBox disabled />
+          )}
+          <TextSecondary
+            text={
+              data.phone && data.phoneVerified
+                ? "В поиске работы?"
+                : "В поиске работы? Нужно указать контактные данные."
+            }
+            style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] ml-[6px]"
+          />
+        </div>
+        {/* isStartap */}
 
         {/* EducationLevel */}
         <div className="flex flex-col w-full">

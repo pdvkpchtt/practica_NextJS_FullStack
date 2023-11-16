@@ -69,6 +69,7 @@ model User {
   WorkExperience WorkExperience[]
   UserSkills     UserSkills[]
   views          BigInt           @default(0)
+  inSearch       Boolean          @default(false)
 
   chats                Chat[]
   messages             Message[]

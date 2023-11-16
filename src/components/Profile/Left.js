@@ -30,7 +30,7 @@ import PitchesModal from "./PitchesModal";
 import ContactsIcon from "shared/icons/ContactsIcon";
 import ContactsModal from "./ContactsModal";
 
-const Left = ({ navState, data }) => {
+const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
   // console.log(data, "saasassaasas2");
   const router = useRouter();
   const ref = useRef(null);
@@ -269,7 +269,9 @@ const Left = ({ navState, data }) => {
             onClick={() => setContactsModalState(true)}
           >
             <ContactsIcon />
-            {"Контакты отсутсвуют"}
+            {data.phoneVerified && data.phone
+              ? "Контакты"
+              : "Контакты отсутсвуют"}
           </button>
         </div>
         {/* contacts */}
@@ -277,7 +279,7 @@ const Left = ({ navState, data }) => {
         {/* pitches + superpitches */}
         <div
           className={`${
-            pitchesState === null && "justify-center"
+            "" // pitchesState === null && "justify-center"
           } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
         >
           <button
@@ -286,24 +288,26 @@ const Left = ({ navState, data }) => {
        cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
             onClick={() => setPitchesModalState(true)}
           >
-            {pitchesState === null ? (
+            {/* {pitchesState === null ? (
               <CustomLoader
                 diameter={28}
                 strokeWidth={6}
                 strokeWidthSecondary={6}
               />
-            ) : (
-              <>
-                <PitchIcon black blue={false} />
-                {pitchesState + " " + getNoun(pitchesState)}
-              </>
-            )}
+            ) : ( */}
+            <>
+              <PitchIcon black blue={false} />
+              {pitchesState === null
+                ? pitchesFirst + " " + getNoun(pitchesFirst)
+                : pitchesState + " " + getNoun(pitchesState)}
+            </>
+            {/* )} */}
           </button>
         </div>
 
         <div
           className={`${
-            superpitchesState === null && "justify-center"
+            "" // superpitchesState === null && "justify-center"
           } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
         >
           <button
@@ -312,18 +316,20 @@ const Left = ({ navState, data }) => {
        cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
             onClick={() => setPitchesModalState(true)}
           >
-            {superpitchesState === null ? (
+            {/* {superpitchesState === null ? (
               <CustomLoader
                 diameter={28}
                 strokeWidth={6}
                 strokeWidthSecondary={6}
               />
-            ) : (
-              <>
-                <SuperpitchIcon black blue={false} />
-                {superpitchesState + " супер" + getNoun(superpitchesState)}
-              </>
-            )}
+            ) : ( */}
+            <>
+              <SuperpitchIcon black blue={false} />
+              {superpitchesState === null
+                ? superPitchesFirst + " " + getNoun(superPitchesFirst)
+                : superpitchesState + " " + getNoun(superpitchesState)}
+            </>
+            {/* )} */}
           </button>
         </div>
         {/* pitches + superpitches */}
@@ -376,6 +382,8 @@ const Left = ({ navState, data }) => {
 
       {/* contactsModal */}
       <ContactsModal
+        phone={data.phone}
+        phoneVerified={data.phoneVerified}
         modalState={contactsModalState}
         setModalState={setContactsModalState}
       />
