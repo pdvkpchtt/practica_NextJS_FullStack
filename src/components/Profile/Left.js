@@ -58,7 +58,7 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
 
   const getInfoAboutUpdates = async () => {
     const updatesCount = await getMyProfileInfoTimer();
-    console.log(updatesCount, "jopa");
+    // console.log(updatesCount, "jopa");
     setUpdatesState(updatesCount);
   };
 

@@ -80,7 +80,7 @@ const OthersContactsModal = ({
                 onClick={() => {
                   if (plan.contacts === 0) router.push("/subscriptions");
                 }}
-                className="bg-[#5875e8] hover:bg-[#3A56C5] cursor-pointer w-[192px] select-none mt-auto rounded-[16px] active:bg-[#2C429C] py-[12px] font-medium leading-[19px] tracking-[-0.24px] text-[16px] text-center flex items-center text-white transition duration-[250ms] justify-center"
+                className="bg-[#5875e8] hover:bg-[#3A56C5] cursor-pointer w-[192px] select-none rounded-[16px] active:bg-[#2C429C] py-[12px] font-medium leading-[19px] tracking-[-0.24px] text-[16px] text-center flex items-center text-white transition duration-[250ms] justify-center"
               >
                 {plan.contacts === 0 ? "К подпискам" : "Открыть контакт"}
               </div>
@@ -96,7 +96,42 @@ const OthersContactsModal = ({
         {/* header */}
 
         {/* body */}
-        <div className="mt-[61px] flex flex-col p-[12px] overflow-y-scroll h-[calc(100%-61px)]"></div>
+        <div className="mt-[61px] flex flex-col p-[12px] overflow-y-scroll h-[calc(100%-61px)]">
+          {plan === null ? (
+            <div className="w-full h-[578px] flex items-center justify-center">
+              <CustomLoader diameter={36} />
+            </div>
+          ) : (
+            <>
+              <TextMain
+                text={"Контакт @" + name}
+                style="text-[20px] font-medium leading-[22px] mb-[16px] tracking-[-0.4px] text-[#2c2c2c] dark:text-white"
+              />
+              <TextMain
+                text="8 (9**) *** ** **"
+                style={
+                  "text-[16px] font-normal w-full leading-[19px] mb-[8px] tracking-[-0.24px]"
+                }
+              />
+              <p className="text-[16px] font-normal mb-[24px] leading-[19px] tracking-[-0.24px] text-[#2c2c2c] dark:text-white flex flex-row">
+                <TextSecondary
+                  text={"Доступно контактов"}
+                  style="text-[16px] font-normal mb-[24px] leading-[19px] tracking-[-0.24px] "
+                />
+                &nbsp;{plan.contacts}
+              </p>
+
+              <div
+                onClick={() => {
+                  if (plan.contacts === 0) router.push("/subscriptions");
+                }}
+                className="bg-[#5875e8] hover:bg-[#3A56C5] cursor-pointer w-full select-none rounded-[16px] active:bg-[#2C429C] py-[12px] font-medium leading-[19px] tracking-[-0.24px] text-[16px] text-center flex items-center text-white transition duration-[250ms] justify-center"
+              >
+                {plan.contacts === 0 ? "К подпискам" : "Открыть контакт"}
+              </div>
+            </>
+          )}
+        </div>
         {/* body */}
       </MobileModal>
     </>

@@ -267,7 +267,167 @@ const ReplyModal = ({
         {/* header */}
 
         {/* body */}
-        <div className="mt-[61px] flex flex-col gap-[34px] p-[12px] overflow-y-scroll h-[calc(100%-61px)]"></div>
+        <div className="mt-[61px] flex flex-col gap-[34px] p-[12px] overflow-y-scroll h-[calc(100%-61px)]">
+          <TextMain
+            text="Резюме"
+            style={
+              "text-[22px] font-medium mx-auto leading-[26px] tracking-[-0.594px]"
+            }
+          />
+
+          <div className="text-start w-full flex flex-col gap-[12px]">
+            <Input
+              label="Ссылка на резюме"
+              placeholder="Например, hh.ru, superjob, github или свой сайт"
+              style="w-full"
+              value={resumeInput}
+              onChange={(val) => setResumeInput(val)}
+            />
+
+            <TextMain
+              text="Или"
+              style={
+                "text-[14px] font-medium mx-auto leading-[18px] tracking-[-0.182px]"
+              }
+            />
+
+            {/* input for files */}
+            <form
+              action={somethingHapeningFunc}
+              onClick={() => !drag && inputRef.current.click()}
+              className={`${
+                drag && "scale-[0.95]"
+              } py-[32px] cursor-pointer px-[52px] transition duration-[250ms] rounded-[24px] flex flex-col gap-[12px] border-dashed border-[1px] border-[#BFBFBF]`}
+            >
+              <input
+                type="file"
+                name="file"
+                accept="application/pdf"
+                className="hidden"
+                ref={inputRef}
+                onChange={() => {
+                  buttRef.current.click();
+                  fetchHandler();
+                }}
+              />
+              <input
+                type="submit"
+                value="Upload"
+                ref={buttRef}
+                className="hidden"
+              />
+
+              <TextMain
+                text="Перетащите резюме в эту область или нажмите здесть, чтобы загрузить"
+                style={
+                  "font-medium select-none leading-[18px] w-[256px] text-[14px] tracking-[-0.182px] text-center w-full"
+                }
+              />
+              <p className="break-words select-none text-[#8f8f8f] font-normal leading-[16px] text-[13px] tracking-[-0.351px] text-center">
+                PDF
+                <br />
+                Не более 10 МБ
+              </p>
+            </form>
+            {/* input for files */}
+
+            {loading ? (
+              <div className="w-full flex items-center justify-center">
+                <CustomLoader diameter={25} strokeWidth={5} />
+              </div>
+            ) : (
+              filesState.length !== 0 && (
+                <>
+                  <TextMain
+                    text="Загруженные файлы"
+                    style={
+                      "text-[14px] mt-[4px] text-start w-full font-medium mx-auto leading-[18px] tracking-[-0.182px]"
+                    }
+                  />
+
+                  {filesState.map((i, key) => (
+                    <div
+                      className="flex flex-row justify-between items-center"
+                      key={key}
+                    >
+                      <a
+                        href={i.path}
+                        target="_blank"
+                        className="text-[#5875e8] flex-1 truncate hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] text-[16px] font-normal leading-[19px] tracking-[-0.24px] underline cursor-pointer"
+                      >
+                        {i.name}
+                      </a>
+
+                      <TrashIcon
+                        gray
+                        onClick={() => {
+                          deleteFile(i.id);
+                          fetchHandler();
+                        }}
+                      />
+                    </div>
+                  ))}
+                </>
+              )
+            )}
+
+            <TextArea
+              label={"Сопроводительное письмо"}
+              style="mt-[12px]"
+              value={letterInput}
+              onChange={(val) => setLetterInput(val)}
+              placeholder="Напишите о своих достижениях или мотивации, если хотите"
+              minRows={3}
+              maxRows={5}
+            />
+          </div>
+
+          <div
+            className={`rounded-[30px] mx-auto w-[112px] h-[33px] transition duration-[250ms] px-[12px] py-[7.5px] flex items-center justify-center font-medium text-[14px] leading-[16px] tracking-[-0.013125em] select-none
+                active:bg-[#2C429C] hover:bg-[#3A56C5] bg-[#5875e8] text-white  cursor-pointer mb-[12px]
+            `}
+            onClick={async () => {
+              setLoadingButton(true);
+              await replyToVacancy(vacId, resumeInput, letterInput);
+              let chatId = await chechIfChatExist(hrId);
+              toast(`🦄 Вы откликнулись`, {
+                position: isMobile ? "top-center" : "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                // theme: "dark",
+                progressStyle: { background: "#5875e8" },
+                containerId: "forCopy",
+                bodyStyle: { color: "#5875e8" },
+
+                onClick: () => router.push(`/messenger/${chatId.id}`),
+              });
+              setModalState();
+              setLoadingButton(false);
+              router.refresh();
+            }}
+          >
+            {loadingButton ? (
+              <Oval
+                height={19}
+                width={19}
+                color="rgba(255, 255, 255, 1)"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="oval-loading"
+                secondaryColor="rgba(255, 255, 255, 0.3)"
+                strokeWidth={6}
+                strokeWidthSecondary={6}
+              />
+            ) : (
+              "Откликнуться"
+            )}
+          </div>
+        </div>
         {/* body */}
       </MobileModal>
     </>
