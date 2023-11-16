@@ -78,11 +78,17 @@ const ProfileInfo = ({ data, others = false }) => {
             />
 
             {data.education.map((item, key) => (
-              <TextMain
-                key={key}
-                text={`${item.name} • ${item.degree}`}
-                style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
-              />
+              <div className="flex flex-col gap-[4px]" key={key}>
+                <TextMain
+                  key={key}
+                  text={`${item.name} • ${item.degree}`}
+                  style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
+                />
+                <TextCaption
+                  text={`${item.startDate} — ${item.endDate}`}
+                  style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
+                />
+              </div>
             ))}
           </div>
         )}

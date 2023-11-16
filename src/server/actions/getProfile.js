@@ -27,6 +27,8 @@ export const getProfile = async ({ userId }) => {
           id: true,
           name: true,
           degree: true,
+          startDate: true,
+          endDate: true,
         },
       },
       educationLevel: true,
@@ -127,6 +129,8 @@ export const getProfile = async ({ userId }) => {
         id: education.id,
         name: education.name,
         degree: education.degree,
+        startDate: education.startDate,
+        endDate: education.endDate,
       })),
       educationLevel: user.educationLevel,
       workExperience: user.WorkExperience.map((workExperience) => ({
@@ -187,6 +191,8 @@ export const getProfile = async ({ userId }) => {
         id: education.id,
         name: education.name,
         degree: education.degree,
+        startDate: education.startDate,
+        endDate: education.endDate,
       })),
       educationLevel: user.educationLevel,
       workExperience: user.WorkExperience.map((workExperience) => ({

@@ -7,6 +7,39 @@ import { ButtonSecondary } from "../../shared/ui/Button";
 import PlusIcon from "../../shared/icons/PlusIcon";
 import TrashIcon from "../../shared/icons/TrashIcon";
 import TextSecondary from "../../shared/Text/TextSecondary";
+import DropDown from "../../shared/ui/DropDown";
+
+const yearDropDownInfo = [
+  { label: "1995", value: "1", for: "Год" },
+  { label: "1996", value: "2", for: "Год" },
+  { label: "1997", value: "3", for: "Год" },
+  { label: "1998", value: "4", for: "Год" },
+  { label: "1999", value: "5", for: "Год" },
+  { label: "2000", value: "6", for: "Год" },
+  { label: "2001", value: "7", for: "Год" },
+  { label: "2002", value: "8", for: "Год" },
+  { label: "2003", value: "9", for: "Год" },
+  { label: "2004", value: "10", for: "Год" },
+  { label: "2005", value: "11", for: "Год" },
+  { label: "2006", value: "12", for: "Год" },
+  { label: "2007", value: "13", for: "Год" },
+  { label: "2008", value: "14", for: "Год" },
+  { label: "2009", value: "15", for: "Год" },
+  { label: "2010", value: "16", for: "Год" },
+  { label: "2011", value: "17", for: "Год" },
+  { label: "2012", value: "18", for: "Год" },
+  { label: "2013", value: "19", for: "Год" },
+  { label: "2014", value: "20", for: "Год" },
+  { label: "2015", value: "21", for: "Год" },
+  { label: "2016", value: "22", for: "Год" },
+  { label: "2017", value: "23", for: "Год" },
+  { label: "2018", value: "24", for: "Год" },
+  { label: "2019", value: "25", for: "Год" },
+  { label: "2020", value: "26", for: "Год" },
+  { label: "2021", value: "27", for: "Год" },
+  { label: "2022", value: "28", for: "Год" },
+  { label: "2023", value: "29", for: "Год" },
+];
 
 const Education = ({ educationState, setEducationState, deleteHandler }) => {
   return (
@@ -47,6 +80,39 @@ const Education = ({ educationState, setEducationState, deleteHandler }) => {
                 );
               }}
             />
+
+            <div className="w-full flex flex-row gap-[8px] [@media(pointer:coarse)]:flex-col">
+              <DropDown
+                label="Год начала обучения"
+                styled="w-full"
+                // choise={item.split(" ")[1] || "Год"}
+                choise={item.startDate ? item.startDate : "Год"}
+                handleSetChoise={(e) =>
+                  setEducationState(
+                    educationState.map((item, index) =>
+                      index === key ? { ...item, startDate: e } : item
+                    )
+                  )
+                }
+                items={yearDropDownInfo}
+                itemsFor={"Год"}
+              />
+              <DropDown
+                label="Год окончания обучения"
+                styled="w-full"
+                // choise={item.split(" ")[1] || "Год"}
+                choise={item.endDate ? item.endDate : "Год"}
+                handleSetChoise={(e) =>
+                  setEducationState(
+                    educationState.map((item, index) =>
+                      index === key ? { ...item, endDate: e } : item
+                    )
+                  )
+                }
+                items={yearDropDownInfo}
+                itemsFor={"Год"}
+              />
+            </div>
           </div>
 
           {key + 1 == educationState.length ? (
