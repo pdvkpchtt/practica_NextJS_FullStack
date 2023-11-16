@@ -29,6 +29,7 @@ import CustomLoader from "../../shared/ui/CustomLoader";
 import useWindowDimensions from "../../components/Profile/useWindowDimensions";
 import { chechIfChatExist } from "../../server/actions/messenger/chechIfChatExist";
 import ConnectionsModal from "../../components/Profile/ConnectionsModal";
+import OthersContactsModal from "./OthersContactsModal";
 import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 import { getOtherProfileWithTimer } from "../../server/actions/profileTimer/getOtherProfileWithTimer";
 
@@ -567,6 +568,15 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
         setModalState={setModalState}
       />
       {/* modal for connections handling */}
+
+      {/* contactsModal */}
+      <OthersContactsModal
+        name={data.username}
+        phone={data.phone}
+        modalState={contactsModalState}
+        setModalState={setContactsModalState}
+      />
+      {/* contactsModal */}
     </>
   );
 };
