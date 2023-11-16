@@ -6,6 +6,7 @@ import { getProfile } from "../../../server/actions/getProfile";
 import { getUserPosts } from "../../../server/actions/getUserPosts";
 import { reactOnPost } from "../../../server/actions/reactOnPost";
 import { getServSession } from "../../api/auth/[...nextauth]/route";
+import { getPitchesCount } from "../../../server/actions/pitches/getPitchesCount";
 
 const OthersProfilePage = async ({ params: { id } }) => {
   const session = await getServSession();
@@ -45,6 +46,9 @@ const OthersProfilePage = async ({ params: { id } }) => {
     return data;
   }
 
+  const pitchesFirst = await getPitchesCount();
+  const superPitchesFirst = await getPitchesCount("superpitch");
+
   return (
     <div
       className="flex gap-[16px] [@media(pointer:coarse)]:gap-[12px] w-full
@@ -57,6 +61,8 @@ const OthersProfilePage = async ({ params: { id } }) => {
         data={data}
         getUserFeed={getUserFeed}
         addReaction={addReaction}
+        pitchesFirst={pitchesFirst}
+        superPitchesFirst={superPitchesFirst}
       />
     </div>
   );

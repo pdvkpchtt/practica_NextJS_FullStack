@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import useInterval from "use-interval";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
@@ -38,9 +39,15 @@ import CrossIcon from "../../shared/icons/CrossIcon";
 import CheckIcon from "../../shared/icons/CheckIcon";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
-import useInterval from "use-interval";
+import ContactsIcon from "../../shared/icons/ContactsIcon";
 
-const OthersLeft = ({ navState, data, ifChatExist }) => {
+const OthersLeft = ({
+  navState,
+  data,
+  ifChatExist,
+  pitchesFirst,
+  superPitchesFirst,
+}) => {
   const router = useRouter();
   console.log(data, "other profile");
 
@@ -49,10 +56,10 @@ const OthersLeft = ({ navState, data, ifChatExist }) => {
   const { height, width } = useWindowDimensions();
 
   const [modalState, setModalState] = useState(false);
+  const [contactsModalState, setContactsModalState] = useState(false);
   const [requestStatus, setRequestStatus] = useState(false);
   const [friendStatus, setFriendStatus] = useState(false);
   const [ifHeSentRequest, setIfHeSentRequest] = useState(false);
-  const [circle, setCircle] = useState(null);
   const [loading, setloading] = useState(true);
 
   const allChecks = async () => {
@@ -92,8 +99,9 @@ const OthersLeft = ({ navState, data, ifChatExist }) => {
 
   // here we are getting pitches count
   const getNoun = (dig) => {
-    if (dig === 0 || dig >= 5) return "питчей";
-    if (dig > 1 && dig < 5) return "питча";
+    if (dig === 0 || dig >= 5 || dig % 10 === 0 || dig % 10 >= 5)
+      return "питчев";
+    if ((dig > 1 && dig < 5) || (dig % 10 > 1 && dig % 10 < 5)) return "питча";
     else return "питч";
   };
 
@@ -289,22 +297,39 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
         )}
         {/* hr */}
 
+        {/* contacts */}
+        {data.phone && data.phoneVerified && data.inSearch && (
+          <div className="p-[12px] rounded-[20px] items-center flex flex-row justify-between max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]">
+            <ButtonGhost
+              text="Контактные данные"
+              onClick={() => setContactsModalState(true)}
+            >
+              <ContactsIcon
+                style={
+                  "stroke-[#5875e8] group-hover:stroke-[#3A56C5] group-active:stroke-[#2C429C] transition duration-[250ms]"
+                }
+              />
+            </ButtonGhost>
+          </div>
+        )}
+        {/* contacts */}
+
         {/* ёбка с питчами */}
         {data.isFirstCircle ? (
           <Card
             style={`max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] flex flex-col gap-[8px] ${
-              loading && "items-center"
+              "" // loading && "items-center"
             }`}
             padding={12}
           >
-            {loading && (
+            {/* {loading && (
               <CustomLoader
                 diameter={28}
                 strokeWidth={6}
                 strokeWidthSecondary={6}
               />
-            )}
-            {!ifChatExist.id && !loading && (
+            )} */}
+            {!ifChatExist.id && (
               <ButtonGhost
                 text="Отправить сообщение"
                 onClick={() =>
@@ -314,7 +339,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 <MessengeIcon fill={"#5875e8"} />
               </ButtonGhost>
             )}
-            {ifChatExist.id && !loading && (
+            {ifChatExist.id && (
               <ButtonGhost
                 text="Отправить сообщение"
                 onClick={() => router.push(`/messenger/${ifChatExist.id}`)}
@@ -326,83 +351,95 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
         ) : data.isSecondCircle.find((i2) => i2 === true) ? (
           <div
             className={`${
-              pitchesState === null && "justify-center"
+              "" // pitchesState === null && "justify-center"
             } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
           >
-            {pitchesState === null ? (
+            {/* {pitchesState === null ? (
               <CustomLoader
                 diameter={28}
                 strokeWidth={6}
                 strokeWidthSecondary={6}
-              />
-            ) : (
-              <ButtonGhost
-                text={pitchesState + " " + getNoun(pitchesState)}
-                onClick={() => {
-                  router.push(
-                    !ifChatExist.id
-                      ? `/messenger/preview?user_id=${data.id}`
-                      : `/messenger/${ifChatExist.id}`
-                  );
-                }}
-              >
-                <PitchIcon />
-              </ButtonGhost>
-            )}
+              /> */}
+            {/* ) : ( */}
+            <ButtonGhost
+              text={
+                pitchesState === null
+                  ? pitchesFirst + " " + getNoun(pitchesFirst)
+                  : pitchesState + " " + getNoun(pitchesState)
+              }
+              onClick={() => {
+                router.push(
+                  !ifChatExist.id
+                    ? `/messenger/preview?user_id=${data.id}`
+                    : `/messenger/${ifChatExist.id}`
+                );
+              }}
+            >
+              <PitchIcon />
+            </ButtonGhost>
+            {/* )} */}
           </div>
         ) : data.isThirdCircle ? (
           <div
             className={`${
-              superpitchesState === null && "justify-center"
+              "" // superpitchesState === null && "justify-center"
             } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
           >
-            {superpitchesState === null ? (
+            {/* {superpitchesState === null ? (
               <CustomLoader
                 diameter={28}
                 strokeWidth={6}
                 strokeWidthSecondary={6}
               />
-            ) : (
-              <ButtonGhost
-                text={superpitchesState + " супер" + getNoun(superpitchesState)}
-                onClick={() => {
-                  router.push(
-                    !ifChatExist.id
-                      ? `/messenger/preview?user_id=${data.id}`
-                      : `/messenger/${ifChatExist.id}`
-                  );
-                }}
-              >
-                <SuperpitchIcon />
-              </ButtonGhost>
-            )}
+            ) : ( */}
+            <ButtonGhost
+              text={
+                superpitchesState === null
+                  ? superPitchesFirst + " " + getNoun(superPitchesFirst)
+                  : superpitchesState + " " + getNoun(superpitchesState)
+              }
+              onClick={() => {
+                router.push(
+                  !ifChatExist.id
+                    ? `/messenger/preview?user_id=${data.id}`
+                    : `/messenger/${ifChatExist.id}`
+                );
+              }}
+            >
+              <SuperpitchIcon />
+            </ButtonGhost>
+            {/* )} */}
           </div>
         ) : (
           <div
             className={`${
-              superpitchesState === null && "justify-center"
+              "" // superpitchesState === null && "justify-center"
             } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
           >
-            {superpitchesState === null ? (
+            {/* {superpitchesState === null ? (
               <CustomLoader
                 diameter={28}
                 strokeWidth={6}
                 strokeWidthSecondary={6}
               />
-            ) : (
-              <ButtonGhost
-                text={superpitchesState + " супер" + getNoun(superpitchesState)}
-                onClick={() => {
-                  router.push(
-                    !ifChatExist.id
-                      ? `/messenger/preview?user_id=${data.id}`
-                      : `/messenger/${ifChatExist.id}`
-                  );
-                }}
-              >
-                <SuperpitchIcon />
-              </ButtonGhost>
-            )}
+            ) : ( */}
+            <ButtonGhost
+              text={
+                superpitchesState === null
+                  ? superPitchesFirst + " " + getNoun(superPitchesFirst)
+                  : superpitchesState + " " + getNoun(superpitchesState)
+              }
+              onClick={() => {
+                router.push(
+                  !ifChatExist.id
+                    ? `/messenger/preview?user_id=${data.id}`
+                    : `/messenger/${ifChatExist.id}`
+                );
+              }}
+            >
+              <SuperpitchIcon />
+            </ButtonGhost>
+            {/* )} */}
           </div>
         )}
 

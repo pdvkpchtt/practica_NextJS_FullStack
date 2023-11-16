@@ -15,6 +15,8 @@ const OthersProfileWithNav = ({
   addReaction,
   otherId,
   ifChatExist,
+  pitchesFirst,
+  superPitchesFirst,
 }) => {
   console.log("client other profile", data);
   const [navState, setNavState] = useState([
@@ -61,6 +63,8 @@ const OthersProfileWithNav = ({
         navState={navState[0].active}
         data={data}
         ifChatExist={ifChatExist}
+        pitchesFirst={pitchesFirst}
+        superPitchesFirst={superPitchesFirst}
       />
       <Right
         handleClick={(value) => handleClick(value)}
