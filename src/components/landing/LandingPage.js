@@ -6,7 +6,7 @@ const LandingPage = () => {
     <div className="w-full h-[500vh] flex flex-col">
       {/* <WTF /> */}
       {/* потом убрать */}
-      <div className="fixed z-[-1] left-0 top-0 bg-[#f6f6f8] w-full h-full" />
+      <div className="fixed z-[-3] left-0 top-0 bg-[#f6f6f8] w-full h-full" />
       {/* потом убрать */}
       <LandingGearsComponents />
 

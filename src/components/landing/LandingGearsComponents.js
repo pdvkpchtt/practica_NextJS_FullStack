@@ -1,19 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useSpring,
-  useTransform,
-  progress,
-} from "framer-motion";
 import { useEffect, useState } from "react";
-import { ScrollRotate } from "react-scroll-rotate";
+import EnterIcon from "shared/icons/EnterIcon";
 
 import BgTextSvg from "../../shared/icons/landing/BgText.svg";
-import BgText from "../../shared/icons/landing/BgText";
+import Gear from "./Gear";
+import LandingButton from "./LandingButton";
 
 const scrollPoint = 50;
 
@@ -36,166 +29,42 @@ const LandingGearsComponents = () => {
       <Image
         src={BgTextSvg}
         alt="bgText"
-        className="select-none absolute invisible left-0 z-[-1] top-0 mx-[2.5vw] w-[calc(100vw-5vw)] h-[100vh]"
+        className="select-none absolute left-0 object-cover object-left-top px-[2vw] pt-[5vh] pb-[12vh] z-[-1] top-0 mx-[2.5vw] w-[calc(100vw-5vw)] h-[100vh]"
         width={1180}
         height={576}
         quality={100}
       />
 
-      <AnimatePresence>
-        <div className={"absolute top-[3vh] right-[2vw] w-fit h-fit"}>
-          <ScrollRotate from={0} to={360} method={"perc"} loops={0.05}>
-            <motion.svg
-              width="30vw"
-              height="30vh"
-              viewBox="0 0 250 250"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0.0283945 125.098C-0.029343 114.736 3.81213 104.729 10.7914 97.0627C17.7708 89.3962 27.3785 84.629 37.7105 83.7059C41.7532 83.2926 45.8994 83.396 49.8575 82.5882C68.7644 78.7279 82.2746 63.3525 83.0456 44.023C83.6567 28.8073 88.6866 16.0993 101.576 7.50529C115.058 -1.47385 129.509 -2.46008 143.931 4.89417C158.353 12.2484 166.044 24.4868 166.495 40.7168C167.229 65.4752 183.531 82.2313 208.427 83.3584C227.409 84.2225 242.471 95.1928 247.914 112.118C253.358 129.043 247.971 146.738 233.812 158C226.753 163.597 218.021 166.669 209.01 166.725C184.33 167.298 167.088 184.656 166.561 209.395C166.432 214.902 165.208 220.329 162.962 225.36C160.715 230.391 157.49 234.926 153.475 238.701C149.459 242.476 144.732 245.417 139.569 247.352C134.406 249.286 128.91 250.177 123.4 249.972C117.889 249.766 112.475 248.469 107.47 246.155C102.466 243.842 97.9716 240.558 94.2486 236.494C90.5255 232.43 87.6478 227.668 85.7827 222.484C83.9176 217.3 83.1023 211.797 83.384 206.296C84.5781 183.754 102.009 167.364 125.447 166.744C143.395 166.275 158.842 155.126 164.389 138.642C170.124 121.623 164.897 103.364 150.54 92.3375C137.876 82.607 123.708 80.5313 108.928 86.8054C94.149 93.0795 85.3678 104.651 83.6473 120.787C82.7541 129.24 82.425 137.571 78.1003 145.207C73.647 153.305 66.6206 159.691 58.1306 163.356C49.6405 167.021 40.1704 167.756 31.2154 165.446C22.2604 163.136 14.3306 157.912 8.67809 150.599C3.02554 143.286 -0.0277782 134.3 0.000190448 125.061L0.0283945 125.098Z"
-                fill="#5875E8"
-              />
-            </motion.svg>
-          </ScrollRotate>
-        </div>
-      </AnimatePresence>
+      <Gear
+        scrollPoint={0}
+        scrollPosition={1}
+        style={"absolute top-[3vh] right-[0vw] w-fit h-fit"}
+      />
+      <Gear
+        scrollPoint={scrollPoint}
+        scrollPosition={scrollPosition}
+        style={"absolute top-[30vh] right-[8.5vw] w-fit h-fit"}
+        points={[-60, -420]}
+      />
+      <Gear
+        scrollPoint={scrollPoint * 2}
+        scrollPosition={scrollPosition}
+        style={"absolute top-[49vh] right-[21vw] w-fit h-fit"}
+        points={[30, 390]}
+      />
+      <Gear
+        scrollPoint={scrollPoint * 3}
+        scrollPosition={scrollPosition}
+        style={"absolute top-[71vh] right-[33vw] w-fit h-fit"}
+        points={[200, -160]}
+      />
 
-      <div className={"absolute top-[27vh] right-[10.5vw] w-fit h-fit"}>
-        <ScrollRotate from={-60} to={-420} method={"perc"} loops={0.05}>
-          <AnimatePresence>
-            {scrollPosition > scrollPoint && (
-              <motion.svg
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                width="30vw"
-                height="30vh"
-                viewBox="0 0 250 250"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0.0283945 125.098C-0.029343 114.736 3.81213 104.729 10.7914 97.0627C17.7708 89.3962 27.3785 84.629 37.7105 83.7059C41.7532 83.2926 45.8994 83.396 49.8575 82.5882C68.7644 78.7279 82.2746 63.3525 83.0456 44.023C83.6567 28.8073 88.6866 16.0993 101.576 7.50529C115.058 -1.47385 129.509 -2.46008 143.931 4.89417C158.353 12.2484 166.044 24.4868 166.495 40.7168C167.229 65.4752 183.531 82.2313 208.427 83.3584C227.409 84.2225 242.471 95.1928 247.914 112.118C253.358 129.043 247.971 146.738 233.812 158C226.753 163.597 218.021 166.669 209.01 166.725C184.33 167.298 167.088 184.656 166.561 209.395C166.432 214.902 165.208 220.329 162.962 225.36C160.715 230.391 157.49 234.926 153.475 238.701C149.459 242.476 144.732 245.417 139.569 247.352C134.406 249.286 128.91 250.177 123.4 249.972C117.889 249.766 112.475 248.469 107.47 246.155C102.466 243.842 97.9716 240.558 94.2486 236.494C90.5255 232.43 87.6478 227.668 85.7827 222.484C83.9176 217.3 83.1023 211.797 83.384 206.296C84.5781 183.754 102.009 167.364 125.447 166.744C143.395 166.275 158.842 155.126 164.389 138.642C170.124 121.623 164.897 103.364 150.54 92.3375C137.876 82.607 123.708 80.5313 108.928 86.8054C94.149 93.0795 85.3678 104.651 83.6473 120.787C82.7541 129.24 82.425 137.571 78.1003 145.207C73.647 153.305 66.6206 159.691 58.1306 163.356C49.6405 167.021 40.1704 167.756 31.2154 165.446C22.2604 163.136 14.3306 157.912 8.67809 150.599C3.02554 143.286 -0.0277782 134.3 0.000190448 125.061L0.0283945 125.098Z"
-                  fill="#5875E8"
-                />
-              </motion.svg>
-            )}
-          </AnimatePresence>
-        </ScrollRotate>
+      <div className="cursor-pointer absolute bottom-[4vh] right-[4vw] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#647F98] bg-opacity-[15%] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]">
+        <EnterIcon />
+        Войти
       </div>
 
-      <div className={"absolute top-[44vh] right-[23vw] w-fit h-fit"}>
-        <ScrollRotate from={60} to={-300} method={"perc"} loops={0.05}>
-          <AnimatePresence>
-            {scrollPosition > scrollPoint * 2 && (
-              <motion.svg
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                width="30vw"
-                height="30vh"
-                viewBox="0 0 250 250"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0.0283945 125.098C-0.029343 114.736 3.81213 104.729 10.7914 97.0627C17.7708 89.3962 27.3785 84.629 37.7105 83.7059C41.7532 83.2926 45.8994 83.396 49.8575 82.5882C68.7644 78.7279 82.2746 63.3525 83.0456 44.023C83.6567 28.8073 88.6866 16.0993 101.576 7.50529C115.058 -1.47385 129.509 -2.46008 143.931 4.89417C158.353 12.2484 166.044 24.4868 166.495 40.7168C167.229 65.4752 183.531 82.2313 208.427 83.3584C227.409 84.2225 242.471 95.1928 247.914 112.118C253.358 129.043 247.971 146.738 233.812 158C226.753 163.597 218.021 166.669 209.01 166.725C184.33 167.298 167.088 184.656 166.561 209.395C166.432 214.902 165.208 220.329 162.962 225.36C160.715 230.391 157.49 234.926 153.475 238.701C149.459 242.476 144.732 245.417 139.569 247.352C134.406 249.286 128.91 250.177 123.4 249.972C117.889 249.766 112.475 248.469 107.47 246.155C102.466 243.842 97.9716 240.558 94.2486 236.494C90.5255 232.43 87.6478 227.668 85.7827 222.484C83.9176 217.3 83.1023 211.797 83.384 206.296C84.5781 183.754 102.009 167.364 125.447 166.744C143.395 166.275 158.842 155.126 164.389 138.642C170.124 121.623 164.897 103.364 150.54 92.3375C137.876 82.607 123.708 80.5313 108.928 86.8054C94.149 93.0795 85.3678 104.651 83.6473 120.787C82.7541 129.24 82.425 137.571 78.1003 145.207C73.647 153.305 66.6206 159.691 58.1306 163.356C49.6405 167.021 40.1704 167.756 31.2154 165.446C22.2604 163.136 14.3306 157.912 8.67809 150.599C3.02554 143.286 -0.0277782 134.3 0.000190448 125.061L0.0283945 125.098Z"
-                  fill="#5875E8"
-                />
-              </motion.svg>
-            )}
-          </AnimatePresence>
-        </ScrollRotate>
-      </div>
-
-      <div className={"absolute top-[62vh] right-[35vw] w-fit h-fit"}>
-        <ScrollRotate from={200} to={560} method={"perc"} loops={0.05}>
-          <AnimatePresence>
-            {scrollPosition > scrollPoint * 3 && (
-              <motion.svg
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                width="30vw"
-                height="30vh"
-                viewBox="0 0 250 250"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0.0283945 125.098C-0.029343 114.736 3.81213 104.729 10.7914 97.0627C17.7708 89.3962 27.3785 84.629 37.7105 83.7059C41.7532 83.2926 45.8994 83.396 49.8575 82.5882C68.7644 78.7279 82.2746 63.3525 83.0456 44.023C83.6567 28.8073 88.6866 16.0993 101.576 7.50529C115.058 -1.47385 129.509 -2.46008 143.931 4.89417C158.353 12.2484 166.044 24.4868 166.495 40.7168C167.229 65.4752 183.531 82.2313 208.427 83.3584C227.409 84.2225 242.471 95.1928 247.914 112.118C253.358 129.043 247.971 146.738 233.812 158C226.753 163.597 218.021 166.669 209.01 166.725C184.33 167.298 167.088 184.656 166.561 209.395C166.432 214.902 165.208 220.329 162.962 225.36C160.715 230.391 157.49 234.926 153.475 238.701C149.459 242.476 144.732 245.417 139.569 247.352C134.406 249.286 128.91 250.177 123.4 249.972C117.889 249.766 112.475 248.469 107.47 246.155C102.466 243.842 97.9716 240.558 94.2486 236.494C90.5255 232.43 87.6478 227.668 85.7827 222.484C83.9176 217.3 83.1023 211.797 83.384 206.296C84.5781 183.754 102.009 167.364 125.447 166.744C143.395 166.275 158.842 155.126 164.389 138.642C170.124 121.623 164.897 103.364 150.54 92.3375C137.876 82.607 123.708 80.5313 108.928 86.8054C94.149 93.0795 85.3678 104.651 83.6473 120.787C82.7541 129.24 82.425 137.571 78.1003 145.207C73.647 153.305 66.6206 159.691 58.1306 163.356C49.6405 167.021 40.1704 167.756 31.2154 165.446C22.2604 163.136 14.3306 157.912 8.67809 150.599C3.02554 143.286 -0.0277782 134.3 0.000190448 125.061L0.0283945 125.098Z"
-                  fill="#5875E8"
-                />
-              </motion.svg>
-            )}
-          </AnimatePresence>
-        </ScrollRotate>
-      </div>
-
-      <div className="absolute left-[46vw] top-[73vh]">
-        <AnimatePresence>
-          <motion.svg
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            width="8vw"
-            height="8vh"
-            viewBox="0 0 74 74"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g filter="url(#filter0_b_552_4162)">
-              <rect
-                width="74"
-                height="74"
-                rx="37"
-                fill="#5875E8"
-                fill-opacity="0.4"
-              />
-            </g>
-            <path
-              d="M44.6654 38.9165L36.9987 46.5832L29.332 38.9165"
-              stroke="white"
-              stroke-width="3.83333"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M44.6654 27.4165L36.9987 35.0832L29.332 27.4165"
-              stroke="white"
-              stroke-width="3.83333"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <defs>
-              <filter
-                id="filter0_b_552_4162"
-                x="-4"
-                y="-4"
-                width="82"
-                height="82"
-                filterUnits="userSpaceOnUse"
-                color-interpolation-filters="sRGB"
-              >
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feGaussianBlur in="BackgroundImageFix" stdDeviation="2" />
-                <feComposite
-                  in2="SourceAlpha"
-                  operator="in"
-                  result="effect1_backgroundBlur_552_4162"
-                />
-                <feBlend
-                  mode="normal"
-                  in="SourceGraphic"
-                  in2="effect1_backgroundBlur_552_4162"
-                  result="shape"
-                />
-              </filter>
-            </defs>
-          </motion.svg>
-        </AnimatePresence>
-      </div>
+      <LandingButton style="absolute left-[46vw] top-[84vh] " />
     </>
   );
 };

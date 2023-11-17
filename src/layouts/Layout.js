@@ -41,7 +41,7 @@ const Layout = ({ children }) => {
         max-w-[1012px] [@media(hover)]:min-w-[1012px] [@media(pointer:coarse)]:max-w-[500px] mx-auto 
         px-[16px] [@media(pointer:coarse)]:py-0 [@media(pointer:coarse)]:px-0
         items-start [@media(pointer:coarse)]:items-center            
-            `}
+       `}
       >
         {children}
       </div>
