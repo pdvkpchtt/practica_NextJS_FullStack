@@ -13,11 +13,13 @@ export const updateProfile = async ({ userId, data }) => {
       username: data.username,
       birthDate: data.birthDate || null,
       inSearch: data.inSearch,
-      educationLevel: {
-        connect: {
-          id: data.educationLevel.id,
-        },
-      },
+      educationLevel: data.educationLevel?.id
+        ? {
+            connect: {
+              id: data.educationLevel?.id,
+            },
+          }
+        : {},
       Education: {
         deleteMany: {},
         createMany: {
