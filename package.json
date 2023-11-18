@@ -37,6 +37,7 @@
     "use-clipboard-copy": "^0.2.0",
     "use-interval": "^1.4.0",
     "uuidv4": "^6.2.13",
+    "zod": "^3.22.4",
     "zustand": "^4.4.1"
   },
   "devDependencies": {
