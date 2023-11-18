@@ -126,7 +126,7 @@ const VacancyCard = ({ item, role = "student", userId }) => {
       {/* skills */}
       {item.VacancySkills.length > 0 && (
         <div className="flex flex-col gap-[8px]">
-          <div className="flex flex-row flex-wrap overflow-hidden gap-[8px] h-[24px]">
+          <div className="flex flex-row flex-wrap overflow-hidden gap-[8px] h-[24px] [@media(pointer:coarse)]:h-fit [@media(pointer:coarse)]:max-h-[56px]">
             {item.vacArea.map((item) => (
               <SkillCard
                 area
