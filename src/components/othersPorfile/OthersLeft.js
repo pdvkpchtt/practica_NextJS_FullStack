@@ -396,8 +396,8 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
             <ButtonGhost
               text={
                 superpitchesState === null
-                  ? superPitchesFirst + " " + getNoun(superPitchesFirst)
-                  : superpitchesState + " " + getNoun(superpitchesState)
+                  ? superPitchesFirst + " супер" + getNoun(superPitchesFirst)
+                  : superpitchesState + " супер" + getNoun(superpitchesState)
               }
               onClick={() => {
                 router.push(
@@ -427,8 +427,8 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
             <ButtonGhost
               text={
                 superpitchesState === null
-                  ? superPitchesFirst + " " + getNoun(superPitchesFirst)
-                  : superpitchesState + " " + getNoun(superpitchesState)
+                  ? superPitchesFirst + " супер" + getNoun(superPitchesFirst)
+                  : superpitchesState + " супер" + getNoun(superpitchesState)
               }
               onClick={() => {
                 router.push(
