@@ -18,8 +18,9 @@ const Header = ({ role }) => {
     return (
       <header className="w-full h-[62px] top-0 fixed [@media(pointer:coarse)]:hidden z-30 bg-white dark:bg-[#212122] border-b-[0.7px] border-b-[#e7e7e7] dark:border-b-[#282828]">
         <div className="flex flex-row h-[62px] justify-between min-w-[1012px] max-w-[1012px] px-[16px] items-start mx-auto">
+          {/*  active:text-[#2C429C] hover:text-[#3A56C5] */}
           <p
-            className="font-bold text-[32px] text-[#5875e8] active:text-[#2C429C] hover:text-[#3A56C5] transition duration-[250ms] leading-[38.4px] tracking-[-0.023em] mt-[8px] mb-[16px] select-none cursor-pointer"
+            className="font-bold text-[32px] transition text-[#5875e8] duration-[250ms] leading-[38.4px] tracking-[-0.023em] mt-[8px] mb-[16px] select-none cursor-pointer"
             onClick={() => router.push("/feed")}
           >
             practica
