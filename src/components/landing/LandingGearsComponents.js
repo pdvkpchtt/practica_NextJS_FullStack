@@ -26,16 +26,7 @@ const LandingGearsComponents = () => {
 
   return (
     <>
-      <Image
-        src={BgTextSvg}
-        alt="bgText"
-        className="select-none absolute left-0 object-cover object-left-top px-[2vw] pt-[5vh] pb-[12vh] z-[-1] top-0 mx-[2.5vw] w-[calc(100vw-5vw)] h-[100vh]"
-        width={1180}
-        height={576}
-        quality={100}
-      />
-
-      <Gear
+      {/* <Gear
         scrollPoint={0}
         scrollPosition={1}
         style={"absolute top-[3vh] right-[0vw] w-fit h-fit"}
@@ -64,7 +55,7 @@ const LandingGearsComponents = () => {
         Войти
       </div>
 
-      <LandingButton style="absolute left-[46vw] top-[84vh] " />
+      <LandingButton style="absolute left-[46vw] top-[84vh] " /> */}
     </>
   );
 };
