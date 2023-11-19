@@ -141,7 +141,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
           {/* location and birth date */}
 
           {/* views and connections */}
-          <div className="flex flex-col gap-[8px] mt-[12px]">
+          {/* <div className="flex flex-col gap-[8px] mt-[12px]">
             <div className="flex flex-row gap-[4px]">
               <TextMain
                 text={profileData.connections}
@@ -151,8 +151,8 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                 text="Связей"
                 style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
               />
-            </div>
-            {/* <div className="flex flex-row gap-[4px]">
+            </div> */}
+          {/* <div className="flex flex-row gap-[4px]">
           <TextMain
             text={data.views}
             style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
@@ -162,7 +162,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
             style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
           />
         </div> */}
-          </div>
+          {/* </div> */}
           {/* views and connections */}
         </div>
       </Card>
