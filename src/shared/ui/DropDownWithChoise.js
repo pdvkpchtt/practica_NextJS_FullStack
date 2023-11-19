@@ -71,7 +71,9 @@ const DropDownWithChoise = ({
             </>
             {/* верхняя хуйня */}
             <div
-              className={`border-b-[1px] flex w-full p-[12px] z-[201] h-[42px] flex-row items-center cursor-pointer justify-between rounded-b-none ${
+              className={`${
+                state ? "cursor-text" : "cursor-pointer"
+              } border-b-[1px] flex w-full p-[12px] z-[201] h-[42px] flex-row items-center justify-between rounded-b-none ${
                 city.length > 0 ? "rounded-t-0 border-t-[1px]" : "rounded-[8px]"
               } bg-[#F6F6F8] dark:bg-[#2c2c2c] dark:border-[#141414] border-[#f6f6f8]`}
               onClick={() => {
@@ -95,7 +97,9 @@ const DropDownWithChoise = ({
                   }
                 }}
                 placeholder={placeholder}
-                className={`outline-none z-[201] bg-[#F6F6F8] dark:bg-[#2c2c2c] text-[#2c2c2c] dark:text-white placeholder:text-[#bfbfbf] dark:placeholder:text-[#8f8f8f] w-full mr-[12px] cursor-text`}
+                className={`outline-none z-[201] bg-[#F6F6F8] dark:bg-[#2c2c2c] text-[#2c2c2c] dark:text-white placeholder:text-[#bfbfbf] dark:placeholder:text-[#8f8f8f] w-full mr-[12px] ${
+                  state ? "cursor-text" : "cursor-pointer"
+                }`}
               />
             </div>
             {/* нижняя хуйня */}
