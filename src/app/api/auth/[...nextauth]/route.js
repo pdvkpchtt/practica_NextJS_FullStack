@@ -3,6 +3,7 @@ import EmailProvider from 'next-auth/providers/email'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 
 import { prisma } from '../../../../server/db'
+import sendVerificationRequest from 'server/sendVerificationRequest'
 
 export const authOptions = {
 	//secret: process.env.AUTH_SECRET,
@@ -18,6 +19,16 @@ export const authOptions = {
 				},
 			},
 			from: process.env.EMAIL_FROM,
+			maxAge: 5 * 60,
+			generateVerificationToken: async () => {
+				let token = ''
+				for (let i = 0; i < 5; i++) {
+					let digit = Math.floor(Math.random() * 10)
+					token += digit
+				}
+				return token
+			},
+			sendVerificationRequest: sendVerificationRequest,
 		}),
 	],
 	callbacks: {
