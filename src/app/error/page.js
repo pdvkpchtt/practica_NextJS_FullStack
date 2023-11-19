@@ -1,9 +1,10 @@
 "use client";
 
-import TextCaption from "../shared/Text/TextCaption";
-import { ButtonPrimary } from "../shared/ui/Button";
+import TextCaption from "../../shared/Text/TextCaption";
+import { ButtonPrimary } from "../../shared/ui/Button";
+import TextSecondary from "../../shared/Text/TextSecondary";
 
-import f0f from "../assets/505.png";
+import f0f from "../../assets/505.png";
 
 const E505Page = ({ error, reset }) => {
   return (
