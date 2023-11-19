@@ -39,7 +39,7 @@ const FeedNav = () => {
           })}
 
           <div
-            className="bg-[#5875e8] mt-[16px] flex flex-row gap-[6px] transition duration-[250ms] hover:bg-[#3A56C5] active:bg-[#2C429C] rounded-[16px] px-[12px] py-[8px] w-[151px] cursor-pointer"
+            className="bg-[#5875e8] mt-[16px] flex flex-row gap-[6px] transition duration-[250ms] hover:bg-[#3A56C5] active:bg-[#2C429C] rounded-[14px] px-[12px] py-[8px] w-[151px] cursor-pointer"
             onClick={() => {
               setModalCreatePost(true);
             }}
@@ -60,7 +60,7 @@ export default FeedNav;
 
 const FeedNavItem = ({ item = {}, active = false, onClick = () => {} }) => (
   <div
-    className="bg-white dark:bg-[#212122] rounded-[16px] px-[12px] py-[8px] w-[151px] flex flex-row gap-[6px] cursor-pointer"
+    className="bg-white dark:bg-[#212122] rounded-[14px] px-[12px] py-[8px] w-[151px] flex flex-row gap-[6px] cursor-pointer"
     onClick={onClick}
   >
     <Image src={item.icon} alt="" />
