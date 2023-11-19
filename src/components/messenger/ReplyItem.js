@@ -40,7 +40,7 @@ const ReplyItem = ({ item, style, last = false }) => {
           }`}
         >
           <TextMain
-            text={item.vacancyReply.message}
+            text={item?.vacancyReply?.message}
             style={`font-medium max-w-[288px] w-full text-[14px] leading-[18px] tracking-[-0.013em] px-[12px] pt-[12px] pb-[11px] bg-[#e7e7e7] dark:bg-[#2c2c2c] rounded-[12px]`}
           />
           <TextSecondary
@@ -52,30 +52,34 @@ const ReplyItem = ({ item, style, last = false }) => {
             <div className="bg-[#5875e8] rounded-full min-[12px] max-h-[12px] h-[12px] w-[12px] min-w-[12px] max-w-[12px]" />
           )}
         </div>
-        <div className="flex flex-col gap-[8px] max-w-[288px] w-full items-start p-[12px] bg-[#e7e7e7] dark:bg-[#2c2c2c] rounded-[12px]">
-          {item.vacancyReply?.file.map((i, key) => (
-            <a
-              href={i.path}
-              key={key}
-              target="_blank"
-              className={` text-[#5875e8] w-full max-w-[264px] truncate hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] text-[16px] font-normal leading-[19px] tracking-[-0.24px] underline cursor-pointer`}
-            >
-              {i.name}
-            </a>
-          ))}
-        </div>
+        {item.vacancyReply?.file?.lengt > 0 && (
+          <div className="flex flex-col gap-[8px] max-w-[288px] w-full items-start p-[12px] bg-[#e7e7e7] dark:bg-[#2c2c2c] rounded-[12px]">
+            {item.vacancyReply?.file.map((i, key) => (
+              <a
+                href={i.path}
+                key={key}
+                target="_blank"
+                className={` text-[#5875e8] w-full max-w-[264px] truncate hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] text-[16px] font-normal leading-[19px] tracking-[-0.24px] underline cursor-pointer`}
+              >
+                {i.name}
+              </a>
+            ))}
+          </div>
+        )}
 
-        <div
-          className={`font-medium flex items-start max-w-[288px] w-full overflow-hidden truncate text-[#5875e8] text-[14px] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] leading-[18px] tracking-[-0.013em] px-[12px] pt-[12px] pb-[11px] bg-[#e7e7e7] dark:bg-[#2c2c2c] rounded-[12px]`}
-        >
-          <a
-            href={item.vacancyReply.link}
-            target="_blank"
-            className={`text-[#5875e8] flex-1 truncate hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] text-[16px] font-normal leading-[19px] tracking-[-0.24px] underline cursor-pointer`}
+        {item?.vacancyReply?.link && (
+          <div
+            className={`font-medium flex items-start max-w-[288px] w-full overflow-hidden truncate text-[#5875e8] text-[14px] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] leading-[18px] tracking-[-0.013em] px-[12px] pt-[12px] pb-[11px] bg-[#e7e7e7] dark:bg-[#2c2c2c] rounded-[12px]`}
           >
-            {item.vacancyReply.link}
-          </a>
-        </div>
+            <a
+              href={item.vacancyReply.link}
+              target="_blank"
+              className={`text-[#5875e8] flex-1 truncate hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] text-[16px] font-normal leading-[19px] tracking-[-0.24px] underline cursor-pointer`}
+            >
+              {item.vacancyReply.link}
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
