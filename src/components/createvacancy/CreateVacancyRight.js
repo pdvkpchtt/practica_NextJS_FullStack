@@ -76,10 +76,10 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               console.log(res, "asswe");
               setStatus(res?.message);
 
-              toast(`🦄 Вакансия создана`, {
+              toast(`💼 Вакансия создана`, {
                 position: isMobile ? "top-center" : "bottom-right",
                 autoClose: 2000,
-                hideProgressBar: false,
+                hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: false,
                 draggable: true,

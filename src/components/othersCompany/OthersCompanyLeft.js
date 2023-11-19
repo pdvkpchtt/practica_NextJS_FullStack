@@ -285,10 +285,10 @@ const OthersCompanyLeft = ({ navState, data }) => {
               text="Подписаться"
               onClick={async () => {
                 await followCompany(data.user.id);
-                toast(`🦄 Вы подписались`, {
+                toast(`🔔 Вы подписались`, {
                   position: isMobile ? "top-center" : "bottom-right",
                   autoClose: 2000,
-                  hideProgressBar: false,
+                  hideProgressBar: true,
                   closeOnClick: true,
                   pauseOnHover: false,
                   draggable: true,
@@ -307,10 +307,10 @@ const OthersCompanyLeft = ({ navState, data }) => {
               text="Отписаться"
               onClick={async () => {
                 await unfollowCompany(data.user.id);
-                toast(`🦄 Вы отписались`, {
+                toast(`🔕 Вы отписались`, {
                   position: isMobile ? "top-center" : "bottom-right",
                   autoClose: 2000,
-                  hideProgressBar: false,
+                  hideProgressBar: true,
                   closeOnClick: true,
                   pauseOnHover: false,
                   draggable: true,

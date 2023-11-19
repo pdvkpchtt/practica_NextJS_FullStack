@@ -280,10 +280,10 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                 text="Удалить из друзей"
                 onClick={async () => {
                   await removeConnection(profileData.id);
-                  toast(`🦄 Пользователь удалён из друзей`, {
+                  toast(`🚫 Пользователь удалён из друзей`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 2000,
-                    hideProgressBar: false,
+                    hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
                     draggable: true,
@@ -305,10 +305,10 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                 text="Заявка на рассмотрении"
                 onClick={async () => {
                   await cancelFriendRequest(profileData.id);
-                  toast(`🦄 Заявка в друзья отменена`, {
+                  toast(`🙅 Заявка в друзья отменена`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 2000,
-                    hideProgressBar: false,
+                    hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
                     draggable: true,
@@ -329,10 +329,10 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                 text="Подружиться"
                 onClick={async () => {
                   await sendFriendRequest(profileData.id);
-                  toast(`🦄 Заявка в друзья отправлена`, {
+                  toast(`🌐 Заявка в друзья отправлена`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 2000,
-                    hideProgressBar: false,
+                    hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
                     draggable: true,
@@ -354,10 +354,10 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                 text="Принять заявку"
                 onClick={async () => {
                   await addConnection(profileData.id);
-                  toast(`🦄 Заявка принята`, {
+                  toast(`🤝 Заявка принята`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 2000,
-                    hideProgressBar: false,
+                    hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
                     draggable: true,

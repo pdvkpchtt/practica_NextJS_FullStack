@@ -29,10 +29,10 @@ const SkillCard = ({
       } px-[8px] w-fit whitespace-nowrap transition duration-[250ms] select-none cursor-pointer py-[4px] rounded-[20px] font-medium text-[13px] leading-[16px] tracking-[-0.027em]`}
       onClick={() => {
         if (!noCopy) {
-          toast(`🦄 Текст скопирован`, {
+          toast(`🗂 Текст скопирован`, {
             position: isMobile ? "top-center" : "bottom-right",
             autoClose: 2000,
-            hideProgressBar: false,
+            hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: false,
             draggable: true,

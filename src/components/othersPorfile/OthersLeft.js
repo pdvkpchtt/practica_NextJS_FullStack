@@ -466,10 +466,10 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   await removeConnection(data.id);
                   router.refresh();
 
-                  toast(`🦄 Пользователь удалён из друзей`, {
+                  toast(`🚫 Пользователь удалён из друзей`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 2000,
-                    hideProgressBar: false,
+                    hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
                     draggable: true,
@@ -488,10 +488,10 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 text="Заявка на рассмотрении"
                 onClick={async () => {
                   await cancelFriendRequest(data.id);
-                  toast(`🦄 Заявка в друзья отменена`, {
+                  toast(`🙅 Заявка в друзья отменена`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 2000,
-                    hideProgressBar: false,
+                    hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
                     draggable: true,
@@ -515,10 +515,10 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   onClick={async () => {
                     await sendFriendRequest(data.id);
                     // setRequestStatus(true);
-                    toast(`🦄 Заявка в друзья отправлена`, {
+                    toast(`🌐 Заявка в друзья отправлена`, {
                       position: isMobile ? "top-center" : "bottom-right",
                       autoClose: 2000,
-                      hideProgressBar: false,
+                      hideProgressBar: true,
                       closeOnClick: true,
                       pauseOnHover: false,
                       draggable: true,
@@ -539,10 +539,10 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   await addConnection(data.id);
                   // setIfHeSentRequest(false);
                   router.refresh();
-                  toast(`🦄 Заявка принята`, {
+                  toast(`🤝 Заявка принята`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 2000,
-                    hideProgressBar: false,
+                    hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
                     draggable: true,

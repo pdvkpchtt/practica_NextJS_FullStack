@@ -265,10 +265,10 @@ const ReplyModal = ({
 
               if (!res) {
                 let chatId = await chechIfChatExist(hrId);
-                toast(`🦄 Вы откликнулись`, {
+                toast(`📨 Вы откликнулись`, {
                   position: isMobile ? "top-center" : "bottom-right",
                   autoClose: 5000,
-                  hideProgressBar: false,
+                  hideProgressBar: true,
                   closeOnClick: true,
                   pauseOnHover: false,
                   draggable: true,
@@ -479,10 +479,10 @@ const ReplyModal = ({
 
               if (!res) {
                 let chatId = await chechIfChatExist(hrId);
-                toast(`🦄 Вы откликнулись`, {
+                toast(`📨 Вы откликнулись`, {
                   position: isMobile ? "top-center" : "bottom-right",
                   autoClose: 5000,
-                  hideProgressBar: false,
+                  hideProgressBar: true,
                   closeOnClick: true,
                   pauseOnHover: false,
                   draggable: true,

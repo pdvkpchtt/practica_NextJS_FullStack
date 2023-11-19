@@ -122,10 +122,10 @@ const EditRight = ({
                       ? []
                       : workState,
                 });
-                toast(`🦄 Изменения сохранены`, {
+                toast(`💾 Изменения сохранены`, {
                   position: isMobile ? "top-center" : "bottom-right",
                   autoClose: 2000,
-                  hideProgressBar: false,
+                  hideProgressBar: true,
                   closeOnClick: true,
                   pauseOnHover: false,
                   draggable: true,
