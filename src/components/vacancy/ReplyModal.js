@@ -45,6 +45,10 @@ const ReplyModal = ({
   const [filesState, setFilesState] = useState([]);
   const [letterInput, setLetterInput] = useState("");
 
+  // validate
+  const [status, setStatus] = useState(null);
+  // validate
+
   const somethingHapeningFunc = (something) => {
     uploadFile(something, vacId);
   };
@@ -89,7 +93,18 @@ const ReplyModal = ({
               placeholder="Например, hh.ru, superjob, github или свой сайт"
               style="w-full"
               value={resumeInput}
-              onChange={(val) => setResumeInput(val)}
+              onChange={(val) => {
+                setResumeInput(val);
+                if (status)
+                  setStatus(status?.filter((i) => !i.includes("inputLink")));
+              }}
+              caption={
+                !status
+                  ? null
+                  : status?.includes("inputLink url") && resumeInput.length > 0
+                  ? "Неверный формат ссылки"
+                  : null
+              }
             />
 
             <TextMain
@@ -197,6 +212,13 @@ const ReplyModal = ({
                       />
                     </div>
                   ))}
+                  {status &&
+                    status?.includes("files maxlen") &&
+                    filesState.length > 3 && (
+                      <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
+                        Максимум 3 файла
+                      </p>
+                    )}
                 </>
               )
             )}
@@ -205,10 +227,23 @@ const ReplyModal = ({
               label={"Сопроводительное письмо"}
               style="mt-[12px]"
               value={letterInput}
-              onChange={(val) => setLetterInput(val)}
+              onChange={(val) => {
+                setLetterInput(val);
+                if (status)
+                  setStatus(status?.filter((i) => !i.includes("inputMessage")));
+              }}
               placeholder="Напишите о своих достижениях или мотивации, если хотите"
               minRows={3}
               maxRows={5}
+              caption={
+                !status
+                  ? null
+                  : status?.includes("inputMessage minlen")
+                  ? "Поле обязательно к заполнению"
+                  : status?.includes("inputMessage maxlen")
+                  ? "Максимальная длинна поля 2000 сиволов"
+                  : null
+              }
             />
           </div>
 
@@ -218,26 +253,39 @@ const ReplyModal = ({
             `}
             onClick={async () => {
               setLoadingButton(true);
-              await replyToVacancy(vacId, resumeInput, letterInput);
-              let chatId = await chechIfChatExist(hrId);
-              toast(`🦄 Вы откликнулись`, {
-                position: isMobile ? "top-center" : "bottom-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                // theme: "dark",
-                progressStyle: { background: "#5875e8" },
-                containerId: "forCopy",
-                bodyStyle: { color: "#5875e8" },
-
-                onClick: () => router.push(`/messenger/${chatId.id}`),
-              });
-              setModalState();
+              const res = await replyToVacancy(
+                vacId,
+                resumeInput,
+                letterInput,
+                filesState.length
+              );
+              setStatus(res?.message);
               setLoadingButton(false);
-              router.refresh();
+              console.log(res);
+
+              if (!res) {
+                let chatId = await chechIfChatExist(hrId);
+                toast(`🦄 Вы откликнулись`, {
+                  position: isMobile ? "top-center" : "bottom-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: false,
+                  draggable: true,
+                  progress: undefined,
+                  // theme: "dark",
+                  progressStyle: { background: "#5875e8" },
+                  containerId: "forCopy",
+                  bodyStyle: { color: "#5875e8" },
+
+                  onClick: () => router.push(`/messenger/${chatId.id}`),
+                });
+                setModalState();
+                setResumeInput("");
+                setLetterInput("");
+                setLoadingButton(false);
+                router.refresh();
+              }
             }}
           >
             {loadingButton ? (
@@ -281,7 +329,18 @@ const ReplyModal = ({
               placeholder="Например, hh.ru, superjob, github или свой сайт"
               style="w-full"
               value={resumeInput}
-              onChange={(val) => setResumeInput(val)}
+              onChange={(val) => {
+                setResumeInput(val);
+                if (status)
+                  setStatus(status?.filter((i) => !i.includes("inputLink")));
+              }}
+              caption={
+                !status
+                  ? null
+                  : status?.includes("inputLink url")
+                  ? "Неверный формат ссылки"
+                  : null
+              }
             />
 
             <TextMain
@@ -367,6 +426,13 @@ const ReplyModal = ({
                       />
                     </div>
                   ))}
+                  {status &&
+                    status?.includes("files maxlen") &&
+                    filesState.length > 3 && (
+                      <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
+                        Максимум 3 файла
+                      </p>
+                    )}
                 </>
               )
             )}
@@ -375,10 +441,23 @@ const ReplyModal = ({
               label={"Сопроводительное письмо"}
               style="mt-[12px]"
               value={letterInput}
-              onChange={(val) => setLetterInput(val)}
+              onChange={(val) => {
+                setLetterInput(val);
+                if (status)
+                  setStatus(status?.filter((i) => !i.includes("inputMessage")));
+              }}
               placeholder="Напишите о своих достижениях или мотивации, если хотите"
               minRows={3}
               maxRows={5}
+              caption={
+                !status
+                  ? null
+                  : status?.includes("inputMessage minlen")
+                  ? "Поле обязательно к заполнению"
+                  : status?.includes("inputMessage maxlen")
+                  ? "Максимальная длинна поля 2000 сиволов"
+                  : null
+              }
             />
           </div>
 
@@ -388,26 +467,39 @@ const ReplyModal = ({
             `}
             onClick={async () => {
               setLoadingButton(true);
-              await replyToVacancy(vacId, resumeInput, letterInput);
-              let chatId = await chechIfChatExist(hrId);
-              toast(`🦄 Вы откликнулись`, {
-                position: isMobile ? "top-center" : "bottom-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                // theme: "dark",
-                progressStyle: { background: "#5875e8" },
-                containerId: "forCopy",
-                bodyStyle: { color: "#5875e8" },
-
-                onClick: () => router.push(`/messenger/${chatId.id}`),
-              });
-              setModalState();
+              const res = await replyToVacancy(
+                vacId,
+                resumeInput,
+                letterInput,
+                filesState.length
+              );
+              setStatus(res?.message);
               setLoadingButton(false);
-              router.refresh();
+              console.log(res);
+
+              if (!res) {
+                let chatId = await chechIfChatExist(hrId);
+                toast(`🦄 Вы откликнулись`, {
+                  position: isMobile ? "top-center" : "bottom-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: false,
+                  draggable: true,
+                  progress: undefined,
+                  // theme: "dark",
+                  progressStyle: { background: "#5875e8" },
+                  containerId: "forCopy",
+                  bodyStyle: { color: "#5875e8" },
+
+                  onClick: () => router.push(`/messenger/${chatId.id}`),
+                });
+                setModalState();
+                setResumeInput("");
+                setLetterInput("");
+                setLoadingButton(false);
+                router.refresh();
+              }
             }}
           >
             {loadingButton ? (

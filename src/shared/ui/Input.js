@@ -49,10 +49,9 @@ export const Input = ({
       />
 
       {caption && (
-        <TextCaption
-          text={caption}
-          style="text-[13px] leading-[15.6px] tracking-[-0.027em] mt-[3px]"
-        />
+        <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
+          {caption}
+        </p>
       )}
     </div>
   );
@@ -129,10 +128,9 @@ export const TextArea = ({
       />
 
       {caption && (
-        <TextCaption
-          text={caption}
-          style="text-[13px] leading-[15.6px] tracking-[-0.027em] mt-[3px]"
-        />
+        <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
+          {caption}
+        </p>
       )}
     </div>
   );

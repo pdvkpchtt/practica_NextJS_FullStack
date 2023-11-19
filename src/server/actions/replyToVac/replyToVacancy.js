@@ -4,159 +4,167 @@ import { getServSession } from "app/api/auth/[...nextauth]/route";
 import { prisma } from "../../db";
 import { z } from "zod";
 
-export const replyToVacancy = async (vacId, link, message) => {
+export const replyToVacancy = async (vacId, link, message, filesLen) => {
   const session = await getServSession();
 
+  // валидация
   const validate = z.object({
     link: z
       .string()
-      .url({ message: "Требуется ссылка" })
-      .min(1, { message: "Поле обязательно для заполнения" }),
-    message: z.string().min(1, { message: "Поле обязательно для заполнения" }),
+      .url({ message: "inputLink url" })
+      .optional()
+      .or(z.literal("")),
+    message: z
+      .string()
+      .min(1, { message: "inputMessage minlen" })
+      .max(2000, { message: "inputMessage maxlen" }),
+    filesLen: z.number().lte(3, { message: "files maxlen" }),
   });
 
-  console.log(
-    validate.safeParse({ link, message }).error?.errors?.map((i) => i?.message),
-    "validate"
-  );
+  const validateRes = validate.safeParse({ link, message, filesLen });
 
-  // const vacReply = await prisma.VacancyReply.create({
-  //   data: {
-  //     user: {
-  //       connect: {
-  //         id: session?.user?.id,
-  //       },
-  //     },
-  //     vacancy: {
-  //       connect: {
-  //         id: vacId,
-  //       },
-  //     },
-  //     message: message,
-  //     link: link,
-  //   },
-  //   select: {
-  //     id: true,
-  //   },
-  // });
+  if (!validateRes.success)
+    return {
+      status: "error",
+      message: validateRes.error?.errors?.map((i) => i?.message),
+    };
+  // валидация
 
-  // const files = await prisma.File.findMany({
-  //   where: {
-  //     AND: [
-  //       {
-  //         vacancyReplyId: null,
-  //       },
-  //       { user: { id: session?.user?.id } },
-  //     ],
-  //   },
-  //   select: {
-  //     id: true,
-  //   },
-  // });
+  const vacReply = await prisma.VacancyReply.create({
+    data: {
+      user: {
+        connect: {
+          id: session?.user?.id,
+        },
+      },
+      vacancy: {
+        connect: {
+          id: vacId,
+        },
+      },
+      message: message,
+      link: link,
+    },
+    select: {
+      id: true,
+    },
+  });
 
-  // for (const file of files) {
-  //   await prisma.File.update({
-  //     where: {
-  //       id: file.id,
-  //     },
-  //     data: {
-  //       vacancyReply: {
-  //         connect: {
-  //           id: vacReply.id,
-  //         },
-  //       },
-  //     },
-  //   });
-  // }
+  const files = await prisma.File.findMany({
+    where: {
+      AND: [
+        {
+          vacancyReplyId: null,
+        },
+        { user: { id: session?.user?.id } },
+      ],
+    },
+    select: {
+      id: true,
+    },
+  });
 
-  // const hrCreator = await prisma.Vacancy.findUnique({
-  //   where: { id: vacId },
-  //   select: {
-  //     hrCreator: {
-  //       select: {
-  //         userId: true,
-  //       },
-  //     },
-  //   },
-  // });
+  for (const file of files) {
+    await prisma.File.update({
+      where: {
+        id: file.id,
+      },
+      data: {
+        vacancyReply: {
+          connect: {
+            id: vacReply.id,
+          },
+        },
+      },
+    });
+  }
 
-  // ///дальше хз как
-  // ///надо достать chatId с hrCreator и там создать message, который будет сконнекчен с vacReply.id
-  // ///ща я сделаю
-  // // проверяем, если чат с hrCreator'ом есть
-  // const foundChat = await prisma.chat.findFirst({
-  //   where: {
-  //     AND: [
-  //       {
-  //         participants: { some: { id: session?.user?.id } },
-  //       },
-  //       {
-  //         participants: { some: { id: hrCreator?.hrCreator?.userId } },
-  //       },
-  //     ],
-  //   },
-  //   select: { id: true, participants: true },
-  // });
+  const hrCreator = await prisma.Vacancy.findUnique({
+    where: { id: vacId },
+    select: {
+      hrCreator: {
+        select: {
+          userId: true,
+        },
+      },
+    },
+  });
 
-  // // если нет, тосоздаём чат
-  // if (!foundChat?.id) {
-  //   const chat = await prisma.chat.create({
-  //     data: {
-  //       participants: {
-  //         connect: [
-  //           {
-  //             id: session?.user?.id,
-  //           },
-  //           { id: hrCreator?.hrCreator?.userId },
-  //         ],
-  //       },
-  //     },
-  //   });
+  ///дальше хз как
+  ///надо достать chatId с hrCreator и там создать message, который будет сконнекчен с vacReply.id
+  ///ща я сделаю
+  // проверяем, если чат с hrCreator'ом есть
+  const foundChat = await prisma.chat.findFirst({
+    where: {
+      AND: [
+        {
+          participants: { some: { id: session?.user?.id } },
+        },
+        {
+          participants: { some: { id: hrCreator?.hrCreator?.userId } },
+        },
+      ],
+    },
+    select: { id: true, participants: true },
+  });
 
-  //   const newmessage = await prisma.message.create({
-  //     data: {
-  //       text: "Отклик на вакансию",
-  //       type: "vacancyReply",
-  //       unRead: true,
-  //       Chat: {
-  //         connect: { id: chat?.id },
-  //       },
-  //       User: {
-  //         connect: { id: session?.user?.id },
-  //       },
-  //       vacancyReply: { connect: { id: vacReply.id } },
-  //     },
-  //   });
+  // если нет, тосоздаём чат
+  if (!foundChat?.id) {
+    const chat = await prisma.chat.create({
+      data: {
+        participants: {
+          connect: [
+            {
+              id: session?.user?.id,
+            },
+            { id: hrCreator?.hrCreator?.userId },
+          ],
+        },
+      },
+    });
 
-  //   const updchat = await prisma.chat.update({
-  //     where: { id: chat.id },
-  //     data: {
-  //       updatedAt: new Date(),
-  //     },
-  //   });
-  // } else {
-  //   const newmessage = await prisma.message.create({
-  //     data: {
-  //       text: "Отклик на вакансию",
-  //       type: "vacancyReply",
-  //       unRead: true,
-  //       Chat: {
-  //         connect: { id: foundChat.id },
-  //       },
-  //       User: {
-  //         connect: { id: session?.user?.id },
-  //       },
-  //       vacancyReply: { connect: { id: vacReply.id } },
-  //     },
-  //   });
+    const newmessage = await prisma.message.create({
+      data: {
+        text: "Отклик на вакансию",
+        type: "vacancyReply",
+        unRead: true,
+        Chat: {
+          connect: { id: chat?.id },
+        },
+        User: {
+          connect: { id: session?.user?.id },
+        },
+        vacancyReply: { connect: { id: vacReply.id } },
+      },
+    });
 
-  //   const chat = await prisma.chat.update({
-  //     where: { id: foundChat.id },
-  //     data: {
-  //       updatedAt: new Date(),
-  //     },
-  //   });
-  // }
+    const updchat = await prisma.chat.update({
+      where: { id: chat.id },
+      data: {
+        updatedAt: new Date(),
+      },
+    });
+  } else {
+    const newmessage = await prisma.message.create({
+      data: {
+        text: "Отклик на вакансию",
+        type: "vacancyReply",
+        unRead: true,
+        Chat: {
+          connect: { id: foundChat.id },
+        },
+        User: {
+          connect: { id: session?.user?.id },
+        },
+        vacancyReply: { connect: { id: vacReply.id } },
+      },
+    });
 
-  // console.log("digitstestomg", foundChat, hrCreator?.hrCreator?.userId);s
+    const chat = await prisma.chat.update({
+      where: { id: foundChat.id },
+      data: {
+        updatedAt: new Date(),
+      },
+    });
+  }
 };
