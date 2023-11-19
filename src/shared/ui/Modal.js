@@ -47,7 +47,7 @@ const Modal = ({
             variants={modalVariant}
           >
             <motion.div
-              className="w-[630px] h-fit fixed dark:bg-[#141414] bg-[#F6F6F8] bottom-0 left-[50%] p-[12px] rounded-[20px]"
+              className="w-[630px] h-fit fixed dark:bg-[#141414] bg-[#fff] bottom-0 left-[50%] p-[12px] rounded-[20px]"
               variants={containerVariant}
               style={{ transform: translate }}
             >

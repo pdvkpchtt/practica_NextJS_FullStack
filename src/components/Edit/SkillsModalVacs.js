@@ -152,20 +152,22 @@ const SkillsModalVacs = ({
               );
             }}
           />
-          <div className="flex flex-row gap-[8px] flex-wrap max-h-[56px] overflow-hidden">
-            {filteredSkills
-              ?.filter((i) => !data.find((i2) => i.name === i2.name))
-              .map(
-                (item, key) =>
-                  item.type === "hard" && (
-                    <PickSkillCard
-                      key={key}
-                      text={item.name}
-                      onClick={() => addHandler(item)}
-                    />
-                  )
-              )}
-          </div>
+          {areas.length > 0 && (
+            <div className="flex flex-row gap-[8px] flex-wrap max-h-[56px] overflow-hidden">
+              {filteredSkills
+                ?.filter((i) => !data.find((i2) => i.name === i2.name))
+                .map(
+                  (item, key) =>
+                    item.type === "hard" && (
+                      <PickSkillCard
+                        key={key}
+                        text={item.name}
+                        onClick={() => addHandler(item)}
+                      />
+                    )
+                )}
+            </div>
+          )}
         </div>
         <div className="flex flex-col gap-[16px] mt-[24px]">
           <Input
@@ -282,20 +284,22 @@ const SkillsModalVacs = ({
                 );
               }}
             />
-            <div className="flex flex-row gap-[8px] flex-wrap max-h-[56px] overflow-hidden">
-              {filteredSkills
-                ?.filter((i) => !data.find((i2) => i.name === i2.name))
-                .map(
-                  (item, key) =>
-                    item.type === "hard" && (
-                      <PickSkillCard
-                        key={key}
-                        text={item.name}
-                        onClick={() => addHandler(item)}
-                      />
-                    )
-                )}
-            </div>
+            {areas.length > 0 && (
+              <div className="flex flex-row gap-[8px] flex-wrap max-h-[56px] overflow-hidden">
+                {filteredSkills
+                  ?.filter((i) => !data.find((i2) => i.name === i2.name))
+                  .map(
+                    (item, key) =>
+                      item.type === "hard" && (
+                        <PickSkillCard
+                          key={key}
+                          text={item.name}
+                          onClick={() => addHandler(item)}
+                        />
+                      )
+                  )}
+              </div>
+            )}
           </Card>
           <Card style="flex flex-col gap-[16px] mt-[24px] mb-[61px]">
             <Input

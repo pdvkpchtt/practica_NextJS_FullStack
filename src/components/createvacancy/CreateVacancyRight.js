@@ -32,6 +32,10 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
 
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
+  // validate
+  const [status, setStatus] = useState(null);
+  // validate
+
   const [littleLoader, setLittleLoader] = useState(false);
   const [isOpen, toggle] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -63,12 +67,15 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
           <div
             onClick={async () => {
               setLittleLoader(true);
-              await createVacancyHandler({
+              const res = await createVacancyHandler({
                 ...dataToUpdate,
                 VacancySkills: dataToUpdate.VacancySkills.map(
                   (item) => true && { skillId: item.id }
                 ),
               });
+              console.log(res, "asswe");
+              setStatus(res?.message);
+
               toast(`🦄 Вакансия создана`, {
                 position: isMobile ? "top-center" : "bottom-right",
                 autoClose: 2000,
@@ -127,14 +134,25 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               <Input
                 placeholder="Менеджер по продажам бананов"
                 label="Название вакансии"
-                maxLength={60}
+                // maxLength={80}
                 defaultValue={dataToUpdate?.name}
                 value={dataToUpdate.name}
-                onChange={(name) =>
+                onChange={(name) => {
                   setDataToUpdate({
                     ...dataToUpdate,
                     name: name,
-                  })
+                  });
+                  if (status)
+                    setStatus(status?.filter((i) => !i.includes("inputName")));
+                }}
+                caption={
+                  !status
+                    ? null
+                    : status?.includes("inputName minlen")
+                    ? "Поле обязательно к заполнению"
+                    : status?.includes("inputName maxlen")
+                    ? "Максимальная длинна поля 80 сиволов"
+                    : null
                 }
               />
               {/* name */}
@@ -145,7 +163,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                 label="Краткое описание"
                 minRows={2}
                 maxRows={5}
-                maxLength={240}
+                // maxLength={240}
                 defaultValue={dataToUpdate?.shortDescription}
                 onChange={(shortDescription) =>
                   setDataToUpdate({
@@ -164,7 +182,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               <TextArea
                 placeholder="Начните с описания в одном предложении, какой специалист вам нужен и для чего. Это резко улучшает реакцию. "
                 label="Описание работы и обязанности"
-                maxLength={640}
+                // maxLength={640}
                 minRows={2}
                 maxRows={5}
                 defaultValue={dataToUpdate?.description}
@@ -174,6 +192,15 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                     description: description,
                   })
                 }
+                caption={
+                  !status
+                    ? null
+                    : status?.includes("inputDescription minlen")
+                    ? "Поле обязательно к заполнению"
+                    : status?.includes("inputDescription maxlen")
+                    ? "Максимальная длинна поля 640 сиволов"
+                    : null
+                }
               />
               {/* description */}
 
@@ -181,7 +208,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               <Input
                 placeholder="Опишите условия работы"
                 label="Условия"
-                maxLength={480}
+                // maxLength={480}
                 value={dataToUpdate?.conditions}
                 onChange={(conditions) =>
                   setDataToUpdate({
@@ -196,7 +223,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               <Input
                 placeholder="Опишите какими навыками должен обладать ваш работник мечты"
                 label="Что вы ждете от соискателя"
-                maxLength={480}
+                // maxLength={480}
                 value={dataToUpdate?.waitings}
                 onChange={(waitings) =>
                   setDataToUpdate({
