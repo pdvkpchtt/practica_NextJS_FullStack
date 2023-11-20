@@ -70,7 +70,7 @@ const VacancyFilter = ({
           style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
         />
         {updateVacancies.area.length > 0 ? (
-          <div className="[@media(hover)]:w-[680px] flex-wrap flex flex-row gap-[10px]">
+          <div className="flex-wrap flex flex-row gap-[10px]">
             {updateVacancies.area.map((item, key) => (
               <SkillCard
                 key={key}

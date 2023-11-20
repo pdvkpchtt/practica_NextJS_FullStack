@@ -8,7 +8,7 @@ import f0f from "../assets/505.png";
 const E505Page = ({ error, reset }) => {
   return (
     <>
-      <div className="z-[202] flex flex-col justify-center h-full w-full [@media(pointer:coarse)]:p-[24px] mx-[12px]">
+      <div className="z-[202] flex flex-col justify-center h-[100vh] w-full [@media(pointer:coarse)]:p-[24px] mx-[12px]">
         <p className="font-medium text-[#2c2c2c] dark:text-[#fff] [@media(pointer:coarse)]:w-[224px] text-[24px] leading-[29px] tracking-[-0.552px] [@media(pointer:coarse)]:mb-[44px]  [@media(pointer:coarse)]:font-normal [@media(pointer:coarse)]:text-[16px] [@media(pointer:coarse)]:leading-[19px] [@media(pointer:coarse)]:mt-0 [@media(pointer:coarse)]:tracking-[-0.368px]">
           Произошла непредвиденная ошибка :{"("}
         </p>

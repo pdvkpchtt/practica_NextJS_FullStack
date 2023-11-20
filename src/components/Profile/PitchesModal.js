@@ -38,7 +38,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
               }
             />
             <TextMain
-              text="— короткое сообщение, которые вы можете отправить, чтобы познакомиться с другом вашего друга"
+              text="— приветственное сообщение, чтобы установить связь с другом вашего друга и начать общение."
               style={
                 "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mb-[4px]"
               }
@@ -68,7 +68,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
               }
             />
             <TextMain
-              text="— короткое сообщение, которые вы можете отправить любому человеку"
+              text="— короткое сообщение для связи с интересующим специалистом без общих контактов."
               style={
                 "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mb-[4px]"
               }
@@ -118,7 +118,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
               }
             />
             <TextMain
-              text="— короткое сообщение, которые вы можете отправить, чтобы познакомиться с другом вашего друга"
+              text="— приветственное сообщение, чтобы установить связь с другом вашего друга и начать общение."
               style={
                 "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mb-[4px]"
               }
@@ -148,7 +148,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
               }
             />
             <TextMain
-              text="— короткое сообщение, которые вы можете отправить любому человеку"
+              text="— короткое сообщение для связи с интересующим специалистом без общих контактов."
               style={
                 "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mb-[4px]"
               }

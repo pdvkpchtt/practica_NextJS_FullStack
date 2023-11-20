@@ -42,9 +42,11 @@ export const finishRegistration = async (inputRole) => {
     where: { userId: session.user.id },
     update: {
       name: generateNames(),
+      username: session.user.id,
     },
     create: {
       name: generateNames(),
+      username: session.user.id,
       user: { connect: { id: session.user.id } },
     },
     select: {

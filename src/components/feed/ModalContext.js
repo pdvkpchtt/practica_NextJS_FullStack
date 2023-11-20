@@ -19,13 +19,13 @@ const ModalContextWrap = ({ children }) => {
       icon: ForYouIcon,
       route: "/feed/foryou",
     },
-    {
-      id: 1,
-      active: false,
-      name: "образование",
-      icon: EducationIcon,
-      route: "/feed/education",
-    },
+    // {
+    //   id: 1,
+    //   active: false,
+    //   name: "образование",
+    //   icon: EducationIcon,
+    //   route: "/feed/education",
+    // },
     {
       id: 2,
       active: false,

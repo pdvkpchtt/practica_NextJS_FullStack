@@ -24,7 +24,7 @@ const PostDropDown = ({
         }}
       >
         <p
-          className={`font-medium select-none text-[14px] px-[12px] leading-[16px] tracking-[-0.013125em] cursor-pointer ${
+          className={`font-medium break-keep select-none text-[14px] px-[12px] leading-[16px] tracking-[-0.013125em] cursor-pointer ${
             key == 0
               ? "pt-[12px] pb-[6px]"
               : key == items.length - 1
@@ -70,7 +70,7 @@ const PostDropDown = ({
       <AnimatePresence>
         {openState && (
           <motion.div
-            className="absolute top-[calc(100%+8px)] left-[-7px] z-20 flex h-fit w-fit border-[1px] border-[#e7e7e7] dark:border-[#1a1a1a] flex-col rounded-[10px] bg-[#FFFFFF] dark:bg-[#2c2c2c] shadow-lg"
+            className="absolute top-[calc(100%+8px)] left-[-7px] z-20 flex h-fit w-[82px] border-[1px] border-[#e7e7e7] dark:border-[#1a1a1a] flex-col rounded-[10px] bg-[#FFFFFF] dark:bg-[#2c2c2c] shadow-lg"
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.7 }}

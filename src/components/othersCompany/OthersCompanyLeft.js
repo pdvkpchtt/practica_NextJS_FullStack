@@ -113,12 +113,12 @@ const OthersCompanyLeft = ({ navState, data }) => {
         style="[@media(hover)]:w-[260px] [@media(pointer:coarse)]:w-full flex flex-col gap-[12px]"
         padding={12}
       >
-        <div className="relative overflow-hidden rounded-full h-[110px] w-[110px] mx-auto">
+        <div className="relative aspect-square overflow-hidden rounded-full h-[110px] w-[110px] mx-auto">
           {data.image ? (
             <Image
               src={data.image}
               alt="Profile photo"
-              className="[@media(hover)]:w-[110px] w-full"
+              className="[@media(hover)]:w-[110px] object-cover w-full"
               width={110}
               height={110}
               quality={100}

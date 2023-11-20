@@ -109,7 +109,7 @@ const CreatePostModal = ({
         <div className="flex flex-col my-[12px] gap-[12px] overflow-y-auto">
           <TextareaAutosize
             className="outline-none min-h-[25px] resize-none bg-transparent placeholder:text-[#BFBFBF] text-[20px] font-medium text-[#2c2c2c] dark:text-white leading-[22px] tracking-[-0.025em]"
-            placeholder="Заголовок"
+            placeholder={"Заголовок"}
             value={headState}
             onChange={(e) => setHeadState(e.target.value)}
             maxLength={headerMax}
@@ -121,7 +121,13 @@ const CreatePostModal = ({
             <TextareaAutosize
               ref={inputRef}
               className="outline-none w-full resize-none bg-transparent placeholder:text-[#BFBFBF] text-[16px] font-normal text-[#2c2c2c] dark:text-white leading-[19px] tracking-[-0.015em]"
-              placeholder="Текст"
+              placeholder={
+                dropDownState.name === "Офтоп"
+                  ? "Отдохните от работы и просто расскажите о своих делах"
+                  : dropDownState.name === "Для вас"
+                  ? "Поделитесь мыслями и новостями, расскажите об опыте и заинтересуйте единомышленников"
+                  : "Текст"
+              }
               value={textState}
               onChange={(e) => setTextState(e.target.value)}
               maxLength={textMax}
@@ -334,7 +340,13 @@ const CreatePostModal = ({
             <TextareaAutosize
               ref={inputRef2}
               className="outline-none w-full bg-transparent resize-none placeholder:text-[#BFBFBF] text-[16px] font-normal text-[#2c2c2c] dark:text-white leading-[19px] tracking-[-0.015em]"
-              placeholder="Текст"
+              placeholder={
+                dropDownState.name === "Офтоп"
+                  ? "Отдохните от работы и просто расскажите о своих делах"
+                  : dropDownState.name === "Для вас"
+                  ? "Поделитесь мыслями и новостями, расскажите об опыте и заинтересуйте единомышленников"
+                  : "Текст"
+              }
               value={textState}
               onChange={(e) => setTextState(e.target.value)}
               maxLength={textMax}

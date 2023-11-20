@@ -57,7 +57,7 @@ const VacancyCard = ({ item, role = "student", userId }) => {
                       router.push(`/profile/${item.hrCreator.username}`)
                     }
                     text={"@" + item.hrCreator.username}
-                    style="font-medium text-[14px] cursor-pointer leading-[18px] tracking-[-0.182px]"
+                    style="font-medium text-[14px] break-all cursor-pointer leading-[18px] tracking-[-0.182px]"
                   />
                 </>
               )}

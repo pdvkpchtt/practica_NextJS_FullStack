@@ -61,17 +61,17 @@ const EditCompanyLeft = ({
           className="relative cursor-pointer overflow-hidden rounded-full [@media(hover)]:min-w-[110px] [@media(hover)]:min-h-[110px]  [@media(hover)]:w-[110px] [@media(hover)]:h-[110px] mx-auto"
           onClick={() => setBottomModal(true)}
         >
-          <div className="absolute flex items-center justify-center w-full h-full bg-transparent group hover:bg-black hover:bg-opacity-25 transition duration-[150ms]">
+          <div className="absolute flex items-center aspect-square justify-center w-full h-full bg-transparent group hover:bg-black hover:bg-opacity-25 transition duration-[150ms]">
             <ImageIcon
               size={35}
-              style="opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition duration-[150ms]"
+              style="opacity-0 group-hover:opacity-100 object-cover scale-50 group-hover:scale-100 transition duration-[150ms]"
             />
           </div>
           {data.image ? (
             <Image
               src={data.image}
               alt="Profile photo"
-              className="[@media(hover)]:min-w-[110px]  [@media(hover)]:w-[110px] [@media(hover)]:h-[110px] [@media(hover)]:min-h-[110px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full w-full"
+              className="[@media(hover)]:min-w-[110px] object-cover [@media(hover)]:w-[110px] [@media(hover)]:h-[110px] [@media(hover)]:min-h-[110px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full w-full"
               width={110}
               height={110}
               quality={100}
