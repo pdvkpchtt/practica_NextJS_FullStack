@@ -29,6 +29,7 @@ import CheckBox from "../../shared/ui/CheckBox";
 
 const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
   const router = useRouter();
+  console.log(dataToUpdate, "as");
 
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
@@ -163,14 +164,25 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                 label="Краткое описание"
                 minRows={2}
                 maxRows={5}
+                caption={
+                  !status
+                    ? null
+                    : status?.includes("inputShortDesc maxlen")
+                    ? "Максимальная длинна поля 240 сиволов"
+                    : null
+                }
                 // maxLength={240}
                 defaultValue={dataToUpdate?.shortDescription}
-                onChange={(shortDescription) =>
+                onChange={(shortDescription) => {
                   setDataToUpdate({
                     ...dataToUpdate,
                     shortDescription: shortDescription,
-                  })
-                }
+                  });
+                  if (status)
+                    setStatus(
+                      status?.filter((i) => !i.includes("inputShortDesc"))
+                    );
+                }}
               />
               {/* short description */}
             </div>
@@ -186,12 +198,16 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                 minRows={2}
                 maxRows={5}
                 defaultValue={dataToUpdate?.description}
-                onChange={(description) =>
+                onChange={(description) => {
                   setDataToUpdate({
                     ...dataToUpdate,
                     description: description,
-                  })
-                }
+                  });
+                  if (status)
+                    setStatus(
+                      status?.filter((i) => !i.includes("inputDescription"))
+                    );
+                }}
                 caption={
                   !status
                     ? null
@@ -209,13 +225,24 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                 placeholder="Опишите условия работы"
                 label="Условия"
                 // maxLength={480}
+                caption={
+                  !status
+                    ? null
+                    : status?.includes("inputConditions maxlen")
+                    ? "Максимальная длинна поля 480 сиволов"
+                    : null
+                }
                 value={dataToUpdate?.conditions}
-                onChange={(conditions) =>
+                onChange={(conditions) => {
                   setDataToUpdate({
                     ...dataToUpdate,
                     conditions: conditions,
-                  })
-                }
+                  });
+                  if (status)
+                    setStatus(
+                      status?.filter((i) => !i.includes("inputConditions"))
+                    );
+                }}
               />
               {/* conditions */}
 
@@ -224,13 +251,24 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                 placeholder="Опишите какими навыками должен обладать ваш работник мечты"
                 label="Что вы ждете от соискателя"
                 // maxLength={480}
+                caption={
+                  !status
+                    ? null
+                    : status?.includes("inputWaitings maxlen")
+                    ? "Максимальная длинна поля 480 сиволов"
+                    : null
+                }
                 value={dataToUpdate?.waitings}
-                onChange={(waitings) =>
+                onChange={(waitings) => {
                   setDataToUpdate({
                     ...dataToUpdate,
                     waitings: waitings,
-                  })
-                }
+                  });
+                  if (status)
+                    setStatus(
+                      status?.filter((i) => !i.includes("inputWaitings"))
+                    );
+                }}
               />
               {/* waitings */}
             </Card>
@@ -506,42 +544,84 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                   />
                   <div className="flex flex-row [@media(pointer:coarse)]:flex-col gap-[8px]">
                     <Input
+                      caption={
+                        !status
+                          ? null
+                          : status?.includes("inputStart minlen") ||
+                            status?.includes("inputEnd minlen") ||
+                            status?.includes("currency")
+                          ? "Поля обязательны к заполнению"
+                          : null
+                      }
                       placeholder="От"
                       value={dataToUpdate?.salaryStart}
                       onChange={(salaryStart) => {
-                        if (!dataToUpdate.prisceByTalk)
+                        if (!dataToUpdate.prisceByTalk) {
                           setDataToUpdate({
                             ...dataToUpdate,
                             salaryStart: salaryStart,
                           });
+                          if (status)
+                            setStatus(
+                              status?.filter(
+                                (i) =>
+                                  !i.includes("inputEnd") &&
+                                  !i.includes("inputstart") &&
+                                  !i.includes("currency")
+                              )
+                            );
+                        }
                       }}
                     />
                     <Input
                       placeholder="До"
                       value={dataToUpdate?.salaryEnd}
                       onChange={(salaryEnd) => {
-                        if (!dataToUpdate.prisceByTalk)
+                        if (!dataToUpdate.prisceByTalk) {
                           setDataToUpdate({
                             ...dataToUpdate,
                             salaryEnd: salaryEnd,
                           });
+                          if (status)
+                            setStatus(
+                              status?.filter(
+                                (i) =>
+                                  !i.includes("inputEnd") &&
+                                  !i.includes("inputstart") &&
+                                  !i.includes("currency")
+                              )
+                            );
+                        }
                       }}
                     />
-                    <DropDownWithSearch
-                      city={
-                        dataToUpdate?.currency?.label.length === 0
-                          ? ""
-                          : dataToUpdate?.currency?.label
-                      }
-                      setCity={(val) => {
-                        setDataToUpdate({
-                          ...dataToUpdate,
-                          currency: val,
-                        });
-                      }}
-                      items={dropData.currency}
-                      placeholder={"RUB"}
-                    />
+                    <div className="flex flex-col">
+                      <DropDownWithSearch
+                        city={
+                          dataToUpdate?.currency?.label.length === 0
+                            ? ""
+                            : dataToUpdate?.currency?.label
+                        }
+                        setCity={(val) => {
+                          {
+                            setDataToUpdate({
+                              ...dataToUpdate,
+                              currency: val,
+                            });
+                            if (status)
+                              setStatus(
+                                status?.filter(
+                                  (i) =>
+                                    !i.includes("inputEnd") &&
+                                    !i.includes("inputstart") &&
+                                    !i.includes("currency")
+                                )
+                              );
+                          }
+                        }}
+                        items={dropData.currency}
+                        placeholder={"RUB"}
+                      />
+                    </div>
                   </div>
                 </div>
               )}
@@ -556,12 +636,24 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
 
                 <CheckBox
                   active={dataToUpdate.prisceByTalk}
-                  onClick={() =>
-                    setDataToUpdate({
-                      ...dataToUpdate,
-                      prisceByTalk: !dataToUpdate.prisceByTalk,
-                    })
-                  }
+                  onClick={() => {
+                    if (dataToUpdate.prisceByTalk === true)
+                      setDataToUpdate({
+                        ...dataToUpdate,
+                        salaryEnd: "",
+                        salaryStart: "",
+                        currency: { label: "" },
+                        prisceByTalk: false,
+                      });
+                    else
+                      setDataToUpdate({
+                        ...dataToUpdate,
+                        salaryEnd: "d",
+                        salaryStart: "d",
+                        currency: { label: "d" },
+                        prisceByTalk: true,
+                      });
+                  }}
                 />
               </div>
               {/* prisceByTalk */}

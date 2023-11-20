@@ -1,5 +1,5 @@
 import { prisma } from "../../db";
-import { z } from "zod";
+import { string, z } from "zod";
 
 export const createVacancy = async (id, data, role = "company") => {
   // валидация
@@ -27,6 +27,9 @@ export const createVacancy = async (id, data, role = "company") => {
       .max(480, { message: "inputWaitings maxlen" })
       .optional()
       .or(z.literal("")),
+    salaryStart: string().min(1, { message: "inputStart minlen" }),
+    salaryEnd: string().min(1, { message: "inputEnd minlen" }),
+    currency: string().min(1, { message: "currency minlen" }),
   });
 
   const validateRes = validate.safeParse({
@@ -35,6 +38,9 @@ export const createVacancy = async (id, data, role = "company") => {
     shortDescription: data.shortDescription,
     conditions: data.conditions,
     waitings: data.waitings,
+    salaryStart: data.salaryStart,
+    salaryEnd: data.salaryEnd,
+    currency: data.currency.label,
   });
 
   if (!validateRes.success)

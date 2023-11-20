@@ -18,7 +18,7 @@ const CreateVacancy = ({ data, skills }) => {
     contract: { label: "" },
     experience: { label: "" },
     EducationLevel: { label: "" },
-    salaryStrat: "",
+    salaryStart: "",
     salaryEnd: "",
     currency: { label: "" },
     VacancySkills: [],
