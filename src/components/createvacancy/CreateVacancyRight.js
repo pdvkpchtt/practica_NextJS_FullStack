@@ -76,20 +76,23 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               });
               console.log(res, "asswe");
               setStatus(res?.message);
-
-              toast(`💼 Вакансия создана`, {
-                position: isMobile ? "top-center" : "bottom-right",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                // theme: "dark",
-                progressStyle: { background: "#5875e8" },
-                containerId: "forCopy",
-              });
-              setLittleLoader(false);
+              if (!res) {
+                toast(`💼 Вакансия создана`, {
+                  position: isMobile ? "top-center" : "bottom-right",
+                  autoClose: 2000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: false,
+                  draggable: true,
+                  progress: undefined,
+                  // theme: "dark",
+                  progressStyle: { background: "#5875e8" },
+                  containerId: "forCopy",
+                });
+                setLittleLoader(false);
+              } else {
+                setLittleLoader(false);
+              }
             }}
             className={`
                 px-[12px] py-[8px] rounded-[16px] cursor-pointer transition duration-[250ms] select-none h-[36px] w-[44px]
@@ -601,6 +604,10 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                             ...dataToUpdate,
                             currency: val,
                           });
+                          if (status)
+                            setStatus(
+                              status?.filter((i) => !i.includes("currency"))
+                            );
                         }}
                         items={dropData.currency}
                         placeholder={"RUB"}

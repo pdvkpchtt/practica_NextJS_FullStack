@@ -73,12 +73,12 @@ const Post = ({
             {/* image profile info time and dots  */}
             <div className="flex flex-row gap-[12px] mt-[12px] mx-[12px]">
               {item?.author_image ? (
-                <div className="overflow-hidden rounded-[8px] h-[40px] min-w-[40px] cursor-pointer">
+                <div className="overflow-hidden aspect-square rounded-[8px] h-[40px] min-w-[40px] cursor-pointer">
                   <Image
                     src={item?.author_image}
                     alt="Profile image"
                     quality={100}
-                    className="h-[40px] w-[40px]"
+                    className="h-[40px] w-[40px] object-cover"
                     width={40}
                     height={40}
                   />
@@ -92,11 +92,7 @@ const Post = ({
                   <TextMain
                     text={item?.author_name}
                     style="font-medium text-[16px] leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] truncate cursor-pointer"
-                    onClick={() =>
-                      item.role === "student" || item.role === "hr"
-                        ? router.push(`/profile/${item.username}`)
-                        : router.push(`/companyprofile/${item.username}`)
-                    }
+                    onClick={() => router.push(`/profile/${item.username}`)}
                   />
 
                   <TextSecondary
