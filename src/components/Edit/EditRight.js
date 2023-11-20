@@ -172,7 +172,7 @@ const EditRight = ({
       <div className="p-[12px] flex flex-col gap-[16px] rounded-b-[20px] [@media(pointer:coarse)]:rounded-[20px] bg-white dark:bg-[#212122]">
         {/* about me */}
         <Input
-          placeholder="Ваше отношение к жизни"
+          placeholder="Расскажите о ваших мечтах и карьерных планах"
           label="Обо мне"
           value={dataToUpdate.about}
           onChange={(about) =>

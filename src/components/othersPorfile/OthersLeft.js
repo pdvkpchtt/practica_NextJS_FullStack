@@ -182,11 +182,11 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
               <TextMain
                 text={`${data.name}${
                   data.isFirstCircle
-                    ? " • 1-ый"
+                    ? " • 1"
                     : data.isSecondCircle.find((i2) => i2 === true)
-                    ? " • 2-ой"
+                    ? " • 2"
                     : data.isThirdCircle
-                    ? " • 3-ий"
+                    ? " • 3"
                     : " • 3+"
                 }`}
                 style="font-medium text-[18px] leading-[21.6px] tracking-[-0.025em]"

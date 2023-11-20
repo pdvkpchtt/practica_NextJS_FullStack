@@ -39,6 +39,23 @@ const yearDropDownInfo = [
   { label: "2021", value: "27", for: "Год" },
   { label: "2022", value: "28", for: "Год" },
   { label: "2023", value: "29", for: "Год" },
+  { label: "2024", value: "30", for: "Год" },
+  { label: "2025", value: "31", for: "Год" },
+  { label: "2026", value: "32", for: "Год" },
+  { label: "2027", value: "33", for: "Год" },
+  { label: "2028", value: "34", for: "Год" },
+  { label: "2029", value: "35", for: "Год" },
+  { label: "2030", value: "36", for: "Год" },
+  { label: "2031", value: "37", for: "Год" },
+  { label: "2032", value: "38", for: "Год" },
+  { label: "2033", value: "39", for: "Год" },
+  { label: "2034", value: "40", for: "Год" },
+  { label: "2035", value: "41", for: "Год" },
+  { label: "2036", value: "42", for: "Год" },
+  { label: "2037", value: "43", for: "Год" },
+  { label: "2038", value: "44", for: "Год" },
+  { label: "2039", value: "45", for: "Год" },
+  { label: "2040", value: "46", for: "Год" },
 ];
 
 const Education = ({ educationState, setEducationState, deleteHandler }) => {

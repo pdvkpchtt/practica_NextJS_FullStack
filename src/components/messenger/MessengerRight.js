@@ -87,11 +87,11 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
             <TextMain
               text={`${profileData.name}${
                 profileData.isFirstCircle
-                  ? " • 1-ый"
+                  ? " • 1"
                   : profileData.isSecondCircle.find((i2) => i2 === true)
-                  ? " • 2-ой"
+                  ? " • 2"
                   : profileData.isThirdCircle
-                  ? " • 3-ий"
+                  ? " • 3"
                   : " • 3+"
               }`}
               style="font-medium cursor-pointer text-[18px] leading-[21.6px] tracking-[-0.025em]"
@@ -267,11 +267,10 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
 
       {/* тут кнопки все, которые будут, можешь потестить */}
       {(!pathname.includes("/preview") || profileData.isFirstCircle) && (
-        <Card
-          style={`max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] flex flex-col gap-[8px] ${
+        <div
+          cla={`max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] flex flex-col gap-[8px] ${
             false && "items-center"
           }`}
-          padding={12}
         >
           {/* {profileData.friendStatus &&
             !profileData.ifHeSentRequest &&
@@ -301,78 +300,99 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
           {profileData.requestStatus &&
             !profileData.ifHeSentRequest &&
             !profileData.friendStatus && (
-              <ButtonGhost
-                text="Заявка на рассмотрении"
-                onClick={async () => {
-                  await cancelFriendRequest(profileData.id);
-                  toast(`🙅 Заявка в друзья отменена`, {
-                    position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    // theme: "dark",
-                    progressStyle: { background: "#5875e8" },
-                    containerId: "forCopy",
-                  });
-                }}
+              <Card
+                style={
+                  "max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] "
+                }
+                padding={12}
               >
-                <ClockIcon fill={"#5875e8"} />
-              </ButtonGhost>
+                <ButtonGhost
+                  text="Заявка на рассмотрении"
+                  onClick={async () => {
+                    await cancelFriendRequest(profileData.id);
+                    toast(`🙅 Заявка в друзья отменена`, {
+                      position: isMobile ? "top-center" : "bottom-right",
+                      autoClose: 2000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: false,
+                      draggable: true,
+                      progress: undefined,
+                      // theme: "dark",
+                      progressStyle: { background: "#5875e8" },
+                      containerId: "forCopy",
+                    });
+                  }}
+                >
+                  <ClockIcon fill={"#5875e8"} />
+                </ButtonGhost>
+              </Card>
             )}
           {!profileData.requestStatus &&
             !profileData.friendStatus &&
             !profileData.ifHeSentRequest && (
-              <ButtonGhost
-                text="Подружиться"
-                onClick={async () => {
-                  await sendFriendRequest(profileData.id);
-                  toast(`🌐 Заявка в друзья отправлена`, {
-                    position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    // theme: "dark",
-                    progressStyle: { background: "#5875e8" },
-                    containerId: "forCopy",
-                  });
-                  // router.refresh();
-                }}
+              <Card
+                style={
+                  "max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] "
+                }
+                padding={12}
               >
-                <AddFriendIcon fill={"#5875e8"} />
-              </ButtonGhost>
+                <ButtonGhost
+                  text="Подружиться"
+                  onClick={async () => {
+                    await sendFriendRequest(profileData.id);
+                    toast(`🌐 Заявка в друзья отправлена`, {
+                      position: isMobile ? "top-center" : "bottom-right",
+                      autoClose: 2000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: false,
+                      draggable: true,
+                      progress: undefined,
+                      // theme: "dark",
+                      progressStyle: { background: "#5875e8" },
+                      containerId: "forCopy",
+                    });
+                    // router.refresh();
+                  }}
+                >
+                  <AddFriendIcon fill={"#5875e8"} />
+                </ButtonGhost>
+              </Card>
             )}
           {profileData.ifHeSentRequest &&
             !profileData.requestStatus &&
             !profileData.friendStatus && (
-              <ButtonGhost
-                text="Принять заявку"
-                onClick={async () => {
-                  await addConnection(profileData.id);
-                  toast(`🤝 Заявка принята`, {
-                    position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    // theme: "dark",
-                    progressStyle: { background: "#5875e8" },
-                    containerId: "forCopy",
-                  });
-                  router.refresh();
-                }}
+              <Card
+                style={
+                  "max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] "
+                }
+                padding={12}
               >
-                <CheckIcon fill={"#5875e8"} />
-              </ButtonGhost>
+                <ButtonGhost
+                  text="Принять заявку"
+                  onClick={async () => {
+                    await addConnection(profileData.id);
+                    toast(`🤝 Заявка принята`, {
+                      position: isMobile ? "top-center" : "bottom-right",
+                      autoClose: 2000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: false,
+                      draggable: true,
+                      progress: undefined,
+                      // theme: "dark",
+                      progressStyle: { background: "#5875e8" },
+                      containerId: "forCopy",
+                    });
+                    router.refresh();
+                  }}
+                >
+                  <CheckIcon fill={"#5875e8"} />
+                </ButtonGhost>
+              </Card>
             )}
-        </Card>
+        </div>
       )}
       {/* тут кнопки все, которые будут, можешь потестить */}
     </div>

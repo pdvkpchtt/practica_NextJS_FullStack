@@ -38,6 +38,7 @@ const ContactsModal = ({
       await addContacts(phoneInput);
       setModalState();
       router.refresh();
+      setCodeInput("");
       setIsEdit(false);
       setLoading(false);
     }
@@ -121,7 +122,7 @@ const ContactsModal = ({
 
                   <div className="w-full relative">
                     <InputMask
-                      mask="9 (999) 999 99-99"
+                      mask="+7 (999) 999 99-99"
                       value={phoneInput}
                       onChange={(e) => {
                         setPhoneInput(e.target.value);
@@ -130,7 +131,7 @@ const ContactsModal = ({
                     >
                       {(inputProps) => (
                         <input
-                          placeholder={"8 (999) 999 99-99"}
+                          placeholder={"+7 (999) 999 99-99"}
                           value={inputProps.phoneInput}
                           className={`px-[12px] h-[42px] ${
                             error
@@ -144,7 +145,7 @@ const ContactsModal = ({
                     </InputMask>
                     <p
                       className={`${
-                        phoneInput.length !== 17
+                        phoneInput.length !== 18
                           ? "text-[#bfbfbf]"
                           : "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
                       } transition duration-[250ms] absolute right-[12px] top-[12px] text-[14px] leading-[18px] select-none tracking-[-0.21px] font-normal`}
@@ -267,7 +268,7 @@ const ContactsModal = ({
 
                   <div className="w-full relative">
                     <InputMask
-                      mask="9 (999) 999 99-99"
+                      mask="+7 (999) 999 99-99"
                       value={phoneInput}
                       onChange={(e) => {
                         setPhoneInput(e.target.value);
@@ -276,7 +277,7 @@ const ContactsModal = ({
                     >
                       {(inputProps) => (
                         <input
-                          placeholder={"8 (999) 999 99-99"}
+                          placeholder={"+7 (999) 999 99-99"}
                           value={inputProps.phoneInput}
                           className={`px-[12px] h-[42px] ${
                             error
