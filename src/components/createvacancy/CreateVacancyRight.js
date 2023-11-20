@@ -547,10 +547,8 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                       caption={
                         !status
                           ? null
-                          : status?.includes("inputStart minlen") ||
-                            status?.includes("inputEnd minlen") ||
-                            status?.includes("currency")
-                          ? "Поля обязательны к заполнению"
+                          : status?.includes("inputStart minlen")
+                          ? "Поле обязательно к заполнению"
                           : null
                       }
                       placeholder="От"
@@ -563,17 +561,19 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                           });
                           if (status)
                             setStatus(
-                              status?.filter(
-                                (i) =>
-                                  !i.includes("inputEnd") &&
-                                  !i.includes("inputstart") &&
-                                  !i.includes("currency")
-                              )
+                              status?.filter((i) => !i.includes("inputStart"))
                             );
                         }
                       }}
                     />
                     <Input
+                      caption={
+                        !status
+                          ? null
+                          : status?.includes("inputEnd minlen")
+                          ? "Поле обязательно к заполнению"
+                          : null
+                      }
                       placeholder="До"
                       value={dataToUpdate?.salaryEnd}
                       onChange={(salaryEnd) => {
@@ -584,12 +584,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                           });
                           if (status)
                             setStatus(
-                              status?.filter(
-                                (i) =>
-                                  !i.includes("inputEnd") &&
-                                  !i.includes("inputstart") &&
-                                  !i.includes("currency")
-                              )
+                              status?.filter((i) => !i.includes("inputEnd"))
                             );
                         }
                       }}
@@ -602,25 +597,19 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                             : dataToUpdate?.currency?.label
                         }
                         setCity={(val) => {
-                          {
-                            setDataToUpdate({
-                              ...dataToUpdate,
-                              currency: val,
-                            });
-                            if (status)
-                              setStatus(
-                                status?.filter(
-                                  (i) =>
-                                    !i.includes("inputEnd") &&
-                                    !i.includes("inputstart") &&
-                                    !i.includes("currency")
-                                )
-                              );
-                          }
+                          setDataToUpdate({
+                            ...dataToUpdate,
+                            currency: val,
+                          });
                         }}
                         items={dropData.currency}
                         placeholder={"RUB"}
                       />
+                      {status && status?.includes("currency minlen") && (
+                        <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
+                          Поле обязательно к заполнению
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
