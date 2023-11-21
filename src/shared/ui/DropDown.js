@@ -79,7 +79,9 @@ const DropDown = ({
           {asList ? choiseState.label : choiseState}
         </div>
 
-        <DropDownIcon style={openState && "transform rotate-180"} />
+        <DropDownIcon
+          style={openState && "transform rotate-180 cursor-default"}
+        />
       </button>
 
       <AnimatePresence>

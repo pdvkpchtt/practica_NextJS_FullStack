@@ -1,4 +1,4 @@
-const DropDownIcon = ({ style }) => {
+const DropDownIcon = ({ style, onClick = () => {} }) => {
   return (
     <svg
       className={`${style} transition duration-[250ms]`}

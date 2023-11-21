@@ -52,7 +52,10 @@ const DropDownWithSearch = ({
               state && "z-[41]"
             } bg-[#F6F6F8] dark:bg-[#2c2c2c] text-[#2c2c2c] dark:text-white placeholder:text-[#bfbfbf] dark:placeholder:text-[#8f8f8f] w-full mr-[12px]`}
           />
-          <DropDownIcon style={state && "transform rotate-180"} />
+
+          <DropDownIcon
+            style={state && "transform rotate-180 cursor-default"}
+          />
         </div>
         {/* нижняя хуйня */}
         <AnimatePresence>
