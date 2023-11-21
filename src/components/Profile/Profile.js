@@ -29,7 +29,7 @@ const Profile = ({
     {
       id: 1,
       active: false,
-      name: "Посты и ответы",
+      name: "Посты",
       component: (
         <ProfilePosts getUserFeed={getUserFeed} addReaction={addReaction} />
       ),

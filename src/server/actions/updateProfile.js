@@ -1,6 +1,27 @@
 import { prisma } from "../db";
+import { z } from "zod";
 
 export const updateProfile = async ({ userId, data }) => {
+  // валидация
+  const validate = z.object({
+    name: z.string().min(1, { message: "inputName minlen" }),
+    username: z.string().min(1, { message: "inputUsername minlen" }),
+    about: z.string().max(120, { message: "inputAbout maxlen" }),
+  });
+
+  const validateRes = validate.safeParse({
+    name: data.name,
+    username: data.username,
+    about: data.about,
+  });
+
+  if (!validateRes.success)
+    return {
+      status: "error",
+      message: validateRes.error?.errors?.map((i) => i?.message),
+    };
+  // валидация
+
   const user = await prisma.user.update({
     where: {
       id: userId,
@@ -40,5 +61,5 @@ export const updateProfile = async ({ userId, data }) => {
       },
     },
   });
-  return user;
+  // return user;
 };

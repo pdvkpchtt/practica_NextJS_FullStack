@@ -326,8 +326,8 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
             <>
               <SuperpitchIcon black blue={false} />
               {superpitchesState === null
-                ? superPitchesFirst + " " + getNoun(superPitchesFirst)
-                : superpitchesState + " " + getNoun(superpitchesState)}
+                ? superPitchesFirst + " супер" + getNoun(superPitchesFirst)
+                : superpitchesState + " супер" + getNoun(superpitchesState)}
             </>
             {/* )} */}
           </button>

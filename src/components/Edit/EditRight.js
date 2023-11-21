@@ -30,6 +30,8 @@ const EditRight = ({
   dataToUpdate,
   updateProfileData,
   skills,
+  status,
+  setStatus,
 }) => {
   const router = useRouter();
 
@@ -102,7 +104,7 @@ const EditRight = ({
             onClick={async () => {
               if (isDataChanged) {
                 setLittleLoader(true);
-                await updateProfileData({
+                const res = await updateProfileData({
                   ...dataToUpdate,
                   UserSkills: dataToUpdate.UserSkills.map(
                     (item) => true && { skillId: item.id }
@@ -122,20 +124,25 @@ const EditRight = ({
                       ? []
                       : workState,
                 });
-                toast(`💾 Изменения сохранены`, {
-                  position: isMobile ? "top-center" : "bottom-right",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: false,
-                  draggable: true,
-                  progress: undefined,
-                  // theme: "dark",
-                  progressStyle: { background: "#5875e8" },
-                  containerId: "forCopy",
-                });
-                router.refresh();
-                setLittleLoader(false);
+                console.log(res?.message, "ass");
+                setStatus(res?.message);
+
+                if (!res) {
+                  toast(`💾 Изменения сохранены`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  router.refresh();
+                  setLittleLoader(false);
+                } else setLittleLoader(false);
               }
             }}
             className={`
@@ -175,12 +182,21 @@ const EditRight = ({
           placeholder="Расскажите о ваших мечтах и карьерных планах"
           label="Обо мне"
           value={dataToUpdate.about}
-          onChange={(about) =>
+          caption={
+            !status
+              ? null
+              : status?.includes("inputAbout maxlen")
+              ? "Максимальная длинна поля 120 сиволов"
+              : null
+          }
+          onChange={(about) => {
             setDataToUpdate({
               ...dataToUpdate,
               about: about,
-            })
-          }
+            });
+            if (status)
+              setStatus(status.filter((i) => !i.includes("inputAbout")));
+          }}
         />
         {/* about me */}
 

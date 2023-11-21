@@ -19,6 +19,10 @@ const EditProfile = ({
 
   const [dataToUpdate, setDataToUpdate] = useState(data);
 
+  // validation
+  const [status, setStatus] = useState(null);
+  // validation
+
   console.log(dataToUpdate, "dataToUpdate");
 
   return (
@@ -27,6 +31,8 @@ const EditProfile = ({
         data={data}
         setDataToUpdate={setDataToUpdate}
         dataToUpdate={dataToUpdate}
+        status={status}
+        setStatus={setStatus}
       />
       <EditRight
         userId={userId}
@@ -37,6 +43,8 @@ const EditProfile = ({
         setDataToUpdate={setDataToUpdate}
         dataToUpdate={dataToUpdate}
         updateProfileData={updateProfileData}
+        status={status}
+        setStatus={setStatus}
       />
     </>
   );

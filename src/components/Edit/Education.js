@@ -74,6 +74,7 @@ const Education = ({ educationState, setEducationState, deleteHandler }) => {
               style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
             />
             <input
+              maxLength={60}
               placeholder="Университет или курс"
               className="px-[12px] rounded-[8px] bg-[#f6f6f8] dark:bg-[#2c2c2c] text-[#2c2c2c] dark:text-white dark:placeholder:text-[#8f8f8f] text-[14px] pb-[12px] pt-[11px] transition duration-[250ms] hover:inner-border-[1px] hover:inner-border-[#5875e8] outline-none placeholder:font-normal placeholder:text-[#bfbfbf] leading-[18px] tracking-[-0.015em] placeholder:leading-[18px] placeholder:tracking-[-0.015em]"
               value={item.name || ""}
@@ -86,6 +87,7 @@ const Education = ({ educationState, setEducationState, deleteHandler }) => {
               }}
             />
             <input
+              maxLength={60}
               placeholder="Название курса или степень обучения"
               className="px-[12px] rounded-[8px] bg-[#f6f6f8] dark:bg-[#2c2c2c] text-[#2c2c2c] dark:text-white dark:placeholder:text-[#8f8f8f] text-[14px] pb-[12px] pt-[11px] transition duration-[250ms] hover:inner-border-[1px] hover:inner-border-[#5875e8] outline-none placeholder:font-normal placeholder:text-[#bfbfbf] leading-[18px] tracking-[-0.015em] placeholder:leading-[18px] placeholder:tracking-[-0.015em]"
               value={item.degree || ""}

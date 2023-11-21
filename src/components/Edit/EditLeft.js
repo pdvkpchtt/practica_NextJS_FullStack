@@ -12,7 +12,13 @@ import { updateEmail } from "../../server/actions/company/updateCompanyProfile";
 import UpploadAvatarModal from "../../shared/ui/UpploadAvatarModal";
 import ImageIcon from "../../shared/icons/ImageIcon";
 
-const EditLeft = ({ data, setDataToUpdate, dataToUpdate }) => {
+const EditLeft = ({
+  data,
+  setDataToUpdate,
+  dataToUpdate,
+  status,
+  setStatus,
+}) => {
   const router = useRouter();
 
   const [birthValue, setBirthValue] = useState(data.birthDate || "");
@@ -102,23 +108,41 @@ const EditLeft = ({ data, setDataToUpdate, dataToUpdate }) => {
           placeholder="Например, Анастасия"
           label="Имя"
           value={dataToUpdate.name}
-          onChange={(name) =>
+          caption={
+            !status
+              ? null
+              : status?.includes("inputName minlen")
+              ? "Поле обязательно к заполнению"
+              : null
+          }
+          onChange={(name) => {
             setDataToUpdate({
               ...dataToUpdate,
               name: name,
-            })
-          }
+            });
+            if (status)
+              setStatus(status.filter((i) => !i.includes("inputName")));
+          }}
         />
         <Input
           placeholder="Например, designer_23yo"
           label="Имя пользователя"
           value={dataToUpdate.username}
-          onChange={(username) =>
+          caption={
+            !status
+              ? null
+              : status?.includes("inputUsername minlen")
+              ? "Поле обязательно к заполнению"
+              : null
+          }
+          onChange={(username) => {
             setDataToUpdate({
               ...dataToUpdate,
               username: username,
-            })
-          }
+            });
+            if (status)
+              setStatus(status.filter((i) => !i.includes("inputUsername")));
+          }}
         />
         <Input
           placeholder="Например, Россия"

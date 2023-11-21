@@ -29,7 +29,7 @@ const OthersProfileWithNav = ({
     {
       id: 1,
       active: false,
-      name: "Посты и ответы",
+      name: "Посты",
       component: (
         <ProfilePosts
           others
