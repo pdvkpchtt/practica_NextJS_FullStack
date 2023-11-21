@@ -65,7 +65,10 @@ const VacancyCard = ({ item, role = "student", userId }) => {
 
             {item.currency ? (
               <p className="font-medium text-[14px] leading-[18px] tracking-[-0.013em] break-words text-[#8f8f8f]">
-                от {item.salaryStart} {item.currency?.label} •{" "}
+                {item.salaryStart && `от ${item.salaryStart}`}
+                {item.salaryEnd && ` до ${item.salaryEnd}`}{" "}
+                {item.currency?.label}
+                {(item.Location.length > 0 || item.distantWork) && <> • </>}
                 {item.Location.map(
                   (i, key) =>
                     `${i.label}${key !== item.Location.length - 1 ? ", " : ""}`

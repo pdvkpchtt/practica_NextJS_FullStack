@@ -3,34 +3,45 @@ import { string, z } from "zod";
 
 export const createVacancy = async (id, data, role = "company") => {
   // валидация
-  const validate = z.object({
-    name: z
-      .string()
-      .min(1, { message: "inputName minlen" })
-      .max(80, { message: "inputName maxlen" }),
-    description: z
-      .string()
-      .min(1, { message: "inputDescription minlen" })
-      .max(640, { message: "inputDescription maxlen" }),
-    shortDescription: z
-      .string()
-      .max(240, { message: "inputShortDesc maxlen" })
-      .optional()
-      .or(z.literal("")),
-    conditions: z
-      .string()
-      .max(480, { message: "inputConditions maxlen" })
-      .optional()
-      .or(z.literal("")),
-    waitings: z
-      .string()
-      .max(480, { message: "inputWaitings maxlen" })
-      .optional()
-      .or(z.literal("")),
-    salaryStart: string().min(1, { message: "inputStart minlen" }),
-    salaryEnd: string().min(1, { message: "inputEnd minlen" }),
-    currency: string().min(1, { message: "currency minlen" }),
-  });
+
+  const validate = z
+    .object({
+      name: z
+        .string()
+        .min(1, { message: "inputName minlen" })
+        .max(80, { message: "inputName maxlen" }),
+      description: z
+        .string()
+        .min(1, { message: "inputDescription minlen" })
+        .max(640, { message: "inputDescription maxlen" }),
+      shortDescription: z
+        .string()
+        .max(240, { message: "inputShortDesc maxlen" })
+        .optional()
+        .or(z.literal("")),
+      conditions: z
+        .string()
+        .max(480, { message: "inputConditions maxlen" })
+        .optional()
+        .or(z.literal("")),
+      waitings: z
+        .string()
+        .max(480, { message: "inputWaitings maxlen" })
+        .optional()
+        .or(z.literal("")),
+      salaryStart: string()
+        .min(1, { message: "inputStart minlen" })
+        .optional()
+        .or(z.literal("")),
+      salaryEnd: string()
+        .min(1, { message: "inputEnd minlen" })
+        .optional()
+        .or(z.literal("")),
+      currency: string().min(1, { message: "currency minlen" }),
+    })
+    .refine((data) => data.salaryStart || data.salaryEnd, {
+      message: "zxcghoul",
+    });
 
   const validateRes = validate.safeParse({
     name: data.name,

@@ -27,6 +27,13 @@ import PlusIcon from "../../shared/icons/PlusIcon";
 import AddCityIcon from "../../shared/icons/AddCityIcon";
 import CheckBox from "../../shared/ui/CheckBox";
 
+import { MaskedInput, getCurrencyMaskGenerator } from "react-hook-mask";
+
+const maskGenerator = getCurrencyMaskGenerator({
+  prefix: "",
+  thousandSeparator: " ",
+});
+
 const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
   const router = useRouter();
   console.log(dataToUpdate, "as");
@@ -89,6 +96,27 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                   progressStyle: { background: "#5875e8" },
                   containerId: "forCopy",
                 });
+                setDataToUpdate({
+                  name: "",
+                  shortDescription: "",
+                  description: "",
+                  conditions: "",
+                  waitings: "",
+                  vacArea: [],
+                  Location: [],
+                  format: { label: "" },
+                  contract: { label: "" },
+                  experience: { label: "" },
+                  EducationLevel: { label: "" },
+                  salaryStart: "",
+                  salaryEnd: "",
+                  currency: { label: "" },
+                  VacancySkills: [],
+                  distantWork: false,
+
+                  priceByTalk: false,
+                });
+                router.refresh();
                 setLittleLoader(false);
               } else {
                 setLittleLoader(false);
@@ -175,7 +203,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                     : null
                 }
                 // maxLength={240}
-                defaultValue={dataToUpdate?.shortDescription}
+                value={dataToUpdate?.shortDescription}
                 onChange={(shortDescription) => {
                   setDataToUpdate({
                     ...dataToUpdate,
@@ -200,7 +228,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                 // maxLength={640}
                 minRows={2}
                 maxRows={5}
-                defaultValue={dataToUpdate?.description}
+                value={dataToUpdate?.description}
                 onChange={(description) => {
                   setDataToUpdate({
                     ...dataToUpdate,
@@ -546,37 +574,36 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                     style="font-medium text-[14px] leading-[16.8px] tracking-[-0.013em] mb-[6px]"
                   />
                   <div className="flex flex-row [@media(pointer:coarse)]:flex-col gap-[8px]">
-                    <Input
-                      caption={
-                        !status
-                          ? null
-                          : status?.includes("inputStart minlen")
-                          ? "Поле обязательно к заполнению"
-                          : null
-                      }
-                      placeholder="От"
-                      value={dataToUpdate?.salaryStart}
-                      onChange={(salaryStart) => {
-                        if (!dataToUpdate.prisceByTalk) {
-                          setDataToUpdate({
-                            ...dataToUpdate,
-                            salaryStart: salaryStart,
-                          });
-                          if (status)
-                            setStatus(
-                              status?.filter((i) => !i.includes("inputStart"))
-                            );
-                        }
-                      }}
-                    />
-                    <Input
-                      caption={
-                        !status
-                          ? null
-                          : status?.includes("inputEnd minlen")
-                          ? "Поле обязательно к заполнению"
-                          : null
-                      }
+                    <div className="flex flex-col w-full">
+                      <MaskedInput
+                        placeholder="От"
+                        className="px-[12px] h-[42px] rounded-[8px] text-[14px] pb-[12px] bg-[#f6f6f8] dark:bg-[#2c2c2c] placeholder:text-[#bfbfbf] placeholder:select-none dark:placeholder:text-[#8f8f8f] pt-[11px] transition duration-[250ms] hover:inner-border-[1px] hover:inner-border-[#5875e8] outline-none placeholder:font-normal leading-[18px] tracking-[-0.015em] placeholder:leading-[18px] placeholder:tracking-[-0.015em]"
+                        type="tel"
+                        maskGenerator={maskGenerator}
+                        value={dataToUpdate?.salaryStart}
+                        onChange={(salaryStart) => {
+                          if (!dataToUpdate.prisceByTalk) {
+                            setDataToUpdate({
+                              ...dataToUpdate,
+                              salaryStart: salaryStart,
+                            });
+                            if (status)
+                              setStatus(
+                                status?.filter((i) => !i.includes("zxcghoul"))
+                              );
+                          }
+                        }}
+                      />
+                      {status && status?.includes("zxcghoul") && (
+                        <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
+                          Минимум одно поле требует заполнения
+                        </p>
+                      )}
+                    </div>
+                    <MaskedInput
+                      type="tel"
+                      className="px-[12px] w-full h-[42px] rounded-[8px] text-[14px] pb-[12px] bg-[#f6f6f8] dark:bg-[#2c2c2c] placeholder:text-[#bfbfbf] placeholder:select-none dark:placeholder:text-[#8f8f8f] pt-[11px] transition duration-[250ms] hover:inner-border-[1px] hover:inner-border-[#5875e8] outline-none placeholder:font-normal leading-[18px] tracking-[-0.015em] placeholder:leading-[18px] placeholder:tracking-[-0.015em]"
+                      maskGenerator={maskGenerator}
                       placeholder="До"
                       value={dataToUpdate?.salaryEnd}
                       onChange={(salaryEnd) => {
@@ -587,7 +614,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                           });
                           if (status)
                             setStatus(
-                              status?.filter((i) => !i.includes("inputEnd"))
+                              status?.filter((i) => !i.includes("zxcghoul"))
                             );
                         }
                       }}
@@ -644,8 +671,8 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                     else
                       setDataToUpdate({
                         ...dataToUpdate,
-                        salaryEnd: "d",
-                        salaryStart: "d",
+                        salaryEnd: "1",
+                        salaryStart: "1",
                         currency: { label: "d" },
                         prisceByTalk: true,
                       });

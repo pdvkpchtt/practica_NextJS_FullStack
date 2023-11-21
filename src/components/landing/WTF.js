@@ -11,12 +11,12 @@ import EnterIcon from "shared/icons/EnterIcon";
 const color = "#5875e8";
 
 // хуйня по центру
-const Icosahedron = () => (
-  <mesh rotation-x={0.35}>
-    <icosahedronGeometry args={[1, 0]} />
-    <meshBasicMaterial wireframe color={color} />
-  </mesh>
-);
+// const Icosahedron = () => (
+//   <mesh rotation-x={0.35}>
+//     <icosahedronGeometry args={[1, 0]} />
+//     <meshBasicMaterial wireframe color={color} />
+//   </mesh>
+// );
 
 const Star = ({ p }) => {
   const ref = useRef(null);

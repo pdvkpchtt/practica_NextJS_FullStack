@@ -121,7 +121,7 @@ export const TextArea = ({
           lineHeight: "18px",
           letterSpacing: "-0.015em",
         }}
-        value={value ? value : null}
+        value={value ? value : ""}
         maxLength={maxLength}
         maxRows={maxRows && maxRows}
         minRows={minRows && minRows}
