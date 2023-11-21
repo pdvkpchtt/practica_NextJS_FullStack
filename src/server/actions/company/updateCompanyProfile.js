@@ -2,6 +2,7 @@
 
 import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../../db";
+import { string, z } from "zod";
 
 export const updateEmail = async (data) => {
   const session = await getServSession();
@@ -13,7 +14,6 @@ export const updateEmail = async (data) => {
     data: {
       email: data,
       emailVerified: null,
-      // HR: { select: { company: { select: { id: true } } } },
     },
   });
 
@@ -21,64 +21,30 @@ export const updateEmail = async (data) => {
 };
 
 export const updateCompanyProfile = async ({ userId, data }) => {
-  // if (role === "company") {
-  //   const companyEdited = await prisma.company.upsert({
-  //     where: { userId: userId },
-  //     update: {
-  //       name: data.name,
-  //       username: data.username,
-  //       slogan: data.slogan,
-  //       about: data.about,
-  //       isStartap: data.isStartap,
-  //       Cities: {
-  //         deleteMany: {},
-  //         createMany:
-  //           data.Cities?.length === 0 ? {} : { data: [...data.Cities] },
-  //       },
-  //       Links: {
-  //         deleteMany: {},
-  //         createMany: data.Links?.length === 0 ? {} : { data: [...data.Links] },
-  //       },
-  //       industry:
-  //         data.industry?.length === 0
-  //           ? {}
-  //           : { connect: { id: data.industry.id } },
-  //       employee:
-  //         data.employee?.length === 0
-  //           ? {}
-  //           : { connect: { id: data.employee.id } },
-  //     },
-  //     create: {
-  //       name: data.name,
-  //       username: data.username,
-  //       slogan: data.slogan,
-  //       about: data.about,
-  //       Cities: {
-  //         createMany:
-  //           data.Cities?.length === 0 ? {} : { data: [...data.Cities] },
-  //       },
-  //       Links: {
-  //         createMany: data.Links?.length === 0 ? {} : { data: [...data.Links] },
-  //       },
-  //       industry:
-  //         data.industry?.length === 0
-  //           ? {}
-  //           : { connect: { id: data.industry.id } },
-  //       employee:
-  //         data.employee?.length === 0
-  //           ? {}
-  //           : { connect: { id: data.employee.id } },
-  //       user: {
-  //         connect: {
-  //           id: userId,
-  //         },
-  //       },
-  //     },
-  //   });
+  // валидация
+  const validate = z.object({
+    name: z.string().min(1, { message: "inputName minlen" }),
+    username: z.string().min(1, { message: "inputUsername minlen" }),
+    slogan: z.string().max(60, { message: "inputSlogan maxlen" }),
+    industry: z.string().min(1, { message: "inputIndustry minlen" }),
+    about: z.string().max(240, { message: "inputAbout maxlen" }),
+  });
 
-  //   return companyEdited;
-  // } else
-  //  if (role === "hr") {
+  const validateRes = validate.safeParse({
+    name: data.name,
+    username: data.username,
+    slogan: data.slogan,
+    industry: data.industry?.label,
+    about: data.about,
+  });
+
+  if (!validateRes.success)
+    return {
+      status: "error",
+      message: validateRes.error?.errors?.map((i) => i?.message),
+    };
+  // валидация
+
   const me = await prisma.user.findUnique({
     where: {
       id: userId,
@@ -114,7 +80,4 @@ export const updateCompanyProfile = async ({ userId, data }) => {
           : { connect: { id: data.employee.id } },
     },
   });
-
-  return companyEdited;
-  // }
 };

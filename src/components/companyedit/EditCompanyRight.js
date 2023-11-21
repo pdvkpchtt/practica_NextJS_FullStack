@@ -23,6 +23,8 @@ const EditCompanyRight = ({
   updateCompanyData,
   itemsForDD,
   itemsForDD2,
+  status,
+  setStatus,
 }) => {
   const router = useRouter();
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
@@ -60,25 +62,29 @@ const EditCompanyRight = ({
               if (isDataChanged) {
                 setLittleLoader(true);
                 // try {
-                await updateCompanyData(dataToUpdate);
+                const res = await updateCompanyData(dataToUpdate);
+                console.log(res?.message, "ass");
+                setStatus(res?.message);
 
-                toast(`💾 Изменения сохранены`, {
-                  position: isMobile ? "top-center" : "bottom-right",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: false,
-                  draggable: true,
-                  progress: undefined,
-                  // theme: "dark",
-                  progressStyle: { background: "#5875e8" },
-                  containerId: "forCopy",
-                });
-                // } catch (err) {
-                // console.log("err");
-                // }
-                setLittleLoader(false);
-                router.refresh();
+                if (!res) {
+                  toast(`💾 Изменения сохранены`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  // } catch (err) {
+                  // console.log("err");
+                  // }
+                  setLittleLoader(false);
+                  router.refresh();
+                } else setLittleLoader(false);
               }
             }}
             className={`
@@ -120,12 +126,21 @@ const EditCompanyRight = ({
           placeholder="«Объединяя профессионалов»"
           label="Слоган"
           value={dataToUpdate?.slogan}
-          onChange={(slogan) =>
+          caption={
+            !status
+              ? null
+              : status?.includes("inputSlogan maxlen")
+              ? "Максимальная длинна поля 60 сиволов"
+              : null
+          }
+          onChange={(slogan) => {
             setDataToUpdate({
               ...dataToUpdate,
               slogan: slogan,
-            })
-          }
+            });
+            if (status)
+              setStatus(status?.filter((i) => !i.includes("inputSlogan")));
+          }}
         />
         {/* slogan */}
 
@@ -149,10 +164,18 @@ const EditCompanyRight = ({
                 industry: val,
               });
               console.log(val, "lll");
+
+              if (status)
+                setStatus(status.filter((i) => !i.includes("Required")));
             }}
             items={itemsForDD}
             placeholder="Выберите отрасль"
           />
+          {status && status?.includes("Required") && (
+            <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
+              Выберите отрасль
+            </p>
+          )}
         </div>
         {/* industry */}
 
@@ -161,12 +184,21 @@ const EditCompanyRight = ({
           placeholder="Миссия, принципы и ценности"
           label="О нас"
           value={dataToUpdate.about}
-          onChange={(about) =>
+          caption={
+            !status
+              ? null
+              : status?.includes("inputAbout maxlen")
+              ? "Максимальная длинна поля 240 сиволов"
+              : null
+          }
+          onChange={(about) => {
             setDataToUpdate({
               ...dataToUpdate,
               about: about,
-            })
-          }
+            });
+            if (status)
+              setStatus(status.filter((i) => !i.includes("inputAbout")));
+          }}
         />
         {/* about me */}
 

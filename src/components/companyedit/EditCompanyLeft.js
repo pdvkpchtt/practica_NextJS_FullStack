@@ -23,6 +23,8 @@ const EditCompanyLeft = ({
   setDataToUpdate,
   dataToUpdate,
   itemsForDD3,
+  status,
+  setStatus,
 }) => {
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
   const router = useRouter();
@@ -85,23 +87,41 @@ const EditCompanyLeft = ({
           placeholder="Doofenshmirtz Corporation"
           label="Название компании"
           value={dataToUpdate.name}
-          onChange={(name) =>
+          onChange={(name) => {
             setDataToUpdate({
               ...dataToUpdate,
               name: name,
-            })
+            });
+            if (status)
+              setStatus(status?.filter((i) => !i.includes("inputName")));
+          }}
+          caption={
+            !status
+              ? null
+              : status?.includes("inputName minlen")
+              ? "Поле обязательно к заполнению"
+              : null
           }
         />
         <Input
           placeholder="Например, designer_23yo"
           label="Имя компании"
           value={dataToUpdate.username}
-          onChange={(username) =>
+          caption={
+            !status
+              ? null
+              : status?.includes("inputUsername minlen")
+              ? "Поле обязательно к заполнению"
+              : null
+          }
+          onChange={(username) => {
             setDataToUpdate({
               ...dataToUpdate,
               username: username,
-            })
-          }
+            });
+            if (status)
+              setStatus(status?.filter((i) => !i.includes("inputUsername")));
+          }}
         />
 
         {/* добавление городов */}

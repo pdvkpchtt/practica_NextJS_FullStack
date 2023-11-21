@@ -3,7 +3,6 @@ import { string, z } from "zod";
 
 export const createVacancy = async (id, data, role = "company") => {
   // валидация
-
   const validate = z
     .object({
       name: z
