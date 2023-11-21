@@ -68,7 +68,10 @@ const VacancySubInfo = ({ data }) => {
         <TextMain
           text={`${
             data.currency
-              ? `от ${data.salaryStart} до ${data.salaryEnd} ${data.currency.label}`
+              ? `${data.salaryStart && `от ${data.salaryStart}`}
+                ${data.salaryEnd && ` до ${data.salaryEnd}`} ${
+                  data.currency.label
+                }`
               : "по договоренности"
           }`}
           style={"text-[14px] font-normal leading-[17px] tracking-[-0.21px]"}

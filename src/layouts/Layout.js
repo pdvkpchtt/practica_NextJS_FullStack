@@ -49,7 +49,7 @@ const Layout = ({ children }) => {
       <ToastContainer
         containerId={"forCopy"}
         toastClassName={() =>
-          "relative flex rounded-[20px] text-[16px] font-medium leading-[19px] tracking-[-0.24px] select-none [@media(pointer:coarse)]:rounded-[0px] shadow h-[50px] p-1 justify-between overflow-hidden cursor-pointer bg-[#fff] text-[#2c2c2c] dark:bg-[#212122] dark:text-white"
+          "relative flex rounded-[20px] text-[16px] font-medium leading-[19px] tracking-[-0.24px] select-none [@media(pointer:coarse)]:rounded-[0px] shadow h-[50px] py-1 pl-4 pr-1 justify-between overflow-hidden cursor-pointer bg-[#fff] text-[#2c2c2c] dark:bg-[#212122] dark:text-white"
         }
         limit={1}
       />
