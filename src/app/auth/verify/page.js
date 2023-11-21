@@ -57,9 +57,11 @@ const VerifyPage = () => {
             text="Найти успешный успех"
             style="mt-[24px] w-full"
             onClick={() => {
-              window.href = `/api/auth/callback/email?email=${encodeURIComponent(
-                email
-              )}&token=${code}&callbackUrl=${process.env.NEXTAUTH_URL}/feed`;
+              router.push(
+                `/api/auth/callback/email?email=${encodeURIComponent(
+                  email
+                )}&token=${code}&callbackUrl=${process.env.NEXTAUTH_URL}/feed`
+              );
             }}
           />
           <div
