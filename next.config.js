@@ -4,7 +4,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
     serverActions: {
-      bodySizeLimit: "2mb",
+      bodySizeLimit: "15mb",
     },
   },
   images: {

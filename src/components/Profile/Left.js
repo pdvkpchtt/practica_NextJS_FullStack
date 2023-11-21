@@ -238,12 +238,12 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
               text={data.hrCompany.company.name}
               onClick={() => router.push(`/companyprofile`)}
             >
-              <div className="rounded-full overflow-hidden w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
+              <div className="rounded-full overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
                 {data.hrCompany.company.image ? (
                   <Image
                     src={data.hrCompany.company.image}
                     alt="hr company photo"
-                    className="w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]"
+                    className="w-[20px] h-[20px] min-w-[20px] object-cover min-h-[20px] max-w-[20px] max-h-[20px]"
                     width={20}
                     height={20}
                     quality={100}

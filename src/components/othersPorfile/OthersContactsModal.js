@@ -63,7 +63,7 @@ const OthersContactsModal = ({
                 style="text-[20px] font-medium leading-[22px] mb-[16px] tracking-[-0.4px] text-[#2c2c2c] dark:text-white"
               />
               <TextMain
-                text="8 (9**) *** ** **"
+                text="+7 (9**) *** ** **"
                 style={
                   "text-[16px] font-normal w-full leading-[19px] mb-[8px] tracking-[-0.24px]"
                 }
@@ -108,7 +108,7 @@ const OthersContactsModal = ({
                 style="text-[20px] font-medium leading-[22px] mb-[16px] tracking-[-0.4px] text-[#2c2c2c] dark:text-white"
               />
               <TextMain
-                text="8 (9**) *** ** **"
+                text="+7 (9**) *** ** **"
                 style={
                   "text-[16px] font-normal w-full leading-[19px] mb-[8px] tracking-[-0.24px]"
                 }

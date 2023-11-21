@@ -159,7 +159,7 @@ const Post = ({
                     ? item.text
                     : item.text.slice(0, 199) + "..."
                 }
-                style="font-normal text-[16px] leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0121875em]"
+                style="font-normal whitespace-pre-line text-[16px] line-clamp-3 overflow-hidden truncate leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0121875em]"
               />
               {/* header and text */}
 

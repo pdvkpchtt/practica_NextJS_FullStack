@@ -119,6 +119,7 @@ const CreatePostModal = ({
             onClick={() => inputRef.current.focus()}
           >
             <TextareaAutosize
+              style={{ whiteSpace: "pre-line" }}
               ref={inputRef}
               className="outline-none w-full resize-none bg-transparent placeholder:text-[#BFBFBF] text-[16px] font-normal text-[#2c2c2c] dark:text-white leading-[19px] tracking-[-0.015em]"
               placeholder={
@@ -326,7 +327,7 @@ const CreatePostModal = ({
 
           <div className="w-full">
             <TextareaAutosize
-              className="outline-none w-full bg-transparent min-h-[25px] resize-none placeholder:text-[#BFBFBF] text-[20px] font-medium text-[#2c2c2c] dark:text-white leading-[22px] tracking-[-0.025em]"
+              className="outline-none whitespace-pre-wrap w-full bg-transparent min-h-[25px] resize-none placeholder:text-[#BFBFBF] text-[20px] font-medium text-[#2c2c2c] dark:text-white leading-[22px] tracking-[-0.025em]"
               placeholder="Заголовок"
               value={headState}
               onChange={(e) => setHeadState(e.target.value)}
@@ -338,6 +339,7 @@ const CreatePostModal = ({
             onClick={() => inputRef2.current.focus()}
           >
             <TextareaAutosize
+              style={{ whiteSpace: "pre-line" }}
               ref={inputRef2}
               className="outline-none w-full bg-transparent resize-none placeholder:text-[#BFBFBF] text-[16px] font-normal text-[#2c2c2c] dark:text-white leading-[19px] tracking-[-0.015em]"
               placeholder={

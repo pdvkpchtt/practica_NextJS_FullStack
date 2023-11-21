@@ -9,7 +9,9 @@ export const addPost = async (input) => {
   const post = await prisma.post.create({
     data: {
       title: input.title,
-      text: input.text,
+      text: input.text
+        .replace(/(\r\n|\r|\n){2}/g, "$1")
+        .replace(/(\r\n|\r|\n){3,}/g, "$1\n"),
       user: {
         connect: {
           id: session.user.id,

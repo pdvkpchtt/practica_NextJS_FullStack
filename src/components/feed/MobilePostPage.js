@@ -153,7 +153,7 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
 
                 <TextMain
                   text={postState.text}
-                  style="font-normal text-[16px] leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0121875em]"
+                  style="font-normal text-[16px] whitespace-pre-line leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0121875em]"
                 />
                 {/* header and text */}
 

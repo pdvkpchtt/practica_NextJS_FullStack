@@ -112,7 +112,7 @@ const FullPostModal = ({
               {/* text */}
               <TextMain
                 text={item.text}
-                style="font-normal mr-[53px] text-[16px] leading-[19px] tracking-[-0.015em]"
+                style="font-normal mr-[53px] whitespace-pre-line text-[16px] leading-[19px] tracking-[-0.015em]"
               />
               {/* text */}
             </div>
