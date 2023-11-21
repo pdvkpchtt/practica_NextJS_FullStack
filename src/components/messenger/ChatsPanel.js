@@ -214,7 +214,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
                     : "Нет сообщений"
                 }
                 style={
-                  "h-full text-center w-full flex justify-center items-center select-none"
+                  "h-full text-center w-full leading-[19px] text-[16px] font-medium tracking-[-0.24px] flex justify-center items-center select-none"
                 }
               />
             </div>
