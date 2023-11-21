@@ -614,7 +614,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                       />
                       {status && status?.includes("currency minlen") && (
                         <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
-                          Поле обязательно к заполнению
+                          Выберите валюту
                         </p>
                       )}
                     </div>

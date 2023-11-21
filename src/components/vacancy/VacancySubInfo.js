@@ -5,46 +5,59 @@ const VacancySubInfo = ({ data }) => {
   return (
     <Card style={"flex flex-col gap-[32px]"} padding={12}>
       {/* location */}
-      <div className="flex flex-col gap-[8px]">
-        <TextMain
-          text="Локация"
-          style={"text-[14px] font-semibold leading-[17px] tracking-[-0.182px]"}
-        />
-        <TextMain
-          text={`${data.Location.map((i, key) => ` ${i.label}`)}${
-            !data.distantWork
-              ? ""
-              : data.Location.length > 0
-              ? ", возможно удаленно"
-              : "возможно удаленно"
-          }`}
-          style={"text-[14px] font-normal leading-[17px] tracking-[-0.21px]"}
-        />
-      </div>
+      {(data.Location.length > 0 ||
+        (data.Location.length === 0 && data.distantWork)) && (
+        <div className="flex flex-col gap-[8px]">
+          <TextMain
+            text="Локация"
+            style={
+              "text-[14px] font-semibold leading-[17px] tracking-[-0.182px]"
+            }
+          />
+          <TextMain
+            text={`${data.Location.map((i, key) => ` ${i.label}`)}${
+              !data.distantWork
+                ? ""
+                : data.Location.length > 0
+                ? ", возможно удаленно"
+                : "возможно удаленно"
+            }`}
+            style={"text-[14px] font-normal leading-[17px] tracking-[-0.21px]"}
+          />
+        </div>
+      )}
       {/* location */}
       {/* format */}
-      <div className="flex flex-col gap-[8px]">
-        <TextMain
-          text="Занятость"
-          style={"text-[14px] font-semibold leading-[17px] tracking-[-0.182px]"}
-        />
-        <TextMain
-          text={data.format.text}
-          style={"text-[14px] font-normal leading-[17px] tracking-[-0.21px]"}
-        />
-      </div>
+      {data.format?.text && (
+        <div className="flex flex-col gap-[8px]">
+          <TextMain
+            text="Занятость"
+            style={
+              "text-[14px] font-semibold leading-[17px] tracking-[-0.182px]"
+            }
+          />
+          <TextMain
+            text={data.format.text}
+            style={"text-[14px] font-normal leading-[17px] tracking-[-0.21px]"}
+          />
+        </div>
+      )}
       {/* format */}
       {/* contract */}
-      <div className="flex flex-col gap-[8px]">
-        <TextMain
-          text="Тип договора"
-          style={"text-[14px] font-semibold leading-[17px] tracking-[-0.182px]"}
-        />
-        <TextMain
-          text={data.contract.label}
-          style={"text-[14px] font-normal leading-[17px] tracking-[-0.21px]"}
-        />
-      </div>
+      {data.contract?.label && (
+        <div className="flex flex-col gap-[8px]">
+          <TextMain
+            text="Тип договора"
+            style={
+              "text-[14px] font-semibold leading-[17px] tracking-[-0.182px]"
+            }
+          />
+          <TextMain
+            text={data.contract.label}
+            style={"text-[14px] font-normal leading-[17px] tracking-[-0.21px]"}
+          />
+        </div>
+      )}
       {/* contract */}
       {/* salary */}
       <div className="flex flex-col gap-[8px]">

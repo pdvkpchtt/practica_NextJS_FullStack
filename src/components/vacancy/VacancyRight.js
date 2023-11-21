@@ -105,10 +105,12 @@ const VacancyRight = ({ data, role = "student", userId }) => {
               text={data.name}
               style="font-medium text-[24px] w-full leading-[29px] tracking-[-0.312px]"
             />
-            <TextMain
-              text={data.shortDescription}
-              style="font-normal text-[14px] w-full leading-[17px] tracking-[-0.21px]"
-            />
+            {data.shortDescription && (
+              <TextMain
+                text={data.shortDescription}
+                style="font-normal text-[14px] w-full leading-[17px] tracking-[-0.21px]"
+              />
+            )}
           </div>
           {/* name and short desc */}
 
@@ -126,29 +128,33 @@ const VacancyRight = ({ data, role = "student", userId }) => {
           {/* descrition */}
 
           {/* conditions */}
-          <div className="flex flex-col gap-[8px] w-full">
-            <TextMain
-              text={"Условия"}
-              style="font-semibold text-[14px] w-full leading-[18px] tracking-[-0.182px]"
-            />
-            <TextMain
-              text={data.conditions}
-              style="font-normal text-[14px] w-full leading-[17px] tracking-[-0.21px]"
-            />
-          </div>
+          {data.conditions && (
+            <div className="flex flex-col gap-[8px] w-full">
+              <TextMain
+                text={"Условия"}
+                style="font-semibold text-[14px] w-full leading-[18px] tracking-[-0.182px]"
+              />
+              <TextMain
+                text={data.conditions}
+                style="font-normal text-[14px] w-full leading-[17px] tracking-[-0.21px]"
+              />
+            </div>
+          )}
           {/* conditions */}
 
           {/* waitings */}
-          <div className="flex flex-col gap-[8px] w-full">
-            <TextMain
-              text={"Мы ждём от вас"}
-              style="font-semibold text-[14px] w-full leading-[18px] tracking-[-0.182px]"
-            />
-            <TextMain
-              text={data.waitings}
-              style="font-normal text-[14px] w-full leading-[17px] tracking-[-0.21px]"
-            />
-          </div>
+          {data.waitings && (
+            <div className="flex flex-col gap-[8px] w-full">
+              <TextMain
+                text={"Мы ждём от вас"}
+                style="font-semibold text-[14px] w-full leading-[18px] tracking-[-0.182px]"
+              />
+              <TextMain
+                text={data.waitings}
+                style="font-normal text-[14px] w-full leading-[17px] tracking-[-0.21px]"
+              />
+            </div>
+          )}
           {/* waitings */}
 
           {/* contact face */}
@@ -159,12 +165,12 @@ const VacancyRight = ({ data, role = "student", userId }) => {
                 style="font-semibold text-[14px] w-full leading-[18px] tracking-[-0.182px]"
               />
               <div className="flex flex-row gap-[12px]">
-                <div className="relative overflow-hidden rounded-[8px] h-[50px] w-[50px]">
+                <div className="relative overflow-hidden aspect-square rounded-[8px] h-[50px] w-[50px]">
                   {data?.hrCreator?.image ? (
                     <Image
                       src={data.hrCreator.image}
                       alt="Profile photo"
-                      className="w-[50px] h-[50px]"
+                      className="w-[50px] h-[50px] object-cover"
                       width={50}
                       height={50}
                       quality={100}

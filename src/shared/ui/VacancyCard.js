@@ -18,14 +18,14 @@ const VacancyCard = ({ item, role = "student", userId }) => {
       {/* image name time */}
       <div className="flex flex-row justify-between">
         <div className="flex flex-row gap-[12px]">
-          <div className="min-w-[67px] h-[67px] w-[67px] min-h-[67px]  max-w-[67px] max-h-[67px] overflow-hidden rounded-full">
+          <div className="min-w-[67px] h-[67px] aspect-square w-[67px] min-h-[67px]  max-w-[67px] max-h-[67px] overflow-hidden rounded-full">
             {item?.Company?.image ? (
               <Image
                 src={item.Company.image}
                 width={67}
                 height={67}
                 alt="Profile image"
-                className="min-w-[67px] max-w-[67px] max-h-[67px] h-[67px] w-[67px] min-h-[67px]"
+                className="min-w-[67px] max-w-[67px] object-cover max-h-[67px] h-[67px] w-[67px] min-h-[67px]"
               />
             ) : (
               <EmptyAvatar sixtySeven />
@@ -78,7 +78,8 @@ const VacancyCard = ({ item, role = "student", userId }) => {
               </p>
             ) : (
               <p className="font-medium text-[14px] leading-[18px] tracking-[-0.013em] break-words text-[#8f8f8f]">
-                По договоренности •{" "}
+                По договоренности
+                {item.Location.length > 0 && <> • </>}
                 {item.Location.map(
                   (i, key) =>
                     `${i.label}${key !== item.Location.length - 1 ? ", " : ""}`
@@ -110,6 +111,7 @@ const VacancyCard = ({ item, role = "student", userId }) => {
       {/* image name time */}
 
       {/* name and short desc */}
+
       <a href={`/vacancy/${item.id}`} target="_blank">
         <TextMain
           text={item.name}
@@ -117,10 +119,12 @@ const VacancyCard = ({ item, role = "student", userId }) => {
           // onClick={() => router.push()}
         />
       </a>
-      <TextSecondary
-        text={item.shortDescription}
-        style={"text-[14px] leading-[17px] tracking-[-0.252px]"}
-      />
+      {item.shortDescription && (
+        <TextSecondary
+          text={item.shortDescription}
+          style={"text-[14px] leading-[17px] tracking-[-0.252px]"}
+        />
+      )}
       {/* name and short desc */}
 
       {/* skills */}
