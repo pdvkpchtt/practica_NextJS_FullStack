@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 import DropDownIcon from "../../shared/icons/DropDownIcon";
 
@@ -12,6 +13,7 @@ const DropDownWithSearch = ({
   const ref = useRef();
   const [state, setState] = useState(false);
   const [input, setInput] = useState(city);
+  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
   const [filtered, setFiltered] = useState(items);
 
   useEffect(() => {
@@ -37,6 +39,9 @@ const DropDownWithSearch = ({
           <input
             ref={ref}
             value={input}
+            onClick={() => {
+              if (!state && isMobile) ref.current.blur();
+            }}
             onChange={(e) => {
               setInput(e.target.value);
               const newArr = items.filter((i) =>
