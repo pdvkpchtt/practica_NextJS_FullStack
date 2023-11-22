@@ -38,11 +38,6 @@ const sendMessage = async (input, chatId) => {
     select: { id: true, type: true },
   });
 
-  if (!check?.id && !checkVacReply?.id) {
-    const count = await getPitchesCount(circle.circle);
-    if (count < 1) return { status: "error", type: circle.circle };
-  }
-
   const count = await getPitchesCount(circle.circle);
   if (count < 1 && (!check?.id || !checkVacReply?.id))
     return { status: "error", type: circle.circle };
