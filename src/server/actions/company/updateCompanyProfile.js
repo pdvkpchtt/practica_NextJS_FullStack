@@ -45,39 +45,44 @@ export const updateCompanyProfile = async ({ userId, data }) => {
     };
   // валидация
 
-  const me = await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-    select: {
-      HR: { select: { company: { select: { id: true } } } },
-    },
-  });
+  try {
+    const me = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        HR: { select: { company: { select: { id: true } } } },
+      },
+    });
 
-  const companyEdited = await prisma.company.update({
-    where: { id: me.HR[0].company.id },
-    data: {
-      name: data.name,
-      username: data.username,
-      slogan: data.slogan,
-      about: data.about,
-      isStartap: data.isStartap,
-      Cities: {
-        deleteMany: {},
-        createMany: data.Cities?.length === 0 ? {} : { data: [...data.Cities] },
+    const companyEdited = await prisma.company.update({
+      where: { id: me.HR[0].company.id },
+      data: {
+        name: data.name,
+        username: data.username,
+        slogan: data.slogan,
+        about: data.about,
+        isStartap: data.isStartap,
+        Cities: {
+          deleteMany: {},
+          createMany:
+            data.Cities?.length === 0 ? {} : { data: [...data.Cities] },
+        },
+        Links: {
+          deleteMany: {},
+          createMany: data.Links?.length === 0 ? {} : { data: [...data.Links] },
+        },
+        industry:
+          data.industry?.length === 0
+            ? {}
+            : { connect: { id: data.industry.id } },
+        employee:
+          data.employee?.length === 0
+            ? {}
+            : { connect: { id: data.employee.id } },
       },
-      Links: {
-        deleteMany: {},
-        createMany: data.Links?.length === 0 ? {} : { data: [...data.Links] },
-      },
-      industry:
-        data.industry?.length === 0
-          ? {}
-          : { connect: { id: data.industry.id } },
-      employee:
-        data.employee?.length === 0
-          ? {}
-          : { connect: { id: data.employee.id } },
-    },
-  });
+    });
+  } catch (err) {
+    return { status: "error", message: ["inputUsername unique"] };
+  }
 };
