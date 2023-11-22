@@ -543,7 +543,11 @@ const ChatsPanel = ({ chatId, user_id }) => {
           </SendButton>
         </div>
       </div>
-      <NoPitchesModal modalState={noModal} setModalState={setNoModal} />
+      <NoPitchesModal
+        modalState={noModal}
+        setModalState={setNoModal}
+        type={circle}
+      />
     </div>
   );
 };
