@@ -12,15 +12,15 @@ const MessengerIcon = ({ fill = "#000", size = 25 }) => {
   const [lastDate, setLastDate] = useState(new Date().toISOString());
   const [totalUnread, setTotalUnread] = useState(0);
 
-  useEffect(() => {
-    let intervalCheck = setIntervalAsync(async () => {
-      const data = await getUnreadMessagesCount(lastDate);
-      setLastDate(data.lastDate);
-      setTotalUnread(data.totalUnread);
-    }, 500);
+  // useEffect(() => {
+  //   let intervalCheck = setIntervalAsync(async () => {
+  //     const data = await getUnreadMessagesCount(lastDate);
+  //     setLastDate(data.lastDate);
+  //     setTotalUnread(data.totalUnread);
+  //   }, 500);
 
-    return () => clearIntervalAsync(intervalCheck);
-  }, []);
+  //   return () => clearIntervalAsync(intervalCheck);
+  // }, []);
   console.log(totalUnread, "asaassa");
   return (
     <Link href={"/messenger"} className="group">

@@ -30,6 +30,7 @@ import useWindowDimensions from "../../components/Profile/useWindowDimensions";
 import { chechIfChatExist } from "../../server/actions/messenger/chechIfChatExist";
 import ConnectionsModal from "../../components/Profile/ConnectionsModal";
 import OthersContactsModal from "./OthersContactsModal";
+import SubscrModal from "../../components/Profile/SubscrModal";
 import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 import { getOtherProfileWithTimer } from "../../server/actions/profileTimer/getOtherProfileWithTimer";
 
@@ -50,6 +51,18 @@ const OthersLeft = ({
   superPitchesFirst,
 }) => {
   const router = useRouter();
+
+  const getNoun2 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5) return "Связей";
+    if (dig % 10 > 1 && dig % 10 < 5) return "Связи";
+    else return "Свзяь";
+  };
+  const getNoun3 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5) return "Подписок";
+    if (dig % 10 > 1 && dig % 10 < 5) return "Подписки";
+    else return "Подписка";
+  };
+
   console.log(data, "other profile");
 
   const ref = useRef(null);
@@ -57,6 +70,7 @@ const OthersLeft = ({
   const { height, width } = useWindowDimensions();
 
   const [modalState, setModalState] = useState(false);
+  const [modal3State, setModal3State] = useState(false);
   const [contactsModalState, setContactsModalState] = useState(false);
   const [requestStatus, setRequestStatus] = useState(false);
   const [friendStatus, setFriendStatus] = useState(false);
@@ -244,7 +258,22 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
                 <TextSecondary
-                  text="Связей"
+                  text={getNoun2(data.connections)}
+                  style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
+                />
+              </div>
+              <div
+                className="flex flex-row gap-[4px] cursor-pointer"
+                onClick={() => {
+                  setModal3State(true);
+                }}
+              >
+                <TextMain
+                  text={data.companiesIFollow}
+                  style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
+                />
+                <TextSecondary
+                  text={getNoun3(data.companiesIFollow)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>
@@ -577,6 +606,14 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
         setModalState={setContactsModalState}
       />
       {/* contactsModal */}
+
+      {/* subscr modal */}
+      <SubscrModal
+        userId={data.id}
+        modalState={modal3State}
+        setModalState={setModal3State}
+      />
+      {/* subscr modal */}
     </>
   );
 };
