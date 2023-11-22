@@ -55,7 +55,7 @@ const RecrutersModal = ({
 
   return (
     <>
-      <Modal isOpen={modalState}>
+      <Modal withScroll isOpen={modalState}>
         {/* header */}
         <div className="flex flex-row justify-end pb-[12px] relative">
           <Cross2 onClick={() => setModalState(false)} />
@@ -90,7 +90,7 @@ const RecrutersModal = ({
                 </div>
               )
             ) : (
-              <>
+              <div className="hideScrollbarNav flex flex-col gap-[12px] overflow-y-scroll pb-[12px]">
                 {users.map((item, key) => (
                   <ConnectionCard
                     key={key}
@@ -116,7 +116,7 @@ const RecrutersModal = ({
                     </div>
                   </Waypoint>
                 ) : null}
-              </>
+              </div>
             )}
           </>
         </div>

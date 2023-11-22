@@ -51,10 +51,10 @@ const Subscriptions = ({ data }) => {
             <ArrowLeftIcon />
           </div>
 
-          <TextMain
+          {/* <TextMain
             text="Покупка контакта"
             style="font-medium text-[22px] leading-[26.4px] tracking-[-0.027em]"
-          />
+          /> */}
 
           <div
             className={`group rounded-[16px] invisible px-[12px] py-[8px] text-center text-[#5875e8] items-center flex justify-center

@@ -28,15 +28,21 @@ const ConnectionCard = ({
   updateModal,
   update = false,
   friend = false,
+  company = false,
   role = "",
 }) => {
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
   const router = useRouter();
 
   const getNoun = (dig) => {
-    if (dig === 0 || dig >= 5) return " связей";
-    if (dig > 1 && dig < 5) return " связи";
+    if (dig % 10 === 0 || dig % 10 >= 5) return " связей";
+    if (dig % 10 > 1 && dig % 10 < 5) return " связи";
     else return " связь";
+  };
+  const getNoun2 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5) return " подписчиков";
+    if (dig % 10 > 1 && dig % 10 < 5) return " подписчика";
+    else return " подписчик";
   };
 
   return (
@@ -44,7 +50,9 @@ const ConnectionCard = ({
       <div className="flex flex-row overflow-hidden [@media(pointer:coarse)]:gap-[8px] gap-[10px]">
         {/* image */}
         <div
-          className="min-w-[50px] cursor-pointer overflow-hidden min-h-[50px] [@media(pointer:coarse)]:min-w-[40px] [@media(pointer:coarse)]:min-h-[40px] rounded-[10px] [@media(pointer:coarse)]:rounded-[12px]"
+          className={`min-w-[50px] cursor-pointer overflow-hidden min-h-[50px] aspect-square [@media(pointer:coarse)]:min-w-[40px] [@media(pointer:coarse)]:min-h-[40px] ${
+            company ? "rounded-full" : "rounded-[10px]"
+          } [@media(pointer:coarse)]:rounded-[12px]`}
           onClick={() =>
             router.push(
               `/profile/${
@@ -57,11 +65,11 @@ const ConnectionCard = ({
         >
           {item?.image ? (
             <Image
-              src={friend ? item?.image : item?.userFrom?.image}
+              src={item?.image}
               alt="Profile image"
               width={50}
               height={50}
-              className="h-[50px] w-[50px] [@media(pointer:coarse)]:w-[40px] [@media(pointer:coarse)]:h-[40px]"
+              className="h-[50px] w-[50px] [@media(pointer:coarse)]:w-[40px] object-cover [@media(pointer:coarse)]:h-[40px]"
             />
           ) : (
             <EmptyAvatar
@@ -107,14 +115,26 @@ const ConnectionCard = ({
               }
             />
           )}
-          <TextSecondary
-            text={
-              update
-                ? item?.text
-                : item?.connectionsCount + getNoun(item?.connectionsCount)
-            }
-            style="font-medium text-[14px] leading-[18px] tracking-[-0.013em]"
-          />
+          {friend && (
+            <TextSecondary
+              text={
+                update
+                  ? item?.text
+                  : item?.connectionsCount + getNoun(item?.connectionsCount)
+              }
+              style="font-medium text-[14px] leading-[18px] tracking-[-0.013em]"
+            />
+          )}
+          {company && (
+            <TextSecondary
+              text={
+                update
+                  ? item?.text
+                  : item?.connectionsCount + getNoun2(item?.connectionsCount)
+              }
+              style="font-medium text-[14px] leading-[18px] tracking-[-0.013em]"
+            />
+          )}
         </div>
         {/* text */}
       </div>

@@ -277,7 +277,7 @@ const SkillsModalContent = ({
                 );
               }}
             />
-            <div className="flex flex-row gap-[8px] flex-wrap max-h-[56px] overflow-hidden">
+            <div className="flex flex-row gap-[8px] flex-wrap max-h-[120px] overflow-hidden">
               {filteredSkills
                 ?.filter((i) => !data.find((i2) => i.name === i2.name))
                 .map(
@@ -310,7 +310,7 @@ const SkillsModalContent = ({
               }}
             />
 
-            <div className="flex flex-row gap-[8px] flex-wrap max-h-[56px] overflow-hidden">
+            <div className="flex flex-row gap-[8px] flex-wrap max-h-[120px] overflow-hidden">
               {filteredSkills2
                 ?.filter((i) => !data.find((i2) => i.name === i2.name))
                 .map(

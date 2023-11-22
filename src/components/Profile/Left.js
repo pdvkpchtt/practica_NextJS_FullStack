@@ -29,6 +29,7 @@ import SuperpitchIcon from "shared/icons/SuperpitchIcon";
 import PitchesModal from "./PitchesModal";
 import ContactsIcon from "shared/icons/ContactsIcon";
 import ContactsModal from "./ContactsModal";
+import SubscrModal from "./SubscrModal";
 
 const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
   // console.log(data, "saasassaasas2");
@@ -45,12 +46,23 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
     if ((dig > 1 && dig < 5) || (dig % 10 > 1 && dig % 10 < 5)) return "питча";
     else return "питч";
   };
+  const getNoun2 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5) return "Связей";
+    if (dig % 10 > 1 && dig % 10 < 5) return "Связи";
+    else return "Свзяь";
+  };
+  const getNoun3 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5) return "Подписок";
+    if (dig % 10 > 1 && dig % 10 < 5) return "Подписки";
+    else return "Подписка";
+  };
 
   const [trigger, setTrigger] = useState(false);
   const [opacity, setOpacity] = useState(false);
 
   const [modalState, setModalState] = useState(false);
   const [modal2State, setModal2State] = useState(false);
+  const [modal3State, setModal3State] = useState(false);
   const [pitchesModalState, setPitchesModalState] = useState(false);
   const [contactsModalState, setContactsModalState] = useState(false);
 
@@ -197,19 +209,34 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
             {/* location and birth date */}
 
             {/* views and connections */}
-            <div
-              className="flex flex-col gap-[8px] mt-[12px] cursor-pointer"
-              onClick={() => {
-                setModalState(true);
-              }}
-            >
-              <div className="flex flex-row gap-[4px]">
+            <div className="flex flex-col gap-[8px] mt-[12px]">
+              <div
+                className="flex flex-row gap-[4px] cursor-pointer"
+                onClick={() => {
+                  setModalState(true);
+                }}
+              >
                 <TextMain
                   text={data.connections}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
                 <TextSecondary
-                  text="Связей"
+                  text={getNoun2(data.connections)}
+                  style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
+                />
+              </div>
+              <div
+                className="flex flex-row gap-[4px] cursor-pointer"
+                onClick={() => {
+                  setModal3State(true);
+                }}
+              >
+                <TextMain
+                  text={data.companiesIFollow}
+                  style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
+                />
+                <TextSecondary
+                  text={getNoun3(data.companiesIFollow)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>
@@ -388,6 +415,14 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
         setModalState={setContactsModalState}
       />
       {/* contactsModal */}
+
+      {/* subscr modal */}
+      <SubscrModal
+        userId={data.id}
+        modalState={modal3State}
+        setModalState={setModal3State}
+      />
+      {/* subscr modal */}
     </>
   );
 };

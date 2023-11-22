@@ -133,6 +133,8 @@ const EditLeft = ({
               ? null
               : status?.includes("inputUsername minlen")
               ? "Поле обязательно к заполнению"
+              : status?.includes("inputUsername unique")
+              ? "username занят"
               : null
           }
           onChange={(username) => {

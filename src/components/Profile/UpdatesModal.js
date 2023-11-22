@@ -45,7 +45,7 @@ const UpdatesModal = ({ modalState = false, setModalState = () => {} }) => {
   }, [modalState]);
   return (
     <>
-      <Modal isOpen={modalState}>
+      <Modal withScroll isOpen={modalState}>
         {/* header */}
         <div className="flex flex-row justify-end pb-[12px] relative">
           <Cross2 onClick={() => setModalState(false)} />
@@ -57,6 +57,7 @@ const UpdatesModal = ({ modalState = false, setModalState = () => {} }) => {
         {/* body */}
         <div className="h-[371px] mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] mx-[-12px] px-[12px] mb-[-12px] pb-[12px] gap-[12px]">
           <>
+            {" "}
             {!users ? (
               <div className="w-full flex justify-center items-center h-full">
                 <CustomLoader diameter={36} />
@@ -69,7 +70,7 @@ const UpdatesModal = ({ modalState = false, setModalState = () => {} }) => {
                 />
               </div>
             ) : (
-              <>
+              <div className="hideScrollbarNav flex flex-col gap-[12px] overflow-y-scroll pb-[12px]">
                 {users.map((item, key) => (
                   <ConnectionCard
                     key={key}
@@ -94,7 +95,7 @@ const UpdatesModal = ({ modalState = false, setModalState = () => {} }) => {
                     </div>
                   </Waypoint>
                 ) : null}
-              </>
+              </div>
             )}
           </>
         </div>

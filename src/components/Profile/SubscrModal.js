@@ -7,14 +7,14 @@ import { Input, SearchInput } from "../../shared/ui/Input";
 import Modal from "../../shared/ui/Modal";
 import CustomLoader from "../../shared/ui/CustomLoader";
 import ConnectionCard from "../../shared/ui/ConnectionCard";
-import { fetchGetFriendList } from "../../server/actions/connections/fetchGetFriendList";
 import TextCaption from "../../shared/Text/TextCaption";
+import { fetchGetSubscripts } from "../../server/actions/connections/fetchGetSubscripts";
 import MobileModal from "../../shared/ui/MobileModal";
 import MobileHeader from "../../shared/ui/MobileHeader";
 
 import Cross2 from "../../shared/icons/Cross2";
 
-const ConnectionsModal = ({
+const SubscrModal = ({
   userId,
   modalState = false,
   setModalState = () => {},
@@ -29,8 +29,8 @@ const ConnectionsModal = ({
     console.log("fetching");
     // if (loading) return;
     setLoading(true);
-    const data = await fetchGetFriendList(userId, cursor, input);
-    console.log("client friends", data);
+    const data = await fetchGetSubscripts(userId, cursor, input);
+    console.log("client subscrs", data);
     if (cursor.length) {
       setUsers([...users, ...data.data]);
     } else {
@@ -44,7 +44,7 @@ const ConnectionsModal = ({
   useEffect(() => {
     setCursor("");
     getRequests("");
-  }, [fetchGetFriendList, input]);
+  }, [fetchGetSubscripts, input]);
   useEffect(() => {
     setCursor("");
     getRequests("");
@@ -74,7 +74,7 @@ const ConnectionsModal = ({
               input.length === 0 ? (
                 <div className="flex w-full justify-center">
                   <TextCaption
-                    text={`У вас нет друзей...`}
+                    text={`У вас нет подписок...`}
                     style="text-[18px] leading-[21.6px] tracking-[-0.025em]"
                   />
                 </div>
@@ -91,7 +91,7 @@ const ConnectionsModal = ({
                 {users.map((item, key) => (
                   <ConnectionCard
                     key={key}
-                    friend
+                    company
                     updateModal={() => {
                       setCursor("");
                       getRequests("");
@@ -143,7 +143,7 @@ const ConnectionsModal = ({
               input.length === 0 ? (
                 <div className="flex w-full justify-center">
                   <TextCaption
-                    text={`У вас нет друзей...`}
+                    text={`У вас нет подписок...`}
                     style="text-[18px] leading-[21.6px] tracking-[-0.025em]"
                   />
                 </div>
@@ -160,7 +160,7 @@ const ConnectionsModal = ({
                 {users.map((item, key) => (
                   <ConnectionCard
                     key={key}
-                    friend
+                    company
                     updateModal={() => {
                       setCursor("");
                       getRequests("");
@@ -192,4 +192,4 @@ const ConnectionsModal = ({
   );
 };
 
-export default ConnectionsModal;
+export default SubscrModal;

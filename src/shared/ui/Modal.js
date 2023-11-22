@@ -8,6 +8,7 @@ const Modal = ({
   translate = "translate(-50%, 0%)",
   slideToTop = false,
   fadeAnim = false,
+  withScroll = false,
 }) => {
   const modalVariant = {
     initial: { opacity: 0 },
@@ -47,7 +48,9 @@ const Modal = ({
             variants={modalVariant}
           >
             <motion.div
-              className="w-[630px] h-fit fixed dark:bg-[#141414] bg-[#fff] bottom-0 left-[50%] p-[12px] rounded-[20px]"
+              className={`w-[630px] h-fit fixed dark:bg-[#141414] bg-[#fff] bottom-0 left-[50%] ${
+                withScroll ? "px-[12px] pt-[12px]" : "p-[12px]"
+              } rounded-[20px]`}
               variants={containerVariant}
               style={{ transform: translate }}
             >

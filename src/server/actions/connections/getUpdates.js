@@ -34,6 +34,7 @@ export const getUpdates = async (myId, cursor) => {
       type: i.type,
       createdAt: i.createdAt,
       userFrom: i.userFrom,
+      image: i.userFrom?.image,
     };
   });
 

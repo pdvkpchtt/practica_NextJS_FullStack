@@ -46,6 +46,9 @@ const AuthLayout = async ({ children }) => {
   ) {
     return redirect("/profile");
   }
+  if (fullUrl === "/search") {
+    return redirect("/search/vacancies");
+  }
   //   if (
   //     session?.user?.role === "company" &&
   //     !session?.user?.companyName &&

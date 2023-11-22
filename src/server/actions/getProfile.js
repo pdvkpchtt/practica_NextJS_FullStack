@@ -64,7 +64,7 @@ export const getProfile = async ({ userId }) => {
         },
       },
       _count: {
-        select: { connections: true },
+        select: { connections: true, companiesIFollow: true },
       },
       connections: {
         include: {
@@ -146,6 +146,7 @@ export const getProfile = async ({ userId }) => {
         type: userSkill.skill.type,
       })),
       connections: user._count.connections,
+      companiesIFollow: user._count.companiesIFollow,
       connectionsArr: user.connections,
       ISendRequest: user.ISendRequest,
       IGetRequest: user.IGetRequest,
@@ -209,6 +210,7 @@ export const getProfile = async ({ userId }) => {
       })),
       connections: user._count.connections,
       connectionsArr: user.connections,
+      companiesIFollow: user._count.companiesIFollow,
       ISendRequest: user.ISendRequest,
       IGetRequest: user.IGetRequest,
       Company: {
