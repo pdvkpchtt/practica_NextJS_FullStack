@@ -121,7 +121,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
     if (input.length !== 0 && !wait) {
       setWait(true);
       console.log(input);
-      const res = await sendMessage(input, chatId);
+      res = await sendMessage(input, chatId);
       setInput("");
       setCurrentChatCursor("");
       // await getMessages("");
