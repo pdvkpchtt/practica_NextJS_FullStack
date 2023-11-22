@@ -411,7 +411,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
                   router.push(`/messenger/${chatId}`);
                 }
               } else {
-                const res = sendMsg();
+                const res = await sendMsg();
                 console.log(res?.status);
                 if (res?.status === "error") setNoModal(true);
               }
@@ -433,7 +433,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
                   router.push(`/messenger/${chatId}`);
                 }
               } else {
-                const res = sendMsg();
+                const res = await sendMsg();
                 console.log(res?.status);
                 if (res?.status === "error") setNoModal(true);
               }
@@ -493,7 +493,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
                     router.push(`/messenger/${chatId}`);
                   }
                 } else {
-                  const res = sendMsg();
+                  const res = await sendMsg();
                   if (res?.status === "error") setNoModal(true);
                 }
               }
@@ -514,7 +514,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
                     router.push(`/messenger/${chatId}`);
                   }
                 } else {
-                  const res = sendMsg();
+                  const res = await sendMsg();
                   if (res?.status === "error") setNoModal(true);
                 }
               }
