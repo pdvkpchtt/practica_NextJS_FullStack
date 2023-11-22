@@ -31,16 +31,20 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
         {/* body */}
         <div className="h-fit mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px] gap-[34px]">
           <div className="flex flex-col">
+            <div className="flex flex-row gap-[4px] items-center">
+              <PitchIcon black blue={false} />
+
+              <TextMain
+                text="Питч-сообщение"
+                style={
+                  "text-[20px] font-medium leading-[22px] tracking-[-0.4px]"
+                }
+              />
+            </div>
             <TextMain
-              text="Питч-сообщение"
+              text="— короткое сообщение, которые вы можете отправить, чтобы познакомиться с другом вашего друга"
               style={
-                "text-[20px] font-medium leading-[22px] tracking-[-0.4px] mb-[16px]"
-              }
-            />
-            <TextMain
-              text="— приветственное сообщение, чтобы установить связь с другом вашего друга и начать общение."
-              style={
-                "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mb-[4px]"
+                "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mt-[16px] mb-[4px]"
               }
             />
             <TextSecondary
@@ -49,28 +53,22 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
                 "text-[16px] font-normal leading-[19px] tracking-[-0.24px]"
               }
             />
+          </div>
+          <div className="flex flex-col">
+            <div className="flex flex-row gap-[4px] items-center">
+              <SuperpitchIcon black blue={false} />
 
-            <div className="bg-[#74899B] bg-opacity-[8%] w-fit mt-[16px] rounded-[16px] p-[12px] flex flex-row gap-[8px]">
-              <PitchIcon black blue={false} />
               <TextMain
-                text="Отправить питч"
+                text="Суперпитч-сообщение"
                 style={
-                  "font-medium select-none leading-[20px] text-[16px] tracking-[-0.24px]"
+                  "text-[20px] font-medium leading-[22px] tracking-[-0.4px]"
                 }
               />
             </div>
-          </div>
-          <div className="flex flex-col">
-            <TextMain
-              text="Суперпитч-сообщение"
-              style={
-                "text-[20px] font-medium leading-[22px] tracking-[-0.4px] mb-[16px]"
-              }
-            />
             <TextMain
               text="— короткое сообщение для связи с интересующим специалистом без общих контактов."
               style={
-                "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mb-[4px]"
+                "text-[16px] font-normal leading-[19px] tracking-[-0.24px]  mt-[16px] mb-[4px]"
               }
             />
             <TextSecondary
@@ -79,22 +77,13 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
                 "text-[16px] font-normal leading-[19px] tracking-[-0.24px]"
               }
             />
-            <div className="bg-[#74899B] bg-opacity-[8%] w-fit mt-[16px] rounded-[16px] p-[12px] flex flex-row gap-[8px]">
-              <SuperpitchIcon black blue={false} />
-              <TextMain
-                text="Отправить суперпитч"
-                style={
-                  "font-medium select-none leading-[20px] text-[16px] tracking-[-0.24px]"
-                }
-              />
-            </div>
           </div>
 
           <div className="flex flex-col gap-[16px]">
             <div className="w-full h-[1px] bg-[#e7e7e7] dark:bg-[#282828]" />
             <p
               onClick={() => router.push("/subscriptions")}
-              className="text-[#5875e8] hover:text-[#3A56C5] cursor-pointer active:text-[#2C429C] transition duration-[250ms] font-normal text-[16px] tracking-[-0.24px] leading-[19px]"
+              className="text-[#5875e8] hover:text-[#3A56C5] cursor-pointer mb-[15px] active:text-[#2C429C] transition duration-[250ms] font-normal text-[16px] tracking-[-0.24px] leading-[19px]"
             >
               Как получить больше?
             </p>
@@ -111,16 +100,20 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
         {/* body */}
         <div className="mt-[61px] flex flex-col gap-[34px] p-[12px] overflow-y-scroll h-[calc(100%-61px)]">
           <div className="flex flex-col">
+            <div className="flex flex-row gap-[4px] items-center">
+              <PitchIcon black blue={false} />
+
+              <TextMain
+                text="Питч-сообщение"
+                style={
+                  "text-[20px] font-medium leading-[22px] tracking-[-0.4px]"
+                }
+              />
+            </div>
             <TextMain
-              text="Питч-сообщение"
+              text="— короткое сообщение, которые вы можете отправить, чтобы познакомиться с другом вашего друга"
               style={
-                "text-[20px] font-medium leading-[22px] tracking-[-0.4px] mb-[16px]"
-              }
-            />
-            <TextMain
-              text="— приветственное сообщение, чтобы установить связь с другом вашего друга и начать общение."
-              style={
-                "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mb-[4px]"
+                "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mt-[16px] mb-[4px]"
               }
             />
             <TextSecondary
@@ -129,52 +122,38 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
                 "text-[16px] font-normal leading-[19px] tracking-[-0.24px]"
               }
             />
+          </div>
+          <div className="flex flex-col">
+            <div className="flex flex-row gap-[4px] items-center">
+              <SuperpitchIcon black blue={false} />
 
-            <div className="bg-[#74899B] bg-opacity-[8%] w-fit mt-[16px] rounded-[16px] p-[12px] flex flex-row gap-[8px]">
-              <PitchIcon black blue={false} />
               <TextMain
-                text="Отправить питч"
+                text="Суперпитч-сообщение"
                 style={
-                  "font-medium select-none leading-[20px] text-[16px] tracking-[-0.24px]"
+                  "text-[20px] font-medium leading-[22px] tracking-[-0.4px]"
                 }
               />
             </div>
-          </div>
-          <div className="flex flex-col">
-            <TextMain
-              text="Суперпитч-сообщение"
-              style={
-                "text-[20px] font-medium leading-[22px] tracking-[-0.4px] mb-[16px]"
-              }
-            />
             <TextMain
               text="— короткое сообщение для связи с интересующим специалистом без общих контактов."
               style={
-                "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mb-[4px]"
+                "text-[16px] font-normal leading-[19px] tracking-[-0.24px]  mt-[16px] mb-[4px]"
               }
             />
+
             <TextSecondary
               text="Каждый день вам начисляется 1 суперпитч-сообщение"
               style={
                 "text-[16px] font-normal leading-[19px] tracking-[-0.24px]"
               }
             />
-            <div className="bg-[#74899B] bg-opacity-[8%] w-fit mt-[16px] rounded-[16px] p-[12px] flex flex-row gap-[8px]">
-              <SuperpitchIcon black blue={false} />
-              <TextMain
-                text="Отправить суперпитч"
-                style={
-                  "font-medium select-none leading-[20px] text-[16px] tracking-[-0.24px]"
-                }
-              />
-            </div>
           </div>
 
           <div className="flex flex-col gap-[16px]">
             <div className="w-full h-[1px] bg-[#e7e7e7] dark:bg-[#282828]" />
             <p
               onClick={() => router.push("/subscriptions")}
-              className="text-[#5875e8] hover:text-[#3A56C5] cursor-pointer active:text-[#2C429C] transition duration-[250ms] font-normal text-[16px] tracking-[-0.24px] leading-[19px]"
+              className="text-[#5875e8] hover:text-[#3A56C5] cursor-pointer  active:text-[#2C429C] transition duration-[250ms] font-normal text-[16px] tracking-[-0.24px] leading-[19px]"
             >
               Как получить больше?
             </p>

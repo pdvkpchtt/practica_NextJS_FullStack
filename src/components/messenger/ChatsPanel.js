@@ -45,6 +45,7 @@ import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import ReplyItem from "./ReplyItem";
 import BigLogoSvg from "../../shared/icons/BigLogoSvg";
+import NoPitchesModal from "./NoPitchesModal";
 
 const ChatsPanel = ({ chatId, user_id }) => {
   // const { currentChatCursor, setCurrentChatCursor } = useContext(MesContext);
@@ -61,6 +62,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [lastDateMessages, setLastDateMessages] = useState("");
   const [circle, setCircle] = useState(null);
+  const [noModal, setNoModal] = useState(false);
 
   // -------------- messages
   const getMessages = async () => {
@@ -401,11 +403,15 @@ const ChatsPanel = ({ chatId, user_id }) => {
                 setWait(true);
                 setInput("");
                 const chatId = await createChat(user_id, input);
+                console.log(chatId?.status);
+                if (chatId?.status === "error") setNoModal(true);
                 setWait(false);
 
                 router.push(`/messenger/${chatId}`);
               } else {
-                sendMsg();
+                const res = sendMsg();
+                console.log(res?.status);
+                if (res?.status === "error") setNoModal(true);
               }
             }
           }}
@@ -417,11 +423,15 @@ const ChatsPanel = ({ chatId, user_id }) => {
                 setWait(true);
                 setInput("");
                 const chatId = await createChat(user_id, input);
+                console.log(chatId?.status);
+                if (chatId?.status === "error") setNoModal(true);
                 setWait(false);
 
                 router.push(`/messenger/${chatId}`);
               } else {
-                sendMsg();
+                const res = sendMsg();
+                console.log(res?.status);
+                if (res?.status === "error") setNoModal(true);
               }
             }
           }}
@@ -472,11 +482,14 @@ const ChatsPanel = ({ chatId, user_id }) => {
                   setWait(true);
                   setInput("");
                   const chatId = await createChat(user_id, input);
+                  if (chatId?.status === "error") setNoModal(true);
+                  console.log(chatId?.status);
                   setWait(false);
 
                   router.push(`/messenger/${chatId}`);
                 } else {
-                  sendMsg();
+                  const res = sendMsg();
+                  if (res?.status === "error") setNoModal(true);
                 }
               }
             }}
@@ -488,11 +501,14 @@ const ChatsPanel = ({ chatId, user_id }) => {
                   setWait(true);
                   setInput("");
                   const chatId = await createChat(user_id, input);
+                  console.log(chatId?.status);
+                  if (chatId?.status === "error") setNoModal(true);
                   setWait(false);
 
                   router.push(`/messenger/${chatId}`);
                 } else {
-                  sendMsg();
+                  const res = sendMsg();
+                  if (res?.status === "error") setNoModal(true);
                 }
               }
             }}
@@ -520,6 +536,7 @@ const ChatsPanel = ({ chatId, user_id }) => {
           </SendButton>
         </div>
       </div>
+      <NoPitchesModal modalState={noModal} setModalState={setNoModal} />
     </div>
   );
 };

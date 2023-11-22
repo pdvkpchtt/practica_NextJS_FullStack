@@ -41,7 +41,7 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
 
   const getNoun = (dig) => {
     if (dig === 0 || dig >= 5 || dig % 10 === 0 || dig % 10 >= 5)
-      return "питчев";
+      return "питчей";
     if ((dig > 1 && dig < 5) || (dig % 10 > 1 && dig % 10 < 5)) return "питча";
     else return "питч";
   };

@@ -2,6 +2,7 @@
 
 import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../../db";
+import { getPitchesCount } from "../pitches/getPitchesCount";
 import { checkCircles } from "./checkCircles";
 
 const sendMessage = async (input, chatId) => {
@@ -36,6 +37,11 @@ const sendMessage = async (input, chatId) => {
     },
     select: { id: true, type: true },
   });
+
+  if (!check?.id && !checkVacReply?.id) {
+    const count = await getPitchesCount(circle.circle);
+    if (count < 1) return { status: "error", type: circle.circle };
+  }
 
   const message = await prisma.message.create({
     data: {

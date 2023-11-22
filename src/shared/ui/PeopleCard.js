@@ -18,19 +18,21 @@ const PeopleCard = ({ item }) => {
     <Card style="flex flex-col gap-[12px]" padding={12}>
       {/* image name time */}
       <div className="flex flex-row gap-[8px]">
-        {item.image ? (
-          <Image
-            src={item.image}
-            alt="Profile image"
-            // loading="lazy"
-            quality={100}
-            width={67}
-            height={67}
-            className="h-[67px] w-[67px] rounded-[8px]"
-          />
-        ) : (
-          <EmptyAvatar sixtySeven />
-        )}
+        <div className="h-[67px] w-[67px] max-h-[67px] max-w-[67px] min-h-[67px] min-w-[67px] aspect-square overflow-hidden  rounded-[8px]">
+          {item.image ? (
+            <Image
+              src={item.image}
+              alt="Profile image"
+              // loading="lazy"
+              quality={100}
+              width={67}
+              height={67}
+              className="h-[67px] w-[67px] max-h-[67px] max-w-[67px] min-h-[67px] min-w-[67px] object-cover"
+            />
+          ) : (
+            <EmptyAvatar sixtySeven />
+          )}
+        </div>
         <div className="flex flex-col gap-[4px]">
           <TextMain
             text={item.name}
