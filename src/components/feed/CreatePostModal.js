@@ -6,6 +6,7 @@ import { Oval } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useMediaQuery } from "react-responsive";
+import { motion } from "framer-motion";
 
 import CircularProggressBar from "../../shared/ui/CircularProggressBar";
 import Modal from "../../shared/ui/Modal";
@@ -70,6 +71,21 @@ const CreatePostModal = ({
     setDropDownState(categories[0]);
   };
 
+  const [isBlinking, setIsBlinking] = useState(false);
+
+  const handleClick = () => {
+    setIsBlinking(true);
+    setTimeout(() => {
+      setIsBlinking(false);
+    }, 250);
+    setTimeout(() => {
+      setIsBlinking(true);
+    }, 500);
+    setTimeout(() => {
+      setIsBlinking(false);
+    }, 750);
+  };
+
   useEffect(() => {
     getCategires();
   }, []);
@@ -108,7 +124,11 @@ const CreatePostModal = ({
         {/* body */}
         <div className="flex flex-col my-[12px] gap-[12px] overflow-y-auto">
           <TextareaAutosize
-            className="outline-none min-h-[25px] resize-none bg-transparent placeholder:text-[#BFBFBF] text-[20px] font-medium text-[#2c2c2c] dark:text-white leading-[22px] tracking-[-0.025em]"
+            className={`${
+              isBlinking
+                ? "placeholder:text-[#f6f6f8]"
+                : "placeholder:text-[#BFBFBF]"
+            } outline-none min-h-[25px] resize-none bg-transparent transition duration-[250ms] text-[20px] font-medium text-[#2c2c2c] dark:text-white leading-[22px] tracking-[-0.025em]`}
             placeholder={"Заголовок"}
             value={headState}
             onChange={(e) => setHeadState(e.target.value)}
@@ -121,7 +141,11 @@ const CreatePostModal = ({
             <TextareaAutosize
               style={{ whiteSpace: "pre-line" }}
               ref={inputRef}
-              className="outline-none w-full resize-none bg-transparent placeholder:text-[#BFBFBF] text-[16px] font-normal text-[#2c2c2c] dark:text-white leading-[19px] tracking-[-0.015em]"
+              className={`${
+                isBlinking
+                  ? "placeholder:text-[#f6f6f8]"
+                  : "placeholder:text-[#BFBFBF]"
+              } outline-none w-full resize-none bg-transparent placeholder:text-[#BFBFBF] text-[16px] font-normal text-[#2c2c2c] dark:text-white leading-[19px] tracking-[-0.015em]`}
               placeholder={
                 dropDownState.name === "Офтоп"
                   ? "Отдохните от работы и просто расскажите о своих делах"
@@ -160,6 +184,7 @@ const CreatePostModal = ({
           </div>
 
           <SendButton
+            handleClick={handleClick}
             textState={textState}
             headState={headState}
             loaderState={loaderState}
@@ -234,6 +259,7 @@ const CreatePostModal = ({
             </div>
 
             <SendButton
+              handleClick={handleClick}
               textState={textState}
               headState={headState}
               loaderState={loaderState}
@@ -327,7 +353,11 @@ const CreatePostModal = ({
 
           <div className="w-full">
             <TextareaAutosize
-              className="outline-none whitespace-pre-wrap w-full bg-transparent min-h-[25px] resize-none placeholder:text-[#BFBFBF] text-[20px] font-medium text-[#2c2c2c] dark:text-white leading-[22px] tracking-[-0.025em]"
+              className={`${
+                isBlinking
+                  ? "placeholder:text-[#f6f6f8]"
+                  : "placeholder:text-[#BFBFBF]"
+              } outline-none whitespace-pre-wrap w-full bg-transparent min-h-[25px] resize-none placeholder:text-[#BFBFBF] text-[20px] font-medium text-[#2c2c2c] dark:text-white leading-[22px] tracking-[-0.025em]`}
               placeholder="Заголовок"
               value={headState}
               onChange={(e) => setHeadState(e.target.value)}
@@ -341,7 +371,11 @@ const CreatePostModal = ({
             <TextareaAutosize
               style={{ whiteSpace: "pre-line" }}
               ref={inputRef2}
-              className="outline-none w-full bg-transparent resize-none placeholder:text-[#BFBFBF] text-[16px] font-normal text-[#2c2c2c] dark:text-white leading-[19px] tracking-[-0.015em]"
+              className={`${
+                isBlinking
+                  ? "placeholder:text-[#f6f6f8]"
+                  : "placeholder:text-[#BFBFBF]"
+              } outline-none w-full bg-transparent resize-none placeholder:text-[#BFBFBF] text-[16px] font-normal text-[#2c2c2c] dark:text-white leading-[19px] tracking-[-0.015em]`}
               placeholder={
                 dropDownState.name === "Офтоп"
                   ? "Отдохните от работы и просто расскажите о своих делах"
@@ -388,6 +422,7 @@ const CreatePostModal = ({
 export default CreatePostModal;
 
 const SendButton = ({
+  handleClick = () => {},
   onClick = () => {},
   textState = "",
   headState = "",
@@ -395,14 +430,20 @@ const SendButton = ({
 }) => {
   return (
     <div
-      className={`rounded-[30px] w-[112px] h-[33px] transition duration-[250ms] px-[8px] py-[7.5px] flex items-center justify-center font-medium text-[14px] leading-[16px] tracking-[-0.015em] select-none
+      // initial={{ opacity: 1 }}
+      // animate={isBlinking ? "blinking" : "initial"}
+      // variants={blinkingVariants}
+      className={` rounded-[30px] w-[112px] h-[33px] transition duration-[250ms] px-[8px] py-[7.5px] flex items-center justify-center font-medium text-[14px] leading-[16px] tracking-[-0.015em] select-none
     ${
       headState != "" && textState != ""
         ? "active:bg-[#2C429C] hover:bg-[#3A56C5] bg-[#5875e8] text-white  cursor-pointer"
-        : "bg-[#74899b] bg-opacity-[8%] text-[#bfbfbf] cursor-not-allowed"
+        : "bg-[#74899b] bg-opacity-[8%] text-[#bfbfbf] cursor-default"
     }
   `}
-      onClick={onClick}
+      onClick={() => {
+        if (headState != "" && textState != "") onClick();
+        else handleClick();
+      }}
     >
       {!loaderState ? (
         <div>Опубликовать</div>

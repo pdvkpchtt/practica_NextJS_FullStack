@@ -32,7 +32,7 @@ export const updateProfile = async ({ userId, data }) => {
         country: data.country,
         city: data.city,
         about: data.about,
-        username: data.username.toLowerCase(),
+        username: data.username,
         birthDate: data.birthDate || null,
         inSearch: data.inSearch,
         educationLevel: data.educationLevel?.id
