@@ -412,8 +412,8 @@ const ChatsPanel = ({ chatId, user_id }) => {
                 }
               } else {
                 const res = await sendMsg();
-                console.log(res?.status);
                 if (res?.status === "error") {
+                  console.log(res?.status);
                   console.log(res, "fuck1");
                   setNoModal(true);
                 }
