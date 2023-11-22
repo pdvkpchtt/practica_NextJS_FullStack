@@ -80,7 +80,7 @@ const updateMessages = async (
 
   const uod = await prisma.message.update({
     where: {
-      chat: { id: chatId },
+      Chat: { id: chatId },
     },
     data: { unRead: false },
   });
