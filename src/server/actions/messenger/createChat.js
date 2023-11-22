@@ -25,20 +25,21 @@ export const createChat = async (otherId, message) => {
 
   const count = await getPitchesCount(circle.circle);
   if (count < 1) return { status: "error", type: circle.circle };
-
-  const newmessage = await prisma.message.create({
-    data: {
-      text: message,
-      type: circle.circle,
-      unRead: true,
-      Chat: {
-        connect: { id: chat?.id },
+  else {
+    const newmessage = await prisma.message.create({
+      data: {
+        text: message,
+        type: circle.circle,
+        unRead: true,
+        Chat: {
+          connect: { id: chat?.id },
+        },
+        User: {
+          connect: { id: session?.user?.id },
+        },
       },
-      User: {
-        connect: { id: session?.user?.id },
-      },
-    },
-  });
+    });
 
-  return chat.id;
+    return chat.id;
+  }
 };
