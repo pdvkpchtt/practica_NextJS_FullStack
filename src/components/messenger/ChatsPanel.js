@@ -117,15 +117,18 @@ const ChatsPanel = ({ chatId, user_id }) => {
   // -------------- messages
 
   const sendMsg = async () => {
+    const res = null;
     if (input.length !== 0 && !wait) {
       setWait(true);
       console.log(input);
-      await sendMessage(input, chatId);
+      const res = await sendMessage(input, chatId);
       setInput("");
       setCurrentChatCursor("");
       // await getMessages("");
       setWait(false);
     }
+
+    return res;
   };
 
   const [delay, setDelay] = useState(2000);
