@@ -404,10 +404,12 @@ const ChatsPanel = ({ chatId, user_id }) => {
                 setInput("");
                 const chatId = await createChat(user_id, input);
                 console.log(chatId?.status);
-                if (chatId?.status === "error") setNoModal(true);
-                setWait(false);
-
-                router.push(`/messenger/${chatId}`);
+                if (chatId?.status === "error") {
+                  setNoModal(true);
+                  setWait(false);
+                } else {
+                  router.push(`/messenger/${chatId}`);
+                }
               } else {
                 const res = sendMsg();
                 console.log(res?.status);
@@ -424,10 +426,12 @@ const ChatsPanel = ({ chatId, user_id }) => {
                 setInput("");
                 const chatId = await createChat(user_id, input);
                 console.log(chatId?.status);
-                if (chatId?.status === "error") setNoModal(true);
-                setWait(false);
-
-                router.push(`/messenger/${chatId}`);
+                if (chatId?.status === "error") {
+                  setNoModal(true);
+                  setWait(false);
+                } else {
+                  router.push(`/messenger/${chatId}`);
+                }
               } else {
                 const res = sendMsg();
                 console.log(res?.status);
@@ -482,11 +486,12 @@ const ChatsPanel = ({ chatId, user_id }) => {
                   setWait(true);
                   setInput("");
                   const chatId = await createChat(user_id, input);
-                  if (chatId?.status === "error") setNoModal(true);
-                  console.log(chatId?.status);
-                  setWait(false);
-
-                  router.push(`/messenger/${chatId}`);
+                  if (chatId?.status === "error") {
+                    setNoModal(true);
+                    setWait(false);
+                  } else {
+                    router.push(`/messenger/${chatId}`);
+                  }
                 } else {
                   const res = sendMsg();
                   if (res?.status === "error") setNoModal(true);
@@ -502,10 +507,12 @@ const ChatsPanel = ({ chatId, user_id }) => {
                   setInput("");
                   const chatId = await createChat(user_id, input);
                   console.log(chatId?.status);
-                  if (chatId?.status === "error") setNoModal(true);
-                  setWait(false);
-
-                  router.push(`/messenger/${chatId}`);
+                  if (chatId?.status === "error") {
+                    setNoModal(true);
+                    setWait(false);
+                  } else {
+                    router.push(`/messenger/${chatId}`);
+                  }
                 } else {
                   const res = sendMsg();
                   if (res?.status === "error") setNoModal(true);
