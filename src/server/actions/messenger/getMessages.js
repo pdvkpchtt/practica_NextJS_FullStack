@@ -79,6 +79,17 @@ const getMessages = async (
     },
   });
 
+  const uod = await prisma.message.update({
+    where:
+      searchInput.length === 0
+        ? { chatId: chatId }
+        : {
+            chatId: chatId,
+            text: { contains: searchInput, mode: "insensitive" },
+          },
+    data: { unRead: false },
+  });
+
   // unread
   // const notUnread = await prisma.message.updateMany({
   //   data: {
