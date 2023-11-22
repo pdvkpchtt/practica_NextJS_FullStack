@@ -9,23 +9,23 @@ export const createChat = async (otherId, message) => {
   const session = await getServSession();
 
   const circle = await checkCircles(otherId);
-
-  const chat = await prisma.chat.create({
-    data: {
-      participants: {
-        connect: [
-          {
-            id: session?.user?.id,
-          },
-          { id: otherId },
-        ],
-      },
-    },
-  });
-
   const count = await getPitchesCount(circle.circle);
+
   if (count < 1) return { status: "error", type: circle.circle };
   else {
+    const chat = await prisma.chat.create({
+      data: {
+        participants: {
+          connect: [
+            {
+              id: session?.user?.id,
+            },
+            { id: otherId },
+          ],
+        },
+      },
+    });
+
     const newmessage = await prisma.message.create({
       data: {
         text: message,
