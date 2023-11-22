@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import getUnreadMessagesCount from './../../server/actions/messenger/getUnreadMessagesCount'
 import { useEffect, useState } from 'react'
+const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async')
 
 const MessengerIcon = ({ fill = '#000', size = 25 }) => {
 	const pathname = usePathname()
@@ -12,13 +13,13 @@ const MessengerIcon = ({ fill = '#000', size = 25 }) => {
 	const [totalUnread, setTotalUnread] = useState(0)
 
 	useEffect(() => {
-		let intervalCheck = setTimeout(async () => {
+		let intervalCheck = setIntervalAsync(async () => {
 			const data = await getUnreadMessagesCount(lastDate)
 			setLastDate(data.lastDate)
 			setTotalUnread(data.totalUnread)
 		}, 500)
 
-		return () => clearTimeout(intervalCheck)
+		return () => clearIntervalAsync(intervalCheck)			
 	}, [])
 
 	return (
