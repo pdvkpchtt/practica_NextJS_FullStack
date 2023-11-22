@@ -11,10 +11,7 @@ export const createChat = async (otherId, message) => {
   const circle = await checkCircles(otherId);
   const count = await getPitchesCount(circle.circle);
 
-  if (
-    count < 1 &&
-    (circle.circle === "pitch" || circle.circle === "superpitch")
-  )
+  if (count < 1 && circle.circle.length === 1)
     return { status: "error", type: circle.circle };
   else {
     const chat = await prisma.chat.create({

@@ -136,13 +136,13 @@ const ChatsPanel = ({ chatId, user_id }) => {
 
   useInterval(
     () => {
-      getUserMessengerWithTimer();
+      if (!pathname.includes("preview")) getUserMessengerWithTimer();
     },
     isRunning ? delay : null
   );
 
   useEffect(() => {
-    getMessages();
+    if (!pathname.includes("preview")) getMessages();
   }, []);
 
   if (chatId === undefined || chatId === null)
