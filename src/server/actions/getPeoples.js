@@ -36,38 +36,78 @@ export const getPeoples = async (cursor, filters) => {
     },
     where: filters?.startFiltering
       ? filters?.input.length > 0
-        ? {
-            name: { contains: filters?.input, mode: "insensitive" },
-            city: {
-              contains: filters?.peoplecity?.label,
-              mode: "insensitive",
-            },
-            educationLevel: {
-              text: {
-                contains: filters?.educationLevel?.label,
+        ? filters?.input[0] === "@"
+          ? {
+              username: {
+                contains: filters?.input.slice(1),
                 mode: "insensitive",
               },
-            },
+              city: {
+                contains: filters?.peoplecity?.label,
+                mode: "insensitive",
+              },
+              educationLevel: {
+                text: {
+                  contains: filters?.educationLevel?.label,
+                  mode: "insensitive",
+                },
+              },
 
-            WorkExperience:
-              filters?.workExperience?.label?.length > 0
-                ? filters?.workExperience?.label === "Есть"
+              WorkExperience:
+                filters?.workExperience?.label?.length > 0
+                  ? filters?.workExperience?.label === "Есть"
+                    ? {
+                        some: {},
+                      }
+                    : { none: {} }
+                  : {},
+              UserSkills:
+                filters?.UserSkills?.length > 0
                   ? {
-                      some: {},
-                    }
-                  : { none: {} }
-                : {},
-            UserSkills:
-              filters?.UserSkills?.length > 0
-                ? {
-                    some: {
-                      skillId: {
-                        in: filters?.UserSkills?.map((item) => true && item.id),
+                      some: {
+                        skillId: {
+                          in: filters?.UserSkills?.map(
+                            (item) => true && item.id
+                          ),
+                        },
                       },
-                    },
-                  }
-                : {},
-          }
+                    }
+                  : {},
+            }
+          : {
+              name: { contains: filters?.input, mode: "insensitive" },
+              city: {
+                contains: filters?.peoplecity?.label,
+                mode: "insensitive",
+              },
+              educationLevel: {
+                text: {
+                  contains: filters?.educationLevel?.label,
+                  mode: "insensitive",
+                },
+              },
+
+              WorkExperience:
+                filters?.workExperience?.label?.length > 0
+                  ? filters?.workExperience?.label === "Есть"
+                    ? {
+                        some: {},
+                      }
+                    : { none: {} }
+                  : {},
+              UserSkills:
+                filters?.UserSkills?.length > 0
+                  ? {
+                      some: {
+                        skillId: {
+                          in: filters?.UserSkills?.map(
+                            (item) => true && item.id
+                          ),
+                        },
+                      },
+                    }
+                  : {},
+            }
         : {
             city: {
               contains: filters?.peoplecity?.label,
@@ -99,9 +139,16 @@ export const getPeoples = async (cursor, filters) => {
                 : {},
           }
       : filters?.input.length > 0
-      ? {
-          name: { contains: filters?.input, mode: "insensitive" },
-        }
+      ? filters?.input[0] === "@"
+        ? {
+            username: {
+              contains: filters?.input.slice(1),
+              mode: "insensitive",
+            },
+          }
+        : {
+            name: { contains: filters?.input, mode: "insensitive" },
+          }
       : {},
   });
 
