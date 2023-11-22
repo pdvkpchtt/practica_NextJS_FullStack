@@ -36,6 +36,7 @@ export const getUsersBookmarks = async (userId, cursor) => {
             select: {
               user: {
                 select: {
+                  id: true,
                   username: true,
                   name: true,
                   image: true,
@@ -74,6 +75,7 @@ export const getUsersBookmarks = async (userId, cursor) => {
               username: true,
               name: true,
               image: true,
+              HR: { select: { userId: true } },
             },
           },
           Location: {
@@ -115,6 +117,10 @@ export const getUsersBookmarks = async (userId, cursor) => {
       (i) => i.userId === session?.user?.id
     );
     item.vacancy.hasMyReply = myReply;
+    item.vacancy.myVac = item.vacancy?.hrCreator?.id === session?.user?.id;
+    item.vacancy.partOfTeam = item.vacancy?.Company?.HR?.find(
+      (i) => i.userId === session?.user?.id
+    );
 
     return item;
   });

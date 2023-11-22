@@ -84,7 +84,23 @@ const EditCompanyRight = ({
                   // }
                   setLittleLoader(false);
                   router.refresh();
-                } else setLittleLoader(false);
+                } else {
+                  setLittleLoader(false);
+                  toast(`🙇 Cорри, что-то пропущено`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  router.refresh();
+                  setLittleLoader(false);
+                }
               }
             }}
             className={`

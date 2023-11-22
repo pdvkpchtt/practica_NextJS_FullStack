@@ -34,7 +34,7 @@ export const updateProfile = async ({ userId, data }) => {
         about: data.about,
         username: data.username,
         birthDate: data.birthDate || null,
-        inSearch: data.inSearch,
+        inSearch: data.inSearch ? data.inSearch : false,
         educationLevel: data.educationLevel?.id
           ? {
               connect: {

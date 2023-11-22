@@ -1,6 +1,11 @@
+"use server";
+
+import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../../db";
 
 export const getCompanyVacancies = async (id, cursor) => {
+  const session = await getServSession();
+
   console.log(id);
   const vacancy = await prisma.vacancy.findMany({
     take: 11,
@@ -21,6 +26,7 @@ export const getCompanyVacancies = async (id, cursor) => {
         select: {
           user: {
             select: {
+              id: true,
               username: true,
               name: true,
               image: true,
@@ -65,6 +71,7 @@ export const getCompanyVacancies = async (id, cursor) => {
           username: true,
           name: true,
           image: true,
+          HR: { select: { userId: true } },
         },
       },
       Location: {
@@ -115,6 +122,11 @@ export const getCompanyVacancies = async (id, cursor) => {
       Bookmarks: vacancy.Bookmarks,
       Company: vacancy.Company,
       hrCreator: vacancy?.hrCreator?.user,
+      myVac: vacancy?.hrCreator?.id === session?.user?.id,
+      myVac: vacancy?.hrCreator?.user?.id === session?.user?.id,
+      partOfTeam: vacancy?.Company?.HR?.find(
+        (i) => i.userId === session?.user?.id
+      ),
     };
   });
 

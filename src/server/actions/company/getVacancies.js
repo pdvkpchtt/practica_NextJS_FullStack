@@ -59,6 +59,7 @@ export const getVacancies = async (cursor, filters) => {
           username: true,
           name: true,
           image: true,
+          HR: { select: { userId: true } },
         },
       },
       Location: {
@@ -87,6 +88,7 @@ export const getVacancies = async (cursor, filters) => {
         select: {
           user: {
             select: {
+              id: true,
               username: true,
               name: true,
               image: true,
@@ -209,6 +211,10 @@ export const getVacancies = async (cursor, filters) => {
       distantWork: vacancy.distantWork,
       hrCreator: vacancy?.hrCreator?.user,
       hasMyReply: myReply,
+      myVac: vacancy?.hrCreator?.user?.id === session?.user?.id,
+      partOfTeam: vacancy?.Company?.HR?.find(
+        (i) => i.userId === session?.user?.id
+      ),
     };
   });
 
