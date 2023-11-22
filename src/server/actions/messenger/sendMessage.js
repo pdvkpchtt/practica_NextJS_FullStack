@@ -38,55 +38,37 @@ const sendMessage = async (input, chatId) => {
     select: { id: true, type: true },
   });
 
-  if (check?.id || checkVacReply?.id) {
-    const message = await prisma.message.create({
-      data: {
-        text: input,
-        unRead: true,
-        type: check?.id || checkVacReply?.id ? "" : circle.circle,
-        Chat: {
-          connect: { id: chatId },
-        },
-        User: {
-          connect: { id: session.user.id },
-        },
-      },
-    });
-
-    const chat = await prisma.chat.update({
-      where: { id: chatId },
-      data: {
-        updatedAt: new Date(),
-      },
-    });
-
-    return message;
-  } else {
+  if (!check?.id && !checkVacReply?.id) {
     const count = await getPitchesCount(circle.circle);
     if (count < 1) return { status: "error", type: circle.circle };
-    else {
-      const message = await prisma.message.create({
-        data: {
-          text: input,
-          unRead: true,
-          type: check?.id || checkVacReply?.id ? "" : circle.circle,
-          Chat: {
-            connect: { id: chatId },
-          },
-          User: {
-            connect: { id: session.user.id },
-          },
-        },
-      });
-
-      const chat = await prisma.chat.update({
-        where: { id: chatId },
-        data: {
-          updatedAt: new Date(),
-        },
-      });
-    }
   }
+
+  const count = await getPitchesCount(circle.circle);
+  if (count < 1 && (!check?.id || !checkVacReply?.id))
+    return { status: "error", type: circle.circle };
+
+  const message = await prisma.message.create({
+    data: {
+      text: input,
+      unRead: true,
+      type: check?.id || checkVacReply?.id ? "" : circle.circle,
+      Chat: {
+        connect: { id: chatId },
+      },
+      User: {
+        connect: { id: session.user.id },
+      },
+    },
+  });
+
+  const chat = await prisma.chat.update({
+    where: { id: chatId },
+    data: {
+      updatedAt: new Date(),
+    },
+  });
+
+  return message;
 };
 
 export default sendMessage;
