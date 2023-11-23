@@ -9,6 +9,7 @@ import { fetchVacancies } from "../../server/actions/company/fetchVacancies";
 import VacancyCard from "../../shared/ui/VacancyCard";
 import Card from "../../shared/ui/Card";
 import TextMain from "shared/Text/TextMain ";
+import { AnimatePresence, LayoutGroup } from "framer-motion";
 
 const Vacancies = ({ session }) => {
   const { updateVacancies } = useContext(SearchNavContext);
@@ -60,14 +61,16 @@ const Vacancies = ({ session }) => {
         </Card>
       ) : (
         <>
-          {vacs.map((item, key) => (
-            <VacancyCard
-              role={session.user.role}
-              userId={session.user.id}
-              key={key}
-              item={item}
-            />
-          ))}
+          <LayoutGroup id="search">
+            {vacs.map((item, key) => (
+              <VacancyCard
+                role={session.user.role}
+                userId={session.user.id}
+                key={key}
+                item={item}
+              />
+            ))}
+          </LayoutGroup>
           {hasNextPage ? (
             <Waypoint
               onEnter={async () => {

@@ -37,6 +37,7 @@ const CompanyPage = async () => {
       getUserFeed={getUserFeed}
       addReaction={addReaction}
       role={session.user.role}
+      userId={session.user.id}
     />
   );
 };

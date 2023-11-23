@@ -8,6 +8,7 @@ import { fetchBookmarks } from "../../server/actions/bookmarks/fetchBookmarks";
 import TextMain from "../../shared/Text/TextMain ";
 import Card from "../../shared/ui/Card";
 import CustomLoader from "../../shared/ui/CustomLoader";
+import { LayoutGroup } from "framer-motion";
 
 const ProfileBookmarks = ({ userId }) => {
   const [cursor, setCursor] = useState("");
@@ -53,9 +54,11 @@ const ProfileBookmarks = ({ userId }) => {
         </Card>
       ) : (
         <>
-          {posts.map((item) => (
-            <VacancyCard key={item.id} item={item.vacancy} userId={userId} />
-          ))}
+          <LayoutGroup id="bookmrks">
+            {posts.map((item) => (
+              <VacancyCard key={item.id} item={item.vacancy} userId={userId} />
+            ))}
+          </LayoutGroup>
           {hasNextPage ? (
             <Waypoint
               onEnter={async () => {

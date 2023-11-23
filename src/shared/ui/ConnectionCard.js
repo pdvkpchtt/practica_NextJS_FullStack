@@ -53,15 +53,17 @@ const ConnectionCard = ({
           className={`min-w-[50px] cursor-pointer overflow-hidden min-h-[50px] aspect-square [@media(pointer:coarse)]:min-w-[40px] [@media(pointer:coarse)]:min-h-[40px] ${
             company ? "rounded-full" : "rounded-[10px]"
           } [@media(pointer:coarse)]:rounded-[12px]`}
-          onClick={() =>
-            router.push(
-              `/profile/${
-                friend
-                  ? item?.username || item?.id
-                  : item?.userFrom?.username || item?.userFrom?.id
-              }`
-            )
-          }
+          onClick={() => {
+            if (company) router.push(`/companyprofile/${item?.username}`);
+            else
+              router.push(
+                `/profile/${
+                  friend
+                    ? item?.username || item?.id
+                    : item?.userFrom?.username || item?.userFrom?.id
+                }`
+              );
+          }}
         >
           {item?.image ? (
             <Image
@@ -87,11 +89,15 @@ const ConnectionCard = ({
               <TextMain
                 text={item?.userFrom?.name}
                 style="font-medium text-[16px] cursor-pointer leading-[19.2px] tracking-[-0.015em] whitespace-nowrap truncate"
-                onClick={() =>
-                  router.push(
-                    `/profile/${item?.userFrom?.username || item?.userFrom?.id}`
-                  )
-                }
+                onClick={() => {
+                  if (company) router.push(`/companyprofile/${item?.username}`);
+                  else
+                    router.push(
+                      `/profile/${
+                        item?.userFrom?.username || item?.userFrom?.id
+                      }`
+                    );
+                }}
               />
               {/* <p
                 className={`${
@@ -110,9 +116,10 @@ const ConnectionCard = ({
             <TextMain
               text={item?.name}
               style="font-medium text-[16px] cursor-pointer leading-[19.2px] tracking-[-0.015em] whitespace-nowrap truncate"
-              onClick={() =>
-                router.push(`/profile/${item?.username || item?.id}`)
-              }
+              onClick={() => {
+                if (company) router.push(`/companyprofile/${item?.username}`);
+                else router.push(`/profile/${item?.username || item?.id}`);
+              }}
             />
           )}
           {friend && (

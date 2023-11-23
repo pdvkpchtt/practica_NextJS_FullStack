@@ -275,6 +275,7 @@ model Vacancy {
   hrCreator    Hr?            @relation(fields: [hrCreatorId], references: [id])
   VacancyReply VacancyReply[]
   file      File[]
+  createdAt        DateTime        @default(now())
 }
 
 model VacArea {
@@ -345,6 +346,7 @@ model Bookmarks {
   vacancyId String  @db.Text
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   vacancy   Vacancy @relation(fields: [vacancyId], references: [id], onDelete: Cascade)
+  createdAt        DateTime        @default(now())
 }
 
 model Post {

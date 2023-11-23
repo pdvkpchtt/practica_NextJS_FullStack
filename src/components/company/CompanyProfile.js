@@ -9,7 +9,7 @@ import CompanyLeft from "./CompanyLeft";
 import CompanyRight from "./CompanyRight";
 import CompanyVacancies from "./CompanyVacancies";
 
-const CompanyProfile = ({ data, getUserFeed, addReaction, role }) => {
+const CompanyProfile = ({ data, getUserFeed, addReaction, role, userId }) => {
   const [navState, setNavState] = useState([
     {
       id: 0,
@@ -21,7 +21,7 @@ const CompanyProfile = ({ data, getUserFeed, addReaction, role }) => {
       id: 1,
       active: false,
       name: "Вакансии",
-      component: <CompanyVacancies role={role} id={data.id} />,
+      component: <CompanyVacancies role={role} id={data.id} userId={userId} />,
     },
     // {
     //   id: 2,

@@ -17,6 +17,7 @@ export const addToBookmarks = async (vacancyId) => {
 
   const bookmark = await prisma.bookmarks.create({
     data: {
+      createdAt: new Date(),
       user: {
         connect: {
           id: session.user.id,

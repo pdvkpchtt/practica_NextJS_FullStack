@@ -15,6 +15,7 @@ export const getUsersBookmarks = async (userId, cursor) => {
     select: {
       id: true,
       user: true,
+      createdAt: true,
       vacancy: {
         select: {
           id: true,
@@ -102,6 +103,9 @@ export const getUsersBookmarks = async (userId, cursor) => {
           Bookmarks: true,
         },
       },
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 

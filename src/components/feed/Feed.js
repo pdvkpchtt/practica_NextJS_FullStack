@@ -39,7 +39,6 @@ const Feed = ({ getFeed, addReaction, userId }) => {
 
   return (
     <>
-      {/* из за этого лагает */}
       <LayoutGroup>
         {posts.map((item) => (
           <Post

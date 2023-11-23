@@ -12,6 +12,7 @@ export const getCompanyVacancies = async (id, cursor) => {
     ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
     where: { companyId: id },
     select: {
+      createdAt: true,
       id: true,
       name: true,
       description: true,
@@ -96,6 +97,9 @@ export const getCompanyVacancies = async (id, cursor) => {
         },
       },
       Bookmarks: true,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 

@@ -8,6 +8,7 @@ import { fetchCompanyVacancies } from "../../server/actions/company/fetchCompany
 import TextMain from "../../shared/Text/TextMain ";
 import Card from "../../shared/ui/Card";
 import CustomLoader from "../../shared/ui/CustomLoader";
+import { LayoutGroup } from "framer-motion";
 
 const CompanyVacancies = ({ id, others = false, role, userId }) => {
   const [cursor, setCursor] = useState("");
@@ -53,9 +54,11 @@ const CompanyVacancies = ({ id, others = false, role, userId }) => {
         </Card>
       ) : (
         <>
-          {users.map((item, key) => (
-            <VacancyCard role={role} key={key} item={item} userId={userId} />
-          ))}
+          <LayoutGroup id="compvac">
+            {users.map((item, key) => (
+              <VacancyCard role={role} key={key} item={item} userId={userId} />
+            ))}
+          </LayoutGroup>
           {hasNextPage ? (
             <Waypoint
               onEnter={async () => {

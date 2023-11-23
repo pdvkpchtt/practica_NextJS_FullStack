@@ -76,6 +76,7 @@ export const createVacancy = async (id, data, role = "company") => {
     data: {
       Vacancy: {
         create: {
+          createdAt: new Date(),
           name: data.name,
           description: data.description,
           shortDescription: data.shortDescription,
