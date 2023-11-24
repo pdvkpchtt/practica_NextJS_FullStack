@@ -1,12 +1,20 @@
 "use client";
 
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { useRef, useLayoutEffect } from "react";
-import { useTransform, useScroll, useTime } from "framer-motion";
+import { useRef, useLayoutEffect, useState } from "react";
+import {
+  useTransform,
+  useScroll,
+  useTime,
+  AnimatePresence,
+  motion,
+} from "framer-motion";
 import { degreesToRadians, progress, mix } from "popmotion";
 import Image from "next/image";
 import TextLogo from "./TextLogo";
 import EnterIcon from "shared/icons/EnterIcon";
+import { useMediaQuery } from "react-responsive";
+import { useEffect } from "react";
 
 const color = "#5875e8";
 
@@ -77,17 +85,51 @@ function Scene({ numStars = 500 }) {
 }
 
 export default function WTF() {
+  const [transit, setTransit] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setTransit(true);
+    }, 1.5);
+  }, []);
+
   return (
-    <div className="absolute top-0 left-0 w-full h-full px-[3%] [@media(pointer:coarse)]:px-[5%] pt-[3%] [@media(pointer:coarse)]:pt-[5%] pb-[94px]">
-      <div className="bg-[#e1e1e1] h-full w-full rounded-[5vh] overflow-hidden relative">
+    <div
+      className={`absolute top-0 bg-[#5875e8] transition-all duration-500 ${
+        transit
+          ? " px-[3%] [@media(pointer:coarse)]:px-[5%] pt-[3%] [@media(pointer:coarse)]:pt-[5%] pb-[124px]"
+          : " px-[0%] [@media(pointer:coarse)]:px-[0%] pt-[0%] [@media(pointer:coarse)]:pt-[0%] pb-[0px]"
+      } left-0 w-full h-full`}
+    >
+      <div
+        className={`bg-[#fff] h-full w-full ${
+          transit ? "rounded-[5vh]" : "rounded-0"
+        } relative`}
+      >
         <p className="font-bold absolute w-full h-full text-center flex items-center justify-center select-none">
           <TextLogo />
         </p>
-        <Canvas gl={{ antialias: false }}>
-          <Scene />
-        </Canvas>
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2 }}
+            className="w-full h-full"
+          >
+            <Canvas gl={{ antialias: false }}>
+              <Scene />
+            </Canvas>
+          </motion.div>
+        </AnimatePresence>
       </div>
-      <div className="cursor-pointer absolute bottom-[30px] right-[3%]  [@media(pointer:coarse)]:right-[5%] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#647F98] bg-opacity-[15%] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]">
+      <div
+        onClick={() => setTransit(!transit)}
+        className="cursor-pointer absolute bottom-[15px] right-[3%] z-[70] [@media(pointer:coarse)]:right-[5%] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
+      >
+        <EnterIcon />
+        Войти
+      </div>
+      <div className="cursor-pointer fixed top-[12px] right-[3%] z-[-1] [@media(pointer:coarse)]:right-[5%] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#647F98] bg-opacity-[15%] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]">
         <EnterIcon />
         Войти
       </div>

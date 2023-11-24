@@ -191,7 +191,7 @@ const ChatsPanel = ({ chatId, user_id, profileData }) => {
             </div>
           ) : (
             <>
-              <div className="flex flex-col gap-[2px] w-full items-center truncate">
+              <div className="flex flex-col ml-[-4px] gap-[2px] w-full items-center truncate">
                 <TextMain
                   text={`${profileData.name}${
                     profileData.isFirstCircle
