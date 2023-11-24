@@ -22,7 +22,7 @@ export default async function RootLayout({ children }) {
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
       </head>
-      <body className="bg-[#f6f6f8] dark:bg-[#141414] hideScrollbarNav">
+      <body className="bg-[#f6f6f8] dark:bg-[#141414] hideScrollbarNav ">
         <SessionProvider session={session}>
           <AuthLayout>
             <Header role={session?.user?.role} />

@@ -7,14 +7,14 @@ export const getFriendList = async (myId, cursor, input) => {
   const session = await getServSession();
 
   const request = await prisma.user.findMany({
-    take: 11,
     where: {
       id: myId,
     },
 
-    ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
     select: {
       connections: {
+        take: 11,
+        ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
         select: {
           name: true,
           image: true,
@@ -43,13 +43,13 @@ export const getFriendList = async (myId, cursor, input) => {
     },
   });
 
-  const hasNextPage = request[0].connections.length > 10;
+  const hasNextPage = request[0]?.connections?.length > 10;
 
-  let slicedPosts = request[0].connections;
-  if (request[0].connections.length > 10) {
-    slicedPosts = request[0].connections?.slice(0, -1);
+  let slicedPosts = request[0]?.connections;
+  if (request[0]?.connections?.length > 10) {
+    slicedPosts = request[0]?.connections?.slice(0, -1);
   }
-  const result = slicedPosts.map((r) => {
+  const result = slicedPosts?.map((r) => {
     return {
       name: r?.name,
       image: r?.image,

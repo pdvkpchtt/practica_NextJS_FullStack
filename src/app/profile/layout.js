@@ -13,7 +13,7 @@ const RootLayout = ({ children }) => {
           ? "[@media(pointer:coarse)]:mt-[61px]"
           : "[@media(pointer:coarse)]:mt-[38px]"
       } 
-      h-full [@media(pointer:coarse)]:overflow-y-auto
+      h-full 
       ${
         pathname === "/profile/edit"
           ? "[@media(pointer:coarse)]:mb-[0px]"
