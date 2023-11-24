@@ -105,7 +105,7 @@ const ConnectionsModal = ({
                       console.log("Enter waypoint");
                       await getRequests(cursor);
                     }}
-                    topOffset="50px"
+                    topOffset="150px"
                   >
                     <div className="w-full flex justify-center items-center">
                       <CustomLoader diameter={36} />
