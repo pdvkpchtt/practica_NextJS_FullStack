@@ -46,8 +46,9 @@ import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import ReplyItem from "./ReplyItem";
 import BigLogoSvg from "../../shared/icons/BigLogoSvg";
 import NoPitchesModal from "./NoPitchesModal";
+import Image from "next/image";
 
-const ChatsPanel = ({ chatId, user_id }) => {
+const ChatsPanel = ({ chatId, user_id, profileData }) => {
   // const { currentChatCursor, setCurrentChatCursor } = useContext(MesContext);
 
   const pathname = usePathname();
@@ -180,21 +181,52 @@ const ChatsPanel = ({ chatId, user_id }) => {
           >
             <ArrowLeftIcon />
           </OneIconButton>
-
-          <div className="flex flex-col gap-[2px] w-full items-center truncate">
-            <TextMain
-              text={"Имя"} //////////////////
-              style="font-medium text-center text-[18px] leading-[21.6px] tracking-[-0.015em] w-full overflow-hidden whitespace-nowrap truncate"
-            />
-            <TextSecondary
+          {profileData === null ? (
+            <div className="w-full ml-[calc(50vw-88px)]">
+              <CustomLoader
+                diameter={22}
+                strokeWidth={6}
+                strokeWidthSecondary={6}
+              />
+            </div>
+          ) : (
+            <>
+              <div className="flex flex-col gap-[2px] w-full items-center truncate">
+                <TextMain
+                  text={`${profileData.name}${
+                    profileData.isFirstCircle
+                      ? " • 1"
+                      : profileData.isSecondCircle.find((i2) => i2 === true)
+                      ? " • 2"
+                      : profileData.isThirdCircle
+                      ? " • 3"
+                      : " • 3+"
+                  }`} //////////////////
+                  style="font-medium text-center text-[18px] leading-[21.6px] tracking-[-0.015em] w-full overflow-hidden whitespace-nowrap truncate"
+                />
+                {/* <TextSecondary
               text="онлайн"
               style="font-medium text-[11px] leading-[12px] tracking-[-0.027em]"
-            />
-          </div>
+            /> */}
+              </div>
 
-          <div className="min-w-[44px] ml-[16px]">
-            <EmptyAvatar thirty />
-          </div>
+              <div className="min-w-[40px] min-h-[40px] w-[40px] h-[40px] aspect-square rounded-full overflow-hidden ml-[16px]">
+                {profileData?.image ? (
+                  <Image
+                    src={profileData?.image}
+                    alt="Profile photo"
+                    className="object-cover min-w-[40px] min-h-[40px] w-[40px] h-[40px]"
+                    width={236}
+                    height={236}
+                    quality={100}
+                    priority={true}
+                  />
+                ) : (
+                  <EmptyAvatar thirty />
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
       {/* mobile header */}

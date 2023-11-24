@@ -3,7 +3,7 @@
 import { prisma } from "../../db";
 
 export const getSubscriptions = async () => {
-  const plans = await prisma.Plan.findMany({});
+  const plans = await prisma.Plan.findMany({ orderBy: { price: "desc" } });
 
   const result = plans.map((i) => {
     if (i.name !== "standart")

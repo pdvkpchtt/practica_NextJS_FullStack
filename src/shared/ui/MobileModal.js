@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 
 const MobileModal = ({
   isOpen = false,
@@ -7,7 +8,15 @@ const MobileModal = ({
   slideToLeft = false,
   translate = "translate(-50%, 0%)",
   withScroll = false,
+  withOutScroll = false,
 }) => {
+  useEffect(() => {
+    if (withOutScroll) {
+      if (isOpen) document.body.style.overflow = "hidden";
+      else document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
+
   const modalVariant = {
     initial: { opacity: 0 },
     isOpen: { opacity: 1 },

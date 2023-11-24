@@ -10,8 +10,10 @@ import VacancyFilter from "./VacancyFilter";
 import CheckIcon from "../../shared/icons/CheckIcon";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 import RefreshIcon from "../../shared/icons/RefreshIcon";
+import { useEffect } from "react";
 
 const MobileFilters = ({
+  showFilters,
   navState,
   setShowFilters,
   setSkillsModal,

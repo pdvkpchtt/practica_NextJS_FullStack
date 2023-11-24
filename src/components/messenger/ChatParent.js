@@ -41,7 +41,7 @@ const ChatParent = ({ chatId, user_id }) => {
 
   return (
     <>
-      <ChatsPanel chatId={chatId} user_id={user_id} />
+      <ChatsPanel chatId={chatId} user_id={user_id} profileData={profileData} />
       <MessengerRight
         profileData={profileData}
         pitchesState={pitchesState}

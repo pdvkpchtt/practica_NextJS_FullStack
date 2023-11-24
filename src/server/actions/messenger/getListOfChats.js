@@ -65,11 +65,12 @@ export const getListOfChats = async (id, cursor, searchInput) => {
       if (chat.messages.length === 0)
         chatText = "Начните диалог в беседе прямо сейчас";
       else {
-        lastMessageType = chat.messages[chat.messages.length - 1].type;
-        chatIsUnread = chat.messages[chat.messages.length - 1].unRead;
-        myMessageIsLast = chat.messages[chat.messages.length - 1].userId === id;
+        lastMessageType = chat?.messages[chat.messages.length - 1]?.type;
+        chatIsUnread = chat?.messages[chat.messages.length - 1]?.unRead;
+        myMessageIsLast =
+          chat?.messages[chat.messages.length - 1]?.userId === id;
         lastMessageCreatedAt =
-          chat.messages[chat.messages.length - 1].createdAt;
+          chat?.messages[chat.messages.length - 1]?.createdAt;
 
         if (chat.messages[chat.messages.length - 1].type === "vacancyReply")
           chatText = myMessageIsLast
@@ -89,7 +90,8 @@ export const getListOfChats = async (id, cursor, searchInput) => {
         updatedAt: chat.updatedAt,
         participants: chat.participants,
         messages: chat.messages,
-        myMessageIsLast: chat.messages[chat.messages.length - 1].userId === id,
+        myMessageIsLast:
+          chat?.messages[chat.messages.length - 1]?.userId === id,
         lastMessageCreatedAt: lastMessageCreatedAt,
 
         lastMessageType: lastMessageType,
@@ -111,7 +113,8 @@ export const getListOfChats = async (id, cursor, searchInput) => {
       else {
         lastMessageType = chat.messages[chat.messages.length - 1].type;
         chatIsUnread = chat.messages[chat.messages.length - 1].unRead;
-        myMessageIsLast = chat.messages[chat.messages.length - 1].userId === id;
+        myMessageIsLast =
+          chat?.messages[chat.messages.length - 1]?.userId === id;
         lastMessageCreatedAt =
           chat.messages[chat.messages.length - 1].createdAt;
 
@@ -133,7 +136,8 @@ export const getListOfChats = async (id, cursor, searchInput) => {
         updatedAt: chat.updatedAt,
         participants: chat.participants,
         messages: chat.messages,
-        myMessageIsLast: chat.messages[chat.messages.length - 1].userId === id,
+        myMessageIsLast:
+          chat?.messages[chat.messages.length - 1]?.userId === id,
         lastMessageCreatedAt: lastMessageCreatedAt,
 
         lastMessageType: lastMessageType,

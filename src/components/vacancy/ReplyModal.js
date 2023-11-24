@@ -323,14 +323,14 @@ const ReplyModal = ({
         </div>
         {/* body */}
       </Modal>
-      <MobileModal isOpen={modalState}>
+      <MobileModal isOpen={modalState} withScroll>
         <div className="fixed w-full z-[-1] h-full top-0 left-0 bg-[#f6f6f8] dark:bg-[#141414]" />
         {/* header */}
         <MobileHeader onClick={() => setModalState(false)} />
         {/* header */}
 
         {/* body */}
-        <div className="mt-[61px] flex flex-col gap-[34px] p-[12px] overflow-y-scroll h-[calc(100%-61px)]">
+        <div className="mt-[61px] flex flex-col gap-[34px] p-[12px] h-[calc(100%-61px)]">
           <TextMain
             text="Резюме"
             style={

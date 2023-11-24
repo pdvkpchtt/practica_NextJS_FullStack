@@ -66,8 +66,13 @@ const FiltersWrap = () => {
           {/* filters */}
 
           {/* filters mobile */}
-          <MobileModal isOpen={showFilters} handleClose={setShowFilters}>
+          <MobileModal
+            isOpen={showFilters}
+            handleClose={setShowFilters}
+            withOutScroll
+          >
             <MobileFilters
+              showFilters={showFilters}
               dropDataVacancies={dropDataVacancies}
               updateVacancies={updateVacancies}
               setUpdateVacancies={setUpdateVacancies}
