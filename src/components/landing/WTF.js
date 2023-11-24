@@ -90,7 +90,7 @@ export default function WTF() {
   useEffect(() => {
     setTimeout(() => {
       setTransit(true);
-    }, 1.5);
+    }, 1500);
   }, []);
 
   return (
@@ -113,7 +113,7 @@ export default function WTF() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 2 }}
+            transition={{ delay: 2.2 }}
             className="w-full h-full"
           >
             <Canvas gl={{ antialias: false }}>
