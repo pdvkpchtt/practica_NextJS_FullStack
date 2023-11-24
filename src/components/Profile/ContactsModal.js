@@ -291,7 +291,7 @@ const ContactsModal = ({
                     </InputMask>
                     <p
                       className={`${
-                        phoneInput.length !== 17
+                        phoneInput.length !== 18
                           ? "text-[#bfbfbf]"
                           : "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
                       } transition duration-[250ms] absolute right-[12px] top-[12px] text-[14px] leading-[18px] select-none tracking-[-0.21px] font-normal`}

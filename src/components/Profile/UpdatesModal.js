@@ -147,6 +147,7 @@ const UpdatesModal = ({ modalState = false, setModalState = () => {} }) => {
                     </div>
                   </Waypoint>
                 ) : null}
+                <div className="[@media(pointer:coarse)]:pb-[48px] [@media(hover)]:hidden" />
               </>
             )}
             <div className="mb-[61px]" />

@@ -21,7 +21,7 @@ const RootLayout = ({ children }) => {
 
   return (
     <div
-      className={`w-full flex flex-row  [@media(hover)]:mt-[62px] gap-[24px] h-full hideScrollbarNav [@media(pointer:coarse)]:overflow-hidden [@media(pointer:coarse)]:flex-col [@media(pointer:coarse)]:gap-[0px]`}
+      className={`w-full flex flex-row  [@media(hover)]:mt-[62px] gap-[24px] h-full hideScrollbarNav [@media(pointer:coarse)]:flex-col [@media(pointer:coarse)]:gap-[0px]`}
     >
       <ModalContextWrap>
         <FeedNav />

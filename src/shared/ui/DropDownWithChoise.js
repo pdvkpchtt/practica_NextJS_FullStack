@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 import DropDownCross from "../icons/DropDownCross";
 // import { getCitiesFromApi } from "../../server/actions/getCitiesFromApi";
@@ -15,6 +16,8 @@ const DropDownWithChoise = ({
   useEffect(() => {
     // getCitiesFromApi("Уфа");
   }, []);
+
+  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
   const ref = useRef();
   const [input, setInput] = useState("");
@@ -58,7 +61,7 @@ const DropDownWithChoise = ({
                       className={`flex items-center cursor-pointer transition w-full duration-[250ms] justify-between p-[12px] hover:bg-[#efeff1] dark:hover:bg-[#212121]`}
                       onClick={() => {
                         setCity(city.filter((i) => i.label !== item.label));
-                        ref?.current?.focus();
+                        if (!isMobile) ref?.current?.focus();
                       }}
                     >
                       <p className="w-[calc(100%-24px)] select-none truncate break-words font-normal text-[14px] leading-[18px] tracking-[-0.015em] text-[#2c2c2c] dark:text-[#fff]">
@@ -119,7 +122,7 @@ const DropDownWithChoise = ({
                         setFiltered(
                           filtered.filter((i) => i.label !== item.label)
                         );
-                        ref?.current?.focus();
+                        if (!isMobile) ref?.current?.focus();
                       }}
                     >
                       {item.label}
@@ -135,7 +138,7 @@ const DropDownWithChoise = ({
                       if (input.length !== 0)
                         setCity([...city, { label: input }]);
                       setInput("");
-                      ref?.current?.focus();
+                      if (!isMobile) ref?.current?.focus();
                     }}
                   >
                     {input}

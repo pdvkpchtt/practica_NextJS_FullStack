@@ -19,7 +19,7 @@ const FeedWrap = ({ children, sendPost }) => {
   return (
     <>
       <div
-        className={`flex [@media(hover)]:ml-[175px] [@media(pointer:coarse)]:mb-[80px] [@media(pointer:coarse)]:overflow-y-scroll [@media(pointer:coarse)]:p-[12px] ${
+        className={`flex [@media(hover)]:ml-[175px] [@media(pointer:coarse)]:mb-[80px] [@media(pointer:coarse)]:p-[12px] ${
           pathname.includes("/feed/post/")
             ? "[@media(pointer:coarse)]:mt-[61px]"
             : "[@media(pointer:coarse)]:mt-[85px]"
@@ -31,6 +31,11 @@ const FeedWrap = ({ children, sendPost }) => {
           className="absolute top-[-86px] bg-red-500 w-[50px] h-[50px]"
         /> */}
         {children}
+        <div
+          className={`
+            [@media(pointer:coarse)]:pb-[80px]
+        [@media(hover)]:hidden`}
+        />
       </div>
 
       <CreatePostModal

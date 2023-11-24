@@ -14,13 +14,16 @@ const RootLayout = ({ children }) => {
           : "[@media(pointer:coarse)]:mt-[38px]"
       } 
       h-full 
-      ${
-        pathname === "/profile/edit"
-          ? "[@media(pointer:coarse)]:mb-[0px]"
-          : "[@media(pointer:coarse)]:mb-[80px]"
-      } [@media(pointer:coarse)]:p-[12px]`}
+       [@media(pointer:coarse)]:p-[12px]`}
     >
       {children}
+      <div
+        className={`${
+          pathname !== "/profile/edit"
+            ? "[@media(pointer:coarse)]:pb-[80px]"
+            : "[@media(pointer:coarse)]:pb-[3px]"
+        } [@media(hover)]:hidden`}
+      />
     </div>
   );
 };

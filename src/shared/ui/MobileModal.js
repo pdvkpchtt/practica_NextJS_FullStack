@@ -6,6 +6,7 @@ const MobileModal = ({
   children,
   slideToLeft = false,
   translate = "translate(-50%, 0%)",
+  withScroll = false,
 }) => {
   const modalVariant = {
     initial: { opacity: 0 },
@@ -39,7 +40,11 @@ const MobileModal = ({
             variants={containerVariant}
             style={{ transform: translate }}
           >
-            <div className="max-w-[500px] z-[900] mx-auto w-full h-full">
+            <div
+              className={`max-w-[500px] z-[900] mx-auto w-full h-full ${
+                withScroll && "overflow-y-scroll"
+              }`}
+            >
               {children}
             </div>
           </motion.div>

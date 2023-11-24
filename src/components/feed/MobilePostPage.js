@@ -34,7 +34,7 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
     setLoading(true);
 
     const post = await getPost();
-
+    console.log(post, "client post");
     setPostState(post);
     setReactions(post.reactions);
 
@@ -139,7 +139,7 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
                   </p>
                 </div>
 
-                <DotsIcon onClick={() => toggle(true)} />
+                {postState.myPost && <DotsIcon onClick={() => toggle(true)} />}
               </div>
               {/* image profile info time and dotsIcon */}
 
@@ -186,7 +186,13 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
         handleClose={() => toggle(false)}
         translate="translate(-50%, 0%)"
       >
-        <PostBottomModalContent />
+        <PostBottomModalContent
+          postId={postState.id}
+          setDeleted={() => {}}
+          handleClose={() => {
+            router.back();
+          }}
+        />
       </BottomModal>
       {/* modal */}
     </>

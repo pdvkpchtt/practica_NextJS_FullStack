@@ -61,5 +61,6 @@ export const getPostById = async (id, userId) => {
     title: currentPost.title,
     text: currentPost.text,
     role: currentPost.user.role,
+    myPost: currentPost.user.id === userId,
   };
 };

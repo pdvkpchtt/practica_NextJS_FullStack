@@ -9,7 +9,7 @@ const CompanyLayout = ({ children }) => {
     <div
       className={`flex gap-[16px] [@media(pointer:coarse)]:gap-[12px] w-full
       flex-row [@media(pointer:coarse)]:flex-col [@media(hover)]:mt-[62px] 
-      h-full [@media(pointer:coarse)]:overflow-y-auto
+      h-full
       ${
         pathname === "/companyprofile/createvacancy" ||
         pathname === "/companyprofile/edit"
@@ -20,6 +20,15 @@ const CompanyLayout = ({ children }) => {
       `}
     >
       {children}
+
+      <div
+        className={`${
+          pathname !== "/companyprofile/edit" &&
+          pathname !== "/companyprofile/createvacancy"
+            ? "[@media(pointer:coarse)]:pb-[80px]"
+            : "[@media(pointer:coarse)]:pb-[3px]"
+        } [@media(hover)]:hidden`}
+      />
     </div>
   );
 };

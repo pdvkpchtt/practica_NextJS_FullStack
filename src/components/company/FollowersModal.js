@@ -182,6 +182,7 @@ const FollowersModal = ({
                     </div>
                   </Waypoint>
                 ) : null}
+                <div className="[@media(pointer:coarse)]:pb-[48px] [@media(hover)]:hidden" />
               </>
             )}
           </>

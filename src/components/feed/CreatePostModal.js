@@ -65,6 +65,11 @@ const CreatePostModal = ({
     { type: "clown", ...clown, active: false },
   ]);
 
+  useEffect(() => {
+    if (open) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+  }, [open]);
+
   const getCategires = async () => {
     const categories = await fetchCategorise();
     setCategories(categories);
@@ -243,7 +248,7 @@ const CreatePostModal = ({
         {/* bottom */}
       </Modal>
 
-      <MobileModal isOpen={open} slideToLeft>
+      <MobileModal isOpen={open} slideToLeft withScroll>
         {/* header */}
         <div className="[@media(pointer:coarse)]:fixed z-20 [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:left-0 [@media(pointer:coarse)]:rounded-t-[0px] border-b-[0.7px] border-b-[#E7E7E7] dark:border-b-[#2f2f2f] bg-white dark:bg-[#212122] rounded-t-[20px] p-[12px]">
           <div className="items-center w-full flex flex-row justify-between [@media(pointer:coarse)]:max-w-[476px] [@media(pointer:coarse)]:mx-auto">
@@ -284,7 +289,7 @@ const CreatePostModal = ({
                       setTextState("");
                       setPickedReactions([{ type: "big_thumb" }]);
                       setLoaderState(false);
-                      setP;
+                      // setP;
                       setClose();
 
                       // if (isMobile)
@@ -327,7 +332,7 @@ const CreatePostModal = ({
         {/* header */}
 
         {/* body */}
-        <div className="flex px-[12px] h-[calc(100vh-132px)] mt-[58px] flex-col gap-[12px] overflow-y-auto">
+        <div className="flex px-[12px] h-[calc(100vh-132px)] mt-[58px] flex-col gap-[12px]">
           <div className="flex mt-[12px] flex-row gap-[12px]">
             <CircularProggressBar
               progress={textState.length}
