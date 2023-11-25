@@ -24,6 +24,7 @@ const PeopleCard = ({ item }) => {
               src={item.image}
               alt="Profile image"
               // loading="lazy"
+              unoptimized
               quality={100}
               width={67}
               height={67}

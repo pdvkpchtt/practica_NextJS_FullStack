@@ -15,6 +15,7 @@ import TextLogo from "./TextLogo";
 import EnterIcon from "shared/icons/EnterIcon";
 import { useMediaQuery } from "react-responsive";
 import { useEffect } from "react";
+import Gear from "./Gear";
 
 const color = "#5875e8";
 
@@ -86,6 +87,15 @@ function Scene({ numStars = 500 }) {
 
 export default function WTF() {
   const [transit, setTransit] = useState(false);
+  const [fixed, setFixed] = useState(false);
+
+  const setFixedHandler = () => {
+    if (window.scrollY >= window.innerHeight - 74) setFixed(true);
+    if (window.scrollY < window.innerHeight - 74) setFixed(false);
+  };
+
+  if (typeof window !== "undefined")
+    window.addEventListener("scroll", setFixedHandler);
 
   useEffect(() => {
     setTimeout(() => {
@@ -94,45 +104,66 @@ export default function WTF() {
   }, []);
 
   return (
-    <div
-      className={`absolute top-0 bg-[#5875e8] transition-all duration-500 ${
-        transit
-          ? " px-[3%] [@media(pointer:coarse)]:px-[5%] pt-[3%] [@media(pointer:coarse)]:pt-[5%] pb-[124px]"
-          : " px-[0%] [@media(pointer:coarse)]:px-[0%] pt-[0%] [@media(pointer:coarse)]:pt-[0%] pb-[0px]"
-      } left-0 w-full h-full`}
-    >
+    <>
       <div
-        className={`bg-[#fff] h-full w-full ${
-          transit ? "rounded-[5vh]" : "rounded-0"
-        } relative`}
+        className={`absolute top-0 bg-[#5875e8] transition-all duration-500 ${
+          transit
+            ? " px-[3%] [@media(pointer:coarse)]:px-[5%] pt-[3%] [@media(pointer:coarse)]:pt-[5%] pb-[124px]"
+            : " px-[0%] [@media(pointer:coarse)]:px-[0%] pt-[0%] [@media(pointer:coarse)]:pt-[0%] pb-[0px]"
+        } left-0 w-full h-full z-[80]`}
       >
-        <p className="font-bold absolute w-full h-full text-center flex items-center justify-center select-none">
-          <TextLogo />
-        </p>
-        <AnimatePresence>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.2 }}
-            className="w-full h-full"
-          >
-            <Canvas gl={{ antialias: false }}>
-              <Scene />
-            </Canvas>
-          </motion.div>
-        </AnimatePresence>
+        <div
+          className={`bg-[#fff] h-full w-full ${
+            transit ? "rounded-[5vh]" : "rounded-0"
+          } relative z-[80]`}
+        >
+          <p className="font-bold absolute w-full h-full text-center flex items-center justify-center select-none">
+            <TextLogo />
+          </p>
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2.2 }}
+              className="w-full h-full"
+            >
+              <Canvas gl={{ antialias: false }}>
+                <Scene />
+              </Canvas>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <Gear
+          style={
+            fixed
+              ? "fixed left-[calc(50%-20px)] top-[17px]"
+              : "absolute left-[calc(50%-20px)] bottom-[17px]"
+          }
+        />
+
+        <div
+          // onClick={() => setTransit(!transit)}
+          className={
+            fixed
+              ? "cursor-pointer fixed top-[12px] right-[3%] z-[10] [@media(pointer:coarse)]:right-[5%] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
+              : "cursor-pointer absolute bottom-[15px] right-[3%] z-[70] [@media(pointer:coarse)]:right-[5%] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
+          }
+        >
+          <EnterIcon />
+          Войти
+        </div>
       </div>
-      <div
-        onClick={() => setTransit(!transit)}
-        className="cursor-pointer absolute bottom-[15px] right-[3%] z-[70] [@media(pointer:coarse)]:right-[5%] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
-      >
-        <EnterIcon />
-        Войти
+      <div className="fixed top-0 left-0 h-[74px] bg-[#5875e8] w-full z-[10]">
+        {/* <div
+          // onClick={() => setTransit(!transit)}
+          className="cursor-pointer fixed top-[12px] right-[3%] z-[10] [@media(pointer:coarse)]:right-[5%] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
+        >
+          <EnterIcon />
+          Войти
+        </div>
+        <Gear style="fixed left-[calc(50%-20px)] top-[17px]" /> */}
       </div>
-      <div className="cursor-pointer fixed top-[12px] right-[3%] z-[-1] [@media(pointer:coarse)]:right-[5%] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#647F98] bg-opacity-[15%] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]">
-        <EnterIcon />
-        Войти
-      </div>
-    </div>
+    </>
   );
 }

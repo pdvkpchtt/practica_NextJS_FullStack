@@ -152,6 +152,7 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
                 width={236}
                 height={236}
                 quality={100}
+                unoptimized
                 priority={true}
               />
             ) : (

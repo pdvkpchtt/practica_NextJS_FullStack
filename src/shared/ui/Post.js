@@ -78,6 +78,7 @@ const Post = ({
                     src={item?.author_image}
                     alt="Profile image"
                     quality={100}
+                    unoptimized
                     className="h-[40px] w-[40px] object-cover"
                     width={40}
                     height={40}
@@ -102,9 +103,10 @@ const Post = ({
                 </div>
                 <div className="flex flex-row flex-wrap text-[#8f8f8f] font-medium text-[14px] select-none leading-[18px] tracking-[-0.182px]">
                   <p
+                    onClick={() => router.push(`/profile/${item?.username}`)}
                     className={`${
                       //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
-                      "text-[#cfcfcf] cursor-default"
+                      "text-[#cfcfcf] cursor-pointer"
                     } text-[16px] font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
                   >
                     @{item?.username || item?.author_id}
@@ -118,7 +120,7 @@ const Post = ({
                         }
                         className={`${
                           //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
-                          "text-[#cfcfcf] cursor-default"
+                          "text-[#cfcfcf] cursor-pointer"
                         } text-[16px] font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
                       >
                         {"@" + item?.isHrCompanyId}

@@ -35,6 +35,7 @@ const VacancyCard = ({ item, role = "student", userId }) => {
                     <Image
                       src={item.Company.image}
                       width={67}
+                      unoptimized
                       height={67}
                       alt="Profile image"
                       className="min-w-[67px] max-w-[67px] object-cover max-h-[67px] h-[67px] w-[67px] min-h-[67px]"

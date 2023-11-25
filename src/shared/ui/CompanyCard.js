@@ -23,6 +23,7 @@ const CompanyCard = ({ item }) => {
           <Image
             src={item.image}
             width={67}
+            unoptimized
             height={67}
             alt="Profile image"
             className="min-w-[67px] max-w-[67px] object-cover max-h-[67px] h-[67px] w-[67px] min-h-[67px]"

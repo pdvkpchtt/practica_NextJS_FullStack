@@ -183,6 +183,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 width={236}
                 height={236}
                 quality={100}
+                unoptimized
                 priority={true}
               />
             ) : (
