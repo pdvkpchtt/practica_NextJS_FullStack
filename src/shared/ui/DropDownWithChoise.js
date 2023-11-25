@@ -122,6 +122,7 @@ const DropDownWithChoise = ({
                         setFiltered(
                           filtered.filter((i) => i.label !== item.label)
                         );
+                        setInput("");
                         if (!isMobile) ref?.current?.focus();
                       }}
                     >

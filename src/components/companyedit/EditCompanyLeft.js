@@ -246,7 +246,7 @@ const EditCompanyLeft = ({
               setDataToUpdate({
                 ...dataToUpdate,
                 Links: dataToUpdate?.Links?.filter(
-                  (i) => i.label !== linkName && i.link !== linkLink
+                  (i) => !(i.label === linkName && i.link === linkLink)
                 ),
               });
 

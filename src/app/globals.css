@@ -34,6 +34,11 @@ body {
     rgb(var(--background-start-rgb)); */
 }
 
+.bgNoise {
+  background: url("../components/landing/noise.png"),
+    lightgray 0% 0% / 100px 100px repeat, #5875e8;
+}
+
 @media (hover: hover) {
   ::-webkit-scrollbar {
     width: 12px;

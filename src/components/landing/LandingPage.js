@@ -27,7 +27,7 @@ const LandingPage = () => {
           unoptimized
           alt="landing first"
         />
-        <p className="text-[#2D52E6] text-[38px] font-semibold leading-[38px] tracking-[-1.52px] [@media(hover)]:w-[652px]">
+        <p className="text-[#2D52E6] text-[38px] bgNoise font-semibold leading-[38px] tracking-[-1.52px] [@media(hover)]:w-[652px]">
           Зарегистрируйте свою компанию
         </p>
         <p className="text-[#5E5E5E] text-[16px] font-normal leading-[19px] tracking-[-0.32px]">

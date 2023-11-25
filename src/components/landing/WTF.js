@@ -16,6 +16,7 @@ import EnterIcon from "shared/icons/EnterIcon";
 import { useMediaQuery } from "react-responsive";
 import { useEffect } from "react";
 import Gear from "./Gear";
+import noise from "./noise.png";
 
 const color = "#5875e8";
 
