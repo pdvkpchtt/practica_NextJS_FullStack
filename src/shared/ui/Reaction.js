@@ -2,6 +2,14 @@
 
 import Image from "next/image";
 
+import BlowMyMind from "../../shared/icons/reactions/BlowMyMind";
+import Clown from "../../shared/icons/reactions/Clown";
+import Cry from "../../shared/icons/reactions/Cry";
+import Fire from "../../shared/icons/reactions/Fire";
+import Smile from "../../shared/icons/reactions/Smile";
+import ThumbDown from "../../shared/icons/reactions/ThumbDown";
+import BigThumb from "../../shared/icons/reactions/BigThumb";
+
 import big_thumb from "../../shared/icons/reactions/big_thumb.svg";
 import blow_my_mind from "../../shared/icons/reactions/blow_my_mind.svg";
 import clown from "../../shared/icons/reactions/clown.svg";
@@ -11,13 +19,13 @@ import smile from "../../shared/icons/reactions/smile.svg";
 import thumb_down from "../../shared/icons/reactions/thumb_down.svg";
 
 const reactions = {
-  big_thumb: big_thumb,
-  fire: fire,
-  thumb_down: thumb_down,
-  blow_my_mind: blow_my_mind,
-  smile: smile,
-  cry: cry,
-  clown: clown,
+  big_thumb: <BigThumb />,
+  fire: <Fire />,
+  thumb_down: <ThumbDown />,
+  blow_my_mind: <BlowMyMind />,
+  smile: <Smile />,
+  cry: <Cry />,
+  clown: <Clown />,
 };
 
 const Reaction = ({ item, toggleReaction }) => {
@@ -36,12 +44,19 @@ const Reaction = ({ item, toggleReaction }) => {
         // setCount(activeState ? count - 1 : count + 1);
       }}
     >
-      <Image
+      {/* <Image
         src={reactions[item.type]}
         alt="reaction"
         width={30}
         height={30}
+        priority
+        unoptimized
         className="select-none"
+      /> */}
+      {reactions[item.type]}
+      <link
+        rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💢</text></svg>"
       />
       <div
         className={`${

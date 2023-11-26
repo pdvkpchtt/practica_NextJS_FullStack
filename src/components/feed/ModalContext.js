@@ -2,9 +2,8 @@
 
 import { useState, createContext } from "react";
 
-import OfftopIcon from "../../shared/icons/feed/OfftopIcon.svg";
-import EducationIcon from "../../shared/icons/feed/EducationIcon.svg";
-import ForYouIcon from "../../shared/icons/feed/ForYouIcon.svg";
+import OfftopIcon from "../../shared/icons/feed/OfftopIcon";
+import ForYouIcon from "../../shared/icons/feed/ForYouIcon";
 
 export const ModalContext = createContext();
 
@@ -16,7 +15,7 @@ const ModalContextWrap = ({ children }) => {
       id: 0,
       active: true,
       name: "для вас",
-      icon: ForYouIcon,
+      icon: <ForYouIcon />,
       route: "/feed/foryou",
     },
     // {
@@ -30,7 +29,7 @@ const ModalContextWrap = ({ children }) => {
       id: 2,
       active: false,
       name: "офтоп",
-      icon: OfftopIcon,
+      icon: <OfftopIcon />,
       route: "/feed/offtop",
     },
   ]);

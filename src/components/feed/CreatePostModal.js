@@ -21,6 +21,15 @@ import CheckIcon from "../../shared/icons/CheckIcon";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 import Cross2 from "../../shared/icons/Cross2";
 
+import BlowMyMind from "../../shared/icons/reactions/BlowMyMind";
+import Clown from "../../shared/icons/reactions/Clown";
+import Cry from "../../shared/icons/reactions/Cry";
+import Fire from "../../shared/icons/reactions/Fire";
+import Smile from "../../shared/icons/reactions/Smile";
+import ThumbDown from "../../shared/icons/reactions/ThumbDown";
+import BigThumb from "../../shared/icons/reactions/BigThumb";
+import FireBig from "../../shared/icons/reactions/FireBig";
+
 import big_thumb from "../../shared/icons/reactions/big_thumb.svg";
 import blow_my_mind from "../../shared/icons/reactions/blow_my_mind.svg";
 import clown from "../../shared/icons/reactions/clown.svg";
@@ -28,6 +37,12 @@ import cry from "../../shared/icons/reactions/cry.svg";
 import fire from "../../shared/icons/reactions/fire.svg";
 import smile from "../../shared/icons/reactions/smile.svg";
 import thumb_down from "../../shared/icons/reactions/thumb_down.svg";
+import BigThumbBig from "../../shared/icons/reactions/BigThumbBig";
+import ThumbDownBig from "../../shared/icons/reactions/ThumbDownBig";
+import BlowMyMindBig from "../../shared/icons/reactions/BlowMyMindBig";
+import SmileBig from "../../shared/icons/reactions/SmileBig";
+import CryBig from "../../shared/icons/reactions/CryBig";
+import ClownBig from "../../shared/icons/reactions/ClownBig";
 
 const CreatePostModal = ({
   open = false,
@@ -56,13 +71,48 @@ const CreatePostModal = ({
   const [categories, setCategories] = useState([]);
 
   const [reactions, setReactitons] = useState([
-    { type: "fire", ...fire, active: false },
-    { type: "big_thumb", ...big_thumb, active: true },
-    { type: "thumb_down", ...thumb_down, active: false },
-    { type: "blow_my_mind", ...blow_my_mind, active: false },
-    { type: "smile", ...smile, active: false },
-    { type: "cry", ...cry, active: false },
-    { type: "clown", ...clown, active: false },
+    {
+      type: "fire",
+      icon: <Fire size={30} />,
+      iconMobile: <FireBig />,
+      active: false,
+    },
+    {
+      type: "big_thumb",
+      icon: <BigThumb size={30} />,
+      iconMobile: <BigThumbBig />,
+      active: true,
+    },
+    {
+      type: "thumb_down",
+      icon: <ThumbDown size={30} />,
+      iconMobile: <ThumbDownBig />,
+      active: false,
+    },
+    {
+      type: "blow_my_mind",
+      icon: <BlowMyMind size={30} />,
+      iconMobile: <BlowMyMindBig />,
+      active: false,
+    },
+    {
+      type: "smile",
+      icon: <Smile size={30} />,
+      iconMobile: <SmileBig />,
+      active: false,
+    },
+    {
+      type: "cry",
+      icon: <Cry size={30} />,
+      iconMobile: <CryBig />,
+      active: false,
+    },
+    {
+      type: "clown",
+      icon: <Clown size={30} />,
+      iconMobile: <ClownBig />,
+      active: false,
+    },
   ]);
 
   useEffect(() => {

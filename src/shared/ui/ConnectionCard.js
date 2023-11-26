@@ -73,6 +73,8 @@ const ConnectionCard = ({
               alt="Profile image"
               width={50}
               height={50}
+              priority
+              unoptimized
               className="h-[50px] w-[50px] [@media(pointer:coarse)]:w-[40px] object-cover [@media(pointer:coarse)]:h-[40px]"
             />
           ) : (

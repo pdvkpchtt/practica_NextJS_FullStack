@@ -41,7 +41,7 @@ const PicReaction = ({ icon, mobile = false, setReactitons, state }) => {
         }
       }}
     >
-      <Image
+      {/* <Image
         src={icon}
         alt="Reaction"
         className="select-none"
@@ -52,7 +52,8 @@ const PicReaction = ({ icon, mobile = false, setReactitons, state }) => {
           minWidth: mobile ? 48 : 30,
         }}
         quality={100}
-      />
+      /> */}
+      {mobile ? icon.iconMobile : icon.icon}
     </div>
   );
 };

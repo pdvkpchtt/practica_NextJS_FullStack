@@ -63,7 +63,7 @@ const FeedNavItem = ({ item = {}, active = false, onClick = () => {} }) => (
     className="bg-white dark:bg-[#212122] rounded-[14px] px-[12px] py-[8px] w-[151px] flex flex-row gap-[6px] cursor-pointer"
     onClick={onClick}
   >
-    <Image src={item.icon} alt="" />
+    {item.icon}
     <p
       className={`${
         active ? "text-[#5875e8]" : "text-[#2c2c2c] dark:text-[white]"

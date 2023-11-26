@@ -175,6 +175,7 @@ const VacancyRight = ({ data, role = "student", userId }) => {
                       height={50}
                       quality={100}
                       priority={true}
+                      unoptimized
                     />
                   ) : (
                     <EmptyAvatar fifty />
