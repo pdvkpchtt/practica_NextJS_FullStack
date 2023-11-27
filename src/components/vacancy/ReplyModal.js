@@ -48,6 +48,7 @@ const ReplyModal = ({
   // validate
   const [status, setStatus] = useState(null);
   const [status2, setStatus2] = useState(null);
+  console.log(status2);
   // validate
 
   const somethingHapeningFunc = async (something) => {
