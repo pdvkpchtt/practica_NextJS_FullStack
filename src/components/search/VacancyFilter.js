@@ -1,4 +1,7 @@
 import { useState } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import { useMediaQuery } from "react-responsive";
 
 import TextSecondary from "../../shared/Text/TextSecondary";
 import { ButtonSecondary } from "../../shared/ui/Button";
@@ -18,6 +21,7 @@ const VacancyFilter = ({
   dropDataVacancies = {},
 }) => {
   const [state, setState] = useState(false);
+  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
   return (
     <div className="w-full  flex flex-col gap-[16px] h-fit bg-white dark:bg-[#212122] p-[12px] rounded-b-[20px]">
@@ -108,7 +112,25 @@ const VacancyFilter = ({
               text={"Скиллы"}
               style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
             />
-            <AddCityIcon onClick={() => setSkillsModal(true)} />
+            <AddCityIcon
+              onClick={() => {
+                if (updateVacancies.area.length === 0)
+                  toast(`🔍 выберите сферу`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                else setSkillsModal(true);
+              }}
+              disabled={updateVacancies.area.length === 0}
+            />
           </div>
         ) : (
           <>
