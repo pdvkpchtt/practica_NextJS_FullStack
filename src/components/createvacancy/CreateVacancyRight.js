@@ -521,7 +521,25 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                       text={"Скиллы"}
                       style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
                     />
-                    <AddCityIcon onClick={() => toggle(true)} />
+                    <AddCityIcon
+                      onClick={() => {
+                        if (dataToUpdate.vacArea.length === 0)
+                          toast(`🔍 выберите сферу`, {
+                            position: isMobile ? "top-center" : "bottom-right",
+                            autoClose: 2000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            draggable: true,
+                            progress: undefined,
+                            // theme: "dark",
+                            progressStyle: { background: "#5875e8" },
+                            containerId: "forCopy",
+                          });
+                        else toggle(true);
+                      }}
+                      disabled={dataToUpdate.vacArea.length === 0}
+                    />
                   </div>
                 ) : (
                   <>

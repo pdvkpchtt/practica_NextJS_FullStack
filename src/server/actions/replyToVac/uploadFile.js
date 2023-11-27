@@ -14,41 +14,43 @@ export const uploadFile = async (data, vacId) => {
   if (!file) {
     throw new Error("No file uploaded");
   }
+  console.log(file.size, file, "joplo");
 
-  const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
-
-  const id = uuid();
-
-  // With the file data in the buffer, you can do whatever you want with it.
-  // For this, we'll just write it to the filesystem in a new location
-  const path = join(
-    "/",
-    "var/www/practica/files",
-    id + p.extname(decodeURIComponent(escape(file.name)))
-  );
-  await writeFile(path, buffer);
-  console.log(`open ${path} to see the uploaded file`);
-
-  const user = await prisma.File.create({
-    data: {
-      path:
-        "https://practica.team/file/" +
-        id +
-        p.extname(decodeURIComponent(escape(file.name))),
-      name: decodeURIComponent(escape(file.name)),
-      user: {
-        connect: {
-          id: session?.user?.id,
-        },
-      },
-      vacancy: {
-        connect: {
-          id: vacId,
-        },
-      },
-    },
-  });
-
-  return { success: true, path };
+  if (file.size > 10485760) return { status: "error", message: "zxc size" };
+  else if (file.type !== "application/pdf")
+    return { status: "error", message: "zxc type" };
+  else {
+    // const bytes = await file.arrayBuffer();
+    // const buffer = Buffer.from(bytes);
+    // const id = uuid();
+    // With the file data in the buffer, you can do whatever you want with it.
+    // For this, we'll just write it to the filesystem in a new location
+    // const path = join(
+    //   "/",
+    //   "var/www/practica/files",
+    //   id + p.extname(decodeURIComponent(escape(file.name)))
+    // );
+    // await writeFile(path, buffer);
+    // console.log(`open ${path} to see the uploaded file`);
+    // const user = await prisma.File.create({
+    //   data: {
+    //     path:
+    //       "https://practica.team/file/" +
+    //       id +
+    //       p.extname(decodeURIComponent(escape(file.name))),
+    //     name: decodeURIComponent(escape(file.name)),
+    //     user: {
+    //       connect: {
+    //         id: session?.user?.id,
+    //       },
+    //     },
+    //     vacancy: {
+    //       connect: {
+    //         id: vacId,
+    //       },
+    //     },
+    //   },
+    // });
+    // return { success: true, path };
+  }
 };

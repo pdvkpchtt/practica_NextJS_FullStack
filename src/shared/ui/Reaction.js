@@ -54,10 +54,6 @@ const Reaction = ({ item, toggleReaction }) => {
         className="select-none"
       /> */}
       {reactions[item.type]}
-      <link
-        rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💢</text></svg>"
-      />
       <div
         className={`${
           item.active ? "text-[#fff]" : "text-[#2c2c2c] dark:text-white"

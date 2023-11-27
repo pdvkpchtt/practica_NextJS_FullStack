@@ -49,8 +49,14 @@ const ReplyModal = ({
   const [status, setStatus] = useState(null);
   // validate
 
-  const somethingHapeningFunc = (something) => {
-    uploadFile(something, vacId);
+  const somethingHapeningFunc = async (something) => {
+    const res = await uploadFile(something, vacId);
+    if (res?.status === "error") {
+      if (!status) setStatus([res.message]);
+      else setStatus([...status, res.message]);
+    } else {
+      setStatus(status?.filter((i) => !i.includes("zxc")));
+    }
   };
 
   const fetchHandler = async () => {
@@ -135,9 +141,13 @@ const ReplyModal = ({
                 let files = [...e.dataTransfer.files];
                 const formData = new FormData();
                 formData.append("file", files[0]);
-                uploadFile(formData);
-                // buttRef.current.click();
-                fetchHandler();
+                const res = uploadFile(formData);
+                if (res?.status === "error") {
+                  if (!status) setStatus([res.message]);
+                  else setStatus([...status, res.message]);
+                } else {
+                  setStatus(status?.filter((i) => !i.includes("zxc")));
+                }
               }}
               onClick={() => !drag && inputRef.current.click()}
               className={`${
@@ -169,9 +179,24 @@ const ReplyModal = ({
                 }
               />
               <p className="break-words select-none text-[#8f8f8f] font-normal leading-[16px] text-[13px] tracking-[-0.351px] text-center">
-                PDF
-                <br />
-                Не более 10 МБ
+                <p
+                  className={
+                    status?.includes("zxc type")
+                      ? "text-[#F0BB31]"
+                      : "text-[#8f8f8f]"
+                  }
+                >
+                  PDF
+                </p>
+                <p
+                  className={
+                    status?.includes("zxc size")
+                      ? "text-[#F0BB31]"
+                      : "text-[#8f8f8f]"
+                  }
+                >
+                  Не более 10 МБ
+                </p>
               </p>
             </form>
             {/* input for files */}
@@ -299,7 +324,7 @@ const ReplyModal = ({
                   containerId: "forCopy",
                 });
                 router.refresh();
-                setLittleLoader(false);
+                setLoadingButton(false);
               }
             }}
           >
@@ -398,9 +423,24 @@ const ReplyModal = ({
                 }
               />
               <p className="break-words select-none text-[#8f8f8f] font-normal leading-[16px] text-[13px] tracking-[-0.351px] text-center">
-                PDF
-                <br />
-                Не более 10 МБ
+                <p
+                  className={
+                    status?.includes("zxc type")
+                      ? "text-[#F0BB31]"
+                      : "text-[#8f8f8f]"
+                  }
+                >
+                  PDF
+                </p>
+                <p
+                  className={
+                    status?.includes("zxc size")
+                      ? "text-[#F0BB31]"
+                      : "text-[#8f8f8f]"
+                  }
+                >
+                  Не более 10 МБ
+                </p>
               </p>
             </form>
             {/* input for files */}
@@ -528,7 +568,7 @@ const ReplyModal = ({
                   containerId: "forCopy",
                 });
                 router.refresh();
-                setLittleLoader(false);
+                setLoadingButton(false);
               }
             }}
           >
