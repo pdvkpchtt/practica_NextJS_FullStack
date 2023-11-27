@@ -51,7 +51,7 @@ const ReplyModal = ({
 
   const somethingHapeningFunc = async (something) => {
     const res = await uploadFile(something, vacId);
-    if (res?.status === "error") {
+    if (res?.status) {
       if (!status) setStatus([res.message]);
       else setStatus([...status, res.message]);
     } else {
@@ -142,7 +142,7 @@ const ReplyModal = ({
                 const formData = new FormData();
                 formData.append("file", files[0]);
                 const res = uploadFile(formData);
-                if (res?.status === "error") {
+                if (res?.status) {
                   if (!status) setStatus([res.message]);
                   else setStatus([...status, res.message]);
                 } else {
