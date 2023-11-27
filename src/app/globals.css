@@ -148,3 +148,43 @@ input[type="number"] {
     transform: rotate(360deg);
   }
 }
+
+.fancyText {
+  background: linear-gradient(
+    90deg,
+    #5875e8 43.65%,
+    #b072f4 52.95%,
+    #d76890 60.86%,
+    #80de7a 67.82%,
+    #fd8863 72.71%,
+    #ea9e13 79.35%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: Golos Text;
+  font-size: 38px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -1.52px;
+}
+
+.fancyBg1 {
+  background: linear-gradient(
+    214deg,
+    #31cc2e -6.47%,
+    #4bc421 30.27%,
+    #f39c12 95.88%
+  );
+}
+
+.fancyBg2 {
+  background: linear-gradient(
+    110deg,
+    #fd8863 13.08%,
+    #ff2679 31.92%,
+    #fd9259 79.54%,
+    #fd9259 81.32%
+  );
+}

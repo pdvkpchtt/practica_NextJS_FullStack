@@ -64,7 +64,7 @@ function Scene({ numStars = 500 }) {
   useFrame(({ camera }) => {
     camera.position.setFromSphericalCoords(
       distance.get() / 1.2,
-      yAngle.get() * 4.5,
+      yAngle.get() * 9,
       time.get() * 0.0005
     );
     camera.updateProjectionMatrix();
@@ -125,7 +125,7 @@ export default function WTF() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 2.2 }}
+              transition={{ delay: 2.5 }}
               className="w-full h-full"
             >
               <Canvas gl={{ antialias: false }}>
