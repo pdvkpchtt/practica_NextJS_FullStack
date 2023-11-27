@@ -47,15 +47,15 @@ const ReplyModal = ({
 
   // validate
   const [status, setStatus] = useState(null);
+  const [status2, setStatus2] = useState(null);
   // validate
 
   const somethingHapeningFunc = async (something) => {
     const res = await uploadFile(something, vacId);
     if (res?.status) {
-      if (!status) setStatus([res.message]);
-      else setStatus([...status, res.message]);
+      setStatus2(res.message);
     } else {
-      setStatus(status?.filter((i) => !i.includes("zxc")));
+      setStatus2(null);
     }
   };
 
@@ -143,10 +143,9 @@ const ReplyModal = ({
                 formData.append("file", files[0]);
                 const res = uploadFile(formData);
                 if (res?.status) {
-                  if (!status) setStatus([res.message]);
-                  else setStatus([...status, res.message]);
+                  setStatus2(res.message);
                 } else {
-                  setStatus(status?.filter((i) => !i.includes("zxc")));
+                  setStatus2(null);
                 }
               }}
               onClick={() => !drag && inputRef.current.click()}
@@ -181,7 +180,7 @@ const ReplyModal = ({
               <p className="break-words select-none text-[#8f8f8f] font-normal leading-[16px] text-[13px] tracking-[-0.351px] text-center">
                 <p
                   className={
-                    status?.includes("zxc type")
+                    status2?.includes("zxc type")
                       ? "text-[#F0BB31]"
                       : "text-[#8f8f8f]"
                   }
@@ -190,7 +189,7 @@ const ReplyModal = ({
                 </p>
                 <p
                   className={
-                    status?.includes("zxc size")
+                    status2?.includes("zxc size")
                       ? "text-[#F0BB31]"
                       : "text-[#8f8f8f]"
                   }
@@ -425,7 +424,7 @@ const ReplyModal = ({
               <p className="break-words select-none text-[#8f8f8f] font-normal leading-[16px] text-[13px] tracking-[-0.351px] text-center">
                 <p
                   className={
-                    status?.includes("zxc type")
+                    status2?.includes("zxc type")
                       ? "text-[#F0BB31]"
                       : "text-[#8f8f8f]"
                   }
@@ -434,7 +433,7 @@ const ReplyModal = ({
                 </p>
                 <p
                   className={
-                    status?.includes("zxc size")
+                    status2?.includes("zxc size")
                       ? "text-[#F0BB31]"
                       : "text-[#8f8f8f]"
                   }
