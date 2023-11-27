@@ -48,13 +48,13 @@ const ReplyModal = ({
   // validate
   const [status, setStatus] = useState(null);
   const [status2, setStatus2] = useState(null);
-  console.log(status2);
   // validate
 
   const somethingHapeningFunc = async (something) => {
     const res = await uploadFile(something, vacId);
     if (res?.status) {
       setStatus2(res.message);
+      console.log(res);
     } else {
       setStatus2(null);
     }
@@ -145,6 +145,7 @@ const ReplyModal = ({
                 const res = uploadFile(formData);
                 if (res?.status) {
                   setStatus2(res.message);
+                  console.log(res);
                 } else {
                   setStatus2(null);
                 }
