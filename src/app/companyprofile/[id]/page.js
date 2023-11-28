@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { getHrsPosts } from "../../../server/actions/company/getHrsPosts";
 import OthersCompanyWithNav from "../../../components/othersCompany/OthersCompanyWithNav";
 import { getCompany } from "../../../server/actions/company/getCompany";
 import { getUserPosts } from "../../../server/actions/getUserPosts";
@@ -25,7 +26,7 @@ const OthersCompanyPage = async ({ params: { id } }) => {
 
   async function getUserFeed(cursor) {
     "use server";
-    const posts = await getUserPosts(data.user.id, cursor, session.user.id);
+    const posts = await getHrsPosts(data.id, cursor, session?.user?.id);
 
     return posts;
   }

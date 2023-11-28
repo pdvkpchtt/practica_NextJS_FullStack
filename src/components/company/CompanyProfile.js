@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import ProfileLiked from "../../components/Profile/ProfileLiked";
+import ProfilePosts from "../../components/Profile/ProfilePosts";
 import NavigationMobile from "../../shared/ui/NavigationMobile";
 import CompanyInfo from "./CompanyInfo";
 import CompanyLeft from "./CompanyLeft";
@@ -23,18 +24,18 @@ const CompanyProfile = ({ data, getUserFeed, addReaction, role, userId }) => {
       name: "Вакансии",
       component: <CompanyVacancies role={role} id={data.id} userId={userId} />,
     },
-    // {
-    //   id: 2,
-    //   active: false,
-    //   name: "Посты и ответы",
-    //   component: (
-    //     <CompanyPosts
-    //       company
-    //       getUserFeed={getUserFeed}
-    //       addReaction={addReaction}
-    //     />
-    //   ),
-    // },
+    {
+      id: 2,
+      active: false,
+      name: "Посты",
+      component: (
+        <ProfilePosts
+          company
+          getUserFeed={getUserFeed}
+          addReaction={addReaction}
+        />
+      ),
+    },
 
     // {
     //   id: 2,

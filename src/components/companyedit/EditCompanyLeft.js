@@ -294,57 +294,59 @@ const EditCompanyLeft = ({
       {/* изменить почту */}
 
       {/* добавить рекрутера */}
-      <Card
-        style=" 
+      {dataToUpdate.role !== "hr_no_nickname" && (
+        <Card
+          style=" 
         [@media(hover)]:w-[260px] [@media(pointer:coarse)]:w-[100%] 
               flex flex-col gap-[16px] 
               hideScrollbarNavMobile [@media(hover)]:h-fit"
-        padding={12}
-      >
-        <Input
-          type="email"
-          error={error}
-          placeholder="hr@recruter.com"
-          label="Почта рекрутера"
-          value={hrMail}
-          onChange={(val) => {
-            setHrMail(val);
-            setError(false);
-          }}
-        />
-        <p
-          onClick={() => {
-            if (hrMail.length > 0) {
-              if (!isValidEmail(hrMail)) {
-                setError(true);
-              } else {
-                inviteHandler(hrMail, dataToUpdate.id);
-                toast(`📧 Приглашение отправлено`, {
-                  position: isMobile ? "top-center" : "bottom-right",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: false,
-                  draggable: true,
-                  progress: undefined,
-                  // theme: "dark",
-                  progressStyle: { background: "#5875e8" },
-                  containerId: "forCopy",
-                });
-                setError(false);
-                setHrMail("");
-              }
-            }
-          }}
-          className={`text-[16px] w-fit select-none font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms] ${
-            hrMail.length > 0
-              ? "cursor-pointer text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C]"
-              : "text-[#bfbfbf] cursor-default"
-          }`}
+          padding={12}
         >
-          Пригласить
-        </p>
-      </Card>
+          <Input
+            type="email"
+            error={error}
+            placeholder="hr@recruter.com"
+            label="Почта рекрутера"
+            value={hrMail}
+            onChange={(val) => {
+              setHrMail(val);
+              setError(false);
+            }}
+          />
+          <p
+            onClick={() => {
+              if (hrMail.length > 0) {
+                if (!isValidEmail(hrMail)) {
+                  setError(true);
+                } else {
+                  inviteHandler(hrMail, dataToUpdate.id);
+                  toast(`📧 Приглашение отправлено`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  setError(false);
+                  setHrMail("");
+                }
+              }
+            }}
+            className={`text-[16px] w-fit select-none font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms] ${
+              hrMail.length > 0
+                ? "cursor-pointer text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C]"
+                : "text-[#bfbfbf] cursor-default"
+            }`}
+          >
+            Пригласить
+          </p>
+        </Card>
+      )}
       {/* добавить рекрутера */}
 
       <UpploadAvatarModal

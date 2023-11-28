@@ -33,19 +33,19 @@ const OthersCompanyWithNav = ({
         <CompanyVacancies role={role} others id={data.id} userId={userId} />
       ),
     },
-    // {
-    //   id: 2,
-    //   active: false,
-    //   name: "Посты и ответы",
-    //   component: (
-    //     <ProfilePosts
-    //       company
-    //       others
-    //       getUserFeed={getUserFeed}
-    //       addReaction={addReaction}
-    //     />
-    //   ),
-    // },
+    {
+      id: 2,
+      active: false,
+      name: "Посты",
+      component: (
+        <ProfilePosts
+          company
+          others
+          getUserFeed={getUserFeed}
+          addReaction={addReaction}
+        />
+      ),
+    },
     // {
     //   id: 2,
     //   active: false,

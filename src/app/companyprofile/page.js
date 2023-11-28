@@ -3,6 +3,7 @@ import { reactOnPost } from "../../server/actions/reactOnPost";
 import { getServSession } from "../../app/api/auth/[...nextauth]/route";
 import { getCompanyProfile } from "../../server/actions/company/getCompanyProfile";
 import CompanyProfile from "../../components/company/CompanyProfile";
+import { getHrsPosts } from "../../server/actions/company/getHrsPosts";
 
 const CompanyPage = async () => {
   const session = await getServSession();
@@ -15,7 +16,7 @@ const CompanyPage = async () => {
   async function getUserFeed(cursor) {
     "use server";
     const session = await getServSession();
-    const posts = await getUserPosts(session.user.id, cursor);
+    const posts = await getHrsPosts(data.id, cursor, session?.user?.id);
 
     return posts;
   }
