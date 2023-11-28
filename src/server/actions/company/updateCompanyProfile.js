@@ -36,7 +36,7 @@ export const updateCompanyProfile = async ({ userId, data }) => {
     username: data.username,
     slogan: data.slogan !== null ? data.slogan : "",
     industry: data.industry?.label,
-    about: data.about !== null ? data.slogan : "",
+    about: data.about !== null ? data.about : "",
   });
   const me = await prisma.user.findUnique({
     where: {
