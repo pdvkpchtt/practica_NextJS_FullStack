@@ -5,6 +5,9 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useClipboard } from "use-clipboard-copy";
 
 import TextMain from "../../shared/Text/TextMain ";
 import TextSecondary from "../../shared/Text/TextSecondary";
@@ -43,6 +46,7 @@ const CompanyLeft = ({ navState, data, withoutActions = false, onClick }) => {
 
   if (typeof window !== "undefined")
     window.addEventListener("scroll", changeOpacity);
+  const clipboard = useClipboard();
 
   console.log(data);
   // console.log(data);
@@ -104,7 +108,22 @@ const CompanyLeft = ({ navState, data, withoutActions = false, onClick }) => {
             />
             <TextSecondary
               text={`@${data.username.length !== 0 ? data.username : data.id}`}
-              style="font-medium text-[16px] leading-[20px] tracking-[-0.24px] w-full text-center"
+              onClick={() => {
+                toast(`🗂 Текст скопирован`, {
+                  position: isMobile ? "top-center" : "bottom-right",
+                  autoClose: 2000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: false,
+                  draggable: true,
+                  progress: undefined,
+                  // theme: "dark",
+                  progressStyle: { background: "#5875e8" },
+                  containerId: "forCopy",
+                });
+                clipboard.copy(data.username);
+              }}
+              style="font-medium text-[16px] leading-[20px] cursor-pointer tracking-[-0.24px] w-full text-center"
             />
           </div>
           {/* name and username */}

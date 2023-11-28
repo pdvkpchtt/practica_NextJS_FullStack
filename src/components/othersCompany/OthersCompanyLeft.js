@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import { useClipboard } from "use-clipboard-copy";
 
 import TextMain from "../../shared/Text/TextMain ";
 import TextSecondary from "../../shared/Text/TextSecondary";
@@ -34,8 +35,7 @@ const OthersCompanyLeft = ({ navState, data }) => {
   const ref = useRef(null);
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
   const { height, width } = useWindowDimensions();
-
-  const location = [data.city, data.country];
+  const clipboard = useClipboard();
 
   const [trigger, setTrigger] = useState(false);
   const [opacity, setOpacity] = useState(false);
@@ -139,7 +139,22 @@ const OthersCompanyLeft = ({ navState, data }) => {
             />
             <TextSecondary
               text={`@${data.username.length !== 0 ? data.username : data.id}`}
-              style="font-medium text-[16px] leading-[20px] tracking-[-0.24px] w-full text-center"
+              onClick={() => {
+                toast(`🗂 Текст скопирован`, {
+                  position: isMobile ? "top-center" : "bottom-right",
+                  autoClose: 2000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: false,
+                  draggable: true,
+                  progress: undefined,
+                  // theme: "dark",
+                  progressStyle: { background: "#5875e8" },
+                  containerId: "forCopy",
+                });
+                clipboard.copy(data.username);
+              }}
+              style="font-medium text-[16px] cursor-pointer leading-[20px] tracking-[-0.24px] w-full text-center"
             />
           </div>
           {/* name and username */}

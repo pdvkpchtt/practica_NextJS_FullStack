@@ -7,8 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-
 import { useRouter } from "next/navigation";
+import { useClipboard } from "use-clipboard-copy";
 
 import TextMain from "../..//shared/Text/TextMain ";
 import TextSecondary from "../..//shared/Text/TextSecondary";
@@ -85,6 +85,7 @@ const OthersLeft = ({
     setIfHeSentRequest(dataTimer.ifHeSentRequest);
     setloading(false);
   };
+  const clipboard = useClipboard();
 
   const [trigger, setTrigger] = useState(false);
   const [opacity, setOpacity] = useState(false);
@@ -206,7 +207,22 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
               />
               <TextSecondary
                 text={`@${data.username}`}
-                style="font-medium text-[14px] leading-[16px] tracking-[-0.015em]"
+                onClick={() => {
+                  toast(`🗂 Текст скопирован`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  clipboard.copy(data.username);
+                }}
+                style="font-medium cursor-pointer text-[14px] leading-[16px] tracking-[-0.015em]"
               />
             </div>
             {/* name and username */}

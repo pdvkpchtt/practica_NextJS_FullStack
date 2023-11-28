@@ -1,6 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useClipboard } from "use-clipboard-copy";
 import { LayoutGroup, motion } from "framer-motion";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -65,6 +68,7 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
   const [contactsModalState, setContactsModalState] = useState(false);
 
   const [updatesState, setUpdatesState] = useState(null);
+  const clipboard = useClipboard();
 
   const getInfoAboutUpdates = async () => {
     const updatesCount = await getMyProfileInfoTimer();
@@ -167,7 +171,22 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
               />
               <TextSecondary
                 text={`@${data.username}`}
-                style="font-medium text-[14px] leading-[16px] tracking-[-0.015em]"
+                style="font-medium text-[14px] cursor-pointer leading-[16px] tracking-[-0.015em]"
+                onClick={() => {
+                  toast(`🗂 Текст скопирован`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  clipboard.copy(data.username);
+                }}
               />
             </div>
             {/* name and username */}
