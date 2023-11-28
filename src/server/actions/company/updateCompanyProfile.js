@@ -70,11 +70,11 @@ export const updateCompanyProfile = async ({ userId, data }) => {
       isStartap: data.isStartap,
       Cities: {
         deleteMany: {},
-        createMany: data.Cities?.length === 0 ? {} : { data: [...data.Cities] },
+        createMany: { data: [...data.Cities] },
       },
       Links: {
         deleteMany: {},
-        createMany: data.Links?.length === 0 ? {} : { data: [...data.Links] },
+        createMany: { data: [...data.Links] },
       },
       industry:
         data.industry?.length === 0
