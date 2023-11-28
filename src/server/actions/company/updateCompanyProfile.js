@@ -26,9 +26,9 @@ export const updateCompanyProfile = async ({ userId, data }) => {
   const validate = z.object({
     name: z.string().min(1, { message: "inputName minlen" }),
     username: z.string().min(1, { message: "inputUsername minlen" }),
-    slogan: z.string().max(60, { message: "inputSlogan maxlen" }).optional(),
+    slogan: z.string().max(60, { message: "inputSlogan maxlen" }),
     industry: z.string().min(1, { message: "inputIndustry minlen" }),
-    about: z.string().max(240, { message: "inputAbout maxlen" }).optional(),
+    about: z.string().max(120, { message: "inputAbout maxlen" }),
   });
 
   const validateRes = validate.safeParse({

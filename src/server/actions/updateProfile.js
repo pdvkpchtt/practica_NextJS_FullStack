@@ -6,7 +6,7 @@ export const updateProfile = async ({ userId, data }) => {
   const validate = z.object({
     name: z.string().min(1, { message: "inputName minlen" }),
     username: z.string().min(1, { message: "inputUsername minlen" }),
-    about: z.string().max(120, { message: "inputAbout maxlen" }),
+    about: z.string().max(240, { message: "inputAbout maxlen" }),
   });
 
   const validateRes = validate.safeParse({
