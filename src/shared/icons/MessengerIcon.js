@@ -42,7 +42,7 @@ const MessengerIcon = ({ fill = "#000", size = 25 }) => {
               cx="5"
               cy="5"
               r="4"
-              fill="white"
+              className="fill-white dark:fill-[#1a1a1a]"
               stroke="#F04646"
               strokeWidth="2"
             />
