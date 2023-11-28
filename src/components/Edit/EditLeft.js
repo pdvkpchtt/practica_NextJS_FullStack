@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import InputMask from "react-input-mask";
 
 import Card from "../../shared/ui/Card";
 import { Input } from "../../shared/ui/Input";
@@ -11,6 +12,7 @@ import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 import { updateEmail } from "../../server/actions/company/updateCompanyProfile";
 import UpploadAvatarModal from "../../shared/ui/UpploadAvatarModal";
 import ImageIcon from "../../shared/icons/ImageIcon";
+import TextSecondary from "../../shared/Text/TextSecondary";
 
 const EditLeft = ({
   data,
@@ -39,31 +41,6 @@ const EditLeft = ({
         await updateEmail(myMail);
         signOut();
       }
-    }
-  };
-
-  const birthDateHandler = (e) => {
-    // потом доделаю (upd ДОДЕЛАЛ)
-
-    if (
-      // (upd тестил на андроиде и там не регестрируется нажатие на бекспейс поэтому добавил это)
-      e.length < birthValue.length &&
-      birthValue[birthValue.length - 1] == "."
-    ) {
-      setBirthValue(e.slice(0, -1));
-      // console.log("tr");
-    } else if (e.length == 2) {
-      setBirthValue(e + ".");
-    } else if (e.length == 5) {
-      setBirthValue(e + ".");
-    } else if (
-      e.slice(0, 2).match(/[a-zA-Zа-яА-Я\W]/g) ||
-      e.slice(3, 5).match(/[a-zA-Zа-яА-Я\W]/g) ||
-      e.slice(6, 10).match(/[a-zA-Zа-яА-Я\W]/g)
-    ) {
-      console.log("");
-    } else {
-      setBirthValue(e);
     }
   };
 
@@ -148,17 +125,6 @@ const EditLeft = ({
           }}
         />
         <Input
-          placeholder="Например, Россия"
-          label="Страна"
-          value={dataToUpdate.country}
-          onChange={(country) =>
-            setDataToUpdate({
-              ...dataToUpdate,
-              country: country,
-            })
-          }
-        />
-        <Input
           placeholder="Например, Уфа"
           label="Город"
           value={dataToUpdate.city}
@@ -169,19 +135,30 @@ const EditLeft = ({
             })
           }
         />
-        <Input
-          placeholder="дд.мм.гггг"
-          label="День рождения"
-          value={birthValue}
-          onChange={(e) => birthDateHandler(e)}
-          // onKeyDown={(event) => {
-          //   event == "Backspace" &&
-          //     birthValue[birthValue.length - 1] == "." &&
-          //     setBirthValue(birthValue.slice(0, -2));
-          // }}
-          maxLength={10}
-          defaultValue={data.birthDate}
-        />
+        <div className="flex flex-col w-full">
+          <TextSecondary
+            text={"День рождения"}
+            style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+          />
+          <InputMask
+            mask="99.99.9999"
+            value={dataToUpdate.birthDate}
+            onChange={(e) => {
+              setDataToUpdate({ ...dataToUpdate, birthDate: e.target.value });
+            }}
+            maskChar=""
+          >
+            {(inputProps) => (
+              <input
+                placeholder={""}
+                value={inputProps.birthDate}
+                className={`px-[12px] h-[42px] text-[#2c2c2c] dark:text-white text-[14px] pb-[12px] bg-[#f6f6f8] w-full dark:bg-[#2c2c2c] placeholder:text-[#bfbfbf] placeholder:select-none dark:placeholder:text-[#8f8f8f] pt-[11px] transition duration-[250ms] hover:inner-border-[1px] hover:inner-border-[#5875e8] outline-none placeholder:font-normal leading-[18px] tracking-[-0.015em] placeholder:leading-[18px] placeholder:tracking-[-0.015em] rounded-[8px]`}
+                //   onChange={}
+                //   maxLength={17}
+              />
+            )}
+          </InputMask>
+        </div>
       </Card>
 
       {/* изменить почту */}

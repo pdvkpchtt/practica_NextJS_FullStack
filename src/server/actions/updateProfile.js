@@ -34,7 +34,6 @@ export const updateProfile = async ({ userId, data }) => {
     },
     data: {
       name: data.name,
-      country: data.country,
       city: data.city,
       about: data.about,
       username: data.username,

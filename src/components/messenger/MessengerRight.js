@@ -53,7 +53,6 @@ const MessengerRight = ({ profileData, pitchesState, superpitchesState }) => {
       </div>
     );
   }
-  const location = [profileData?.city, profileData?.country];
 
   return (
     <div
@@ -106,23 +105,12 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
 
           {/* location and birth date */}
           <div className="flex flex-col">
-            {(profileData.city === null && profileData.country === null) ||
-            (profileData.city?.length === 0 &&
-              profileData.country?.length === 0) ? null : (
+            {profileData.city === null ||
+            profileData.city?.length === 0 ? null : (
               <div className="flex flex-row gap-[8px] mt-[12px]">
                 <LocationIcon />
                 <TextSecondary
-                  text={location.map((i, key) =>
-                    !i
-                      ? ""
-                      : `${i}${
-                          location[key + 1] === null ||
-                          location[key + 1]?.length === 0 ||
-                          key === location.length - 1
-                            ? ""
-                            : ", "
-                        }`
-                  )}
+                  text={profileData.city}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>

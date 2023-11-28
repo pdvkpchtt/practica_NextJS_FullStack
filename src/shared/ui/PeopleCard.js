@@ -12,8 +12,6 @@ import SkillCard from "./SkillCard";
 const PeopleCard = ({ item }) => {
   const router = useRouter();
 
-  const location = [item.city, item.country];
-
   return (
     <Card style="flex flex-col gap-[12px]" padding={12}>
       {/* image name time */}
@@ -40,20 +38,9 @@ const PeopleCard = ({ item }) => {
             style="font-medium text-[16px] cursor-pointer leading-[19.2px] tracking-[-0.015em]"
             onClick={() => router.push(`/profile/${item.username || item.id}`)}
           />
-          {(item.city === null && item.country === null) ||
-          (item.city?.length === 0 && item.country?.length === 0) ? null : (
+          {item.city === null || item.city?.length === 0 ? null : (
             <TextSecondary
-              text={location.map((i, key) =>
-                !i
-                  ? ""
-                  : `${i}${
-                      location[key + 1] === null ||
-                      location[key + 1]?.length === 0 ||
-                      key === location.length - 1
-                        ? ""
-                        : ", "
-                    }`
-              )}
+              text={item.city}
               style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
             />
           )}
