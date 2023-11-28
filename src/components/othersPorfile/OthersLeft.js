@@ -297,7 +297,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
         </Card>
 
         {/* hr */}
-        {data.role === "hr" && (
+        {data.role.includes("hr") && (
           <div className="p-[12px] rounded-[20px] items-center flex flex-row justify-between max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]">
             <ButtonGhost
               text={data.hrCompany.company.name}

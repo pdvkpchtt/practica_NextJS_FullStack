@@ -115,7 +115,7 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
                       text={postState?.author_name}
                       style="font-medium text-[16px] leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] truncate cursor-pointer"
                       onClick={() => {
-                        item.role === "student" || item.role === "hr"
+                        item.role === "student" || item.role.includes("hr")
                           ? postState?.author_id === userId
                             ? router.push("/profile")
                             : router.push(`/profile/${postState.username}`)

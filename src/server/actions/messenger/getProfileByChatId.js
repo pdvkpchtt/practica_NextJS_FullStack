@@ -58,7 +58,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
       return parseInt(this.toString());
     };
 
-    if (user.role === "hr") {
+    if (user.role.includes("hr")) {
       const comapny = await prisma.Hr.findFirst({
         where: { userId: user.id },
         select: {
@@ -236,7 +236,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
       return parseInt(this.toString());
     };
 
-    if (user.participants[0].role === "hr") {
+    if (user.participants[0].role.includes("hr")) {
       const comapny = await prisma.Hr.findFirst({
         where: { userId: user.participants[0].id },
         select: {

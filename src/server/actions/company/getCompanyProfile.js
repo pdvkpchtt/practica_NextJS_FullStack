@@ -67,7 +67,7 @@ export const getCompanyProfile = async ({ userId, role = "company" }) => {
       hrcount: foundCompany?.HR?.length,
       followersCount: foundCompany?.user?._count?.myCompanyFolowers,
     };
-  } else if (role === "hr") {
+  } else if (role.includes("hr")) {
     const companyInfo = await prisma.Hr.findFirst({
       where: { userId: userId },
       select: {

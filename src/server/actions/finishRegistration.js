@@ -72,7 +72,7 @@ export const finishRegistration = async (inputRole) => {
       id: session.user.id,
     },
     data: {
-      role: "hr",
+      role: "hr_no_nickname",
       name: generateNames(),
       username: session.user.id,
       plan: {

@@ -61,7 +61,7 @@ export const createVacancy = async (id, data, role = "company") => {
   // валидация
 
   let getHrId = "";
-  if (role === "hr") {
+  if (role.includes("hr")) {
     getHrId = await prisma.Hr.findFirst({
       where: { userId: id },
       select: {

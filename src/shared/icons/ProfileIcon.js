@@ -44,7 +44,7 @@ const ProfileIcon = ({ fill = "#000", size = 25, role }) => {
         </div>
       </Link>
     );
-  else if (role === "hr" && !pathname.includes("/companyprofile"))
+  else if (role.includes("hr") && !pathname.includes("/companyprofile"))
     return (
       <Link
         href={pathname === "/profile" ? "/companyprofile" : "/profile"}
@@ -70,7 +70,7 @@ const ProfileIcon = ({ fill = "#000", size = 25, role }) => {
         </div>
       </Link>
     );
-  else if (role === "hr" && pathname.includes("/companyprofile"))
+  else if (role.includes("hr") && pathname.includes("/companyprofile"))
     return (
       <Link href={"/profile"} className="group">
         <div className="w-[30px] h-[30px] flex items-center justify-center cursor-pointer bg-transparent group-hover:bg-[#74899B] group-hover:bg-opacity-[8%] transition duration-[250ms] rounded-[8px]">

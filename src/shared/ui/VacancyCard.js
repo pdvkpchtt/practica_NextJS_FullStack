@@ -140,7 +140,7 @@ const VacancyCard = ({ item, role = "student", userId }) => {
                   {item?.partOfTeam?.userId && (
                     <DotsIcon onClick={() => toggle(true)} />
                   )}
-                  {(role === "student" || role === "hr") && (
+                  {(role === "student" || role.includes("hr")) && (
                     <BookmarkIcon item={item} userId={userId} />
                   )}
                 </div>
