@@ -126,6 +126,12 @@ const EditRight = ({
                 });
                 console.log(res?.message, "ass");
                 setStatus(res?.message);
+                if (res?.submsg)
+                  setStatus(
+                    res?.message
+                      ? [...res?.message, res?.submsg]
+                      : [res?.submsg]
+                  );
 
                 if (!res) {
                   toast(`💾 Изменения сохранены`, {

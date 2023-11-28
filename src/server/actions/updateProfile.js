@@ -15,55 +15,57 @@ export const updateProfile = async ({ userId, data }) => {
     about: data.about,
   });
 
-  if (!validateRes.success)
+  const checkusername = await prisma.user.findFirst({
+    where: { username: data.username },
+    select: { id: true },
+  });
+
+  if (!validateRes.success || checkusername?.id)
     return {
       status: "error",
       message: validateRes.error?.errors?.map((i) => i?.message),
+      submsg: checkusername?.id ? "inputUsername unique" : null,
     };
   // валидация
 
-  try {
-    const user = await prisma.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        name: data.name,
-        country: data.country,
-        city: data.city,
-        about: data.about,
-        username: data.username,
-        birthDate: data.birthDate || null,
-        inSearch: data.inSearch ? data.inSearch : false,
-        educationLevel: data.educationLevel?.id
-          ? {
-              connect: {
-                id: data.educationLevel?.id,
-              },
-            }
-          : {},
-        Education: {
-          deleteMany: {},
-          createMany: {
-            data: [...data.education],
-          },
-        },
-        WorkExperience: {
-          deleteMany: {},
-          createMany: {
-            data: [...data.workExperience],
-          },
-        },
-        UserSkills: {
-          deleteMany: {},
-          createMany: {
-            data: [...data.UserSkills],
-          },
+  const user = await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      name: data.name,
+      country: data.country,
+      city: data.city,
+      about: data.about,
+      username: data.username,
+      birthDate: data.birthDate || null,
+      inSearch: data.inSearch ? data.inSearch : false,
+      educationLevel: data.educationLevel?.id
+        ? {
+            connect: {
+              id: data.educationLevel?.id,
+            },
+          }
+        : {},
+      Education: {
+        deleteMany: {},
+        createMany: {
+          data: [...data.education],
         },
       },
-    });
-  } catch (err) {
-    return { status: "error", message: ["inputUsername unique"] };
-  }
+      WorkExperience: {
+        deleteMany: {},
+        createMany: {
+          data: [...data.workExperience],
+        },
+      },
+      UserSkills: {
+        deleteMany: {},
+        createMany: {
+          data: [...data.UserSkills],
+        },
+      },
+    },
+  });
   // return user;
 };

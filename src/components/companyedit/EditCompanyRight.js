@@ -66,6 +66,15 @@ const EditCompanyRight = ({
                 console.log(res?.message, "ass");
                 setStatus(res?.message);
 
+                if (res?.submsg)
+                  setStatus(
+                    res?.message
+                      ? [...res?.message, res?.submsg]
+                      : [res?.submsg]
+                  );
+
+                console.log(res);
+
                 if (!res) {
                   toast(`💾 Изменения сохранены`, {
                     position: isMobile ? "top-center" : "bottom-right",

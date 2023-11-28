@@ -38,51 +38,52 @@ export const updateCompanyProfile = async ({ userId, data }) => {
     about: data.about,
   });
 
-  if (!validateRes.success)
+  const checkusername = await prisma.company.findFirst({
+    where: { username: data.username },
+    select: { id: true },
+  });
+
+  if (!validateRes.success || checkusername?.id)
     return {
       status: "error",
       message: validateRes.error?.errors?.map((i) => i?.message),
+      submsg: checkusername?.id ? "inputUsername unique" : null,
     };
   // валидация
 
-  try {
-    const me = await prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-      select: {
-        HR: { select: { company: { select: { id: true } } } },
-      },
-    });
+  const me = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      HR: { select: { company: { select: { id: true } } } },
+    },
+  });
 
-    const companyEdited = await prisma.company.update({
-      where: { id: me.HR[0].company.id },
-      data: {
-        name: data.name,
-        username: data.username,
-        slogan: data.slogan,
-        about: data.about,
-        isStartap: data.isStartap,
-        Cities: {
-          deleteMany: {},
-          createMany:
-            data.Cities?.length === 0 ? {} : { data: [...data.Cities] },
-        },
-        Links: {
-          deleteMany: {},
-          createMany: data.Links?.length === 0 ? {} : { data: [...data.Links] },
-        },
-        industry:
-          data.industry?.length === 0
-            ? {}
-            : { connect: { id: data.industry.id } },
-        employee:
-          data.employee?.length === 0
-            ? {}
-            : { connect: { id: data.employee.id } },
+  const companyEdited = await prisma.company.update({
+    where: { id: me.HR[0].company.id },
+    data: {
+      name: data.name,
+      username: data.username,
+      slogan: data.slogan,
+      about: data.about,
+      isStartap: data.isStartap,
+      Cities: {
+        deleteMany: {},
+        createMany: data.Cities?.length === 0 ? {} : { data: [...data.Cities] },
       },
-    });
-  } catch (err) {
-    return { status: "error", message: ["inputUsername unique"] };
-  }
+      Links: {
+        deleteMany: {},
+        createMany: data.Links?.length === 0 ? {} : { data: [...data.Links] },
+      },
+      industry:
+        data.industry?.length === 0
+          ? {}
+          : { connect: { id: data.industry.id } },
+      employee:
+        data.employee?.length === 0
+          ? {}
+          : { connect: { id: data.employee.id } },
+    },
+  });
 };
