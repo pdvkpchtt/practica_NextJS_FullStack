@@ -115,6 +115,8 @@ const EditCompanyLeft = ({
               ? "Поле обязательно к заполнению"
               : status?.includes("inputUsername unique")
               ? "Этот username занят"
+              : status?.includes("inputUsername change")
+              ? "Измените username после регистрации"
               : null
           }
           onChange={(username) => {

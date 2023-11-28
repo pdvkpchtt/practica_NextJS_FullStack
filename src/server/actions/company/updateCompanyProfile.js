@@ -21,14 +21,14 @@ export const updateEmail = async (data) => {
 };
 
 export const updateCompanyProfile = async ({ userId, data }) => {
-  console.log(data, "fuck");
+  console.log(data, "server upd dat");
   // валидация
   const validate = z.object({
     name: z.string().min(1, { message: "inputName minlen" }),
     username: z.string().min(1, { message: "inputUsername minlen" }),
     slogan: z.string().max(60, { message: "inputSlogan maxlen" }),
     industry: z.string().min(1, { message: "inputIndustry minlen" }),
-    about: z.string().max(120, { message: "inputAbout maxlen" }),
+    about: z.string().max(240, { message: "inputAbout maxlen" }),
   });
 
   const validateRes = validate.safeParse({
@@ -51,14 +51,34 @@ export const updateCompanyProfile = async ({ userId, data }) => {
     where: { username: data.username, id: { not: me.HR[0].company.id } },
     select: { id: true },
   });
+  const session = await getServSession();
 
-  if (!validateRes.success || checkusername?.id)
+  if (
+    !validateRes.success ||
+    checkusername?.id ||
+    data.username === session.user.id
+  )
     return {
       status: "error",
       message: validateRes.error?.errors?.map((i) => i?.message),
-      submsg: checkusername?.id ? "inputUsername unique" : null,
+      submsg: checkusername?.id
+        ? "inputUsername unique"
+        : data.username === session.user.id
+        ? "inputUsername change"
+        : null,
     };
   // валидация
+
+  if (data.username !== session.user.id) {
+    const editedMail = await prisma.user.update({
+      where: {
+        id: session?.user?.id,
+      },
+      data: {
+        role: "hr",
+      },
+    });
+  }
 
   const companyEdited = await prisma.company.update({
     where: { id: me.HR[0].company.id },

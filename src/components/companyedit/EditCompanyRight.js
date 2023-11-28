@@ -30,6 +30,23 @@ const EditCompanyRight = ({
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
   console.log(dataToUpdate);
 
+  useEffect(() => {
+    if (dataToUpdate.role === "hr_no_nickname") {
+      toast(`🤡 Измените username`, {
+        position: isMobile ? "top-center" : "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        // theme: "dark",
+        progressStyle: { background: "#5875e8" },
+        containerId: "forCopy",
+      });
+    }
+  }, []);
+
   const [littleLoader, setLittleLoader] = useState(false);
   const [state, setState] = useState(false);
   const [state2, setState2] = useState(false);
@@ -48,15 +65,22 @@ const EditCompanyRight = ({
     <div className="w-full flex flex-col hideScrollbarNavMobile">
       {/* header */}
       <div className="[@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:z-[300] [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:left-0 [@media(pointer:coarse)]:rounded-t-[0px] border-b-[0.7px] border-b-[#E7E7E7] bg-white dark:bg-[#212122] dark:border-b-[#2f2f2f] rounded-t-[20px] p-[12px]">
-        <div className="w-full flex flex-row  justify-between [@media(pointer:coarse)]:max-w-[476px] [@media(pointer:coarse)]:mx-auto">
-          <OneIconButton
-            onClick={() =>
-              router.push(`/companyprofile`, { query: { data: "update" } })
-            }
-          >
-            <ArrowLeftIcon />
-          </OneIconButton>
-
+        <div
+          className={`w-full flex flex-row  ${
+            dataToUpdate.role !== "hr_no_nickname"
+              ? "justify-between"
+              : "justify-end"
+          } [@media(pointer:coarse)]:max-w-[476px] [@media(pointer:coarse)]:mx-auto`}
+        >
+          {dataToUpdate.role !== "hr_no_nickname" && (
+            <OneIconButton
+              onClick={() =>
+                router.push(`/companyprofile`, { query: { data: "update" } })
+              }
+            >
+              <ArrowLeftIcon />
+            </OneIconButton>
+          )}
           <div
             onClick={async () => {
               if (isDataChanged) {

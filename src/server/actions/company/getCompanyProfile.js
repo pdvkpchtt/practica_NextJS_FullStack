@@ -34,6 +34,7 @@ export const getCompanyProfile = async ({ userId, role = "company" }) => {
           select: {
             id: true,
             email: true,
+            role: true,
             _count: {
               select: { myCompanyFolowers: true },
             },
@@ -52,6 +53,7 @@ export const getCompanyProfile = async ({ userId, role = "company" }) => {
       id: foundCompany?.id,
       email: userEmail?.email,
       userId: foundCompany?.userId,
+      role: foundCompany?.user?.role,
       name: foundCompany?.name,
       username: foundCompany?.username,
       slogan: foundCompany?.slogan,
@@ -93,6 +95,7 @@ export const getCompanyProfile = async ({ userId, role = "company" }) => {
               select: {
                 id: true,
                 email: true,
+                role: true,
                 _count: {
                   select: { myCompanyFolowers: true },
                 },
@@ -107,6 +110,7 @@ export const getCompanyProfile = async ({ userId, role = "company" }) => {
       email: userEmail?.email,
       userId: companyInfo?.company?.userId,
       // followersCount: userEmail?._count?.myCompanyFolowers,
+      role: companyInfo?.company?.user?.role,
       name: companyInfo?.company?.name,
       image: companyInfo?.company?.image,
       username: companyInfo?.company?.username,
