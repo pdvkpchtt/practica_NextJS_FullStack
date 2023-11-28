@@ -12,11 +12,11 @@ export const updateProfile = async ({ userId, data }) => {
   const validateRes = validate.safeParse({
     name: data.name,
     username: data.username,
-    about: data.about,
+    about: data.about !== null ? data.about : "",
   });
 
   const checkusername = await prisma.user.findFirst({
-    where: { username: data.username },
+    where: { username: data.username, id: { not: userId } },
     select: { id: true },
   });
 

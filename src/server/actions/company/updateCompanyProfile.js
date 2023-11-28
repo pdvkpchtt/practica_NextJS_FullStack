@@ -21,25 +21,34 @@ export const updateEmail = async (data) => {
 };
 
 export const updateCompanyProfile = async ({ userId, data }) => {
+  console.log(data, "fuck");
   // валидация
   const validate = z.object({
     name: z.string().min(1, { message: "inputName minlen" }),
     username: z.string().min(1, { message: "inputUsername minlen" }),
-    slogan: z.string().max(60, { message: "inputSlogan maxlen" }),
+    slogan: z.string().max(60, { message: "inputSlogan maxlen" }).optional(),
     industry: z.string().min(1, { message: "inputIndustry minlen" }),
-    about: z.string().max(240, { message: "inputAbout maxlen" }),
+    about: z.string().max(240, { message: "inputAbout maxlen" }).optional(),
   });
 
   const validateRes = validate.safeParse({
     name: data.name,
     username: data.username,
-    slogan: data.slogan,
+    slogan: data.slogan !== null ? data.slogan : "",
     industry: data.industry?.label,
-    about: data.about,
+    about: data.about !== null ? data.slogan : "",
+  });
+  const me = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      HR: { select: { company: { select: { id: true } } } },
+    },
   });
 
   const checkusername = await prisma.company.findFirst({
-    where: { username: data.username },
+    where: { username: data.username, id: { not: me.HR[0].company.id } },
     select: { id: true },
   });
 
@@ -50,15 +59,6 @@ export const updateCompanyProfile = async ({ userId, data }) => {
       submsg: checkusername?.id ? "inputUsername unique" : null,
     };
   // валидация
-
-  const me = await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-    select: {
-      HR: { select: { company: { select: { id: true } } } },
-    },
-  });
 
   const companyEdited = await prisma.company.update({
     where: { id: me.HR[0].company.id },

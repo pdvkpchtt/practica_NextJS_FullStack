@@ -63,7 +63,7 @@ const EditCompanyRight = ({
                 setLittleLoader(true);
                 // try {
                 const res = await updateCompanyData(dataToUpdate);
-                console.log(res?.message, "ass");
+                console.log(res, "ochko");
                 setStatus(res?.message);
 
                 if (res?.submsg)
