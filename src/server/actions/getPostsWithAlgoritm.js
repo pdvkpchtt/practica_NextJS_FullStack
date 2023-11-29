@@ -25,7 +25,11 @@ export const getPostsWithAlgoritm = async (id, cursor) => {
   });
 
   circles?.connections?.map((i) => arr.push(i.id));
-  circles?.connections.map((i2) => i2.connections.map((i) => arr.push(i.id)));
+  circles?.connections.map((i2) => i2.connections.map((i) => arr2.push(i)));
+  arr2.map((i) => arr.push(i.id));
+  arr2.map((i) =>
+    i.connections.map((i) => !arr.includes(i.id) && arr.push(i.id))
+  );
 
   return arr;
   //   const posts = await prisma.post.findMany({
