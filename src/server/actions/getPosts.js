@@ -1,6 +1,6 @@
 import { prisma } from "../db";
 
-export const getPosts = async (id, cursor) => {
+export const getPosts = async (id, cursor, category) => {
   const posts = await prisma.post.findMany({
     take: 11,
     ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
@@ -33,6 +33,19 @@ export const getPosts = async (id, cursor) => {
         select: {
           id: true,
           name: true,
+        },
+      },
+    },
+    where: {
+      category: {
+        name: {
+          contains:
+            category === "offtop"
+              ? "Офтоп"
+              : category === "yesfuture"
+              ? "yes future!"
+              : "",
+          mode: "insensitive",
         },
       },
     },

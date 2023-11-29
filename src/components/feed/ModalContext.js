@@ -4,6 +4,7 @@ import { useState, createContext } from "react";
 
 import OfftopIcon from "../../shared/icons/feed/OfftopIcon";
 import ForYouIcon from "../../shared/icons/feed/ForYouIcon";
+import FutureIcon from "../../shared/icons/feed/FutureIcon";
 
 export const ModalContext = createContext();
 
@@ -18,13 +19,13 @@ const ModalContextWrap = ({ children }) => {
       icon: <ForYouIcon />,
       route: "/feed/foryou",
     },
-    // {
-    //   id: 1,
-    //   active: false,
-    //   name: "образование",
-    //   icon: EducationIcon,
-    //   route: "/feed/education",
-    // },
+    {
+      id: 1,
+      active: false,
+      name: "yes future!",
+      icon: <FutureIcon />,
+      route: "/feed/yesfuture",
+    },
     {
       id: 2,
       active: false,

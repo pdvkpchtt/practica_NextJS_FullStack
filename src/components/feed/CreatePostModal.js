@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useMediaQuery } from "react-responsive";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 import CircularProggressBar from "../../shared/ui/CircularProggressBar";
 import Modal from "../../shared/ui/Modal";
@@ -54,11 +55,17 @@ const CreatePostModal = ({
   textMax = 500,
   onToastClick = () => {},
 }) => {
+  const router = useRouter();
+
   const inputRef = useRef(null);
   const inputRef2 = useRef(null);
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
-  const [dropDownState, setDropDownState] = useState({ name: "Офтоп" });
+  const [dropDownState, setDropDownState] = useState({
+    id: "clnxhc0ir00009rtwtmt5wy0z",
+    name: "Без темы",
+  });
+  console.log("picked category", dropDownState);
   const [headState, setHeadState] = useState("");
   const [textState, setTextState] = useState("");
 
@@ -183,7 +190,7 @@ const CreatePostModal = ({
               isBlinking
                 ? "placeholder:text-[#f6f6f8]"
                 : "placeholder:text-[#BFBFBF]"
-            } outline-none min-h-[25px] resize-none bg-transparent transition duration-[250ms] text-[20px] font-medium text-[#2c2c2c] dark:text-white leading-[22px] tracking-[-0.025em]`}
+            } outline-none min-h-[25px] resize-none bg-transparent placeholder:select-none transition duration-[250ms] text-[20px] font-medium text-[#2c2c2c] dark:text-white leading-[22px] tracking-[-0.025em]`}
             placeholder={"Заголовок"}
             value={headState}
             onChange={(e) => setHeadState(e.target.value)}
@@ -200,12 +207,14 @@ const CreatePostModal = ({
                 isBlinking
                   ? "placeholder:text-[#f6f6f8]"
                   : "placeholder:text-[#BFBFBF]"
-              } outline-none w-full resize-none bg-transparent placeholder:text-[#BFBFBF] text-[16px] font-normal text-[#2c2c2c] dark:text-white leading-[19px] tracking-[-0.015em]`}
+              } outline-none w-full resize-none bg-transparent placeholder:select-none placeholder:text-[#BFBFBF] text-[16px] font-normal text-[#2c2c2c] dark:text-white leading-[19px] tracking-[-0.015em]`}
               placeholder={
                 dropDownState.name === "Офтоп"
                   ? "Отдохните от работы и просто расскажите о своих делах"
-                  : dropDownState.name === "Для вас"
+                  : dropDownState.name === "Без темы"
                   ? "Поделитесь мыслями и новостями, расскажите об опыте и заинтересуйте единомышленников"
+                  : dropDownState.name === "yes future!"
+                  ? "Пишите о технологиях и нововведениях, которые вас впечатлили или показались перспективными"
                   : "Текст"
               }
               value={textState}
@@ -259,6 +268,12 @@ const CreatePostModal = ({
                       reactions: pickedReactions,
                       category: dropDownState,
                     });
+                    if (dropDownState.name === "Офтоп")
+                      router.push("/feed/offtop");
+                    if (dropDownState.name === "Без темы")
+                      router.push("/feed/foryou");
+                    if (dropDownState.name === "yes future!")
+                      router.push("/feed/yesfuture");
                     updateFeed(post);
                     setHeadState("");
                     setTextState("");
@@ -334,6 +349,12 @@ const CreatePostModal = ({
                         reactions: pickedReactions,
                         category: dropDownState,
                       });
+                      if (dropDownState.name === "Офтоп")
+                        router.push("/feed/offtop");
+                      if (dropDownState.name === "Без темы")
+                        router.push("/feed/foryou");
+                      if (dropDownState.name === "yes future!")
+                        router.push("/feed/yesfuture");
                       updateFeed(post);
                       setHeadState("");
                       setTextState("");
@@ -412,7 +433,7 @@ const CreatePostModal = ({
                 isBlinking
                   ? "placeholder:text-[#f6f6f8]"
                   : "placeholder:text-[#BFBFBF]"
-              } outline-none whitespace-pre-wrap w-full bg-transparent min-h-[25px] resize-none placeholder:text-[#BFBFBF] text-[20px] font-medium text-[#2c2c2c] dark:text-white leading-[22px] tracking-[-0.025em]`}
+              } outline-none whitespace-pre-wrap w-full placeholder:select-none bg-transparent min-h-[25px] resize-none placeholder:text-[#BFBFBF] text-[20px] font-medium text-[#2c2c2c] dark:text-white leading-[22px] tracking-[-0.025em]`}
               placeholder="Заголовок"
               value={headState}
               onChange={(e) => setHeadState(e.target.value)}
@@ -430,12 +451,14 @@ const CreatePostModal = ({
                 isBlinking
                   ? "placeholder:text-[#f6f6f8]"
                   : "placeholder:text-[#BFBFBF]"
-              } outline-none w-full bg-transparent resize-none placeholder:text-[#BFBFBF] text-[16px] font-normal text-[#2c2c2c] dark:text-white leading-[19px] tracking-[-0.015em]`}
+              } outline-none w-full placeholder:select-none bg-transparent resize-none placeholder:text-[#BFBFBF] text-[16px] font-normal text-[#2c2c2c] dark:text-white leading-[19px] tracking-[-0.015em]`}
               placeholder={
                 dropDownState.name === "Офтоп"
                   ? "Отдохните от работы и просто расскажите о своих делах"
-                  : dropDownState.name === "Для вас"
+                  : dropDownState.name === "Без темы"
                   ? "Поделитесь мыслями и новостями, расскажите об опыте и заинтересуйте единомышленников"
+                  : dropDownState.name === "yes future!"
+                  ? "Пишите о технологиях и нововведениях, которые вас впечатлили или показались перспективными"
                   : "Текст"
               }
               value={textState}

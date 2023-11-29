@@ -31,6 +31,12 @@ export const addPost = async (input) => {
     select: {
       id: true,
       createdAt: true,
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
       user: {
         select: {
           role: true,
@@ -83,6 +89,7 @@ export const addPost = async (input) => {
     id: post.id,
     createdAt: post.createdAt,
     author_name: post.user.name,
+    category: post.category,
     author_image: post.user.image,
     author_id: post.user.id,
     username: post.user.username,

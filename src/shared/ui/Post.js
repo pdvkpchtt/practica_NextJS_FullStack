@@ -23,6 +23,9 @@ import BottomModal from "./BottomModal";
 import PostBottomModalContent from "./PostBottomModalContent";
 
 import DotsIcon from "../icons/DotsIcon";
+import ForYouIcon from "shared/icons/feed/ForYouIcon";
+import OfftopIcon from "shared/icons/feed/OfftopIcon";
+import FutureIcon from "shared/icons/feed/FutureIcon";
 
 const Post = ({
   item,
@@ -106,7 +109,7 @@ const Post = ({
                     onClick={() => router.push(`/profile/${item?.username}`)}
                     className={`${
                       //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
-                      "text-[#cfcfcf] cursor-pointer"
+                      "text-[#8f8f8f] cursor-pointer"
                     } text-[16px] font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
                   >
                     @{item?.username || item?.author_id}
@@ -120,11 +123,24 @@ const Post = ({
                         }
                         className={`${
                           //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
-                          "text-[#cfcfcf] cursor-pointer"
+                          "text-[#8f8f8f] cursor-pointer"
                         } text-[16px] font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
                       >
                         {"@" + item?.isHrCompanyId}
                       </p>
+                    </>
+                  )}
+
+                  {item.category?.name === "Офтоп" && (
+                    <>
+                      &nbsp;•&nbsp;
+                      <OfftopIcon />
+                    </>
+                  )}
+                  {item.category?.name === "yes future!" && (
+                    <>
+                      &nbsp;•&nbsp;
+                      <FutureIcon />
                     </>
                   )}
                 </div>

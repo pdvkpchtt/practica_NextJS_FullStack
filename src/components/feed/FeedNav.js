@@ -10,7 +10,7 @@ import CreateNoteIcon from "shared/icons/feed/CreateNoteIcon";
 const FeedNav = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { setModalCreatePost, navState, setNavState } =
+  const { modalCreatePost, setModalCreatePost, navState, setNavState } =
     useContext(ModalContext);
 
   if (!pathname.includes("/feed/post"))
@@ -21,6 +21,7 @@ const FeedNav = () => {
             console.log(item);
             return (
               <FeedNavItem
+                modalCreatePost={modalCreatePost}
                 key={item.id}
                 item={item}
                 active={pathname === item.route ? true : false}
@@ -58,7 +59,12 @@ const FeedNav = () => {
 
 export default FeedNav;
 
-const FeedNavItem = ({ item = {}, active = false, onClick = () => {} }) => (
+const FeedNavItem = ({
+  item = {},
+  active = false,
+  onClick = () => {},
+  modalCreatePost = false,
+}) => (
   <div
     className="bg-white dark:bg-[#212122] rounded-[14px] px-[12px] py-[8px] w-[151px] flex flex-row gap-[6px] cursor-pointer"
     onClick={onClick}
@@ -66,7 +72,9 @@ const FeedNavItem = ({ item = {}, active = false, onClick = () => {} }) => (
     {item.icon}
     <p
       className={`${
-        active ? "text-[#5875e8]" : "text-[#2c2c2c] dark:text-[white]"
+        active && !modalCreatePost
+          ? "text-[#5875e8]"
+          : "text-[#2c2c2c] dark:text-[white]"
       } text-[14px] leading-[16px] tracking-[-0.21px] select-none transition duration-[250ms]`}
     >
       {item.name}
