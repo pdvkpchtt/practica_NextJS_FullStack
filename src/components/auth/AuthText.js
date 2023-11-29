@@ -5,10 +5,42 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const variants = [
   "",
-  "сотрудниками",
   "компаниями",
   "рекрутерами",
+  "сотрудниками",
   "соискателями",
+  "студентами",
+  "кандитами",
+  "программистами",
+  "cпециалистами по AI",
+  "инженерами",
+  "дизайнерами",
+  "маркетологами",
+  "строителями",
+  "контент мейкерами",
+  "менджерами",
+  "аналитиками",
+  "журналистами",
+  "копирайтерами",
+  "нефтяниками",
+  "логистами",
+  "финансистами",
+  "предпринимателями",
+  "водителями",
+  "поварами",
+  "официантами",
+  "дегустатрами вин",
+  "руководителями",
+  "тренерами",
+  "адвокатами",
+  "психологами",
+  "врачами",
+  "учителями",
+  "архитекторами",
+  "механиками",
+  "разработчиками игр",
+  "сценаристами",
+  "фотографами",
 ];
 
 const AuthText = () => {
@@ -28,13 +60,13 @@ const AuthText = () => {
   }, [count]);
 
   return (
-    <div className="flex mt-[-45px] [@media(pointer:coarse)]:mt-[-2px] flex-col gap-[5px] max-w-[484px] w-full">
-      <p className="text-[#5875e8] font-bold select-none text-[48px] leading-[58px] tracking-[-0.075em] [@media(pointer:coarse)]:text-[40px] [@media(pointer:coarse)]:leading-[48px] [@media(pointer:coarse)]:tracking-[-0.0625em]">
+    <div className="flex [@media(pointer:coarse)]:mt-[-2px] flex-col gap-[5px] max-w-full w-full">
+      <p className="text-[#5875e8] font-bold select-none text-[48px] leading-[58px] tracking-[-1.6px] [@media(pointer:coarse)]:text-[40px] [@media(pointer:coarse)]:leading-[48px] [@media(pointer:coarse)]:tracking-[-1.6px]">
         practica
       </p>
 
       <div className="flex flex-row flex-wrap">
-        <p className="flex min-w-[225px] [@media(pointer:coarse)]:min-w-[164px] flex-row text-[#2c2c2c] dark:text-white font-normal select-none text-[26px] leading-[28.6px] tracking-[-0.08125em] [@media(pointer:coarse)]:text-[18px] [@media(pointer:coarse)]:tracking-[-0.05625em] [@media(pointer:coarse)]:leading-[19.8px]">
+        <p className="flex min-w-fit [@media(pointer:coarse)]:min-w-[164px] flex-row text-[#2c2c2c] dark:text-white font-normal select-none text-[26px] leading-[28.6px] tracking-[-1.3px] [@media(pointer:coarse)]:text-[18px] [@media(pointer:coarse)]:tracking-[-1.3px] [@media(pointer:coarse)]:leading-[19.8px]">
           На связи с лучшими
         </p>
         <AnimatePresence mode="wait">
@@ -46,9 +78,9 @@ const AuthText = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="text-[#5875e8] font-normal select-none text-[26px] leading-[28.6px] tracking-[-0.08125em] [@media(pointer:coarse)]:text-[18px] [@media(pointer:coarse)]:leading-[19.8px] [@media(pointer:coarse)]:tracking-[-0.05625em]"
+                  className="text-[#5875e8] font-normal select-none text-[26px] leading-[28.6px] tracking-[-1.3px] [@media(pointer:coarse)]:text-[18px] [@media(pointer:coarse)]:leading-[19.8px] [@media(pointer:coarse)]:tracking-[-1.3px]"
                 >
-                  {item}
+                  &thinsp;&thinsp;{item}
                 </motion.p>
               );
           })}

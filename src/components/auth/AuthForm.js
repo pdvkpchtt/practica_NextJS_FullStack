@@ -14,7 +14,7 @@ const AuthForm = () => {
 
   return (
     <Card
-      style="[@media(hover)]:max-w-[390px] w-full flex flex-col [@media(pointer:coarse)]:mt-[13vh]"
+      style="[@media(hover)]:max-w-[390px] w-full flex flex-col [@media(pointer:coarse)]:mt-[25vh]"
       rounded={20}
       padding={10}
     >
