@@ -14,13 +14,13 @@ const FeedCategoryPage = async ({ params: { category } }) => {
     return posts;
   }
 
-  async function getFeed(cursor, categoty) {
-    "use server";
-    const session = await getServSession();
-    const posts = await getPosts(session.user.id, cursor, category);
+  // async function getFeed(cursor, categoty) {
+  //   "use server";
+  //   const session = await getServSession();
+  //   const posts = await getPosts(session.user.id, cursor, category);
 
-    return posts;
-  }
+  //   return posts;
+  // }
 
   async function addReaction(postId, type) {
     "use server";
