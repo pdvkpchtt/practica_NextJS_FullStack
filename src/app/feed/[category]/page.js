@@ -6,10 +6,18 @@ import { reactOnPost } from "../../../server/actions/reactOnPost";
 const FeedCategoryPage = async ({ params: { category } }) => {
   const session = await getServSession();
 
-  async function getFeed(cursor) {
+  async function getFeed(cursor, categoty) {
     "use server";
     const session = await getServSession();
-    const posts = await getPosts(session.user.id, cursor);
+    const posts = await getPosts(session.user.id, cursor, category);
+
+    return posts;
+  }
+
+  async function getFeed(cursor, categoty) {
+    "use server";
+    const session = await getServSession();
+    const posts = await getPosts(session.user.id, cursor, category);
 
     return posts;
   }
@@ -35,8 +43,27 @@ const FeedCategoryPage = async ({ params: { category } }) => {
           userId={session.user.id}
         />
       )}
-      {category === "education" && <div>education</div>}
-      {category === "offtop" && <div>foryou</div>}
+      {category === "yesfuture" && (
+        <Feed
+          getFeed={getFeed}
+          addReaction={addReaction}
+          userId={session.user.id}
+        />
+      )}
+      {category === "offtop" && (
+        <Feed
+          getFeed={getFeed}
+          addReaction={addReaction}
+          userId={session.user.id}
+        />
+      )}
+      {category === "test" && (
+        <Feed
+          getFeed={getFeed}
+          addReaction={addReaction}
+          userId={session.user.id}
+        />
+      )}
     </>
   );
 };
