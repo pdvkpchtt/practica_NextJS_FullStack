@@ -84,7 +84,7 @@ export const updateCompanyProfile = async ({ userId, data }) => {
     where: { id: me.HR[0].company.id },
     data: {
       name: data.name,
-      username: data.username,
+      username: data.username.split(" ").join(""),
       slogan: data.slogan,
       about: data.about,
       isStartap: data.isStartap,

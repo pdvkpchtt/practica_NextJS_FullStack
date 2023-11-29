@@ -7,10 +7,10 @@ const BigThumb = ({ size = 30 }) => {
       height={size}
       fill="none"
     >
-      <path fill="url(#e)" d="M7 23.12h16v-16H7v16Z" />
+      <path fill="url(#ebat)" d="M7 23.12h16v-16H7v16Z" />
       <defs>
         <pattern
-          id="e"
+          id="ebat"
           width={1}
           height={1}
           patternContentUnits="objectBoundingBox"

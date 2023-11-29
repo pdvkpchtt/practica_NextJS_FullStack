@@ -33,8 +33,10 @@ import ClockIcon from "../../shared/icons/ClockIcon";
 import MessengeIcon from "../../shared/icons/MessengeIcon";
 import CrossIcon from "../../shared/icons/CrossIcon";
 import CheckIcon from "../../shared/icons/CheckIcon";
+import { useClipboard } from "use-clipboard-copy";
 
 const MessengerRight = ({ profileData, pitchesState, superpitchesState }) => {
+  const clipboard = useClipboard();
   const pathname = usePathname();
   const router = useRouter();
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
@@ -97,8 +99,23 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
               onClick={() => router.push(`/profile/${profileData.username}`)}
             />
             <TextSecondary
-              text={`@${profileData.username}`}
-              style="font-medium text-[14px] leading-[16px] tracking-[-0.015em]"
+              text={`@${data.username}`}
+              onClick={() => {
+                toast(`🗂 Текст скопирован`, {
+                  position: isMobile ? "top-center" : "bottom-right",
+                  autoClose: 2000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: false,
+                  draggable: true,
+                  progress: undefined,
+                  // theme: "dark",
+                  progressStyle: { background: "#5875e8" },
+                  containerId: "forCopy",
+                });
+                clipboard.copy(data.username);
+              }}
+              style="font-medium cursor-pointer text-[14px] leading-[16px] tracking-[-0.015em]"
             />
           </div>
           {/* name and username */}

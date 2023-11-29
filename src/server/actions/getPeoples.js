@@ -1,6 +1,11 @@
+"use server";
+
+import { getServSession } from "../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../db";
 
 export const getPeoples = async (cursor, filters) => {
+  const session = await getServSession();
+
   const users = await prisma.user.findMany({
     take: 11,
     ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
@@ -16,6 +21,13 @@ export const getPeoples = async (cursor, filters) => {
       Company: {
         select: {
           name: true,
+        },
+      },
+      connections: {
+        include: {
+          connections: {
+            include: { connections: { include: { connections: true } } },
+          },
         },
       },
       Education: { select: { name: true } },
@@ -157,22 +169,49 @@ export const getPeoples = async (cursor, filters) => {
   if (users.length > 10) {
     slicedPosts = users.slice(0, -1);
   }
-  const result = slicedPosts.map((users) => {
-    if (users.role !== "company")
-      return {
-        id: users.id,
-        name: users.name,
-        username: users.username,
-        image: users.image,
-        country: users.country,
-        city: users.city,
-        UserSkills: users.UserSkills,
-        Company: users.Company,
-        educationLevel: users.educationLevel,
-        about: users.about,
-        // Education: users.Education,
-        // WorkExperience: users.WorkExperience,
-      };
+  const result = slicedPosts.map((u) => {
+    let arr2 = [];
+    u.connections.map((i) =>
+      i.connections.map((i2) => i2.connections.map((i3) => arr2.push(i3)))
+    );
+    let arr1 = [];
+    u.connections.map((i) => i.id === session.user.id && arr1.push(i.id));
+    let arr3 = [];
+    arr2.map((i) => i.id === session.user.id && arr3.push(i.id));
+
+    if (u.role !== "company")
+      if (u.id !== session.user.id)
+        return {
+          id: u.id,
+          name: u.name,
+          username: u.username,
+          image: u.image,
+          country: u.country,
+          city: u.city,
+          UserSkills: u.UserSkills,
+          Company: u.Company,
+          educationLevel: u.educationLevel,
+          about: u.about,
+          isFirstCircle: arr1,
+          isSecondCircle: u.connections
+            .map((i2) => i2.connections.map((i) => i.id === session.user.id))
+            .map((i) => i.find((i2) => i2 === true)),
+          isThirdCircle: arr3,
+        };
+      else
+        return {
+          id: u.id,
+          name: u.name,
+          username: u.username,
+          image: u.image,
+          country: u.country,
+          city: u.city,
+          UserSkills: u.UserSkills,
+          Company: u.Company,
+          educationLevel: u.educationLevel,
+          about: u.about,
+          itsMe: true,
+        };
   });
 
   const lastPostInResults = result[result.length - 1];

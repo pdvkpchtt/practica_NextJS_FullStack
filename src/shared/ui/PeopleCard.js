@@ -34,7 +34,17 @@ const PeopleCard = ({ item }) => {
         </div>
         <div className="flex flex-col gap-[4px]">
           <TextMain
-            text={item.name}
+            text={`${item.name}${
+              !item.itsMe
+                ? item?.isFirstCircle.length > 0
+                  ? " • 1"
+                  : item?.isSecondCircle?.find((i2) => i2 === true)
+                  ? " • 2"
+                  : item?.isThirdCircle.length > 0
+                  ? " • 3"
+                  : " • 3+"
+                : ""
+            }`}
             style="font-medium text-[16px] cursor-pointer leading-[19.2px] tracking-[-0.015em]"
             onClick={() => router.push(`/profile/${item.username || item.id}`)}
           />
