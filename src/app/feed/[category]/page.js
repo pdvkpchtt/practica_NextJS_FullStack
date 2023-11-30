@@ -2,6 +2,7 @@ import Feed from "../../../components/feed/Feed";
 import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { getPosts } from "../../../server/actions/getPosts";
 import { reactOnPost } from "../../../server/actions/reactOnPost";
+import { getPostsWithAlgoritm } from "../../../server/actions/getPostsWithAlgoritm";
 
 const FeedCategoryPage = async ({ params: { category } }) => {
   const session = await getServSession();
@@ -15,7 +16,7 @@ const FeedCategoryPage = async ({ params: { category } }) => {
   }
 
   // Algoritm будет позже
-  async function getFeedWithAlgoritm(cursor, categoty) {
+  async function getFeedWithAlgoritm(cursor) {
     "use server";
     const session = await getServSession();
     const posts = await getPostsWithAlgoritm(session.user.id, cursor);
@@ -39,7 +40,7 @@ const FeedCategoryPage = async ({ params: { category } }) => {
     <>
       {category === "foryou" && (
         <Feed
-          getFeed={getFeed}
+          getFeed={getFeedWithAlgoritm}
           addReaction={addReaction}
           userId={session.user.id}
         />

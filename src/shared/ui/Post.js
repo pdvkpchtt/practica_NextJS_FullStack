@@ -24,8 +24,8 @@ import PostBottomModalContent from "./PostBottomModalContent";
 
 import DotsIcon from "../icons/DotsIcon";
 import ForYouIcon from "shared/icons/feed/ForYouIcon";
-import OfftopIcon from "shared/icons/feed/OfftopIcon";
-import FutureIcon from "shared/icons/feed/FutureIcon";
+import OfftopIcon2 from "shared/icons/feed/OfftopIcon2";
+import FutureIcon2 from "shared/icons/feed/FutureIcon2";
 
 const Post = ({
   item,
@@ -134,13 +134,13 @@ const Post = ({
                   {item.category?.name === "Офтоп" && (
                     <>
                       &nbsp;•&nbsp;
-                      <OfftopIcon />
+                      <OfftopIcon2 />
                     </>
                   )}
                   {item.category?.name === "yes future!" && (
                     <>
                       &nbsp;•&nbsp;
-                      <FutureIcon />
+                      <FutureIcon2 />
                     </>
                   )}
                 </div>

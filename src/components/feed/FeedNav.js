@@ -66,7 +66,9 @@ const FeedNavItem = ({
   modalCreatePost = false,
 }) => (
   <div
-    className="bg-white dark:bg-[#212122] rounded-[14px] px-[12px] py-[8px] w-[151px] flex flex-row gap-[6px] cursor-pointer"
+    className={`bg-white dark:bg-[#212122] rounded-[14px] px-[12px] py-[8px] w-[151px] flex flex-row gap-[6px] cursor-pointer ${
+      item.name === "для вас" && "mb-[16px]"
+    } `}
     onClick={onClick}
   >
     {item.icon}

@@ -27,6 +27,7 @@ const CompanyLeft = ({ navState, data, withoutActions = false, onClick }) => {
   const router = useRouter();
   const ref = useRef(null);
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
+  const clipboard = useClipboard();
   const { height, width } = useWindowDimensions();
 
   const [trigger, setTrigger] = useState(false);
@@ -46,9 +47,15 @@ const CompanyLeft = ({ navState, data, withoutActions = false, onClick }) => {
 
   if (typeof window !== "undefined")
     window.addEventListener("scroll", changeOpacity);
-  const clipboard = useClipboard();
 
   console.log(data);
+
+  const getNoun = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5) return " рекрутеров";
+    if (dig % 10 > 1 && dig % 10 < 5) return " рекрутера";
+    else return " рекрутер";
+  };
+
   // console.log(data);
   return (
     <>
@@ -212,7 +219,7 @@ const CompanyLeft = ({ navState, data, withoutActions = false, onClick }) => {
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
                 <TextSecondary
-                  text="рекрутеров"
+                  text={getNoun(data.hrcount)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>
