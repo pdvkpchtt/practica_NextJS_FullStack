@@ -20,13 +20,13 @@ const RootLayout = async ({ children }) => {
     return data;
   }
 
-  // const connectionsCount = await getConnctionsCount();
+  const connectionsCount = await getConnctionsCount();
 
   return (
     <div
       className={`w-full flex flex-row  [@media(hover)]:mt-[62px] gap-[24px] h-full hideScrollbarNav [@media(pointer:coarse)]:flex-col [@media(pointer:coarse)]:gap-[0px]`}
     >
-      <ModalContextWrap>
+      <ModalContextWrap connectionsCount={connectionsCount}>
         <FeedNav />
         <FeedNavMobile />
         <FeedWrap sendPost={sendPost}>{children}</FeedWrap>

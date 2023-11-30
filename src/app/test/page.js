@@ -1,17 +1,14 @@
 "use server";
 
-import { getServSession } from "app/api/auth/[...nextauth]/route";
-import { getPostsWithAlgoritm } from "server/actions/getPostsWithAlgoritm";
+import { getConnctionsCount } from "../../server/actions/connections/getConnctionsCount";
 import TestComp from "./TestComp";
 
 const Hii = async () => {
-  const session = await getServSession();
-  const posts = await getPostsWithAlgoritm(session.user.id);
-  console.log(posts, "fuckll");
+  const connectionsCount = await getConnctionsCount();
 
   return (
     <div className="mt-[100px]">
-      <TestComp posts={posts} />
+      <TestComp posts={connectionsCount} />
       {/* <NoPitchesModal modalState={state} setModalState={setstate} /> */}
     </div>
   );

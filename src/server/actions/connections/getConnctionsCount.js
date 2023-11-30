@@ -6,14 +6,40 @@ import { prisma } from "../../db";
 export const getConnctionsCount = async () => {
   const session = await getServSession();
 
-  const data = await prisma.user.findUnique({
-    where: { id: session.user.id },
+  let arr = [];
+  let arr2 = [];
+
+  const circles = await prisma.User.findFirst({
     select: {
-      _count: {
-        select: { connections: true },
+      connections: {
+        include: {
+          connections: {
+            include: { connections: { include: { connections: true } } },
+          },
+        },
       },
+    },
+    where: {
+      id: session.user.id,
     },
   });
 
-  return data._count.connections;
+  circles?.connections?.map((i) => arr.push(i.id));
+  circles?.connections.map((i2) => i2.connections.map((i) => arr2.push(i)));
+  arr2.map((i) => arr.push(i.id));
+  arr2.map((i) =>
+    i.connections.map((i) => !arr.includes(i.id) && arr.push(i.id))
+  );
+  arr.push(session.user.id);
+
+  const posts = await prisma.post.findMany({
+    select: {
+      id: true,
+    },
+    where: {
+      userId: { in: arr },
+    },
+  });
+
+  return posts.length;
 };
