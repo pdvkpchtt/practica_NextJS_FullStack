@@ -30,6 +30,7 @@ export const getPostsWithAlgoritm = async (id, cursor) => {
   arr2.map((i) =>
     i.connections.map((i) => !arr.includes(i.id) && arr.push(i.id))
   );
+  arr.push(session.user.id);
 
   const posts = await prisma.post.findMany({
     take: 11,
