@@ -99,7 +99,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
               onClick={() => router.push(`/profile/${profileData.username}`)}
             />
             <TextSecondary
-              text={`@${data.username}`}
+              text={`@${profileData.username}`}
               onClick={() => {
                 toast(`🗂 Текст скопирован`, {
                   position: isMobile ? "top-center" : "bottom-right",
@@ -113,7 +113,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                   progressStyle: { background: "#5875e8" },
                   containerId: "forCopy",
                 });
-                clipboard.copy(data.username);
+                clipboard.copy(profileData.username);
               }}
               style="font-medium cursor-pointer text-[14px] leading-[16px] tracking-[-0.015em]"
             />
