@@ -203,6 +203,7 @@ const ChatsPanel = ({ chatId, user_id, profileData }) => {
                       : " • 3+"
                   }`} //////////////////
                   style="font-medium text-center text-[18px] leading-[21.6px] tracking-[-0.015em] w-full overflow-hidden whitespace-nowrap truncate"
+                  onClick={() => router.push(`/proile/${profileData.username}`)}
                 />
                 {/* <TextSecondary
               text="онлайн"
