@@ -15,12 +15,8 @@ const VerifyPage = () => {
   const [code, setCode] = useState("");
   return (
     <>
-      <div className="[@media(hover)]:hidden fixed top-[5px] left-0 font-bold text-[32px] leading-[38.4px] tracking-[-0.025em] text-[#5875e8] w-full flex justify-center">
-        practica
-      </div>
-
-      <div className="h-[100vh] flex flex-row items-center justify-between w-full">
-        <div className="flex flex-col gap-[10px]">
+      <div className="h-full  [@media(hover)]:items-center flex flex-row gap-[20px] w-full [@media(pointer:coarse)]:p-[12px] [@media(pointer:coarse)]:flex-col [@media(pointer:coarse)]:justify-center justify-between">
+        <div className="flex flex-col gap-[10px] [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:top-0">
           <div className="font-medium text-[32px] leading-[37.12px] tracking-[-1.44px] text-[#2c2c2c] dark:text-white w-full">
             отправили ключ к успеху на
             <div className="font-medium text-[26px] leading-[32.48px] tracking-[-0.025em] text-[#5875e8]">

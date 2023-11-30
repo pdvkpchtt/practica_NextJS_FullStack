@@ -175,6 +175,7 @@ const EditCompanyRight = ({
           placeholder="«Объединяя профессионалов»"
           label="Слоган"
           value={dataToUpdate?.slogan}
+          maxLength={60}
           caption={
             !status
               ? null
@@ -233,6 +234,7 @@ const EditCompanyRight = ({
           placeholder="Миссия, принципы и ценности"
           label="О нас"
           value={dataToUpdate.about}
+          maxLength={240}
           caption={
             !status
               ? null

@@ -180,7 +180,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               <Input
                 placeholder="Менеджер по продажам бананов"
                 label="Название вакансии"
-                // maxLength={80}
+                maxLength={80}
                 defaultValue={dataToUpdate?.name}
                 value={dataToUpdate.name}
                 onChange={(name) => {
@@ -216,7 +216,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                     ? "Максимальная длинна поля 240 сиволов"
                     : null
                 }
-                // maxLength={240}
+                maxLength={240}
                 value={dataToUpdate?.shortDescription}
                 onChange={(shortDescription) => {
                   setDataToUpdate({
@@ -239,7 +239,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               <TextArea
                 placeholder="Начните с описания в одном предложении, какой специалист вам нужен и для чего. Это резко улучшает реакцию. "
                 label="Описание работы и обязанности"
-                // maxLength={640}
+                maxLength={640}
                 minRows={2}
                 maxRows={5}
                 value={dataToUpdate?.description}
@@ -269,7 +269,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               <Input
                 placeholder="Опишите условия работы"
                 label="Условия"
-                // maxLength={480}
+                maxLength={480}
                 caption={
                   !status
                     ? null
@@ -295,7 +295,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               <Input
                 placeholder="Опишите какими навыками должен обладать ваш работник мечты"
                 label="Что вы ждете от соискателя"
-                // maxLength={480}
+                maxLength={480}
                 caption={
                   !status
                     ? null

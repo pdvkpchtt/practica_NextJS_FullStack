@@ -6,6 +6,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import SearchInputIcon from "../icons/SearchInputIcon";
 import TextCaption from "../Text/TextCaption";
 import TextSecondary from "../Text/TextSecondary";
+import CircularProggressBar from "./CircularProggressBar";
 
 export const Input = ({
   label = "",
@@ -23,10 +24,32 @@ export const Input = ({
   return (
     <div className="flex flex-col min-w-[20px] w-full">
       {label && (
-        <TextSecondary
-          text={label}
-          style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
-        />
+        <div className="flex flex-row justify-between">
+          <TextSecondary
+            text={label}
+            style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+          />
+
+          {maxLength ? (
+            <div className="w-[16px] h-[16px] mr-[4px]">
+              <CircularProggressBar
+                progress={value.length}
+                maxWal={maxLength}
+                trackColor={
+                  value.length === 0
+                    ? "stroke-[#ececec] dark:stroke-[#202436]"
+                    : "stroke-[#CDD6F8] dark:stroke-[#353D5C]"
+                }
+                indicatorColor={
+                  value.length === 0 ? "stroke-[#ececec]" : "stroke-[#758DEC]"
+                }
+                trackWidth={2.67}
+                indicatorWidth={2.67}
+                size={18}
+              />
+            </div>
+          ) : null}
+        </div>
       )}
 
       <input
@@ -100,10 +123,32 @@ export const TextArea = ({
   return (
     <div className={`flex flex-col ${style}`}>
       {label && (
-        <TextSecondary
-          text={label}
-          style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
-        />
+        <div className="flex flex-row justify-between">
+          <TextSecondary
+            text={label}
+            style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+          />
+
+          {maxLength ? (
+            <div className="w-[16px] h-[16px] mr-[4px]">
+              <CircularProggressBar
+                progress={value.length}
+                maxWal={maxLength}
+                trackColor={
+                  value.length === 0
+                    ? "stroke-[#ececec] dark:stroke-[#202436]"
+                    : "stroke-[#CDD6F8] dark:stroke-[#353D5C]"
+                }
+                indicatorColor={
+                  value.length === 0 ? "stroke-[#ececec]" : "stroke-[#758DEC]"
+                }
+                trackWidth={2.67}
+                indicatorWidth={2.67}
+                size={18}
+              />
+            </div>
+          ) : null}
+        </div>
       )}
 
       <TextareaAutosize

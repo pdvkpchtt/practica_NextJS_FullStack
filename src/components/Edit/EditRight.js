@@ -203,6 +203,7 @@ const EditRight = ({
         <Input
           placeholder="Расскажите о ваших мечтах и карьерных планах"
           label="Обо мне"
+          maxLength={120}
           value={dataToUpdate.about}
           caption={
             !status

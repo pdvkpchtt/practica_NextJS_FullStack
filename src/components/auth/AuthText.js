@@ -60,7 +60,7 @@ const AuthText = () => {
   }, [count]);
 
   return (
-    <div className="flex [@media(pointer:coarse)]:mt-[-2px] flex-col gap-[5px] max-w-full w-full">
+    <div className="flex [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:top-0 flex-col gap-[5px] max-w-full w-full">
       <p className="text-[#5875e8] font-bold select-none text-[48px] leading-[58px] tracking-[-1.6px] [@media(pointer:coarse)]:text-[40px] [@media(pointer:coarse)]:leading-[48px] [@media(pointer:coarse)]:tracking-[-1.6px]">
         practica
       </p>
