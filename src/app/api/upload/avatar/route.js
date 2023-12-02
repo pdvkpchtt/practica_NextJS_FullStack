@@ -5,6 +5,13 @@ import { prisma } from 'server/db'
 import { uuid } from 'uuidv4'
 const p = require('path')
 
+export const config = {
+	api: {
+		bodyParser: false,
+		responseLimit: false,
+	},
+}
+
 export async function POST(req) {
 	const session = await getServSession()
 	const formData = await req.formData()
