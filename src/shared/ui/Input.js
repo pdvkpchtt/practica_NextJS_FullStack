@@ -129,7 +129,7 @@ export const TextArea = ({
             style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
           />
 
-          {maxLength ? (
+          {maxLength && value ? (
             <div className="w-[16px] h-[16px] mr-[4px]">
               <CircularProggressBar
                 progress={value.length}
