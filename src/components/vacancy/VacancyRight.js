@@ -113,7 +113,7 @@ const VacancyRight = ({ data, role = "student", userId }) => {
             {data.shortDescription && (
               <TextMain
                 text={data.shortDescription}
-                style="font-normal text-[14px] w-full leading-[17px] tracking-[-0.21px]"
+                style="font-normal text-[14px] whitespace-pre-line w-full leading-[17px] tracking-[-0.21px]"
               />
             )}
           </div>
@@ -127,7 +127,7 @@ const VacancyRight = ({ data, role = "student", userId }) => {
             />
             <TextMain
               text={data.description}
-              style="font-normal text-[14px] w-full leading-[17px] tracking-[-0.21px]"
+              style="font-normal text-[14px] whitespace-pre-line w-full leading-[17px] tracking-[-0.21px]"
             />
           </div>
           {/* descrition */}

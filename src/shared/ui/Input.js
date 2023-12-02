@@ -157,6 +157,7 @@ export const TextArea = ({
         defaultValue={defaultValue ? defaultValue : null}
         className="hover:inner-border-[1px] bg-[#f6f6f8] dark:bg-[#2c2c2c] dark:placeholder:text-[#8f8f8f] dark:text-white transition duration-[250ms] hover:inner-border-[#5875e8] placeholder:font-normal placeholder:text-[#bfbfbf] placeholder:leading-[18px] placeholder:tracking-[-0.015em]"
         style={{
+          whiteSpace: "pre-line",
           resize: "none",
           padding: 12,
           borderRadius: rounded,

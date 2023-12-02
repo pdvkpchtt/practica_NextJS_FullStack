@@ -113,6 +113,8 @@ const EditLeft = ({
               ? "Поле обязательно к заполнению"
               : status?.includes("inputUsername unique")
               ? "Этот username занят"
+              : status?.includes("inputUsername regex")
+              ? "Username содержит недопустимые символы или пробел"
               : null
           }
           onChange={(username) => {

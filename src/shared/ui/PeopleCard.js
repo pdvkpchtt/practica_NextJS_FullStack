@@ -48,6 +48,10 @@ const PeopleCard = ({ item }) => {
             style="font-medium text-[16px] cursor-pointer leading-[19.2px] tracking-[-0.015em]"
             onClick={() => router.push(`/profile/${item.username || item.id}`)}
           />
+          <TextSecondary
+            text={"@" + item.username}
+            style="font-medium text-[14px] leading-[18px] tracking-[-0.015em]"
+          />
           {item.city === null || item.city?.length === 0 ? null : (
             <TextSecondary
               text={item.city}

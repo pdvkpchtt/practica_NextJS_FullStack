@@ -49,28 +49,44 @@ const MessengerRight = ({
   const router = useRouter();
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
+  const getNoun2 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5) return "дней";
+    if (dig % 10 > 1 && dig % 10 < 5) return "дня";
+    else return "день";
+  };
+  const getNoun3 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5) return "часов";
+    if (dig % 10 > 1 && dig % 10 < 5) return "часа";
+    else return "час";
+  };
+  const getNoun4 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5) return "минут";
+    if (dig % 10 > 1 && dig % 10 < 5) return "минуты";
+    else return "минута";
+  };
+
   const getFuckingTimer = (timer) => {
     var d = new Date(timer.time);
 
     d.setDate(d.getDate() + timer.multiply);
     var d_start = new Date();
-    d.setDate(d.getDate() - d_start.getDate());
     d.setHours(d.getHours() - d_start.getHours());
     d.setMinutes(d.getMinutes() - d_start.getMinutes());
     d.setSeconds(d.getSeconds() - d_start.getSeconds());
     d.setMilliseconds(d.getMilliseconds() - d_start.getMilliseconds());
 
-    return `${d.getDay()} - ${
+    return `${d.getDate() - d_start.getDate()} ${getNoun2(
+      d.getDate() - d_start.getDate()
+    )} ${d.getHours() < 10 ? "0" + d.getHours() : d.getHours()} ${getNoun3(
       d.getHours() < 10 ? "0" + d.getHours() : d.getHours()
-    }:${d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()}:${
-      d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds()
-    }`;
+    )} ${
+      d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()
+    } ${getNoun4(d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes())}`;
   };
 
   const getNoun = (dig) => {
-    if (dig === 0 || dig >= 5 || dig % 10 === 0 || dig % 10 >= 5)
-      return "питчей";
-    if ((dig > 1 && dig < 5) || (dig % 10 > 1 && dig % 10 < 5)) return "питча";
+    if (dig % 10 === 0 || dig % 10 >= 5) return "питчей";
+    if (dig % 10 > 1 && dig % 10 < 5) return "питча";
     else return "питч";
   };
 
