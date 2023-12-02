@@ -12,6 +12,7 @@ const ChatParent = ({ chatId, user_id }) => {
   const [profileData, setProfileData] = useState(null);
   const [pitchesState, setpitchesState] = useState(null);
   const [superpitchesState, setsuperpitchesState] = useState(null);
+  const [timer, setTimer] = useState(null);
 
   const getUserInfoHandler = async () => {
     console.log("test chat info");
@@ -41,8 +42,15 @@ const ChatParent = ({ chatId, user_id }) => {
 
   return (
     <>
-      <ChatsPanel chatId={chatId} user_id={user_id} profileData={profileData} />
+      <ChatsPanel
+        chatId={chatId}
+        user_id={user_id}
+        profileData={profileData}
+        setTimer={setTimer}
+        timer={timer}
+      />
       <MessengerRight
+        timer={timer}
         profileData={profileData}
         pitchesState={pitchesState}
         superpitchesState={superpitchesState}

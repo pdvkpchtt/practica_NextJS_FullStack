@@ -48,7 +48,7 @@ import BigLogoSvg from "../../shared/icons/BigLogoSvg";
 import NoPitchesModal from "./NoPitchesModal";
 import Image from "next/image";
 
-const ChatsPanel = ({ chatId, user_id, profileData }) => {
+const ChatsPanel = ({ chatId, user_id, profileData, setTimer, timer }) => {
   // const { currentChatCursor, setCurrentChatCursor } = useContext(MesContext);
 
   const pathname = usePathname();
@@ -83,8 +83,16 @@ const ChatsPanel = ({ chatId, user_id, profileData }) => {
     } else {
       setDataStateMessages(data.data);
     }
-    if (!data.check && !data.checkVacReply) setCircle(data.circle);
-    else setCircle("");
+    if (!data.check && !data.checkVacReply) {
+      setCircle(data.circle);
+      setTimer(null);
+    } else {
+      setCircle("");
+      if (data?.check !== null)
+        setTimer({ time: data?.check?.createdAt, multiply: 3 });
+      if (data?.checkVacReply !== null)
+        setTimer({ time: data?.checkVacReply?.createdAt, multiply: 5 });
+    }
     console.log(data, "fucking slave");
     setCurrentChatCursor(data.cursor);
     setHasNextPageMessages(data.hasNextPage);
@@ -105,8 +113,16 @@ const ChatsPanel = ({ chatId, user_id, profileData }) => {
       true,
       user_id
     );
-    if (!data.check && !data.checkVacReply) setCircle(data.circle);
-    else setCircle("");
+    if (!data.check && !data.checkVacReply) {
+      setCircle(data.circle);
+      setTimer(null);
+    } else {
+      setCircle("");
+      if (data?.check !== null)
+        setTimer({ time: data?.check?.createdAt, multiply: 3 });
+      if (data?.checkVacReply !== null)
+        setTimer({ time: data?.checkVacReply?.createdAt, multiply: 5 });
+    }
     console.log(circle, "fucking slave");
     console.log("messenges update", data);
     if (loadingMessages) return;
