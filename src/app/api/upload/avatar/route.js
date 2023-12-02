@@ -5,8 +5,6 @@ import { prisma } from 'server/db'
 import { uuid } from 'uuidv4'
 const p = require('path')
 
-export const config = { runtime: 'experimental-edge' }
-
 export async function POST(req) {
 	const session = await getServSession()
 	const formData = await req.formData()
