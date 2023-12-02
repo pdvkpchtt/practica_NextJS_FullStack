@@ -34,9 +34,8 @@ const nextConfig = {
 
 	experimental: {
 		appDir: true,
-		serverActions: {
-			bodySizeLimit: '15mb',
-		},
+		serverActions: true,
+		serverActionsBodySizeLimit: '9999mb',
 	},
 	images: {
 		remotePatterns: [
