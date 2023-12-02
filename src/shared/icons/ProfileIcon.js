@@ -44,7 +44,7 @@ const ProfileIcon = ({ fill = "#000", size = 25, role }) => {
         </div>
       </Link>
     );
-  else if (role.includes("hr") && !pathname.includes("/companyprofile"))
+  else if (role?.includes("hr") && !pathname.includes("/companyprofile"))
     return (
       <Link
         href={pathname === "/profile" ? "/companyprofile" : "/profile"}

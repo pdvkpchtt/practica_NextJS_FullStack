@@ -52,16 +52,19 @@ const MessengerRight = ({
   const getFuckingTimer = (timer) => {
     var d = new Date(timer.time);
 
-    d.setMilliseconds(d.getMilliseconds() + timer.multiply * 60 * 60 * 1000);
+    d.setDate(d.getDate() + timer.multiply);
     var d_start = new Date();
+    d.setDate(d.getDate() - d_start.getDate());
     d.setHours(d.getHours() - d_start.getHours());
     d.setMinutes(d.getMinutes() - d_start.getMinutes());
     d.setSeconds(d.getSeconds() - d_start.getSeconds());
     d.setMilliseconds(d.getMilliseconds() - d_start.getMilliseconds());
 
-    return `${d.getHours() < 10 ? "0" + d.getHours() : d.getHours()}:${
-      d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()
-    }:${d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds()}`;
+    return `${d.getDay()} - ${
+      d.getHours() < 10 ? "0" + d.getHours() : d.getHours()
+    }:${d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()}:${
+      d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds()
+    }`;
   };
 
   const getNoun = (dig) => {
