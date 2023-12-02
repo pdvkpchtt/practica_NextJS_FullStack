@@ -117,6 +117,8 @@ const EditCompanyLeft = ({
               ? "Этот username занят"
               : status?.includes("inputUsername change")
               ? "Измените username после регистрации"
+              : status?.includes("inputUsername regex")
+              ? "Username содержит недопустимые символы или пробел"
               : null
           }
           onChange={(username) => {

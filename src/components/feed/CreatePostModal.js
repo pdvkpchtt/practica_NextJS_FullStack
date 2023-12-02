@@ -270,8 +270,10 @@ const CreatePostModal = ({
                     });
                     if (dropDownState.name === "Офтоп")
                       router.push("/feed/offtop");
-                    if (dropDownState.name === "Без темы")
-                      router.push("/feed/foryou");
+                    if (dropDownState.name === "Без темы") {
+                      router.refresh();
+                      router.push("/feed/foryou", { query: "upd" });
+                    }
                     if (dropDownState.name === "yes future!")
                       router.push("/feed/yesfuture");
                     updateFeed(post);
@@ -351,8 +353,10 @@ const CreatePostModal = ({
                       });
                       if (dropDownState.name === "Офтоп")
                         router.push("/feed/offtop");
-                      if (dropDownState.name === "Без темы")
-                        router.push("/feed/foryou");
+                      if (dropDownState.name === "Без темы") {
+                        router.refresh();
+                        router.push("/feed/foryou", { query: "upd" });
+                      }
                       if (dropDownState.name === "yes future!")
                         router.push("/feed/yesfuture");
                       updateFeed(post);

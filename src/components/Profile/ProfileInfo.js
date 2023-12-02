@@ -53,74 +53,78 @@ const ProfileInfo = ({ data, others = false }) => {
 
   return (
     <>
-      <Card style="flex flex-col h-full gap-[20px]">
-        {/* about me */}
-        {data.about && (
-          <div className="flex flex-col gap-[8px]">
-            <TextSecondary
-              text={others ? "О пользователе" : "Обо мне"}
-              style="font-medium select-none leading-[18px] traking-[-0.013em] text-[14px]"
-            />
+      {(data?.about?.length > 0 ||
+        data?.education?.length !== 0 ||
+        data?.workExperience?.length !== 0) && (
+        <Card style="flex flex-col h-full gap-[20px]">
+          {/* about me */}
+          {data.about && (
+            <div className="flex flex-col gap-[8px]">
+              <TextSecondary
+                text={others ? "О пользователе" : "Обо мне"}
+                style="font-medium select-none leading-[18px] traking-[-0.013em] text-[14px]"
+              />
 
-            <TextMain
-              text={data.about}
-              style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
-            />
-          </div>
-        )}
-        {/* about me */}
-        {/* education */}
-        {data.education.length != 0 && (
-          <div className="flex flex-col gap-[8px]">
-            <TextSecondary
-              text="Образование"
-              style="font-medium select-none leading-[18px] traking-[-0.013em] text-[14px]"
-            />
+              <TextMain
+                text={data.about}
+                style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
+              />
+            </div>
+          )}
+          {/* about me */}
+          {/* education */}
+          {data.education.length !== 0 && (
+            <div className="flex flex-col gap-[8px]">
+              <TextSecondary
+                text="Образование"
+                style="font-medium select-none leading-[18px] traking-[-0.013em] text-[14px]"
+              />
 
-            {data.education.map((item, key) => (
-              <div className="flex flex-col gap-[4px]" key={key}>
-                <TextMain
-                  key={key}
-                  text={`${item.name} • ${item.degree}`}
-                  style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
-                />
-                <TextCaption
-                  text={`${item.startDate} — ${item.endDate}`}
-                  style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
-                />
-              </div>
-            ))}
-          </div>
-        )}
-        {/* education */}
-        {/* workExpirience */}
-        {data.workExperience.length != 0 && (
-          <div className="flex flex-col gap-[8px]">
-            <TextSecondary
-              text="Опыт работы"
-              style="font-medium select-none leading-[18px] traking-[-0.013em] text-[14px]"
-            />
+              {data.education.map((item, key) => (
+                <div className="flex flex-col gap-[4px]" key={key}>
+                  <TextMain
+                    key={key}
+                    text={`${item.name} • ${item.degree}`}
+                    style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
+                  />
+                  <TextCaption
+                    text={`${item.startDate} — ${item.endDate}`}
+                    style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+          {/* education */}
+          {/* workExpirience */}
+          {data.workExperience.length != 0 && (
+            <div className="flex flex-col gap-[8px]">
+              <TextSecondary
+                text="Опыт работы"
+                style="font-medium select-none leading-[18px] traking-[-0.013em] text-[14px]"
+              />
 
-            {data.workExperience.map((item, key) => (
-              <div className="flex flex-col gap-[4px]" key={key}>
-                <TextMain
-                  text={`${item.organization} • ${item.post}`}
-                  style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
-                />
-                <TextCaption
-                  text={
-                    item.end_date === "Месяц Год"
-                      ? `${item.start_date} — ${"По сей день"}`
-                      : `${item.start_date} — ${item.end_date}`
-                  }
-                  style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
-                />
-              </div>
-            ))}
-          </div>
-        )}
-        {/* workExpirience */}
-      </Card>
+              {data.workExperience.map((item, key) => (
+                <div className="flex flex-col gap-[4px]" key={key}>
+                  <TextMain
+                    text={`${item.organization} • ${item.post}`}
+                    style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
+                  />
+                  <TextCaption
+                    text={
+                      item.end_date === "Месяц Год"
+                        ? `${item.start_date} — ${"По сей день"}`
+                        : `${item.start_date} — ${item.end_date}`
+                    }
+                    style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+          {/* workExpirience */}
+        </Card>
+      )}
 
       {data.UserSkills?.length != 0 && (
         <Card style="flex flex-col gap-[20px]">

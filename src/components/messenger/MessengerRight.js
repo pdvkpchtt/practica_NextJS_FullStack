@@ -3,6 +3,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
+import dayjs from "dayjs";
+import updateLocale from "dayjs/plugin/updateLocale";
+dayjs.extend(updateLocale);
 
 import TextMain from "../..//shared/Text/TextMain ";
 import TextSecondary from "../..//shared/Text/TextSecondary";
@@ -35,16 +38,55 @@ import CrossIcon from "../../shared/icons/CrossIcon";
 import CheckIcon from "../../shared/icons/CheckIcon";
 import { useClipboard } from "use-clipboard-copy";
 
-const MessengerRight = ({ profileData, pitchesState, superpitchesState }) => {
+const MessengerRight = ({
+  profileData,
+  pitchesState,
+  superpitchesState,
+  timer,
+}) => {
   const clipboard = useClipboard();
   const pathname = usePathname();
   const router = useRouter();
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
+  const getNoun2 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5) return "дней";
+    if (dig % 10 > 1 && dig % 10 < 5) return "дня";
+    else return "день";
+  };
+  const getNoun3 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5) return "часов";
+    if (dig % 10 > 1 && dig % 10 < 5) return "часа";
+    else return "час";
+  };
+  const getNoun4 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5) return "минут";
+    if (dig % 10 > 1 && dig % 10 < 5) return "минуты";
+    else return "минута";
+  };
+
+  const getFuckingTimer = (timer) => {
+    var d = new Date(timer.time);
+
+    d.setDate(d.getDate() + timer.multiply);
+    var d_start = new Date();
+    d.setHours(d.getHours() - d_start.getHours());
+    d.setMinutes(d.getMinutes() - d_start.getMinutes());
+    d.setSeconds(d.getSeconds() - d_start.getSeconds());
+    d.setMilliseconds(d.getMilliseconds() - d_start.getMilliseconds());
+
+    return `${d.getDate() - d_start.getDate()} ${getNoun2(
+      d.getDate() - d_start.getDate()
+    )} ${d.getHours() < 10 ? "0" + d.getHours() : d.getHours()} ${getNoun3(
+      d.getHours() < 10 ? "0" + d.getHours() : d.getHours()
+    )} ${
+      d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()
+    } ${getNoun4(d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes())}`;
+  };
+
   const getNoun = (dig) => {
-    if (dig === 0 || dig >= 5 || dig % 10 === 0 || dig % 10 >= 5)
-      return "питчей";
-    if ((dig > 1 && dig < 5) || (dig % 10 > 1 && dig % 10 < 5)) return "питча";
+    if (dig % 10 === 0 || dig % 10 >= 5) return "питчей";
+    if (dig % 10 > 1 && dig % 10 < 5) return "питча";
     else return "питч";
   };
 
@@ -400,8 +442,18 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
         </div>
       )}
       {/* тут кнопки все, которые будут, можешь потестить */}
+
+      {timer !== null && (
+        <div className="p-[12px] rounded-[20px] items-center flex flex-row justify-between max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]">
+          <ButtonGhost text={getFuckingTimer(timer)}></ButtonGhost>
+        </div>
+      )}
     </div>
   );
 };
 
 export default MessengerRight;
+// dayjs(timer)
+//               .add(3, "hour")
+//               .subtract(timer)
+//               .format("hh:mm:ss")

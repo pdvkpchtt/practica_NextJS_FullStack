@@ -200,7 +200,7 @@ const CompanyLeft = ({ navState, data, withoutActions = false, onClick }) => {
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>
-              <div className="flex flex-row gap-[4px]">
+              {/* <div className="flex flex-row gap-[4px]">
                 <TextMain
                   text={0}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
@@ -209,7 +209,7 @@ const CompanyLeft = ({ navState, data, withoutActions = false, onClick }) => {
                   text="сотрудников в practica"
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
-              </div>
+              </div> */}
               <div
                 className="flex flex-row gap-[4px] cursor-pointer"
                 onClick={() => setModalState(true)}

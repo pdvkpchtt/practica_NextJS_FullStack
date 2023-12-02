@@ -113,6 +113,8 @@ const EditLeft = ({
               ? "Поле обязательно к заполнению"
               : status?.includes("inputUsername unique")
               ? "Этот username занят"
+              : status?.includes("inputUsername regex")
+              ? "Username содержит недопустимые символы или пробел"
               : null
           }
           onChange={(username) => {
@@ -150,7 +152,7 @@ const EditLeft = ({
           >
             {(inputProps) => (
               <input
-                placeholder={""}
+                placeholder={"Дата рождения"}
                 value={inputProps.birthDate}
                 className={`px-[12px] h-[42px] text-[#2c2c2c] dark:text-white text-[14px] pb-[12px] bg-[#f6f6f8] w-full dark:bg-[#2c2c2c] placeholder:text-[#bfbfbf] placeholder:select-none dark:placeholder:text-[#8f8f8f] pt-[11px] transition duration-[250ms] hover:inner-border-[1px] hover:inner-border-[#5875e8] outline-none placeholder:font-normal leading-[18px] tracking-[-0.015em] placeholder:leading-[18px] placeholder:tracking-[-0.015em] rounded-[8px]`}
                 //   onChange={}

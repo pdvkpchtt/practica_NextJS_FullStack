@@ -160,7 +160,9 @@ const VacancyCard = ({ item, role = "student", userId }) => {
             {item.shortDescription && (
               <TextSecondary
                 text={item.shortDescription}
-                style={"text-[14px] leading-[17px] tracking-[-0.252px]"}
+                style={
+                  "text-[14px] leading-[17px] whitespace-pre-line tracking-[-0.252px]"
+                }
               />
             )}
             {/* name and short desc */}

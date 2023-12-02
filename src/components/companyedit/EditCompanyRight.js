@@ -56,7 +56,7 @@ const EditCompanyRight = ({
     JSON.stringify(dataToUpdate) !== JSON.stringify(dataToCompare);
   console.log(
     isDataChanged,
-    "sosi hui",
+    "pizdes",
     dataToCompare.industry.label !== dataToUpdate.industry.label
   );
   // это основополагающий базис practica
@@ -66,21 +66,15 @@ const EditCompanyRight = ({
       {/* header */}
       <div className="[@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:z-[300] [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:left-0 [@media(pointer:coarse)]:rounded-t-[0px] border-b-[0.7px] border-b-[#E7E7E7] bg-white dark:bg-[#212122] dark:border-b-[#2f2f2f] rounded-t-[20px] p-[12px]">
         <div
-          className={`w-full flex flex-row  ${
-            dataToUpdate.role !== "hr_no_nickname"
-              ? "justify-between"
-              : "justify-end"
-          } [@media(pointer:coarse)]:max-w-[476px] [@media(pointer:coarse)]:mx-auto`}
+          className={`w-full flex flex-row justify-between [@media(pointer:coarse)]:max-w-[476px] [@media(pointer:coarse)]:mx-auto`}
         >
-          {dataToUpdate.role !== "hr_no_nickname" && (
-            <OneIconButton
-              onClick={() =>
-                router.push(`/companyprofile`, { query: { data: "update" } })
-              }
-            >
-              <ArrowLeftIcon />
-            </OneIconButton>
-          )}
+          <OneIconButton
+            onClick={() =>
+              router.push(`/companyprofile`, { query: { data: "update" } })
+            }
+          >
+            <ArrowLeftIcon />
+          </OneIconButton>
           <div
             onClick={async () => {
               if (isDataChanged) {
@@ -116,7 +110,6 @@ const EditCompanyRight = ({
                   // console.log("err");
                   // }
                   setLittleLoader(false);
-                  router.refresh();
                 } else {
                   setLittleLoader(false);
                   toast(`🙇 Cорри, что-то пропущено`, {

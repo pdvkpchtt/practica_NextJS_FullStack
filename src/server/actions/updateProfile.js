@@ -5,7 +5,12 @@ export const updateProfile = async ({ userId, data }) => {
   // валидация
   const validate = z.object({
     name: z.string().min(1, { message: "inputName minlen" }),
-    username: z.string().min(1, { message: "inputUsername minlen" }),
+    username: z
+      .string()
+      .min(1, { message: "inputUsername minlen" })
+      .refine((value) => !/[`!@#$%^&*()+\-=\[\]{};':"\\|,<>\/?~]/.test(value), {
+        message: "inputUsername regex",
+      }),
     about: z.string().max(240, { message: "inputAbout maxlen" }),
   });
 
