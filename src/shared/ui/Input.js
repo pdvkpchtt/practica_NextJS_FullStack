@@ -12,7 +12,7 @@ export const Input = ({
   label = "",
   caption = "",
   placeholder = "",
-  value,
+  value = "",
   error = false,
   rounded = 8,
   maxLength,
@@ -30,7 +30,7 @@ export const Input = ({
             style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
           />
 
-          {maxLength ? (
+          {/* {maxLength ? (
             <div className="w-[16px] h-[16px] mr-[4px]">
               <CircularProggressBar
                 progress={value.length}
@@ -48,7 +48,7 @@ export const Input = ({
                 size={18}
               />
             </div>
-          ) : null}
+          ) : null} */}
         </div>
       )}
 
