@@ -31,6 +31,10 @@ const nextConfig = {
 		return config
 	},
 	reactStrictMode: false,
+	api: {
+		bodyParser: false,
+		responseLimit: false,
+	},
 
 	experimental: {
 		appDir: true,
