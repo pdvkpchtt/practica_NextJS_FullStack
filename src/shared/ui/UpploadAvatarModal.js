@@ -26,23 +26,6 @@ const UpploadAvatarModal = ({
 		const formData = new FormData()
 		formData.append('file', event.target.files[0])
 		formData.append('fileName', event.target.files[0].name)
-		const json = JSON.stringify(formData)
-		// const config = {
-		// 	headers: {
-		// 		'content-type': 'multipart/form-data',
-		// 	},
-		// }
-		axios.post(url, json).then(response => {
-			console.log(response.data)
-		})
-	}
-
-	function handleSubmit(event) {
-		event.preventDefault()
-		const url = '/api/upload/file'
-		const formData = new FormData()
-		formData.append('file', file)
-		formData.append('fileName', file.name)
 		const config = {
 			headers: {
 				'content-type': 'multipart/form-data',

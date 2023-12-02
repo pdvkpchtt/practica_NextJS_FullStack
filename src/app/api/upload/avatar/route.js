@@ -3,15 +3,16 @@ import { writeFile } from 'fs/promises'
 import { join } from 'path'
 import { prisma } from 'server/db'
 import { uuid } from 'uuidv4'
+const p = require('path')
+
+export const config = { runtime: 'experimental-edge' }
 
 export async function POST(req) {
-	const data = await req.formData()
-	return Response.json(data)
 	const session = await getServSession()
 	const formData = await req.formData()
-	console.log(formData)
 
 	const file = formData.get('file')
+	console.log('file_upload', file)
 	if (!file) {
 		return Response.json({ error: 'No file uploaded' })
 	}
