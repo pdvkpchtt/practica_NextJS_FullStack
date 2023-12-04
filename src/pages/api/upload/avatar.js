@@ -61,7 +61,8 @@ export default async function handler(req, res) {
 		const user = await prisma.User.update({
 			where: { id: session.user.id },
 			data: {
-				image: 'https://practica.team/file/' + id + p.extname(file.name),
+				image:
+					'https://practica.team/file/' + id + p.extname(file.originalFilename),
 			},
 		})
 
