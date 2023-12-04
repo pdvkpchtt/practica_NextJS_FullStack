@@ -58,6 +58,7 @@ const CreatePostModal = ({
   const router = useRouter();
 
   const inputRef = useRef(null);
+  const headRef = useRef(null);
   const inputRef2 = useRef(null);
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
@@ -125,6 +126,8 @@ const CreatePostModal = ({
   useEffect(() => {
     if (open) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "unset";
+
+    if (!isMobile) headRef?.current?.focus();
   }, [open]);
 
   const getCategires = async () => {
@@ -154,7 +157,11 @@ const CreatePostModal = ({
 
   return (
     <>
-      <Modal isOpen={open} slideToTop={slideToTopState}>
+      <Modal
+        isOpen={open}
+        slideToTop={slideToTopState}
+        handleClose={() => setClose(false)}
+      >
         {/* header */}
         <div className="flex flex-row justify-between">
           <div className="flex flex-row gap-[12px]">
@@ -186,6 +193,7 @@ const CreatePostModal = ({
         {/* body */}
         <div className="flex flex-col my-[12px] gap-[12px] overflow-y-auto">
           <TextareaAutosize
+            ref={headRef}
             className={`${
               isBlinking
                 ? "placeholder:text-[#f6f6f8]"
@@ -271,7 +279,6 @@ const CreatePostModal = ({
                     if (dropDownState.name === "Офтоп")
                       router.push("/feed/offtop");
                     if (dropDownState.name === "Без темы") {
-                      router.refresh();
                       router.push("/feed/foryou", { query: "upd" });
                     }
                     if (dropDownState.name === "yes future!")
@@ -354,7 +361,6 @@ const CreatePostModal = ({
                       if (dropDownState.name === "Офтоп")
                         router.push("/feed/offtop");
                       if (dropDownState.name === "Без темы") {
-                        router.refresh();
                         router.push("/feed/foryou", { query: "upd" });
                       }
                       if (dropDownState.name === "yes future!")

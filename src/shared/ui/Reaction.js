@@ -18,17 +18,16 @@ import fire from "../../shared/icons/reactions/fire.svg";
 import smile from "../../shared/icons/reactions/smile.svg";
 import thumb_down from "../../shared/icons/reactions/thumb_down.svg";
 
-const reactions = {
-  big_thumb: <BigThumb />,
-  fire: <Fire />,
-  thumb_down: <ThumbDown />,
-  blow_my_mind: <BlowMyMind />,
-  smile: <Smile />,
-  cry: <Cry />,
-  clown: <Clown />,
-};
-
-const Reaction = ({ item, toggleReaction }) => {
+const Reaction = ({ item, toggleReaction, inModal = false }) => {
+  const reactions = {
+    big_thumb: <BigThumb additionToId={inModal ? "inmodal" : ""} />,
+    fire: <Fire additionToId={inModal ? "inmodal" : ""} />,
+    thumb_down: <ThumbDown additionToId={inModal ? "inmodal" : ""} />,
+    blow_my_mind: <BlowMyMind additionToId={inModal ? "inmodal" : ""} />,
+    smile: <Smile additionToId={inModal ? "inmodal" : ""} />,
+    cry: <Cry additionToId={inModal ? "inmodal" : ""} />,
+    clown: <Clown additionToId={inModal ? "inmodal" : ""} />,
+  };
   return (
     <div
       className={`${

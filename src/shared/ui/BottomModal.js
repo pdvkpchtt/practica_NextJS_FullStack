@@ -30,15 +30,20 @@ const BottomModal = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
-          className="fixed top-0 left-0 w-full h-full bg-[#4A5479] bg-opacity-[20%] dark:bg-[#000] dark:bg-opacity-[50%] z-50"
-          initial={"initial"}
-          animate={"isOpen"}
-          exit={"exit"}
-          variants={modalVariant}
-        >
+        <>
           <motion.div
-            className="max-w-[978px] [@media(pointer:coarse)]:max-w-[498px] [@media(pointer:coarse)]:px-[12px] px-[16px] w-full h-fit fixed bottom-0 left-[50%]"
+            className="fixed top-0 left-0 w-full h-full bg-[#4A5479] bg-opacity-[20%] dark:bg-[#000] dark:bg-opacity-[50%] z-[100]"
+            initial={"initial"}
+            animate={"isOpen"}
+            exit={"exit"}
+            variants={modalVariant}
+            onClick={handleClose}
+          ></motion.div>
+          <motion.div
+            className="max-w-[978px] [@media(pointer:coarse)]:max-w-[498px] z-[200] [@media(pointer:coarse)]:px-[12px] px-[16px] w-full h-fit fixed bottom-0 left-[50%]"
+            initial={"initial"}
+            animate={"isOpen"}
+            exit={"exit"}
             variants={containerVariant}
             style={{ transform: translate }}
           >
@@ -50,7 +55,7 @@ const BottomModal = ({
 
             <div className="dark:bg-[#141414] bg-[#F6F6F8]">{children}</div>
           </motion.div>
-        </motion.div>
+        </>
       )}
     </AnimatePresence>
   );

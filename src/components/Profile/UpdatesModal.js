@@ -45,7 +45,11 @@ const UpdatesModal = ({ modalState = false, setModalState = () => {} }) => {
   }, [modalState]);
   return (
     <>
-      <Modal withScroll isOpen={modalState}>
+      <Modal
+        withScroll
+        isOpen={modalState}
+        handleClose={() => setModalState(false)}
+      >
         {/* header */}
         <div className="flex flex-row justify-end pb-[12px] relative">
           <Cross2 onClick={() => setModalState(false)} />

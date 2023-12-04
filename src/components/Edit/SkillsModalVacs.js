@@ -75,7 +75,7 @@ const SkillsModalVacs = ({
 
   return (
     <>
-      <Modal isOpen={isOpen}>
+      <Modal isOpen={isOpen} handleClose={handleClose}>
         {/* header */}
         <div className="flex flex-row justify-end w-full mb-[16px]">
           <Cross2 onClick={handleClose} />

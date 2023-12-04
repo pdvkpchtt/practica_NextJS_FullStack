@@ -75,11 +75,19 @@ const MessengerRight = ({
     d.setSeconds(d.getSeconds() - d_start.getSeconds());
     d.setMilliseconds(d.getMilliseconds() - d_start.getMilliseconds());
 
-    return `${d.getDate() - d_start.getDate()} ${getNoun2(
-      d.getDate() - d_start.getDate()
-    )} ${d.getHours() < 10 ? "0" + d.getHours() : d.getHours()} ${getNoun3(
-      d.getHours() < 10 ? "0" + d.getHours() : d.getHours()
-    )} ${
+    return `${
+      d.getDate() - d_start.getDate() > 0
+        ? `${d.getDate() - d_start.getDate()} ${getNoun2(
+            d.getDate() - d_start.getDate()
+          )}`
+        : ""
+    } ${
+      d.getDate() - d_start.getDate() === 0 && d.getHours() === 0
+        ? ""
+        : `${d.getHours() < 10 ? "0" + d.getHours() : d.getHours()} ${getNoun3(
+            d.getHours() < 10 ? "0" + d.getHours() : d.getHours()
+          )}`
+    }  ${
       d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()
     } ${getNoun4(d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes())}`;
   };
@@ -445,7 +453,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
 
       {timer !== null && (
         <div className="p-[12px] rounded-[20px] items-center flex flex-row justify-between max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]">
-          <ButtonGhost text={getFuckingTimer(timer)}></ButtonGhost>
+          <ButtonGhost withoutHover text={getFuckingTimer(timer)}></ButtonGhost>
         </div>
       )}
     </div>

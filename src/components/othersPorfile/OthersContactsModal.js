@@ -42,7 +42,7 @@ const OthersContactsModal = ({
 
   return (
     <>
-      <Modal isOpen={modalState}>
+      <Modal isOpen={modalState} handleClose={() => setModalState(false)}>
         {/* header */}
         <div className="flex flex-row justify-end pb-[12px] relative">
           <Cross2 onClick={() => setModalState(false)} />

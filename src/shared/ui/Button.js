@@ -12,6 +12,7 @@ export const ButtonPrimary = ({
   style = "",
   onClick = () => {},
   children,
+  withoutHover = false,
 }) => {
   const [loaderState, setLoaderState] = useState(false);
 
@@ -24,7 +25,9 @@ export const ButtonPrimary = ({
   return (
     <button
       type={type ? type : null}
-      className={`${style} font-medium outline-none [@media(pointer:coarse)]:rounded-[20px] rounded-[16px] h-[43px] leading-[20px] text-[16px] tracking-[-0.015em] text-center select-none text-white items-center flex justify-center cursor-pointer transition duration-[250ms] bg-[#5875e8] hover:bg-[#3A56C5] active:bg-[#2C429C]`}
+      className={`${style} font-medium outline-none [@media(pointer:coarse)]:rounded-[20px] rounded-[16px] h-[43px] leading-[20px] text-[16px] tracking-[-0.015em] text-center select-none text-white items-center flex justify-center transition duration-[250ms] bg-[#5875e8] ${
+        !withoutHover && `cursor-pointer hover:bg-[#3A56C5] active:bg-[#2C429C]`
+      }`}
       onClick={() => clickHandler()}
     >
       {children ? <div className="mr-[8px]">{children}</div> : null}
@@ -54,6 +57,7 @@ export const ButtonGhost = ({
   type,
   text = "empty",
   small = false,
+  withoutHover = false,
   onClick = () => console.log("empty"),
 }) => {
   const clickHandler = () => {
@@ -69,7 +73,11 @@ export const ButtonGhost = ({
           ? "font-medium text-[14px] leading-[16px] tracking-[-0.015em]"
           : "font-medium leading-[20px] text-[16px] tracking-[-0.015em]"
       } 
-      text-[#5875e8] cursor-pointer select-none transition duration-[250ms] hover:text-[#3A56C5] active:text-[#2C429C]`}
+      text-[#5875e8] select-none transition duration-[250ms] ${
+        !withoutHover
+          ? `cursor-pointer hover:text-[#3A56C5] active:text-[#2C429C]`
+          : "cursor-default"
+      } `}
       onClick={() => clickHandler()}
     >
       <>{children}</>
