@@ -52,6 +52,8 @@ export default async function handler(req, res) {
 			'var/www/practica/files',
 			id + p.extname(file.originalFilename)
 		)
+		console.log(file.path)
+		console.log(path)
 		await rename(file.path, path)
 		// await writeFile(path, buffer)
 		console.log(`open ${path} to see the uploaded file`)
