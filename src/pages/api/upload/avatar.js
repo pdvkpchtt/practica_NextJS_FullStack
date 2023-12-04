@@ -30,16 +30,16 @@ export default async function handler(req, res) {
 		const file = formData.files.file[0]
 
 		console.log('file_upload', file)
-// 		file_upload {
-//   fieldName: 'file',
-//   originalFilename: '11.png',
-//   path: 'C:\\Users\\MULYUK~1\\AppData\\Local\\Temp\\MQEJ_lsbJjLtxSkMc34PTXqA.png',
-//   headers: {
-//     'content-disposition': 'form-data; name="file"; filename="11.png"',
-//     'content-type': 'image/png'
-//   },
-//   size: 4849488
-// }
+		// 		file_upload {
+		//   fieldName: 'file',
+		//   originalFilename: '11.png',
+		//   path: 'C:\\Users\\MULYUK~1\\AppData\\Local\\Temp\\MQEJ_lsbJjLtxSkMc34PTXqA.png',
+		//   headers: {
+		//     'content-disposition': 'form-data; name="file"; filename="11.png"',
+		//     'content-type': 'image/png'
+		//   },
+		//   size: 4849488
+		// }
 		res.status(200).send({ error: 'No file uploaded' })
 		if (!file) {
 			res.status(200).json({ error: 'No file uploaded' })
@@ -47,8 +47,12 @@ export default async function handler(req, res) {
 
 		const id = uuid()
 
-		const path = join('/', 'var/www/practica/files', id + p.extname(file.originalFilename))
-		await rename(join(file.path), path);
+		const path = join(
+			'/',
+			'var/www/practica/files',
+			id + p.extname(file.originalFilename)
+		)
+		await rename(file.path, path)
 		// await writeFile(path, buffer)
 		console.log(`open ${path} to see the uploaded file`)
 
