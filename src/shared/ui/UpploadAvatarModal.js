@@ -6,6 +6,7 @@ import { uploadAvatar } from '../../server/actions/uploadAvatar'
 import { uploadAvatarCompany } from '../../server/actions/uploadAvatarCompany'
 
 import AvatarIcon from '../icons/AvatarIcon'
+import axios from 'axios'
 
 const UpploadAvatarModal = ({
 	isOpen = false,
@@ -15,17 +16,28 @@ const UpploadAvatarModal = ({
 	const inputRef = useRef(null)
 	const buttRef = useRef(null)
 
+	const handleChange = e => {
+		let formData = new FormData()
+		formData.append('file', e.target.files[0])
+		// formData.append("avatar", e.target.files[0]);
+		axios
+			.post('/api/upload/avatar', formData)
+			.then(console.log)
+			.catch(console.log)
+	}
+
 	return (
 		<BottomModal isOpen={isOpen} handleClose={handleClose}>
 			<div className='p-[12px]'>
-				<form action={company ? uploadAvatarCompany : uploadAvatar}>
+				<form action={() => {}}>
 					<input
 						type='file'
 						name='file'
 						accept='image/*'
 						className='hidden'
 						ref={inputRef}
-						onChange={() => {
+						onChange={e => {
+							handleChange(e)
 							buttRef.current.click()
 							handleClose()
 						}}
