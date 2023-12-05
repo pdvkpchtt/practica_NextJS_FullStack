@@ -101,7 +101,7 @@ const EditRight = ({
           </OneIconButton>
 
           <div
-            onClick={() => {
+            onClick={async () => {
               if (isDataChanged) {
                 setLittleLoader(true);
                 const res = await updateProfileData({
