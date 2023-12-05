@@ -21,7 +21,6 @@ import CheckBox from "../../shared/ui/CheckBox";
 import CheckIcon from "../../shared/icons/CheckIcon";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 import AddCityIcon from "../../shared/icons/AddCityIcon";
-import { insertMediatHardSkills } from "server/actions/inserts/insertAll";
 
 const EditRight = ({
   data,
@@ -103,71 +102,70 @@ const EditRight = ({
 
           <div
             onClick={() => {
-              insertMediatHardSkills();
-              // if (isDataChanged) {
-              //   setLittleLoader(true);
-              //   const res = await updateProfileData({
-              //     ...dataToUpdate,
-              //     UserSkills: dataToUpdate.UserSkills.map(
-              //       (item) => true && { skillId: item.id }
-              //     ),
-              //     education:
-              //       educationState.length == 1 &&
-              //       (educationState[0].name.length == 0 ||
-              //         educationState[0].degree.length == 0)
-              //         ? []
-              //         : educationState,
-              //     workExperience:
-              //       workState.length == 1 &&
-              //       (workState[0].organization.length == 0 ||
-              //         workState[0].post.length == 0 ||
-              //         workState[0].start_date.length == 0 ||
-              //         workState[0].end_date.length == 0)
-              //         ? []
-              //         : workState,
-              //   });
-              //   console.log(res?.message, "ass");
-              //   setStatus(res?.message);
-              //   if (res?.submsg)
-              //     setStatus(
-              //       res?.message
-              //         ? [...res?.message, res?.submsg]
-              //         : [res?.submsg]
-              //     );
+              if (isDataChanged) {
+                setLittleLoader(true);
+                const res = await updateProfileData({
+                  ...dataToUpdate,
+                  UserSkills: dataToUpdate.UserSkills.map(
+                    (item) => true && { skillId: item.id }
+                  ),
+                  education:
+                    educationState.length == 1 &&
+                    (educationState[0].name.length == 0 ||
+                      educationState[0].degree.length == 0)
+                      ? []
+                      : educationState,
+                  workExperience:
+                    workState.length == 1 &&
+                    (workState[0].organization.length == 0 ||
+                      workState[0].post.length == 0 ||
+                      workState[0].start_date.length == 0 ||
+                      workState[0].end_date.length == 0)
+                      ? []
+                      : workState,
+                });
+                console.log(res?.message, "ass");
+                setStatus(res?.message);
+                if (res?.submsg)
+                  setStatus(
+                    res?.message
+                      ? [...res?.message, res?.submsg]
+                      : [res?.submsg]
+                  );
 
-              //   if (!res) {
-              //     toast(`💾 Изменения сохранены`, {
-              //       position: isMobile ? "top-center" : "bottom-right",
-              //       autoClose: 2000,
-              //       hideProgressBar: true,
-              //       closeOnClick: true,
-              //       pauseOnHover: false,
-              //       draggable: true,
-              //       progress: undefined,
-              //       // theme: "dark",
-              //       progressStyle: { background: "#5875e8" },
-              //       containerId: "forCopy",
-              //     });
-              //     router.refresh();
-              //     setLittleLoader(false);
-              //   } else {
-              //     setLittleLoader(false);
-              //     toast(`🙇 Cорри, что-то пропущено`, {
-              //       position: isMobile ? "top-center" : "bottom-right",
-              //       autoClose: 2000,
-              //       hideProgressBar: true,
-              //       closeOnClick: true,
-              //       pauseOnHover: false,
-              //       draggable: true,
-              //       progress: undefined,
-              //       // theme: "dark",
-              //       progressStyle: { background: "#5875e8" },
-              //       containerId: "forCopy",
-              //     });
-              //     router.refresh();
-              //     setLittleLoader(false);
-              //   }
-              // }
+                if (!res) {
+                  toast(`💾 Изменения сохранены`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  router.refresh();
+                  setLittleLoader(false);
+                } else {
+                  setLittleLoader(false);
+                  toast(`🙇 Cорри, что-то пропущено`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  router.refresh();
+                  setLittleLoader(false);
+                }
+              }
             }}
             className={`
                 px-[12px] py-[8px] rounded-[16px] transition duration-[250ms] select-none w-fit
