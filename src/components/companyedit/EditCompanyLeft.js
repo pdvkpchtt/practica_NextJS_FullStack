@@ -36,10 +36,7 @@ const EditCompanyLeft = ({
   const [linkLink, setLinkLink] = useState("");
   const [bottomModal, setBottomModal] = useState(false);
   const [error, setError] = useState(false);
-
-  const inviteHandler = async (hrMail, compId) => {
-    await invite(hrMail, compId);
-  };
+  const [invalid, setInvalid] = useState(null);
 
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -73,7 +70,7 @@ const EditCompanyLeft = ({
             <Image
               src={data.image}
               alt="Profile photo"
-              className="[@media(hover)]:min-w-[110px] object-cover [@media(hover)]:w-[110px] [@media(hover)]:h-[110px] [@media(hover)]:min-h-[110px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full w-full"
+              className="min-w-[110px] object-cover w-[110px] h-[110px] min-h-[110px]"
               width={110}
               height={110}
               unoptimized
@@ -313,29 +310,42 @@ const EditCompanyLeft = ({
             onChange={(val) => {
               setHrMail(val);
               setError(false);
+              setInvalid(false);
             }}
+            caption={
+              invalid === "userExist"
+                ? "Пользователь с таким email не зарегстрирован в practica"
+                : invalid === "userHr"
+                ? "Этот пользователь уже HR"
+                : null
+            }
           />
           <p
-            onClick={() => {
+            onClick={async () => {
               if (hrMail.length > 0) {
                 if (!isValidEmail(hrMail)) {
                   setError(true);
                 } else {
-                  inviteHandler(hrMail, dataToUpdate.id);
-                  toast(`📧 Приглашение отправлено`, {
-                    position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    // theme: "dark",
-                    progressStyle: { background: "#5875e8" },
-                    containerId: "forCopy",
-                  });
-                  setError(false);
-                  setHrMail("");
+                  const res = await invite(hrMail, dataToUpdate.id);
+
+                  console.log(res, "lll");
+                  if (res?.status === "error") setInvalid(res.message);
+                  else {
+                    toast(`📧 Приглашение отправлено`, {
+                      position: isMobile ? "top-center" : "bottom-right",
+                      autoClose: 2000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: false,
+                      draggable: true,
+                      progress: undefined,
+                      // theme: "dark",
+                      progressStyle: { background: "#5875e8" },
+                      containerId: "forCopy",
+                    });
+                    setError(false);
+                    setHrMail("");
+                  }
                 }
               }
             }}
@@ -350,6 +360,10 @@ const EditCompanyLeft = ({
         </Card>
       )}
       {/* добавить рекрутера */}
+      <Card
+        padding={6}
+        style={"invisible [@media(pointer:coarse)]:hidden"}
+      ></Card>
 
       <UpploadAvatarModal
         isOpen={bottomModal}

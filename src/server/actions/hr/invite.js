@@ -42,6 +42,8 @@ export const invite = async (email, compId) => {
     },
   });
 
+  if (!invitedUser[0]?.id) return { status: "error", message: "userExist" };
+
   const existingHr = await prisma.Hr.findMany({
     select: {
       userId: true,
@@ -51,6 +53,7 @@ export const invite = async (email, compId) => {
     },
   });
 
+  if (existingHr[0]?.id) return { status: "error", message: "userHr" };
   // console.log(existingHr, "jopa2");
 
   if (invitedUser.length !== 0 && existingHr.length === 0) {
