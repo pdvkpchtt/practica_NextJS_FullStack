@@ -370,7 +370,7 @@ const ChatsPanel = ({ chatId, user_id, profileData, setTimer, timer }) => {
                           }
                           text={
                             dataStateMessages[0]?.myMessage
-                              ? "Теперь нужно немного подождать. Cобеседник ответит вам, если захочет"
+                              ? "Теперь нужно немного подождать. Cобеседник ответит вам, если заинтересуется"
                               : `@${dataStateMessages[0]?.user?.username} отправил вам суперпитч. Можете ответить, если хотите дружить с этим человеком`
                           }
                         />
@@ -395,7 +395,7 @@ const ChatsPanel = ({ chatId, user_id, profileData, setTimer, timer }) => {
                           }
                           text={
                             dataStateMessages[0]?.myMessage
-                              ? "Теперь нужно немного подождать. Cобеседник ответит вам, если захочет"
+                              ? "Теперь нужно немного подождать. Cобеседник ответит вам, если заинтересуется"
                               : `@${dataStateMessages[0]?.user?.username} отправил вам питч. Можете ответить, если хотите дружить с этим человеком`
                           }
                         />
