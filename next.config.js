@@ -1,54 +1,59 @@
 /** @type {import('next').NextConfig} */
-var path = require('path')
+var path = require("path");
 const nextConfig = {
-	webpack: config => {
-		config.module.rules.push({
-			test: /\.svg$/i,
-			issuer: /\.[jt]sx?$/,
-			use: [
-				{
-					loader: '@svgr/webpack',
-					options: {
-						svgoConfig: {
-							plugins: [
-								{
-									name: 'preset-default',
-									params: {
-										overrides: {
-											cleanupIds: false,
-											removeViewBox: false,
-										},
-									},
-								},
-								'removeXMLNS',
-							],
-						},
-					},
-				},
-			],
-		})
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: [
+        {
+          loader: "@svgr/webpack",
+          options: {
+            svgoConfig: {
+              plugins: [
+                {
+                  name: "preset-default",
+                  params: {
+                    overrides: {
+                      cleanupIds: false,
+                      removeViewBox: false,
+                    },
+                  },
+                },
+                "removeXMLNS",
+              ],
+            },
+          },
+        },
+      ],
+    });
 
-		return config
-	},
-	reactStrictMode: false,
+    return config;
+  },
+  reactStrictMode: false,
 
-	experimental: {
-		appDir: true,
-		serverActions: true,
-		serverActionsBodySizeLimit: '9999mb',
-	},
-	images: {
-		remotePatterns: [
-			{
-				protocol: 'https',
-				hostname: '**',
-			},
-		],
-	},
-	webpack: (config, { isServer }) => {
-		config.resolve.alias['@'] = path.join(__dirname, 'src')
-		return config
-	},
-}
+  experimental: {
+    appDir: true,
+    serverActions: true,
+    serverActionsBodySizeLimit: "9999mb",
+    serverComponentsExternalPackages: [
+      "@react-email/components",
+      "@react-email/render",
+      "@react-email/tailwind",
+    ],
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
+  webpack: (config, { isServer }) => {
+    config.resolve.alias["@"] = path.join(__dirname, "src");
+    return config;
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

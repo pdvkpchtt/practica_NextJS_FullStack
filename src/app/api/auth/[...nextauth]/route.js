@@ -3,7 +3,7 @@ import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import { prisma } from "../../../../server/db";
-import sendVerificationRequest from "server/sendVerificationRequest";
+import sendVerificationRequest from "../../../../server/sendVerificationRequest";
 
 export const authOptions = {
   //secret: process.env.AUTH_SECRET,
