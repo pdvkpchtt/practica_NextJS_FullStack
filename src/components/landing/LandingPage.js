@@ -76,7 +76,7 @@ const users = [
 
 const LandingPage = () => {
   return (
-    <div className="w-full h-full flex flex-col [@media(pointer:coarse)]:p-[12px]">
+    <div className="w-full h-full flex flex-col">
       <WTF />
       {/* потом убрать */}
       <div className="fixed z-[-3] left-0 top-0 bg-[#f6f6f8] w-full h-full" />
@@ -86,7 +86,7 @@ const LandingPage = () => {
       <div className="h-full flex-col flex gap-[64px] mt-[calc(100vh+64px)] text-center items-center">
         {blocks.map((item, key) => (
           <div
-            className="flex flex-col gap-[12px] text-center items-center"
+            className="flex flex-col gap-[12px] text-center items-cente  [@media(pointer:coarse)]:px-[12px]"
             key={key}
           >
             <p className="text-[#2D52E6] text-[38px] font-semibold leading-[38px] tracking-[-1.52px] [@media(hover)]:w-[652px]">
@@ -107,13 +107,13 @@ const LandingPage = () => {
           </div>
         ))}
 
-        <p className="text-[#2D52E6] text-[38px] font-semibold leading-[38px] tracking-[-1.52px] flex flex-wrap [@media(hover)]:w-[652px]">
+        <p className="text-[#2D52E6] text-[38px] font-semibold leading-[38px] tracking-[-1.52px] flex flex-wrap [@media(hover)]:w-[652px]  [@media(pointer:coarse)]:px-[12px]">
           practica&nbsp;
           <span className="fancyText">многогранна</span>
         </p>
 
         <Slider />
-        <div className="flex flex-col gap-[12px] [@media(pointer:coarse)]:hidden">
+        <div className="flex flex-col gap-[12px] [@media(pointer:coarse)]:hidden  [@media(pointer:coarse)]:px-[12px]">
           <div className="flex flex-row gap-[12px]">
             <div className="relative flex flex-col w-[274px] h-[383px] overflow-hidden rounded-[30px] gap-[16px] text-start p-[20px]">
               <SvgFancy1 />
@@ -217,7 +217,7 @@ const LandingPage = () => {
           ))}
         </div> */}
 
-        <div className="flex flex-col gap-[24px] text-start w-full [@media(hover)]:ml-[66px] mb-[83px]">
+        <div className="flex flex-col gap-[24px] text-start w-full [@media(hover)]:ml-[66px] mb-[83px] [@media(pointer:coarse)]:px-[12px]">
           <div className="flex flex-col gap-[5px]">
             <p className="text-[48px] font-bold leading-[58px] tracking-[-1.2px] text-[#5875e8]">
               practica
@@ -246,7 +246,7 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <div className="flex w-full min-h-[104px] text-start flex-row gap-[32px] [@media(hover)]:ml-[66px] mb-[80px]">
+        <div className="flex w-full min-h-[104px] text-start flex-row gap-[32px] [@media(hover)]:ml-[66px] mb-[80px] [@media(pointer:coarse)]:px-[12px]">
           <p className="text-[20px] font-medium cursor-pointer underline leading-[24px] tracking-[-0.3px] text-[#2c2c2c]">
             Terms of Service
           </p>
