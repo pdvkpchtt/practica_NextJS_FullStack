@@ -20,7 +20,7 @@ export const getConnctionsCount = async () => {
       },
     },
     where: {
-      id: session.user.id,
+      id: session?.user?.id,
     },
   });
 

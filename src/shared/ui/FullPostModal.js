@@ -32,6 +32,28 @@ const FullPostModal = ({
   toggleReaction = () => {},
   selectedId,
 }) => {
+  var textWithLinks = [];
+  item.text &&
+    item.text.replace(
+      /((?:https?:\/\/|ftps?:\/\/|\bwww\.)(?:(?![.,?!;:()]*(?:\s|$))[^\s]){2,})|(\n+|(?:(?!(?:https?:\/\/|ftp:\/\/|\bwww\.)(?:(?![.,?!;:()]*(?:\s|$))[^\s]){2,}).)+)/gim,
+      (m, link, text) => {
+        textWithLinks.push(
+          link ? (
+            <a
+              target={"_blank"}
+              href={(link[0] === "w" ? "//" : "") + link}
+              key={textWithLinks.length}
+              className="text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition-all duration-[250ms]"
+            >
+              {link}
+            </a>
+          ) : (
+            text
+          )
+        );
+      }
+    );
+
   const router = useRouter();
   // useEffect(() => {
   //   if (open) document.body.style.overflow = "hidden";
@@ -114,7 +136,7 @@ const FullPostModal = ({
 
                 {/* text */}
                 <TextMain
-                  text={item.text}
+                  text={textWithLinks}
                   style="font-normal mr-[53px] whitespace-pre-line text-[16px] leading-[19px] tracking-[-0.015em]"
                 />
                 {/* text */}

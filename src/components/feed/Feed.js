@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { Waypoint } from "react-waypoint";
 
@@ -7,8 +8,12 @@ import Post from "../../shared/ui/Post";
 import CustomLoader from "../../shared/ui/CustomLoader";
 import { ModalContext } from "./ModalContext";
 import { LayoutGroup } from "framer-motion";
+import Card from "../../shared/ui/Card";
+import TextMain from "../../shared/Text/TextMain ";
 
 const Feed = ({ getFeed, addReaction, userId }) => {
+  const pathname = usePathname();
+
   const { posts, setPosts, navState } = useContext(ModalContext);
 
   const [cursor, setCursor] = useState("");
@@ -40,16 +45,25 @@ const Feed = ({ getFeed, addReaction, userId }) => {
   return (
     <>
       <LayoutGroup>
-        {posts.map((item) => (
-          <Post
-            userId={userId}
-            key={item.id}
-            item={item}
-            addReaction={addReaction}
-            setSelectedId={(val) => setSelectedId(val)}
-            selectedId={selectedId}
-          />
-        ))}
+        {posts.length === 0 && pathname.includes("foryou")
+          ? !loading && (
+              <Card style={"flex justify-center text-center"}>
+                <TextMain
+                  text={`Расширьте свою сеть нетворкинга`}
+                  style="text-[14px] font-medium leading-[18px] tracking-[-0.013em]"
+                />
+              </Card>
+            )
+          : posts.map((item) => (
+              <Post
+                userId={userId}
+                key={item.id}
+                item={item}
+                addReaction={addReaction}
+                setSelectedId={(val) => setSelectedId(val)}
+                selectedId={selectedId}
+              />
+            ))}
       </LayoutGroup>
 
       {hasNextPage ? (

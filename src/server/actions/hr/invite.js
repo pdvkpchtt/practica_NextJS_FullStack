@@ -8,11 +8,14 @@ import nodemailer from "nodemailer";
 
 import Email from "./Email";
 
-export const invite = async (email, compId) => {
+export const invite = async (email, compId, compName) => {
   // email sending
   const token = uuid();
   const emailHtml = render(
-    <Email url={`${process.env.NEXTAUTH_URL}/api/hr/verify?token=${token}`} />
+    <Email
+      url={`${process.env.NEXTAUTH_URL}/api/hr/verify?token=${token}`}
+      compName={compName}
+    />
   );
 
   const transporter = nodemailer.createTransport({
@@ -27,7 +30,7 @@ export const invite = async (email, compId) => {
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
-    subject: "hello world",
+    subject: "Приглашение",
     html: emailHtml,
   };
   // email sending

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { LayoutGroup, motion } from "framer-motion";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import dayjs from "dayjs";
@@ -34,6 +35,29 @@ const Post = ({
   selectedId,
   userId,
 }) => {
+  var textWithLinks = [];
+  item.text &&
+    item.text.replace(
+      /((?:https?:\/\/|ftps?:\/\/|\bwww\.)(?:(?![.,?!;:()]*(?:\s|$))[^\s]){2,})|(\n+|(?:(?!(?:https?:\/\/|ftp:\/\/|\bwww\.)(?:(?![.,?!;:()]*(?:\s|$))[^\s]){2,}).)+)/gim,
+      (m, link, text) => {
+        textWithLinks.push(
+          link ? (
+            <a
+              target={"_blank"}
+              href={(link[0] === "w" ? "//" : "") + link}
+              key={textWithLinks.length}
+              className="text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition-all duration-[250ms]"
+            >
+              {link}
+            </a>
+          ) : (
+            text
+          )
+        );
+      }
+    );
+  console.log(textWithLinks, "textWithLinks");
+
   const router = useRouter();
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
@@ -156,7 +180,7 @@ const Post = ({
             <div className="flex flex-col relative z-[1] gap-[12px] [@media(hover)]:px-[65px] [@media(pointer:coarse)]:pl-[65px] [@media(pointer:coarse)]:pr-[12px] py-[12px]">
               {/* clickable div */}
               <div
-                className="absolute cursor-pointer top-0 left-0 w-full h-[calc(100%-46px)]"
+                className="absolute cursor-pointer z-[-1] top-0 left-0 w-full h-[calc(100%-46px)]"
                 onClick={() => {
                   !isMobile
                     ? setSelectedId(item.id)
@@ -172,11 +196,7 @@ const Post = ({
               />
 
               <TextMain
-                text={
-                  item.text.length <= 200
-                    ? item.text
-                    : item.text.slice(0, 199) + "..."
-                }
+                text={textWithLinks}
                 style="font-normal whitespace-pre-line text-[16px] line-clamp-3 overflow-hidden truncate leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0121875em]"
               />
               {/* header and text */}

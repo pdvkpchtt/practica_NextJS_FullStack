@@ -6,6 +6,7 @@ import third from "./third.png";
 import SvgFancy1 from "../../shared/icons/landing/SvgFancy1";
 import SwgFancy2 from "../../shared/icons/landing/SwgFancy2";
 import ava1 from "../../shared/icons/landing/ava1.png";
+import Slider from "./Slider";
 
 const blocks = [
   {
@@ -75,7 +76,7 @@ const users = [
 
 const LandingPage = () => {
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col [@media(pointer:coarse)]:p-[12px]">
       <WTF />
       {/* потом убрать */}
       <div className="fixed z-[-3] left-0 top-0 bg-[#f6f6f8] w-full h-full" />
@@ -106,12 +107,13 @@ const LandingPage = () => {
           </div>
         ))}
 
-        <p className="text-[#2D52E6] text-[38px] font-semibold leading-[38px] tracking-[-1.52px] [@media(hover)]:w-[652px]">
-          practica
-          <span className="fancyText">&nbsp;многогранна</span>
+        <p className="text-[#2D52E6] text-[38px] font-semibold leading-[38px] tracking-[-1.52px] flex flex-wrap [@media(hover)]:w-[652px]">
+          practica&nbsp;
+          <span className="fancyText">многогранна</span>
         </p>
 
-        <div className="flex flex-col gap-[12px]">
+        <Slider />
+        <div className="flex flex-col gap-[12px] [@media(pointer:coarse)]:hidden">
           <div className="flex flex-row gap-[12px]">
             <div className="relative flex flex-col w-[274px] h-[383px] overflow-hidden rounded-[30px] gap-[16px] text-start p-[20px]">
               <SvgFancy1 />
@@ -178,8 +180,8 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <div className="text-start w-full">
-          <p className="mt-[53px] ml-[66px] text-[#5e5e5e] text-[16px] leading-[19px] trcking-[-0.32px] mb-[157px] w-[538px]">
+        {/* <div className="text-start w-full">
+          <p className="mt-[53px] [@media(hover)]:ml-[66px] text-[#5e5e5e] text-[16px] leading-[19px] trcking-[-0.32px] mb-[157px] [@media(hover)]:w-[538px]">
             Каждый участник проекта пришел в команду через рекомендацию от
             знакомых, поэтому мы верим, что связи — лучшая возможность
             реализовать карьерные планы.
@@ -213,9 +215,9 @@ const LandingPage = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
 
-        <div className="flex flex-col gap-[24px] text-start w-full ml-[66px] mb-[83px]">
+        <div className="flex flex-col gap-[24px] text-start w-full [@media(hover)]:ml-[66px] mb-[83px]">
           <div className="flex flex-col gap-[5px]">
             <p className="text-[48px] font-bold leading-[58px] tracking-[-1.2px] text-[#5875e8]">
               practica
@@ -244,7 +246,7 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <div className="flex w-full text-start flex-row gap-[32px] ml-[66px] mb-[80px]">
+        <div className="flex w-full min-h-[104px] text-start flex-row gap-[32px] [@media(hover)]:ml-[66px] mb-[80px]">
           <p className="text-[20px] font-medium cursor-pointer underline leading-[24px] tracking-[-0.3px] text-[#2c2c2c]">
             Terms of Service
           </p>
