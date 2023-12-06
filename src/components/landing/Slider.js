@@ -42,20 +42,19 @@ const Slider = () => {
         grabCursor={true}
         loop={true}
         centeredSlides={true}
-        slidesPerView={"auto"}
+        slidesPerView={2}
         coverflowEffect={{
           rotate: 0,
           stretch: 0,
           depth: 100,
-          modifier: 1,
+          modifier: 3,
           slideShadows: false,
         }}
-        pagination={true}
         modules={[EffectCoverflow]}
-        className="mySwiper"
+        className="min-h-[383px]"
       >
         {data.map((d, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} className="min-h-[383px] min-w-[284px]">
             <Image
               src={d}
               unoptimized
@@ -63,6 +62,7 @@ const Slider = () => {
               width={284}
               height={383}
               alt={"slide" + index + 1}
+              // className="min-h-[383px] min-w-[284px]"
             />
           </SwiperSlide>
         ))}
