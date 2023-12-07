@@ -54,7 +54,7 @@ const Slider = () => {
         className="min-h-[383px]"
       >
         {data.map((d, index) => (
-          <SwiperSlide key={index} className="min-h-[383px] min-w-[284px]">
+          <SwiperSlide key={index} className="min-h-[383px]">
             <Image
               src={d}
               unoptimized
