@@ -69,7 +69,7 @@ const ProfileLiked = ({
         <>
           {posts.map((item) => (
             <Post
-              key={item?s.id}
+              key={item?.id}
               item={item}
               addReaction={addReaction}
               setSelectedId={(val) => setSelectedId(val)}
