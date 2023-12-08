@@ -20,6 +20,7 @@ const Feed = ({ getFeed, addReaction, userId }) => {
   const [hasNextPage, setHasNextPage] = useState(true);
   const [loading, setLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [done, setDone] = useState(false);
 
   const getPosts = async (cursor) => {
     console.log("fetching");
@@ -35,6 +36,7 @@ const Feed = ({ getFeed, addReaction, userId }) => {
     setCursor(data.cursor);
     setHasNextPage(data.hasNextPage);
     setLoading(false);
+    setDone(true);
   };
 
   useEffect(() => {
@@ -45,25 +47,24 @@ const Feed = ({ getFeed, addReaction, userId }) => {
   return (
     <>
       <LayoutGroup>
-        {posts.length === 0 && pathname.includes("foryou")
-          ? !loading && (
-              <Card style={"flex justify-center text-center"}>
-                <TextMain
-                  text={`Расширьте свою сеть нетворкинга`}
-                  style="text-[14px] font-medium leading-[18px] tracking-[-0.013em]"
-                />
-              </Card>
-            )
-          : posts.map((item) => (
-              <Post
-                userId={userId}
-                key={item.id}
-                item={item}
-                addReaction={addReaction}
-                setSelectedId={(val) => setSelectedId(val)}
-                selectedId={selectedId}
-              />
-            ))}
+        {done && pathname.includes("foryou") && posts.length === 0 && (
+          <Card style={"flex justify-center text-center"}>
+            <TextMain
+              text={`Расширьте свою сеть нетворкинга`}
+              style="text-[14px] font-medium leading-[18px] tracking-[-0.013em]"
+            />
+          </Card>
+        )}
+        {posts.map((item) => (
+          <Post
+            userId={userId}
+            key={item.id}
+            item={item}
+            addReaction={addReaction}
+            setSelectedId={(val) => setSelectedId(val)}
+            selectedId={selectedId}
+          />
+        ))}
       </LayoutGroup>
 
       {hasNextPage ? (

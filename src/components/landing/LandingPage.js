@@ -78,9 +78,6 @@ const LandingPage = () => {
   return (
     <div className="w-full h-full flex flex-col">
       <WTF />
-      {/* потом убрать */}
-      <div className="fixed z-[-3] left-0 top-0 bg-[#f6f6f8] w-full h-full" />
-      {/* потом убрать */}
       {/* <LandingGearsComponents /> */}
 
       <div className="h-full flex-col flex gap-[64px] mt-[calc(100vh+64px)] text-center items-center">
