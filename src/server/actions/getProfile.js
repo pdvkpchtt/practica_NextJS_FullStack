@@ -105,10 +105,16 @@ export const getProfile = async ({ userId }) => {
       },
     });
 
-    const arr2 = [];
-    user.connections.map((i) =>
-      i.connections.map((i2) => i2.connections.map((i3) => arr2.push(i3)))
+    let arr2 = [];
+    user?.connections?.map((i) =>
+      i?.connections?.map((i2) => i2?.connections?.map((i3) => arr2?.push(i3)))
     );
+    let arr1 = [];
+    user?.connections?.map(
+      (i) => i?.id === session?.user?.id && arr1?.push(i?.id)
+    );
+    let arr3 = [];
+    arr2?.map((i) => i?.id === session?.user?.id && arr3?.push(i?.id));
     return {
       id: user.id,
       name: user.name,
@@ -161,17 +167,23 @@ export const getProfile = async ({ userId }) => {
       },
       UpdatesToMe: user?.UpdatesToMe,
       hrCompany: comapny,
-      isFirstCircle: user.connections.find((i) => i.id === session.user.id),
-      isSecondCircle: user.connections
-        .map((i2) => i2.connections.map((i) => i.id === session.user.id))
-        .map((i) => i.find((i2) => i2 === true)),
-      isThirdCircle: arr2.find((i) => i.id === session.user.id),
+      isFirstCircle: arr1,
+      isSecondCircle: user?.connections
+        ?.map((i2) => i2?.connections?.map((i) => i?.id === session?.user?.id))
+        ?.map((i) => i?.find((i2) => i2 === true)),
+      isThirdCircle: arr3,
     };
   } else {
-    const arr2 = [];
-    user.connections.map((i) =>
-      i.connections.map((i2) => i2.connections.map((i3) => arr2.push(i3)))
+    let arr2 = [];
+    user?.connections?.map((i) =>
+      i?.connections?.map((i2) => i2?.connections?.map((i3) => arr2?.push(i3)))
     );
+    let arr1 = [];
+    user?.connections?.map(
+      (i) => i?.id === session?.user?.id && arr1?.push(i?.id)
+    );
+    let arr3 = [];
+    arr2?.map((i) => i?.id === session?.user?.id && arr3?.push(i?.id));
     return {
       id: user.id,
       name: user.name,
@@ -223,13 +235,11 @@ export const getProfile = async ({ userId }) => {
         direction: user?.Company?.direction,
       },
       UpdatesToMe: user?.UpdatesToMe,
-      isFirstCircle: user.connections.find((i) => i.id === session.user.id),
-      isSecondCircle: user.connections
-        .map((i2) => i2.connections.map((i) => i.id === session.user.id))
-        .map((i) => i.find((i2) => i2 === true)),
-      // isThirdCircle: user.connections
-      //   .map((i) => i.connections.map((i2) => i2.connections.find(i3 => i3.connections.)))
-      isThirdCircle: arr2.find((i) => i.id === session.user.id),
+      isFirstCircle: arr1,
+      isSecondCircle: user?.connections
+        ?.map((i2) => i2?.connections?.map((i) => i?.id === session?.user?.id))
+        ?.map((i) => i?.find((i2) => i2 === true)),
+      isThirdCircle: arr3,
     };
   }
 };

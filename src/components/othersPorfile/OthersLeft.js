@@ -174,9 +174,9 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
           padding={12}
         >
           <div className="rounded-[8px] overflow-hidden  aspect-square [@media(pointer:coarse)]:w-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
-            {data.image ? (
+            {data?.image ? (
               <Image
-                src={data.image}
+                src={data?.image}
                 alt="Profile photo"
                 className="object-cover [@media(hover)]:min-w-[236px] [@media(hover)]:w-[236px] [@media(hover)]:h-[236px] [@media(hover)]:min-h-[236px]  [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full"
                 width={236}
@@ -195,18 +195,18 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
             <div className="flex flex-col gap-[8px]">
               <TextMain
                 text={`${data.name}${
-                  data.isFirstCircle
+                  data?.isFirstCircle?.length > 0
                     ? " • 1"
-                    : data.isSecondCircle.find((i2) => i2 === true)
+                    : data?.isSecondCircle?.find((i2) => i2 === true)
                     ? " • 2"
-                    : data.isThirdCircle
+                    : data?.isThirdCircle?.length > 0
                     ? " • 3"
                     : " • 3+"
                 }`}
                 style="font-medium text-[18px] leading-[21.6px] tracking-[-0.025em]"
               />
               <TextSecondary
-                text={`@${data.username}`}
+                text={`@${data?.username}`}
                 onClick={() => {
                   toast(`🗂 Текст скопирован`, {
                     position: isMobile ? "top-center" : "bottom-right",
@@ -220,7 +220,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                     progressStyle: { background: "#5875e8" },
                     containerId: "forCopy",
                   });
-                  clipboard.copy(data.username);
+                  clipboard.copy(data?.username);
                 }}
                 style="font-medium cursor-pointer text-[14px] leading-[16px] tracking-[-0.015em]"
               />
@@ -229,21 +229,21 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
 
             {/* location and birth date */}
             <div className="flex flex-col">
-              {data.city === null || data.city?.length === 0 ? null : (
+              {data?.city === null || data?.city?.length === 0 ? null : (
                 <div className="flex flex-row gap-[8px] mt-[12px]">
                   <LocationIcon />
                   <TextSecondary
-                    text={data.city}
+                    text={data?.city}
                     style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                   />
                 </div>
               )}
 
-              {data.birthDate && (
+              {data?.birthDate && (
                 <div className="flex flex-row mt-[12px] gap-[8px]">
                   <CalendarIcon />
                   <TextSecondary
-                    text={data.birthDate}
+                    text={data?.birthDate}
                     style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                   />
                 </div>
@@ -258,11 +258,11 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 onClick={() => setModalState(true)}
               >
                 <TextMain
-                  text={data.connections}
+                  text={data?.connections}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
                 <TextSecondary
-                  text={getNoun2(data.connections)}
+                  text={getNoun2(data?.connections)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>
@@ -273,11 +273,11 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 }}
               >
                 <TextMain
-                  text={data.companiesIFollow}
+                  text={data?.companiesIFollow}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
                 <TextSecondary
-                  text={getNoun3(data.companiesIFollow)}
+                  text={getNoun3(data?.companiesIFollow)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>
@@ -300,21 +300,17 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
         {data.role.includes("hr") && (
           <div className="p-[12px] rounded-[20px] items-center flex flex-row justify-between max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]">
             <ButtonGhost
-              text={data.hrCompany.company.name}
+              text={data?.hrCompany?.company?.name}
               onClick={() =>
                 router.push(
-                  `/companyprofile/${
-                    data.hrCompany.company.username.length > 0
-                      ? data.hrCompany.company.username
-                      : data.hrCompany.company.id
-                  }`
+                  `/companyprofile/${data?.hrCompany?.company?.username}`
                 )
               }
             >
               <div className="rounded-full overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
-                {data.hrCompany.company.image ? (
+                {data?.hrCompany?.company?.image ? (
                   <Image
-                    src={data.hrCompany.company.image}
+                    src={data?.hrCompany?.company?.image}
                     alt="hr company photo"
                     className="w-[20px] h-[20px] min-w-[20px] min-h-[20px] object-cover max-w-[20px] max-h-[20px]"
                     width={20}
@@ -332,7 +328,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
         {/* hr */}
 
         {/* contacts */}
-        {data.phone && data.phoneVerified && data.inSearch && (
+        {data?.phone && data?.phoneVerified && data?.inSearch && (
           <div className="p-[12px] rounded-[20px] items-center flex flex-row justify-between max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]">
             <ButtonGhost
               text="Контактные данные"
@@ -349,7 +345,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
         {/* contacts */}
 
         {/* ёбка с питчами */}
-        {data.isFirstCircle ? (
+        {data?.isFirstCircle ? (
           <Card
             style={`max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] flex flex-col gap-[8px] ${
               "" // loading && "items-center"
@@ -363,7 +359,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 strokeWidthSecondary={6}
               />
             )} */}
-            {!ifChatExist.id && (
+            {!ifChatExist?.id && (
               <ButtonGhost
                 text="Отправить сообщение"
                 onClick={() =>
@@ -373,16 +369,16 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 <MessengeIcon fill={"#5875e8"} />
               </ButtonGhost>
             )}
-            {ifChatExist.id && (
+            {ifChatExist?.id && (
               <ButtonGhost
                 text="Отправить сообщение"
-                onClick={() => router.push(`/messenger/${ifChatExist.id}`)}
+                onClick={() => router.push(`/messenger/${ifChatExist?.id}`)}
               >
                 <MessengeIcon fill={"#5875e8"} />
               </ButtonGhost>
             )}
           </Card>
-        ) : data.isSecondCircle.find((i2) => i2 === true) ? (
+        ) : data?.isSecondCircle?.find((i2) => i2 === true) ? (
           <div
             className={`${
               "" // pitchesState === null && "justify-center"
@@ -404,8 +400,8 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
               onClick={() => {
                 router.push(
                   !ifChatExist.id
-                    ? `/messenger/preview?user_id=${data.id}`
-                    : `/messenger/${ifChatExist.id}`
+                    ? `/messenger/preview?user_id=${data?.id}`
+                    : `/messenger/${ifChatExist?.id}`
                 );
               }}
             >
@@ -413,7 +409,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
             </ButtonGhost>
             {/* )} */}
           </div>
-        ) : data.isThirdCircle ? (
+        ) : data?.isThirdCircle ? (
           <div
             className={`${
               "" // superpitchesState === null && "justify-center"
@@ -434,9 +430,9 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
               }
               onClick={() => {
                 router.push(
-                  !ifChatExist.id
-                    ? `/messenger/preview?user_id=${data.id}`
-                    : `/messenger/${ifChatExist.id}`
+                  !ifChatExist?.id
+                    ? `/messenger/preview?user_id=${data?.id}`
+                    : `/messenger/${ifChatExist?.id}`
                 );
               }}
             >
@@ -465,9 +461,9 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
               }
               onClick={() => {
                 router.push(
-                  !ifChatExist.id
-                    ? `/messenger/preview?user_id=${data.id}`
-                    : `/messenger/${ifChatExist.id}`
+                  !ifChatExist?.id
+                    ? `/messenger/preview?user_id=${data?.id}`
+                    : `/messenger/${ifChatExist?.id}`
                 );
               }}
             >
@@ -478,7 +474,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
         )}
 
         {/* тут кнопки все, которые будут, можешь потестить */}
-        {(ifChatExist.id || data.isFirstCircle) && (
+        {(ifChatExist?.id || data?.isFirstCircle) && (
           <Card
             style={`max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] flex flex-col gap-[8px] ${
               loading && "items-center"
@@ -520,7 +516,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
               <ButtonGhost
                 text="Заявка на рассмотрении"
                 onClick={async () => {
-                  await cancelFriendRequest(data.id);
+                  await cancelFriendRequest(data?.id);
                   toast(`🙅 Заявка в друзья отменена`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 2000,
@@ -546,7 +542,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 <ButtonGhost
                   text="Подружиться"
                   onClick={async () => {
-                    await sendFriendRequest(data.id);
+                    await sendFriendRequest(data?.id);
                     // setRequestStatus(true);
                     toast(`🌐 Заявка в друзья отправлена`, {
                       position: isMobile ? "top-center" : "bottom-right",
@@ -569,7 +565,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
               <ButtonGhost
                 text="Принять заявку"
                 onClick={async () => {
-                  await addConnection(data.id);
+                  await addConnection(data?.id);
                   // setIfHeSentRequest(false);
                   router.refresh();
                   toast(`🤝 Заявка принята`, {
@@ -596,7 +592,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
 
       {/* modal for connections handling */}
       <ConnectionsModal
-        userId={data.id}
+        userId={data?.id}
         modalState={modalState}
         setModalState={setModalState}
       />
@@ -604,8 +600,8 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
 
       {/* contactsModal */}
       <OthersContactsModal
-        name={data.username}
-        phone={data.phone}
+        name={data?.username}
+        phone={data?.phone}
         modalState={contactsModalState}
         setModalState={setContactsModalState}
       />
@@ -613,7 +609,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
 
       {/* subscr modal */}
       <SubscrModal
-        userId={data.id}
+        userId={data?.id}
         modalState={modal3State}
         setModalState={setModal3State}
       />

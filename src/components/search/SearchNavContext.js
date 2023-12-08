@@ -33,7 +33,7 @@ const SearchNavContextWrap = ({ children }) => {
       id: 2,
       active: false,
       name: "Люди",
-      route: "/search/peoples",
+      route: "/search/people",
     },
   ]);
 
