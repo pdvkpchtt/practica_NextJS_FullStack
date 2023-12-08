@@ -1,29 +1,59 @@
-"use server";
-import { prisma } from "../../db";
-import { getServSession } from "app/api/auth/[...nextauth]/route";
+'use server'
+import sleep from 'shared/utils/sleep'
+import { prisma } from '../../db'
+import { getServSession } from 'app/api/auth/[...nextauth]/route'
 
-const getUnreadMessagesCount = async (lastDate) => {
-  const session = await getServSession();
-  let totalUnread = 0;
+const getUnreadMessagesCount = async lastDate => {
+	const session = await getServSession()
+	let totalUnread = 0
+	console.log('getCount', lastDate)
+	if (!lastDate) {
+		totalUnread = (
+			await prisma.message.findMany({
+				where: {
+					userId: { not: session.user.id },
+					unRead: true,
+					Chat: {
+						participants: { some: { id: session.user.id } },
+					},
+				},
+			})
+		).length
+		return { totalUnread, lastDate: new Date().toISOString() }
+	}
 
-  const chats = await prisma.message.groupBy({
-    by: ["chatId"],
-    _count: { unRead: true },
-    where: {
-      userId: { not: session.user.id },
-      unRead: true,
-      Chat: {
-        // updatedAt: { lte: new Date().toISOString() },
-        participants: { some: { id: session.user.id } },
-      },
-    },
-  });
-  for (let chat of chats) {
-    totalUnread += chat._count.unRead;
-  }
+	const startTime = new Date().getTime()
 
-  console.log(totalUnread);
+	let updatedCount = 0
 
-  return { totalUnread };
-};
-export default getUnreadMessagesCount;
+	while (updatedCount === 0) {
+		updatedCount = (
+			await prisma.message.findMany({
+				where: {
+					userId: { not: session.user.id },
+					createdAt: { gte: lastDate },
+					unRead: true,
+					Chat: {
+						participants: { some: { id: session.user.id } },
+					},
+				},
+			})
+		).length
+		await sleep(300)
+	}
+
+	totalUnread = (
+		await prisma.message.findMany({
+			where: {
+				userId: { not: session.user.id },
+				unRead: true,
+				Chat: {
+					participants: { some: { id: session.user.id } },
+				},
+			},
+		})
+	).length
+
+	return { totalUnread, lastDate: new Date().toISOString() }
+}
+export default getUnreadMessagesCount
