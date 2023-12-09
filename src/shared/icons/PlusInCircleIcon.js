@@ -18,16 +18,16 @@ const PlusInCircleIcon = ({ onClick }) => {
       <path
         d="M10.5 15H19.5"
         stroke="white"
-        stroke-width="1.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M15 19.5V10.5"
         stroke="white"
-        stroke-width="1.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

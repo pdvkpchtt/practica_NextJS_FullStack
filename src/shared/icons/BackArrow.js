@@ -12,16 +12,16 @@ const BackArrow = ({ onClick = () => {} }) => {
       <path
         d="M19.5418 15.625L14.9585 20L19.5418 24.375"
         className="stroke-[#5875e8] group-hover:stroke-[#3A56C5] group-active:stroke-[#2C429C]"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M27.0415 20H15.1665"
         className="stroke-[#5875e8] group-hover:stroke-[#3A56C5] group-active:stroke-[#2C429C]"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

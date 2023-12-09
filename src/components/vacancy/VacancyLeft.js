@@ -32,7 +32,7 @@ const VacancyLeft = ({ data, children }) => {
               priority={true}
             />
           ) : (
-            <EmptyAvatar />
+            <EmptyAvatar hungredAndTen />
           )}
         </div>
 

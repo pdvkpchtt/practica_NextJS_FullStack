@@ -126,7 +126,7 @@ const OthersCompanyLeft = ({ navState, data }) => {
                 priority={true}
               />
             ) : (
-              <EmptyAvatar />
+              <EmptyAvatar hungredAndTen />
             )}
           </div>
 

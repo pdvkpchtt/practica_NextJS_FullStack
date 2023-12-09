@@ -78,7 +78,7 @@ const EditCompanyLeft = ({
               priority={true}
             />
           ) : (
-            <EmptyAvatar />
+            <EmptyAvatar hungredAndTen />
           )}
         </div>
         <Input

@@ -14,8 +14,8 @@ const PlusIcon = ({ fill = "#5875e8", noHover = false, hard = true }) => {
         }`}
         d="M13.8334 8H7.83341H6.33341H2.16675"
         stroke={fill}
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         className={`${
@@ -24,8 +24,8 @@ const PlusIcon = ({ fill = "#5875e8", noHover = false, hard = true }) => {
         }`}
         d="M8 13.8337V7.83366V6.33366V2.16699"
         stroke={fill}
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
     </svg>
   );
