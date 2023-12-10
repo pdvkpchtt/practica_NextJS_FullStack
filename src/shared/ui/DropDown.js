@@ -60,7 +60,7 @@ const DropDown = ({
       )}
 
       <button
-        className={`z-0 flex w-full flex-row items-center h-[42px] justify-between rounded-[8px] bg-[#F6F6F8] dark:bg-[#2c2c2c] p-[12px] ${
+        className={`z-0 flex w-full flex-row items-center h-[42px] transition-all duration-[200ms]  justify-between rounded-[8px] bg-[#F6F6F8] dark:bg-[#2c2c2c] p-[12px] ${
           openState && !contentTop && "rounded-b-none"
         } ${openState && contentTop && "rounded-t-none"}`}
         onClick={() => setOpenState(!openState)}

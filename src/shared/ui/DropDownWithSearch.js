@@ -24,7 +24,7 @@ const DropDownWithSearch = ({
     <>
       <div className={`relative ${state && "z-[500]"}`}>
         <div
-          className={`flex w-full relative p-[12px] z-[41] h-[42px] flex-row items-center justify-between 
+          className={`flex w-full relative p-[12px] z-[41] h-[42px] flex-row transition-all duration-[200ms] items-center justify-between 
                 ${
                   state === false
                     ? "rounded-[8px] cursor-pointer"
