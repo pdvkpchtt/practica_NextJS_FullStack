@@ -1,8 +1,7 @@
 "use client";
 
-const TestComp = ({ posts }) => {
-  console.log(posts, "www");
-  return <div>TestComp</div>;
+const TestComp = () => {
+  return <div className="mt-[100px]"></div>;
 };
 
 export default TestComp;

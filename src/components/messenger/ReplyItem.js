@@ -52,9 +52,9 @@ const ReplyItem = ({ item, style, last = false }) => {
             <div className="bg-[#5875e8] rounded-full min-[12px] max-h-[12px] h-[12px] w-[12px] min-w-[12px] max-w-[12px]" />
           )}
         </div>
-        {item.vacancyReply?.file?.lengt > 0 && (
+        {item?.files?.length > 0 && (
           <div className="flex flex-col gap-[8px] max-w-[288px] w-full items-start p-[12px] bg-[#e7e7e7] dark:bg-[#2c2c2c] rounded-[12px]">
-            {item.vacancyReply?.file.map((i, key) => (
+            {item?.files?.map((i, key) => (
               <a
                 href={i.path}
                 key={key}

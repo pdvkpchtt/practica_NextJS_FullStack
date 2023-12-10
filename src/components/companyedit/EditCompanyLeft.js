@@ -369,7 +369,8 @@ const EditCompanyLeft = ({
         isOpen={bottomModal}
         handleClose={() => {
           setBottomModal(false);
-          router.refresh();
+
+          window.location.reload();
         }}
         company
       />

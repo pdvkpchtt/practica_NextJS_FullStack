@@ -142,7 +142,11 @@ const ReplyModal = ({
                 let files = [...e.dataTransfer.files];
                 const formData = new FormData();
                 formData.append("file", files[0]);
-                const res = uploadFile(formData);
+                const res = uploadFile(formData, vacId);
+                // axios
+                // .post('/api/upload/file', formData)
+                // .then(console.log)
+                // .catch(console.log)
                 if (res?.status) {
                   setStatus2(res.message);
                   console.log(res);
@@ -207,7 +211,7 @@ const ReplyModal = ({
                 <CustomLoader diameter={25} strokeWidth={5} />
               </div>
             ) : (
-              filesState.length !== 0 && (
+              filesState?.length !== 0 && (
                 <>
                   <TextMain
                     text="Загруженные файлы"
@@ -216,7 +220,7 @@ const ReplyModal = ({
                     }
                   />
 
-                  {filesState.map((i, key) => (
+                  {filesState?.map((i, key) => (
                     <div
                       className="flex flex-row justify-between items-center"
                       key={key}

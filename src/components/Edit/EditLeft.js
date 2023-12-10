@@ -199,7 +199,7 @@ const EditLeft = ({
         isOpen={bottomModal}
         handleClose={() => {
           setBottomModal(false);
-          router.refresh();
+          window.location.reload();
         }}
       />
     </div>
