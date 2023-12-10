@@ -21,16 +21,16 @@ const CheckBox = ({ active = false, onClick = () => {}, disabled = false }) => {
               } stroke-[#5875e8] group-hover:stroke-[#3A56C5] group-active:stroke-[#2C429C] transition duration-[250ms]`
             : "stroke-[#8f8f8f]"
         }
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8 12L11 15L16 9"
         stroke={active ? "white" : "none"}
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
