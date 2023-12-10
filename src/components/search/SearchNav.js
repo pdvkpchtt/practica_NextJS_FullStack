@@ -16,6 +16,7 @@ const SearchNav = () => {
   const {
     setShowFilters,
     scroll,
+    setScroll,
     navState,
     setNavState,
     updateVacancies,
@@ -40,6 +41,13 @@ const SearchNav = () => {
   }, [scroll]);
 
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
+
+  const changeScroll = () => {
+    setScroll(window.scrollY);
+  };
+
+  if (typeof window !== "undefined")
+    window.addEventListener("scroll", changeScroll);
 
   return (
     <>

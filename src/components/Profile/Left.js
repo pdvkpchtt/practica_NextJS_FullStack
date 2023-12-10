@@ -108,10 +108,6 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
     setPitchesState(await getPitchesCount());
     setSuperPitchesState(await getPitchesCount("superpitch"));
   };
-
-  // useEffect(() => {
-  //   getPitchesCountHanler();
-  // }, []);
   // here we are getting pitches count
 
   return (
