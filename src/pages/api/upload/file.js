@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       });
     });
     console.log("formData", formData);
-    const vacId = formData.vacId;
+    const vacId = formData.fields.vacId[0];
 
     const file = formData.files.file[0];
 
@@ -41,14 +41,14 @@ export default async function handler(req, res) {
     //   },
     //   size: 4849488
     // }
-    res.status(200).send({ error: "No file uploaded" });
+    // res.status(200).send({ error: "Yes file uploaded rep" });
     if (!file) {
-      res.status(200).json({ error: "No file uploaded" });
+      res.status(200).json({ error: "No file uploaded rep" });
     }
-
+    // console.log(formData.fields.vacId[0], file.size, "filetypejpa");
     if (file.size > 10485760)
       res.status(200).json({ status: "error", message: "zxc size" });
-    else if (file.type !== "application/pdf")
+    else if (file?.headers["content-type"] !== "application/pdf")
       res.status(200).json({ status: "error", message: "zxc type" });
     else {
       const id = uuid();
