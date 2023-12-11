@@ -11,6 +11,7 @@ import TextSecondary from "../../shared/Text/TextSecondary";
 
 const AuthForm = () => {
   const router = useRouter();
+  const [error, setError] = useState(false);
 
   return (
     <Card
@@ -25,12 +26,14 @@ const AuthForm = () => {
 
       <form
         action={(e) => {
-          signIn("email", {
-            redirect: false,
-            callbackUrl: "/",
-            email: e.get("email")?.toString(),
-          });
-          router.push("/auth/verify?email=" + e.get("email")?.toString());
+          if (e.get("email")?.toString()?.length > 0) {
+            signIn("email", {
+              redirect: false,
+              callbackUrl: "/",
+              email: e.get("email")?.toString(),
+            });
+            router.push("/auth/verify?email=" + e.get("email")?.toString());
+          } else setError(true);
         }}
       >
         <input
@@ -42,7 +45,13 @@ const AuthForm = () => {
             borderRadius: 16,
           }}
           type={"email"}
+          onChange={() => setError(false)}
         />
+        {error && (
+          <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
+            Введите email
+          </p>
+        )}
         <ButtonPrimary
           type="submit"
           text="Отправить ссылку"

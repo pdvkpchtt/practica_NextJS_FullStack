@@ -188,3 +188,7 @@ input[type="number"] {
     #fd9259 81.32%
   );
 }
+
+.spaceforletter {
+  letter-spacing: 24px;
+}
