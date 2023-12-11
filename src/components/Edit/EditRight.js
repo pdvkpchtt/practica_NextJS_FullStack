@@ -67,8 +67,11 @@ const EditRight = ({
           id: uuid(),
           organization: "",
           post: "",
-          start_date: "",
-          end_date: "",
+          start_month: "",
+          start_year: "",
+          end_month: "",
+          end_year: "",
+          isStill: false,
         },
       ]);
     else setWorkState(data.workExperience);
@@ -118,10 +121,12 @@ const EditRight = ({
                       : educationState,
                   workExperience:
                     workState.length == 1 &&
-                    (workState[0].organization.length == 0 ||
-                      workState[0].post.length == 0 ||
-                      workState[0].start_date.length == 0 ||
-                      workState[0].end_date.length == 0)
+                    (workState[0].organization?.length == 0 ||
+                      workState[0].post?.length == 0 ||
+                      workState[0].start_month?.length == 0 ||
+                      workState[0].start_year?.length == 0 ||
+                      workState[0].end_month?.length == 0 ||
+                      workState[0].end_year?.length == 0)
                       ? []
                       : workState,
                 });

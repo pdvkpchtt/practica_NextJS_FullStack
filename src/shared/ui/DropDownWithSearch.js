@@ -5,6 +5,7 @@ import { useMediaQuery } from "react-responsive";
 import DropDownIcon from "../../shared/icons/DropDownIcon";
 
 const DropDownWithSearch = ({
+  styled = "",
   items = [],
   city = {},
   placeholder = "",
@@ -22,7 +23,7 @@ const DropDownWithSearch = ({
 
   return (
     <>
-      <div className={`relative ${state && "z-[500]"}`}>
+      <div className={`relative ${state && "z-[500]"} ${styled}`}>
         <div
           className={`flex w-full relative p-[12px] z-[41] h-[42px] flex-row transition-all duration-[200ms] items-center justify-between 
                 ${

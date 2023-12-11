@@ -392,9 +392,12 @@ model WorkExperience {
   id           String  @id @default(cuid())
   organization String @db.Text
   post         String @db.Text
-  start_date   String @db.Text
-  end_date     String @db.Text
+  start_month  String @db.Text
+  start_year   String @db.Text
+  end_month     String @db.Text
+  end_year     String @db.Text
   userId       String
+  isStill      Boolean @default(false)
   user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
