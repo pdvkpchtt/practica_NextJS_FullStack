@@ -56,7 +56,7 @@ export default async function handler(req, res) {
       const path = join(
         "/",
         "var/www/practica/files",
-        id + p.extname(file.originalFilename)
+        id + file.originalFilename
       );
       console.log(file.path);
       console.log(path);
@@ -66,11 +66,8 @@ export default async function handler(req, res) {
 
       const user = await prisma.File.create({
         data: {
-          path:
-            "https://practica.team/file/" +
-            id +
-            p.extname(file.originalFilename),
-          name: p.extname(file.originalFilename),
+          path: "https://practica.team/file/" + id + file.originalFilename,
+          name: file.originalFilename,
           user: {
             connect: {
               id: session?.user?.id,

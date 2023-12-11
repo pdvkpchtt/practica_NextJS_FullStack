@@ -24,7 +24,6 @@ import Cross2 from "../../shared/icons/Cross2";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import TrashIcon from "../../shared/icons/TrashIcon";
-import axios from "axios";
 
 const ReplyModal = ({
   hrId,
@@ -52,12 +51,13 @@ const ReplyModal = ({
   // validate
 
   const somethingHapeningFunc = async (something) => {
-    something.append("vacId", vacId);
-    // const res = uploadFile(formData, vacId);
-    await axios
-      .post("/api/upload/file", something)
-      .then((res) => setStatus2(res.data.message))
-      .catch(console.log);
+    const res = await uploadFile(something, vacId);
+    if (res?.status) {
+      setStatus2(res.message);
+      console.log(res);
+    } else {
+      setStatus2(null);
+    }
   };
 
   const fetchHandler = async () => {
@@ -72,7 +72,7 @@ const ReplyModal = ({
 
   useEffect(() => {
     fetchHandler();
-  }, [uploadFile, modalState, deleteFile, status]);
+  }, [uploadFile, modalState, deleteFile]);
 
   return (
     <>
@@ -143,18 +143,17 @@ const ReplyModal = ({
                 const formData = new FormData();
                 formData.append("file", files[0]);
                 formData.append("vacId", vacId);
-                // const res = uploadFile(formData, vacId);
-                await axios
-                  .post("/api/upload/file", formData)
-                  .then((res) => setStatus2(res.data.message))
-                  .catch(console.log);
-
-                // if (res?.status) {
-                //   setStatus2(res.message);
-                //   console.log(res);
-                // } else {
-                //   setStatus2(null);
-                // }
+                const res = uploadFile(formData, vacId);
+                // axios
+                // .post('/api/upload/file', formData)
+                // .then(console.log)
+                // .catch(console.log)
+                if (res?.status) {
+                  setStatus2(res.message);
+                  console.log(res);
+                } else {
+                  setStatus2(null);
+                }
               }}
               onClick={() => !drag && inputRef.current.click()}
               className={`${
