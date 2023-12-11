@@ -59,7 +59,7 @@ const AuthForm = () => {
         />
       </form>
 
-      <TextSecondary
+      {/* <TextSecondary
         text={"Войти с помощью"}
         style="font-medium ml-[13px] text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mt-[21px]"
       />
@@ -71,7 +71,7 @@ const AuthForm = () => {
         }}
       >
         <VkIcon />
-      </div>
+      </div> */}
     </Card>
   );
 };

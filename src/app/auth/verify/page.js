@@ -17,7 +17,7 @@ const VerifyPage = () => {
   return (
     <>
       <div className="h-full  [@media(hover)]:items-center flex flex-row gap-[20px] w-full [@media(pointer:coarse)]:p-[12px] [@media(pointer:coarse)]:flex-col [@media(pointer:coarse)]:justify-center justify-between">
-        <div className="flex flex-col gap-[10px] [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:top-0">
+        <div className="flex flex-col gap-[10px] [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:top-[36px]">
           <div className="font-medium text-[32px] leading-[37.12px] tracking-[-1.44px] text-[#2c2c2c] dark:text-white w-full">
             отправили ключ к успеху на
             <div className="font-medium text-[26px] leading-[32.48px] tracking-[-0.025em] text-[#5875e8]">

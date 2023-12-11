@@ -100,7 +100,10 @@ const Post = ({
             {/* image profile info time and dots  */}
             <div className="flex flex-row gap-[12px] mt-[12px] mx-[12px]">
               {item?.author_image ? (
-                <div className="overflow-hidden aspect-square rounded-[8px] h-[40px] min-w-[40px] cursor-pointer">
+                <div
+                  className="overflow-hidden aspect-square rounded-[8px] h-[40px] min-w-[40px] cursor-pointer"
+                  onClick={() => router.push(`/profile/${item.username}`)}
+                >
                   <Image
                     src={item?.author_image}
                     alt="Profile image"
