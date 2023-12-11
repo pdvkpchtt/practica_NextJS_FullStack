@@ -100,7 +100,7 @@ const CompanyLeft = ({ navState, data, withoutActions = false, onClick }) => {
                 priority={true}
               />
             ) : (
-              <EmptyAvatar />
+              <EmptyAvatar hungredAndTen />
             )}
           </div>
 

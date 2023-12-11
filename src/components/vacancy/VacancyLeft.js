@@ -1,13 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import TextMain from "../../shared/Text/TextMain ";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import Card from "../../shared/ui/Card";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 
-const VacancyLeft = ({ data, onClick, children }) => {
+const VacancyLeft = ({ data, children }) => {
+  const router = useRouter();
   console.log(data);
   return (
     <div
@@ -30,7 +32,7 @@ const VacancyLeft = ({ data, onClick, children }) => {
               priority={true}
             />
           ) : (
-            <EmptyAvatar />
+            <EmptyAvatar hungredAndTen />
           )}
         </div>
 
@@ -38,10 +40,10 @@ const VacancyLeft = ({ data, onClick, children }) => {
         <div className="flex flex-col gap-[8px]">
           <TextMain
             text={data.Company.name}
-            onClick={onClick}
-            style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] ${
-              onClick && "cursor-pointer"
-            }`}
+            onClick={() =>
+              router.push(`/companyprofile/${data.Company.username}`)
+            }
+            style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] cursor-pointer`}
           />
           <TextSecondary
             text={`@${

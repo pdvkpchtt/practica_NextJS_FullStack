@@ -78,7 +78,7 @@ const EditCompanyLeft = ({
               priority={true}
             />
           ) : (
-            <EmptyAvatar />
+            <EmptyAvatar hungredAndTen />
           )}
         </div>
         <Input
@@ -369,7 +369,8 @@ const EditCompanyLeft = ({
         isOpen={bottomModal}
         handleClose={() => {
           setBottomModal(false);
-          router.refresh();
+
+          window.location.reload();
         }}
         company
       />

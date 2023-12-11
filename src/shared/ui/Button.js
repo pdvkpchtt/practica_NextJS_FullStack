@@ -247,8 +247,8 @@ export const MenuButton = ({
         <path
           d="M6.5 3.5L7.25 4.25L8.5 5.5L10.2929 7.29289C10.6834 7.68342 10.6834 8.31658 10.2929 8.70711L8.5 10.5L7.25 11.75L6.5 12.5"
           stroke="#8F8F8F"
-          stroke-width="1.5"
-          stroke-linecap="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
         />
       </svg>
     </div>

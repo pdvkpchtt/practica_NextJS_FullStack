@@ -50,7 +50,7 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
 	const getNoun2 = dig => {
 		if (dig % 10 === 0 || dig % 10 >= 5) return 'Связей'
 		if (dig % 10 > 1 && dig % 10 < 5) return 'Связи'
-		else return 'Свзяь'
+		else return 'Свзязь'
 	}
 	const getNoun3 = dig => {
 		if (dig % 10 === 0 || dig % 10 >= 5) return 'Подписок'
@@ -108,10 +108,6 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
 		setPitchesState(await getPitchesCount())
 		setSuperPitchesState(await getPitchesCount('superpitch'))
 	}
-
-	// useEffect(() => {
-	//   getPitchesCountHanler();
-	// }, []);
 	// here we are getting pitches count
 
 	return (

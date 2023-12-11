@@ -66,7 +66,7 @@ const ProfilePosts = ({
         <>
           {posts.map((item) => (
             <Post
-              key={item.id}
+              key={item?.id}
               item={item}
               addReaction={addReaction}
               selectedId={selectedId}

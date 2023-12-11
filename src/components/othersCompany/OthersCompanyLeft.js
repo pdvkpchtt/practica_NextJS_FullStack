@@ -122,12 +122,11 @@ const OthersCompanyLeft = ({ navState, data }) => {
                 className="[@media(hover)]:min-w-[110px] object-cover  [@media(hover)]:w-[110px] [@media(hover)]:h-[110px] [@media(hover)]:min-h-[110px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full w-full"
                 width={110}
                 height={110}
-                unoptimized
                 quality={100}
                 priority={true}
               />
             ) : (
-              <EmptyAvatar />
+              <EmptyAvatar hungredAndTen />
             )}
           </div>
 

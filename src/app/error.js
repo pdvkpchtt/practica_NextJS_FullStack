@@ -28,30 +28,30 @@ const E505Page = ({ error, reset }) => {
             <path
               d="M8.33341 13.334H4.16675V17.5007"
               stroke="white"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M16.1816 12.4961C15.7144 13.6526 14.9321 14.6548 13.9236 15.3889C12.9151 16.1229 11.721 16.5593 10.4768 16.6485C9.2327 16.7376 7.98851 16.4759 6.88568 15.8932C5.78286 15.3104 4.86564 14.43 4.23828 13.3519"
               stroke="white"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M11.6667 6.66667H15.8334V2.5"
               stroke="white"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M3.81836 7.50341C4.28559 6.3469 5.0679 5.34466 6.07637 4.61062C7.08484 3.87659 8.27901 3.44019 9.52314 3.35104C10.7673 3.26189 12.0115 3.52356 13.1143 4.1063C14.2171 4.68905 15.1343 5.5695 15.7617 6.64757"
               stroke="white"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </ButtonPrimary>

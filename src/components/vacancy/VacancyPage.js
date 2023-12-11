@@ -11,10 +11,7 @@ const VacancyPage = ({ data, role, userId }) => {
 
   return (
     <>
-      <VacancyLeft
-        onClick={() => router.push(`/companyprofile/${data.Company.username}`)}
-        data={data}
-      >
+      <VacancyLeft data={data}>
         <VacancySubInfo data={data} />
       </VacancyLeft>
       <VacancyRight data={data} role={role} userId={userId} />

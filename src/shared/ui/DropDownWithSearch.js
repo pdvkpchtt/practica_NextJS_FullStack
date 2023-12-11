@@ -24,18 +24,22 @@ const DropDownWithSearch = ({
     <>
       <div className={`relative ${state && "z-[500]"}`}>
         <div
-          className={`flex w-full p-[12px] z-[41] h-[42px] flex-row items-center cursor-pointer justify-between 
+          className={`flex w-full relative p-[12px] z-[41] h-[42px] flex-row transition-all duration-[200ms] items-center justify-between 
                 ${
                   state === false
-                    ? "rounded-[8px]"
-                    : "rounden-b-0 rounded-t-[8px]"
+                    ? "rounded-[8px] cursor-pointer"
+                    : "rounden-b-0 rounded-t-[8px] cursor-text"
                 } 
                bg-[#F6F6F8] dark:bg-[#2c2c2c] dark:border-[#141414] border-[#f6f6f8]`}
-          onClick={() => {
-            setState(true);
-            // ref?.current?.focus();
-          }}
         >
+          <div
+            className="absolute left-0 top-0 w-full h-full z-[41] "
+            onClick={() => {
+              setState(true);
+
+              if (state && !isMobile) ref?.current?.focus();
+            }}
+          />
           <input
             ref={ref}
             value={input}
@@ -55,11 +59,12 @@ const DropDownWithSearch = ({
               state === false ? "cursor-pointer" : "cursor-text"
             } outline-none ${
               state && "z-[41]"
-            } bg-[#F6F6F8] dark:bg-[#2c2c2c] text-[#2c2c2c] dark:text-white placeholder:text-[#bfbfbf] dark:placeholder:text-[#8f8f8f] w-full mr-[12px]`}
+            } bg-[#F6F6F8] dark:bg-[#2c2c2c] placeholder:select-none text-[#2c2c2c] dark:text-white placeholder:text-[#bfbfbf] dark:placeholder:text-[#8f8f8f] w-full mr-[12px]`}
           />
 
           <DropDownIcon
-            style={state && "transform rotate-180 cursor-default"}
+            style={state && "transform rotate-180 cursor-pointer z-[42]"}
+            onClick={() => setState(false)}
           />
         </div>
         {/* нижняя хуйня */}

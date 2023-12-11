@@ -17,57 +17,59 @@ import fourth from "./slides/4.png";
 import fifth from "./slides/5.png";
 
 const Slider = () => {
-  const data = [
-    first,
-    second,
-    third,
-    fourth,
-    fifth,
-    first,
-    second,
-    third,
-    fourth,
-    fifth,
-    first,
-    second,
-    third,
-    fourth,
-    fifth,
-  ];
+  const data = [first, second, third, fourth, fifth];
 
   return (
-    <div className="w-full h-[383px] [@media(hover)]:hidden">
-      <Swiper
-        effect={"coverflow"}
-        grabCursor={true}
-        loop={true}
-        centeredSlides={true}
-        slidesPerView={2}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 0,
-          depth: 100,
-          modifier: 3,
-          slideShadows: false,
-        }}
-        modules={[EffectCoverflow]}
-        className="min-h-[383px]"
-      >
+    <>
+      <div className="w-full h-[383px] sm:hidden relative [@media(hover)]:hidden">
+        {/* <div className="h-full absolute w-[50px] blur-sm bg-[#f6f6f8] z-[2] right-[-30px]" /> */}
+        <Swiper
+          effect={"coverflow"}
+          grabCursor={true}
+          loop={true}
+          centeredSlides={true}
+          slidesPerView={2}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 3,
+            slideShadows: false,
+          }}
+          modules={[EffectCoverflow]}
+          className="min-h-[383px] z-[1]"
+        >
+          {data.map((d, index) => (
+            <SwiperSlide key={index} className="min-h-[383px]">
+              <Image
+                src={d}
+                unoptimized
+                quality={100}
+                width={284}
+                height={383}
+                alt={"slide" + index + 1}
+                className="shadow-md rounded-[30px]"
+                // className="min-h-[383px] min-w-[284px]"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      <div className="flex-col hidden sm:flex [@media(hover)]:hidden gap-[24px]">
         {data.map((d, index) => (
-          <SwiperSlide key={index} className="min-h-[383px]">
-            <Image
-              src={d}
-              unoptimized
-              quality={100}
-              width={284}
-              height={383}
-              alt={"slide" + index + 1}
-              // className="min-h-[383px] min-w-[284px]"
-            />
-          </SwiperSlide>
+          <Image
+            src={d}
+            unoptimized
+            quality={100}
+            width={284}
+            height={383}
+            alt={"slide" + index + 1}
+            className="min-h-[383px] min-w-[284px] shadow-md rounded-[30px]"
+          />
         ))}
-      </Swiper>
-    </div>
+      </div>
+    </>
   );
 };
 

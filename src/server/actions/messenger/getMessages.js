@@ -60,7 +60,9 @@ const getMessages = async (
       vacancyReply: {
         select: {
           id: true,
-          vacancy: true,
+          vacancy: {
+            select: { file: true, name: true, id: true },
+          },
           file: true,
           link: true,
           vacancyId: true,
@@ -119,6 +121,9 @@ const getMessages = async (
         createdAt: item.createdAt,
         type: item.type,
         vacancyReply: item?.vacancyReply,
+        files: item?.vacancyReply?.vacancy?.file?.filter(
+          (i) => i?.userId === item.User.id
+        ),
       };
     else
       return {
@@ -131,6 +136,9 @@ const getMessages = async (
         createdAt: item.createdAt,
         type: item.type,
         vacancyReply: item?.vacancyReply,
+        files: item?.vacancyReply?.vacancy?.file?.filter(
+          (i) => i?.userId === item.User.id
+        ),
       };
   });
 

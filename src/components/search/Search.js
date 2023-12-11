@@ -17,15 +17,15 @@ const Search = ({ session }) => {
   return (
     <>
       <div
-        onScroll={(e) => setScroll(e.currentTarget.scrollTop)}
-        className="h-full [@media(hover)]:pt-[100px] hideScrollbarNavMobile [@media(hover)]:overflow-y-scroll [@media(hover)]:pb-[24px] [@media(pointer:coarse)]:h-[calc(100%-189px)] [@media(pointer:coarse)]:p-[12px] [@media(pointer:coarse)]:mt-[109px] flex flex-col gap-[8px]"
+        // onScroll={(e) => setScroll(e.currentTarget.scrollTop)}
+        className="h-full [@media(hover)]:pt-[100px] hideScrollbarNavMobile [@media(hover)]:pb-[24px] [@media(pointer:coarse)]:h-[calc(100%-189px)] [@media(pointer:coarse)]:p-[12px] [@media(pointer:coarse)]:mt-[109px] flex flex-col gap-[8px]"
       >
         {pathname === navState[0].route && <Vacancies session={session} />}
         {pathname === navState[1].route && <Companies />}
         {pathname === navState[2].route && <People />}
 
         <div
-          className={`[@media(pointer:coarse)]:pb-[80px] [@media(hover)]:hidden`}
+          className={`[@media(pointer:coarse)]:pb-[80px] [@media(hover)]:pb-[24px]`}
         />
       </div>
     </>

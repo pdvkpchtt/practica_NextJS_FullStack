@@ -14,9 +14,9 @@ const CrossIcon = ({ size = 16, hard = true }) => {
             : "stroke-[#5875e8] group-hover:stroke-[#3A56C5] group-active:stroke-[#2C429C]"
         } transition duration-[250ms]`}
         d="M11.5 4.5L4.5 11.5"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         className={`${
@@ -25,9 +25,9 @@ const CrossIcon = ({ size = 16, hard = true }) => {
             : "stroke-[#5875e8] group-hover:stroke-[#3A56C5] group-active:stroke-[#2C429C]"
         } transition duration-[250ms]`}
         d="M4.5 4.5L11.5 11.5"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
