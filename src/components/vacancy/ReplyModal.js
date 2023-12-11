@@ -72,7 +72,7 @@ const ReplyModal = ({
 
   useEffect(() => {
     fetchHandler();
-  }, [uploadFile, modalState, deleteFile]);
+  }, [uploadFile, modalState, deleteFile, drag]);
 
   return (
     <>
@@ -138,13 +138,13 @@ const ReplyModal = ({
               }}
               onDrop={async (e) => {
                 e.preventDefault();
-                setDrag(false);
                 let files = [...e.dataTransfer.files];
                 const formData = new FormData();
                 formData.append("file", files[0]);
                 formData.append("vacId", vacId);
-                const res = uploadFile(formData, vacId);
+                const res = await uploadFile(formData, vacId);
                 // axios
+                setDrag(false);
                 // .post('/api/upload/file', formData)
                 // .then(console.log)
                 // .catch(console.log)
