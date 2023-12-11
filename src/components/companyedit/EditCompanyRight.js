@@ -109,6 +109,7 @@ const EditCompanyRight = ({
                   // } catch (err) {
                   // console.log("err");
                   // }
+                  window.location.reload();
                   setLittleLoader(false);
                 } else {
                   setLittleLoader(false);
