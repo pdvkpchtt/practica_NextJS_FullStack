@@ -9,7 +9,7 @@ import TextSecondary from "../../shared/Text/TextSecondary";
 import PlusIcon from "../../shared/icons/PlusIcon";
 import TrashIcon from "../../shared/icons/TrashIcon";
 
-const WorkExperience = ({ workState, setWorkState, deleteHandler }) => {
+const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
   return (
     <>
       {workState.map((item, key) => (
@@ -21,6 +21,11 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler }) => {
               }
               style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
             />
+            {status && status?.includes("educatWork check") && (
+              <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[-5px] text-[#F0BB31]">
+                Проверьте корректность заполнения полей
+              </p>
+            )}
             <input
               maxLength={60}
               placeholder="Компания"
@@ -92,7 +97,14 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler }) => {
                 small
                 text="Добавить"
                 style="w-fit px-[12px]"
-                onClick={() => setWorkState([...workState, { id: uuid() }])}
+                onClick={() =>
+                  setWorkState([
+                    ...workState,
+                    {
+                      id: uuid(),
+                    },
+                  ])
+                }
               >
                 <PlusIcon />
               </ButtonSecondary>

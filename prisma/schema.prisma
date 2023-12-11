@@ -380,20 +380,20 @@ model Reaction {
 
 model Education {
   id     String  @id @default(cuid())
-  name   String? @db.Text
-  degree String? @db.Text
-  startDate String? @db.Text
-  endDate String? @db.Text
+  name   String @db.Text
+  degree String @db.Text
+  startDate String @db.Text
+  endDate String @db.Text
   userId String
   user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model WorkExperience {
   id           String  @id @default(cuid())
-  organization String? @db.Text
-  post         String? @db.Text
-  start_date   String? @db.Text
-  end_date     String? @db.Text
+  organization String @db.Text
+  post         String @db.Text
+  start_date   String @db.Text
+  end_date     String @db.Text
   userId       String
   user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -50,27 +50,27 @@ const yearDropDownInfo = [
 ];
 
 const DropDownHandler = ({ item, onUpdate }) => {
-  const [monthChoise, setMonthChoise] = useState(
-    item?.split(" ")[0] || "Месяц"
-  );
-  const [yearChoise, setYearChoise] = useState(item?.split(" ")[1] || "Год");
+  // const [monthChoise, setMonthChoise] = useState(
+  //   item?.split(" ")[0] || "Месяц"
+  // );
+  // const [yearChoise, setYearChoise] = useState(item?.split(" ")[1] || "Год");
 
-  useEffect(() => {
-    onUpdate(`${monthChoise || "Месяц"} ${yearChoise || "Год"}`);
-  }, [monthChoise, yearChoise]);
+  // useEffect(() => {
+  //   onUpdate(`${monthChoise || "Месяц"} ${yearChoise || "Год"}`);
+  // }, [monthChoise, yearChoise]);
 
-  useEffect(() => {
-    setMonthChoise(item?.split(" ")[0] || "Месяц");
-    setYearChoise(item?.split(" ")[1] || "Год");
-  }, [item]);
+  // useEffect(() => {
+  //   setMonthChoise(item?.split(" ")[0] || "Месяц");
+  //   setYearChoise(item?.split(" ")[1] || "Год");
+  // }, [item]);
 
   return (
     <div className="flex flex-row gap-[8px] w-full">
       <DropDown
         styled="max-w-[175px] w-full"
         // choise={item.split(" ")[0] || "Месяц"}
-        choise={monthChoise}
-        handleSetChoise={(choise) => setMonthChoise(choise)}
+        choise={item?.split(" ")[0] || "Месяц"}
+        handleSetChoise={(choise) => onUpdate(choise)}
         items={monthDropDownInfo}
         itemsFor={"Месяц"}
         marginBottom={8}
@@ -78,8 +78,8 @@ const DropDownHandler = ({ item, onUpdate }) => {
       <DropDown
         styled="max-w-[112px] w-full"
         // choise={item.split(" ")[1] || "Год"}
-        choise={yearChoise}
-        handleSetChoise={(choise) => setYearChoise(choise)}
+        choise={item?.split(" ")[1] || "Год"}
+        handleSetChoise={(choise) => onUpdate(choise)}
         items={yearDropDownInfo}
         itemsFor={"Год"}
       />

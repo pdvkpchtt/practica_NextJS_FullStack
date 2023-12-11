@@ -163,7 +163,7 @@ const CreatePostModal = ({
         handleClose={() => setClose(false)}
       >
         {/* header */}
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between [@media(pointer:coarse)]:hidden">
           <div className="flex flex-row gap-[12px]">
             <CircularProggressBar
               progress={textState.length}
@@ -191,7 +191,7 @@ const CreatePostModal = ({
         {/* header */}
 
         {/* body */}
-        <div className="flex flex-col my-[12px] gap-[12px] overflow-y-auto">
+        <div className="flex flex-col my-[12px] [@media(pointer:coarse)]:hidden gap-[12px] overflow-y-auto">
           <TextareaAutosize
             ref={headRef}
             className={`${
@@ -234,8 +234,8 @@ const CreatePostModal = ({
         {/* body */}
 
         {/* bottom */}
-        <div className="flex flex-row h-fit justify-between items-center w-full">
-          <div className="hideScrollbarNav flex flex-row gap-[10px] overflow-x-scroll flex-1">
+        <div className="flex flex-row h-fit [@media(pointer:coarse)]:hidden justify-between items-center w-full">
+          <div className="hideScrollbarNav flex flex-row gap-[10px]  overflow-x-scroll flex-1">
             {reactions.map((item, key) => (
               <PicReaction
                 key={key}

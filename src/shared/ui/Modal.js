@@ -49,7 +49,7 @@ const Modal = ({
             onClick={handleClose}
           ></motion.div>
           <motion.div
-            className={`w-[630px] h-fit fixed dark:bg-[#141414] bg-[#fff] z-[200] bottom-0 left-[50%] ${
+            className={`w-[630px] [@media(pointer:coarse)]:hidden h-fit [@media(hover)]:fixed dark:bg-[#141414] bg-[#fff] z-[200] bottom-0 left-[50%] ${
               withScroll ? "px-[12px] pt-[12px]" : "p-[12px]"
             } rounded-[20px]`}
             initial={"initial"}

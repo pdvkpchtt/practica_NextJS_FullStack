@@ -136,12 +136,13 @@ const ReplyModal = ({
                 e.preventDefault();
                 setDrag(true);
               }}
-              onDrop={(e) => {
+              onDrop={async (e) => {
                 e.preventDefault();
                 setDrag(false);
                 let files = [...e.dataTransfer.files];
                 const formData = new FormData();
                 formData.append("file", files[0]);
+                formData.append("vacId", vacId);
                 const res = uploadFile(formData, vacId);
                 // axios
                 // .post('/api/upload/file', formData)

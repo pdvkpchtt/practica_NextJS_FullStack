@@ -26,6 +26,7 @@ export default async function handler(req, res) {
       });
     });
     console.log("formData", formData);
+    const vacId = formData.vacId;
 
     const file = formData.files.file[0];
 
