@@ -69,8 +69,8 @@ export default async function handler(req, res) {
           path:
             "https://practica.team/file/" +
             id +
-            p.extname(decodeURIComponent(escape(file.name))),
-          name: decodeURIComponent(escape(file.name)),
+            p.extname(file.originalFilename),
+          name: p.extname(file.originalFilename),
           user: {
             connect: {
               id: session?.user?.id,

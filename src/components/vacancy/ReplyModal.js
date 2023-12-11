@@ -72,7 +72,7 @@ const ReplyModal = ({
 
   useEffect(() => {
     fetchHandler();
-  }, [uploadFile, modalState, deleteFile]);
+  }, [uploadFile, modalState, deleteFile, status]);
 
   return (
     <>

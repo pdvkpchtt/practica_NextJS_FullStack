@@ -1,6 +1,7 @@
 "use client";
 
 import uuid from "react-uuid";
+import { useState } from "react";
 
 import DropDownHandler from "./DropDownHandler";
 import { ButtonSecondary } from "../../shared/ui/Button";
@@ -8,8 +9,11 @@ import TextSecondary from "../../shared/Text/TextSecondary";
 
 import PlusIcon from "../../shared/icons/PlusIcon";
 import TrashIcon from "../../shared/icons/TrashIcon";
+import CheckBox from "../../shared/ui/CheckBox";
 
 const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
+  const [check, setCheck] = useState(false);
+
   return (
     <>
       {workState.map((item, key) => (
@@ -54,6 +58,14 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
                 );
               }}
             />
+          </div>
+
+          <div className="flex flex-col">
+            <TextSecondary
+              text="На данный момент я работаю в этой должности"
+              style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+            />
+            {/* <CheckBox /> */}
           </div>
 
           <div className="flex flex-row gap-[32px] items-center [@media(pointer:coarse)]:flex-col [@media(pointer:coarse)]:gap-[16px]">
