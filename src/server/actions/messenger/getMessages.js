@@ -61,7 +61,20 @@ const getMessages = async (
         select: {
           id: true,
           vacancy: {
-            select: { file: true, name: true, id: true },
+            select: {
+              file: true,
+              name: true,
+              id: true,
+              Company: { select: { username: true } },
+              salaryStart: true,
+              salaryEnd: true,
+              currency: {
+                select: {
+                  id: true,
+                  label: true,
+                },
+              },
+            },
           },
           file: true,
           link: true,
@@ -121,6 +134,7 @@ const getMessages = async (
         createdAt: item.createdAt,
         type: item.type,
         vacancyReply: item?.vacancyReply,
+        vacancy: item?.vacancyReply?.vacancy,
         files: item?.vacancyReply?.vacancy?.file?.filter(
           (i) => i?.userId === item.User.id
         ),
@@ -136,6 +150,7 @@ const getMessages = async (
         createdAt: item.createdAt,
         type: item.type,
         vacancyReply: item?.vacancyReply,
+        vacancy: item?.vacancyReply?.vacancy,
         files: item?.vacancyReply?.vacancy?.file?.filter(
           (i) => i?.userId === item.User.id
         ),

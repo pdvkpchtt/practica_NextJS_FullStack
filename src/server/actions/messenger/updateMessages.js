@@ -59,7 +59,20 @@ const updateMessages = async (
         select: {
           id: true,
           vacancy: {
-            select: { file: true, name: true, id: true },
+            select: {
+              file: true,
+              name: true,
+              id: true,
+              Company: { select: { username: true } },
+              salaryStart: true,
+              salaryEnd: true,
+              currency: {
+                select: {
+                  id: true,
+                  label: true,
+                },
+              },
+            },
           },
           file: true,
           link: true,
@@ -123,6 +136,7 @@ const updateMessages = async (
         checkVacReply: checkVacReply,
         circle: circle.circle,
         vacancyReply: item?.vacancyReply,
+        vacancy: item?.vacancyReply?.vacancy,
         files: item?.vacancyReply?.vacancy?.file?.filter(
           (i) => i?.userId === item.User.id
         ),
@@ -141,6 +155,7 @@ const updateMessages = async (
         checkVacReply: checkVacReply,
         circle: circle.circle,
         vacancyReply: item?.vacancyReply,
+        vacancy: item?.vacancyReply?.vacancy,
         files: item?.vacancyReply?.vacancy?.file?.filter(
           (i) => i?.userId === item.User.id
         ),
