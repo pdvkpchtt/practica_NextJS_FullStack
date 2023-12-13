@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import getUnreadMessagesCount from './../../server/actions/messenger/getUnreadMessagesCount'
 import { useEffect, useState } from 'react'
-const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async')
+import axios from 'axios'
 
 const MessengerIcon = ({ fill = '#000', size = 25 }) => {
 	const pathname = usePathname()
@@ -12,7 +12,7 @@ const MessengerIcon = ({ fill = '#000', size = 25 }) => {
 	const [totalUnread, setTotalUnread] = useState(0)
 
 	const getData = async (lastDate = null) => {
-		const data = await getUnreadMessagesCount(lastDate)
+		const data = (await axios.post('/api/messenger/count', { lastDate })).data
 		console.log(data)
 		setTotalUnread(data.totalUnread)
 		await getData(data.lastDate)
@@ -21,6 +21,20 @@ const MessengerIcon = ({ fill = '#000', size = 25 }) => {
 	useEffect(() => {
 		getData()
 	}, [])
+
+	// useEffect(() => {
+	// 	console.log('message source')
+	// 	const eventSource = new EventSource(`/api/messenger/count`)
+
+	// 	eventSource.onmessage = event => {
+	// 		console.log(event)
+	// 		///setTotalUnread(event.totalUnread)
+	// 	}
+
+	// 	return () => {
+	// 		eventSource.close()
+	// 	}
+	// }, [])
 
 	return (
 		<Link href={'/messenger'} className='group'>

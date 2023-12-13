@@ -18,16 +18,16 @@ export const getMyProfileInfoTimer = async lastDate => {
 		return { count, lastDate: new Date().toISOString() }
 	}
 
-	let updatedCount = 0
+	// let updatedCount = 0
 
-	while (updatedCount === count) {
-		updatedCount = (
-			await prisma.updates.findMany({
-				where: { user: { id: session?.user?.id } },
-			})
-		).length
-		await sleep(300)
-	}
+	// while (updatedCount === count) {
+	// 	updatedCount = (
+	// 		await prisma.updates.findMany({
+	// 			where: { user: { id: session?.user?.id } },
+	// 		})
+	// 	).length
+	// 	await sleep(300)
+	// }
 
-	return { count: updatedCount, lastDate: new Date().toISOString() }
+	// return { count: updatedCount, lastDate: new Date().toISOString() }
 }
