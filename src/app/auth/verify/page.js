@@ -13,10 +13,11 @@ const VerifyPage = () => {
   const email = searchParams.get("email");
   const router = useRouter();
   const [code, setCode] = useState("");
+  const [error, setError] = useState(false);
   return (
     <>
       <div className="h-full  [@media(hover)]:items-center flex flex-row gap-[20px] w-full [@media(pointer:coarse)]:p-[12px] [@media(pointer:coarse)]:flex-col [@media(pointer:coarse)]:justify-center justify-between">
-        <div className="flex flex-col gap-[10px] [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:top-0">
+        <div className="flex flex-col gap-[10px] [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:top-[36px]">
           <div className="font-medium text-[32px] leading-[37.12px] tracking-[-1.44px] text-[#2c2c2c] dark:text-white w-full">
             отправили ключ к успеху на
             <div className="font-medium text-[26px] leading-[32.48px] tracking-[-0.025em] text-[#5875e8]">
@@ -46,16 +47,26 @@ const VerifyPage = () => {
             style={{
               borderRadius: 16,
             }}
-            onChange={(e) => setCode(e.target.value)}
+            onChange={(e) => {
+              setCode(e.target.value);
+              setError(false);
+            }}
           />
+          {error && (
+            <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
+              Введите код
+            </p>
+          )}
           <ButtonPrimary
             type="submit"
             text="Найти успешный успех"
             style="mt-[24px] w-full"
             onClick={() => {
-              window.location.href = `/api/auth/callback/email?email=${encodeURIComponent(
-                email
-              )}&token=${code}`;
+              if (code.length > 0)
+                window.location.href = `/api/auth/callback/email?email=${encodeURIComponent(
+                  email
+                )}&token=${code}`;
+              else setError(true);
             }}
           />
           <div

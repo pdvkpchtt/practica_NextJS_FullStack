@@ -60,7 +60,7 @@ const AuthText = () => {
   }, [count]);
 
   return (
-    <div className="flex [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:top-0 flex-col gap-[5px] max-w-full w-full">
+    <div className="flex [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:top-[24px] flex-col gap-[5px] max-w-full w-full">
       <p className="text-[#5875e8] font-bold select-none text-[48px] leading-[58px] tracking-[-1.6px] [@media(pointer:coarse)]:text-[40px] [@media(pointer:coarse)]:leading-[48px] [@media(pointer:coarse)]:tracking-[-1.6px]">
         practica
       </p>
@@ -78,7 +78,7 @@ const AuthText = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="text-[#5875e8] font-normal select-none text-[26px] leading-[28.6px] tracking-[-1.3px] [@media(pointer:coarse)]:text-[18px] [@media(pointer:coarse)]:leading-[19.8px] [@media(pointer:coarse)]:tracking-[-1.3px]"
+                  className="text-[#5875e8] font-normal select-none text-[26px] leading-[28.6px] tracking-[-1.3px] [@media(pointer:coarse)]:text-[18px] [@media(pointer:coarse)]:leading-[19.8px] [@media(pointer:coarse)]:ml-[-8px] [@media(pointer:coarse)]:tracking-[-1.3px]"
                 >
                   &thinsp;&thinsp;{item}
                 </motion.p>

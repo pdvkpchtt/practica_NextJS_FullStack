@@ -7,6 +7,7 @@ dayjs.extend(relativeTime);
 import TextMain from "../../shared/Text/TextMain ";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
+import Card from "../../shared/ui/Card";
 
 const ReplyItem = ({ item, style, last = false }) => {
   return (
@@ -34,6 +35,34 @@ const ReplyItem = ({ item, style, last = false }) => {
           item.myMessage ? "items-end" : "items-start"
         } w-full flex flex-col gap-[8px]`}
       >
+        {/* info */}
+        <div className="bg-[#e7e7e7] dark:bg-[#2c2c2c] rounded-[12px] p-[12px] max-w-[288px] flex flex-col gap-[4px]">
+          <TextMain
+            text={item?.vacancy?.name}
+            style="text-[14px] cursor-pointer leading-[18px] tracking-[-0.182px] font-medium"
+            onClick={() => router.push(`/vacancy/${item.vacancy.id}`)}
+          />
+          <TextSecondary
+            text={"@" + item?.vacancy?.Company?.username}
+            style="text-[14px] cursor-pointer leading-[18px] tracking-[-0.182px] font-medium"
+            onClick={() =>
+              router.push(`/companyprofile/${item.Company.username}`)
+            }
+          />
+          {item?.vacancy?.currency ? (
+            <p className="font-medium text-[14px] leading-[18px] tracking-[-0.182px] break-words text-[#8f8f8f]">
+              {item?.vacancy?.salaryStart && `от ${item?.vacancy?.salaryStart}`}
+              {item?.vacancy?.salaryEnd &&
+                ` до ${item?.vacancy?.salaryEnd}`}{" "}
+              {item?.vacancy?.currency?.label}
+            </p>
+          ) : (
+            <p className="font-medium text-[14px] leading-[18px] tracking-[-0.182px] break-words text-[#8f8f8f]">
+              По договоренности
+            </p>
+          )}
+        </div>
+        {/* info */}
         <div
           className={`flex items-center w-full ${
             item.myMessage ? "flex-row-reverse gap-[8px]" : "flex-row gap-[8px]"

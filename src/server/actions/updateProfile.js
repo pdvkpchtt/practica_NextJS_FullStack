@@ -12,12 +12,23 @@ export const updateProfile = async ({ userId, data }) => {
         message: "inputUsername regex",
       }),
     about: z.string().max(240, { message: "inputAbout maxlen" }),
+    birthDate: z
+      .string()
+      .min(10, { message: "inputBirth minlen" })
+      .refine(
+        (value) =>
+          /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(19\d\d|20[0-2]\d)$/.test(
+            value
+          ),
+        { message: "inputBirth бля" }
+      ),
   });
 
   const validateRes = validate.safeParse({
     name: data.name,
     username: data.username,
     about: data.about !== null ? data.about : "",
+    birthDate: data.birthDate !== null ? data.birthDate : "",
   });
 
   const checkusername = await prisma.user.findFirst({
@@ -33,43 +44,51 @@ export const updateProfile = async ({ userId, data }) => {
     };
   // валидация
 
-  const user = await prisma.user.update({
-    where: {
-      id: userId,
-    },
-    data: {
-      name: data.name,
-      city: data.city,
-      about: data.about,
-      username: data.username.split(" ").join(""),
-      birthDate: data.birthDate || null,
-      inSearch: data.inSearch ? data.inSearch : false,
-      educationLevel: data.educationLevel?.id
-        ? {
-            connect: {
-              id: data.educationLevel?.id,
-            },
-          }
-        : {},
-      Education: {
-        deleteMany: {},
-        createMany: {
-          data: [...data.education],
+  try {
+    const user = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        name: data.name,
+        city: data.city,
+        about: data.about,
+        username: data.username.split(" ").join(""),
+        birthDate: data.birthDate || null,
+        inSearch: data.inSearch ? data.inSearch : false,
+        educationLevel: data.educationLevel?.id
+          ? {
+              connect: {
+                id: data.educationLevel?.id,
+              },
+            }
+          : {},
+        Education: {
+          deleteMany: {},
+          createMany: {
+            data: [...data.education],
+          },
+        },
+        WorkExperience: {
+          deleteMany: {},
+          createMany: {
+            data: [...data.workExperience],
+          },
+        },
+        UserSkills: {
+          deleteMany: {},
+          createMany: {
+            data: [...data.UserSkills],
+          },
         },
       },
-      WorkExperience: {
-        deleteMany: {},
-        createMany: {
-          data: [...data.workExperience],
-        },
-      },
-      UserSkills: {
-        deleteMany: {},
-        createMany: {
-          data: [...data.UserSkills],
-        },
-      },
-    },
-  });
-  // return user;
+    });
+    // return user;
+  } catch (err) {
+    return {
+      status: "error",
+      message: validateRes.error?.errors?.map((i) => i?.message),
+      submsg: "educatWork check",
+    };
+  }
 };

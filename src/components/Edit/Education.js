@@ -10,6 +10,41 @@ import TextSecondary from "../../shared/Text/TextSecondary";
 import DropDown from "../../shared/ui/DropDown";
 
 const yearDropDownInfo = [
+  { label: "1960", value: "81", for: "Год" },
+  { label: "1961", value: "80", for: "Год" },
+  { label: "1962", value: "79", for: "Год" },
+  { label: "1963", value: "78", for: "Год" },
+  { label: "1964", value: "77", for: "Год" },
+  { label: "1965", value: "76", for: "Год" },
+  { label: "1966", value: "75", for: "Год" },
+  { label: "1967", value: "74", for: "Год" },
+  { label: "1968", value: "73", for: "Год" },
+  { label: "1969", value: "72", for: "Год" },
+  { label: "1970", value: "71", for: "Год" },
+  { label: "1971", value: "70", for: "Год" },
+  { label: "1972", value: "69", for: "Год" },
+  { label: "1973", value: "68", for: "Год" },
+  { label: "1974", value: "67", for: "Год" },
+  { label: "1975", value: "66", for: "Год" },
+  { label: "1976", value: "65", for: "Год" },
+  { label: "1977", value: "64", for: "Год" },
+  { label: "1978", value: "63", for: "Год" },
+  { label: "1979", value: "62", for: "Год" },
+  { label: "1980", value: "61", for: "Год" },
+  { label: "1981", value: "60", for: "Год" },
+  { label: "1982", value: "59", for: "Год" },
+  { label: "1983", value: "58", for: "Год" },
+  { label: "1984", value: "57", for: "Год" },
+  { label: "1985", value: "56", for: "Год" },
+  { label: "1986", value: "55", for: "Год" },
+  { label: "1987", value: "54", for: "Год" },
+  { label: "1988", value: "53", for: "Год" },
+  { label: "1989", value: "52", for: "Год" },
+  { label: "1990", value: "51", for: "Год" },
+  { label: "1991", value: "50", for: "Год" },
+  { label: "1992", value: "49", for: "Год" },
+  { label: "1993", value: "48", for: "Год" },
+  { label: "1994", value: "47", for: "Год" },
   { label: "1995", value: "1", for: "Год" },
   { label: "1996", value: "2", for: "Год" },
   { label: "1997", value: "3", for: "Год" },
@@ -58,7 +93,12 @@ const yearDropDownInfo = [
   { label: "2040", value: "46", for: "Год" },
 ];
 
-const Education = ({ educationState, setEducationState, deleteHandler }) => {
+const Education = ({
+  educationState,
+  setEducationState,
+  deleteHandler,
+  status,
+}) => {
   return (
     <>
       {/* education */}
@@ -73,6 +113,11 @@ const Education = ({ educationState, setEducationState, deleteHandler }) => {
               }
               style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
             />
+            {status && status?.includes("educatWork check") && (
+              <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[-5px] text-[#F0BB31]">
+                Проверьте корректность заполнения полей
+              </p>
+            )}
             <input
               maxLength={60}
               placeholder="Университет или курс"

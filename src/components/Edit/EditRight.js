@@ -46,6 +46,7 @@ const EditRight = ({
   const [educationState, setEducationState] = useState([]);
   const [workState, setWorkState] = useState([]);
   const [littleLoader, setLittleLoader] = useState(false);
+  console.log(workState);
 
   useEffect(() => {
     if (data.education.length == 0)
@@ -66,8 +67,11 @@ const EditRight = ({
           id: uuid(),
           organization: "",
           post: "",
-          start_date: "",
-          end_date: "",
+          start_month: "",
+          start_year: "",
+          end_month: "",
+          end_year: "",
+          isStill: false,
         },
       ]);
     else setWorkState(data.workExperience);
@@ -78,7 +82,7 @@ const EditRight = ({
     JSON.stringify(dataToUpdate) !== JSON.stringify(dataToCompare) ||
     JSON.stringify(dataToUpdate.education) !== JSON.stringify(educationState) ||
     JSON.stringify(dataToUpdate.workExperience) !== JSON.stringify(workState);
-  console.log(isDataChanged, "sosi hui");
+  console.log(isDataChanged, "dat chngd");
   // это основополагающий базис practica
 
   return (
@@ -117,10 +121,12 @@ const EditRight = ({
                       : educationState,
                   workExperience:
                     workState.length == 1 &&
-                    (workState[0].organization.length == 0 ||
-                      workState[0].post.length == 0 ||
-                      workState[0].start_date.length == 0 ||
-                      workState[0].end_date.length == 0)
+                    (workState[0].organization?.length == 0 ||
+                      workState[0].post?.length == 0 ||
+                      workState[0].start_month?.length == 0 ||
+                      workState[0].start_year?.length == 0 ||
+                      workState[0].end_month?.length == 0 ||
+                      workState[0].end_year?.length == 0)
                       ? []
                       : workState,
                 });
@@ -276,8 +282,13 @@ const EditRight = ({
 
         {/* education */}
         <Education
+          status={status}
           educationState={educationState}
-          setEducationState={(choise) => setEducationState(choise)}
+          setEducationState={(choise) => {
+            setEducationState(choise);
+            if (status)
+              setStatus(status.filter((i) => !i.includes("educatWork check")));
+          }}
           deleteHandler={(id, setState, state) =>
             deleteHandler(id, setState, state)
           }
@@ -286,8 +297,13 @@ const EditRight = ({
 
         {/* work expirience */}
         <WorkExperience
+          status={status}
           workState={workState}
-          setWorkState={(choise) => setWorkState(choise)}
+          setWorkState={(choise) => {
+            setWorkState(choise);
+            if (status)
+              setStatus(status.filter((i) => !i.includes("educatWork check")));
+          }}
           deleteHandler={(id, setState, state) =>
             deleteHandler(id, setState, state)
           }

@@ -111,11 +111,11 @@ const ProfileInfo = ({ data, others = false }) => {
                     style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
                   />
                   <TextCaption
-                    text={
-                      item?.end_date === "Месяц Год"
-                        ? `${item?.start_date} — ${"По сей день"}`
-                        : `${item?.start_date} — ${item?.end_date}`
-                    }
+                    text={`${item?.start_month} ${item?.start_year} — ${
+                      item.isStill === true
+                        ? "По сей день"
+                        : `${item?.end_month} ${item?.end_year}`
+                    }`}
                     style="font-medium leading-[18px] traking-[-0.013em] text-[14px]"
                   />
                 </div>

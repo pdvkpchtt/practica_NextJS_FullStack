@@ -2,6 +2,7 @@
 
 import DropDown from "../../shared/ui/DropDown";
 import { useEffect, useState } from "react";
+import DropDownWithSearch from "../../shared/ui/DropDownWithSearch";
 
 const monthDropDownInfo = [
   { label: "Январь", value: "1", for: "Месяц" },
@@ -49,40 +50,65 @@ const yearDropDownInfo = [
   { label: "2023", value: "29", for: "Год" },
 ];
 
-const DropDownHandler = ({ item, onUpdate }) => {
-  const [monthChoise, setMonthChoise] = useState(
-    item?.split(" ")[0] || "Месяц"
-  );
-  const [yearChoise, setYearChoise] = useState(item?.split(" ")[1] || "Год");
+const DropDownHandler = ({
+  item,
+  onUpdateMonth,
+  onUpdateYear,
+  isStill = false,
+  start = true,
+  end = false,
+}) => {
+  // const [monthChoise, setMonthChoise] = useState(item?.split(" ")[0]);
+  // const [yearChoise, setYearChoise] = useState(item?.split(" ")[1]);
 
-  useEffect(() => {
-    onUpdate(`${monthChoise || "Месяц"} ${yearChoise || "Год"}`);
-  }, [monthChoise, yearChoise]);
+  // useEffect(() => {
+  //   onUpdate(`${monthChoise || null} ${yearChoise || null}`);
+  // }, [monthChoise, yearChoise]);
 
-  useEffect(() => {
-    setMonthChoise(item?.split(" ")[0] || "Месяц");
-    setYearChoise(item?.split(" ")[1] || "Год");
-  }, [item]);
+  // useEffect(() => {
+  //   setMonthChoise(item?.split(" ")[0]);
+  //   setYearChoise(item?.split(" ")[1]);
+  // }, [item]);
 
   return (
     <div className="flex flex-row gap-[8px] w-full">
-      <DropDown
-        styled="max-w-[175px] w-full"
-        // choise={item.split(" ")[0] || "Месяц"}
-        choise={monthChoise}
+      <DropDownWithSearch
+        styled={`max-w-[175px] w-full transition-all duration-[250ms] ${
+          isStill && "opacity-[30%]"
+        }`}
+        city={start ? item.start_month || "" : item.end_month || ""}
+        setCity={(val) => {
+          onUpdateMonth(val.label);
+        }}
+        items={monthDropDownInfo}
+        placeholder={"Месяц"}
+      />
+      <DropDownWithSearch
+        styled={`max-w-[112px] w-full transition-all duration-[250ms] ${
+          isStill && "opacity-[30%]"
+        }`}
+        city={start ? item.start_year || "" : item.end_year || ""}
+        setCity={(val) => {
+          onUpdateYear(val.label);
+        }}
+        items={yearDropDownInfo}
+        placeholder={"Год"}
+      />
+      {/* <DropDown
+        choise={item?.split(" ")[0] || "Месяц"}
+        // choise={monthChoise}
         handleSetChoise={(choise) => setMonthChoise(choise)}
         items={monthDropDownInfo}
         itemsFor={"Месяц"}
         marginBottom={8}
       />
       <DropDown
-        styled="max-w-[112px] w-full"
-        // choise={item.split(" ")[1] || "Год"}
-        choise={yearChoise}
+        choise={item?.split(" ")[1] || "Год"}
+        // choise={yearChoise}
         handleSetChoise={(choise) => setYearChoise(choise)}
         items={yearDropDownInfo}
         itemsFor={"Год"}
-      />
+      /> */}
     </div>
   );
 };

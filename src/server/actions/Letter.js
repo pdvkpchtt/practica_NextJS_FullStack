@@ -36,6 +36,7 @@ const Letter = ({ token, host, email }) => {
 
           <Text
             className={`text-[#5875e8] text-[32px] cursor-pointer font-semibold leading-[24px] tracking-[24px] ml-[24px] p-0`}
+            // style={{letterSpacing: 24}}
           >
             {token}
           </Text>

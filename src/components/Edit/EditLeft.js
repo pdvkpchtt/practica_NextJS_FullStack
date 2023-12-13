@@ -13,6 +13,7 @@ import { updateEmail } from "../../server/actions/company/updateCompanyProfile";
 import UpploadAvatarModal from "../../shared/ui/UpploadAvatarModal";
 import ImageIcon from "../../shared/icons/ImageIcon";
 import TextSecondary from "../../shared/Text/TextSecondary";
+import CircularProggressBar from "../../shared/ui/CircularProggressBar";
 
 const EditLeft = ({
   data,
@@ -138,10 +139,31 @@ const EditLeft = ({
           }
         />
         <div className="flex flex-col w-full">
-          <TextSecondary
-            text={"День рождения"}
-            style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
-          />
+          <div className="flex flex-row justify-between">
+            <TextSecondary
+              text={"День рождения"}
+              style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+            />
+            <div className="w-[16px] h-[16px] mr-[4px]">
+              <CircularProggressBar
+                progress={dataToUpdate?.birthDate?.length}
+                maxWal={10}
+                trackColor={
+                  dataToUpdate?.birthDate?.length === 0
+                    ? "stroke-[#ececec] dark:stroke-[#202436]"
+                    : "stroke-[#CDD6F8] dark:stroke-[#353D5C]"
+                }
+                indicatorColor={
+                  dataToUpdate?.birthDate?.length === 0
+                    ? "stroke-[#ececec]"
+                    : "stroke-[#758DEC]"
+                }
+                trackWidth={2.67}
+                indicatorWidth={2.67}
+                size={18}
+              />
+            </div>
+          </div>
           <InputMask
             mask="99.99.9999"
             value={dataToUpdate.birthDate}
@@ -160,6 +182,11 @@ const EditLeft = ({
               />
             )}
           </InputMask>
+          {status && status?.includes("inputBirth") && (
+            <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
+              Введите корректную дату
+            </p>
+          )}
         </div>
       </Card>
 

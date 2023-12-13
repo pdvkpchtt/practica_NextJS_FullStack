@@ -1,6 +1,6 @@
 "use server";
 
-import { getServSession } from "app/api/auth/[...nextauth]/route";
+import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../../db";
 import { uuid } from "uuidv4";
 import { render } from "@react-email/render";
@@ -10,6 +10,8 @@ import Email from "./Email";
 
 export const invite = async (email, compId, compName) => {
   // email sending
+  const session = await getServSession();
+
   const token = uuid();
   const emailHtml = render(
     <Email
@@ -46,6 +48,8 @@ export const invite = async (email, compId, compName) => {
   });
 
   if (!invitedUser[0]?.id) return { status: "error", message: "userExist" };
+  if (invitedUser[0]?.id === session?.user?.id)
+    return { status: "error", message: "userMe" };
 
   const existingHr = await prisma.Hr.findMany({
     select: {
@@ -57,6 +61,8 @@ export const invite = async (email, compId, compName) => {
   });
 
   if (existingHr[0]?.id) return { status: "error", message: "userHr" };
+
+  console.log(invitedUser, existingHr, "jiii");
   // console.log(existingHr, "jopa2");
 
   if (invitedUser.length !== 0 && existingHr.length === 0) {

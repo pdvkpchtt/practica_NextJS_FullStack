@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useMediaQuery } from "react-responsive";
 import { signOut } from "next-auth/react";
 import "react-toastify/dist/ReactToastify.css";
+import uuid from "react-uuid";
 
 import Card from "../../shared/ui/Card";
 import { Input } from "../../shared/ui/Input";
@@ -34,12 +35,20 @@ const EditCompanyLeft = ({
   const [hrMail, setHrMail] = useState("");
   const [linkName, setLinkName] = useState("");
   const [linkLink, setLinkLink] = useState("");
+  const [linkId, setLinkId] = useState("");
   const [bottomModal, setBottomModal] = useState(false);
   const [error, setError] = useState(false);
+  const [error2, setError2] = useState(false);
   const [invalid, setInvalid] = useState(null);
 
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
+  }
+
+  function isUrl(url) {
+    return /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(
+      url
+    );
   }
 
   const changeEmail = async () => {
@@ -187,6 +196,8 @@ const EditCompanyLeft = ({
               onClick={() => {
                 setLinkLink(item.link);
                 setLinkName(item.label);
+                setLinkId(item.id);
+                setError2(false);
               }}
             >
               {item.label}
@@ -214,24 +225,36 @@ const EditCompanyLeft = ({
           />
           <Input
             placeholder="Ссылка"
+            error={error2}
             // label="Ссылка на ресурс"
             value={linkLink}
-            onChange={(val) => setLinkLink(val)}
+            onChange={(val) => {
+              setLinkLink(val);
+              setError2(false);
+            }}
           />
         </div>
         <div className="flex flex-row gap-[12px] flex-wrap">
           <p
             onClick={() => {
               if (linkName.length > 0 && linkLink.length > 0) {
-                setDataToUpdate({
-                  ...dataToUpdate,
-                  Links: [
-                    ...dataToUpdate.Links,
-                    { label: linkName, link: linkLink },
-                  ],
-                });
-                setLinkName("");
-                setLinkLink("");
+                if (isUrl(linkLink)) {
+                  setDataToUpdate({
+                    ...dataToUpdate,
+                    Links: [
+                      ...dataToUpdate.Links,
+                      {
+                        label: linkName,
+                        link: linkLink,
+                        id: uuid(),
+                      },
+                    ],
+                  });
+                  setLinkName("");
+                  setLinkLink("");
+                } else {
+                  setError2(true);
+                }
               }
             }}
             className={`text-[16px] w-fit select-none font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms] ${
@@ -246,9 +269,7 @@ const EditCompanyLeft = ({
             onClick={() => {
               setDataToUpdate({
                 ...dataToUpdate,
-                Links: dataToUpdate?.Links?.filter(
-                  (i) => !(i.label === linkName && i.link === linkLink)
-                ),
+                Links: dataToUpdate?.Links?.filter((i) => !(i.id === linkId)),
               });
 
               setLinkName("");
@@ -317,6 +338,8 @@ const EditCompanyLeft = ({
                 ? "Пользователь с таким email не зарегстрирован в practica"
                 : invalid === "userHr"
                 ? "Этот пользователь уже HR"
+                : invalid === "userMe"
+                ? "Нельзя отправить приглашение себе"
                 : null
             }
           />
@@ -350,7 +373,7 @@ const EditCompanyLeft = ({
               }
             }}
             className={`text-[16px] w-fit select-none font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms] ${
-              hrMail.length > 0
+              hrMail.length > 0 && !invalid
                 ? "cursor-pointer text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C]"
                 : "text-[#bfbfbf] cursor-default"
             }`}

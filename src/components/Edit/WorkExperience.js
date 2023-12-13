@@ -1,6 +1,7 @@
 "use client";
 
 import uuid from "react-uuid";
+import { useState } from "react";
 
 import DropDownHandler from "./DropDownHandler";
 import { ButtonSecondary } from "../../shared/ui/Button";
@@ -8,8 +9,9 @@ import TextSecondary from "../../shared/Text/TextSecondary";
 
 import PlusIcon from "../../shared/icons/PlusIcon";
 import TrashIcon from "../../shared/icons/TrashIcon";
+import CheckBox from "../../shared/ui/CheckBox";
 
-const WorkExperience = ({ workState, setWorkState, deleteHandler }) => {
+const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
   return (
     <>
       {workState.map((item, key) => (
@@ -21,19 +23,31 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler }) => {
               }
               style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
             />
+            {status && status?.includes("educatWork check") && (
+              <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[-5px] text-[#F0BB31]">
+                Проверьте корректность заполнения полей
+              </p>
+            )}
             <input
               maxLength={60}
               placeholder="Компания"
               className="px-[12px] rounded-[8px] bg-[#f6f6f8] dark:bg-[#2c2c2c] text-[#2c2c2c] dark:text-white dark:placeholder:text-[#8f8f8f] text-[14px] pb-[12px] pt-[11px] transition duration-[250ms] hover:inner-border-[1px] hover:inner-border-[#5875e8] outline-none placeholder:font-normal placeholder:text-[#bfbfbf] leading-[18px] tracking-[-0.015em] placeholder:leading-[18px] placeholder:tracking-[-0.015em]"
               value={item.organization || ""}
               onChange={(e) => {
-                setWorkState(
-                  workState.map((item, index) =>
-                    index === key
-                      ? { ...item, organization: e.target.value }
-                      : item
-                  )
-                );
+                if (e.target.value?.length === 0)
+                  setWorkState(
+                    workState.map((item, index) =>
+                      index === key ? { ...item, organization: null } : item
+                    )
+                  );
+                else
+                  setWorkState(
+                    workState.map((item, index) =>
+                      index === key
+                        ? { ...item, organization: e.target.value }
+                        : item
+                    )
+                  );
               }}
             />
             <input
@@ -42,9 +56,33 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler }) => {
               value={item.post || ""}
               className="px-[12px] rounded-[8px] bg-[#f6f6f8] dark:bg-[#2c2c2c] text-[#2c2c2c] dark:text-white dark:placeholder:text-[#8f8f8f] text-[14px] pb-[12px] pt-[11px] transition duration-[250ms] hover:inner-border-[1px] hover:inner-border-[#5875e8] outline-none placeholder:font-normal placeholder:text-[#bfbfbf] leading-[18px] tracking-[-0.015em] placeholder:leading-[18px] placeholder:tracking-[-0.015em]"
               onChange={(e) => {
+                if (e.target.value?.length === 0)
+                  setWorkState(
+                    workState.map((item, index) =>
+                      index === key ? { ...item, post: null } : item
+                    )
+                  );
+                else
+                  setWorkState(
+                    workState.map((item, index) =>
+                      index === key ? { ...item, post: e.target.value } : item
+                    )
+                  );
+              }}
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <TextSecondary
+              text="На данный момент я работаю в этой должности"
+              style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+            />
+            <CheckBox
+              active={item.isStill}
+              onClick={() => {
                 setWorkState(
-                  workState.map((item, index) =>
-                    index === key ? { ...item, post: e.target.value } : item
+                  workState.map((i, index) =>
+                    index === key ? { ...i, isStill: !item.isStill } : i
                   )
                 );
               }}
@@ -58,31 +96,52 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler }) => {
                 style="font-medium text-[14px] select-none leading-[18px] tracking-[-0.013em] whitespace-nowrap"
               />
               <DropDownHandler
-                item={item.start_date}
-                onUpdate={(value) =>
+                start
+                item={item}
+                onUpdateMonth={(value) =>
                   setWorkState(
                     workState.map((item, index) =>
-                      index === key ? { ...item, start_date: value } : item
+                      index === key ? { ...item, start_month: value } : item
+                    )
+                  )
+                }
+                onUpdateYear={(value) =>
+                  setWorkState(
+                    workState.map((item, index) =>
+                      index === key ? { ...item, start_year: value } : item
                     )
                   )
                 }
               />
             </div>
-            <div className="flex flex-col gap-[6px] w-full ">
+            <div className="flex flex-col gap-[6px] w-full relative">
               <TextSecondary
                 text={"Дата окончания работы"}
                 style="font-medium text-[14px] select-none leading-[18px] tracking-[-0.013em] whitespace-nowrap"
               />
               <DropDownHandler
-                item={item.end_date}
-                onUpdate={(value) =>
+                start={false}
+                end
+                isStill={item.isStill}
+                item={item}
+                onUpdateMonth={(value) =>
                   setWorkState(
                     workState.map((item, index) =>
-                      index === key ? { ...item, end_date: value } : item
+                      index === key ? { ...item, end_month: value } : item
+                    )
+                  )
+                }
+                onUpdateYear={(value) =>
+                  setWorkState(
+                    workState.map((item, index) =>
+                      index === key ? { ...item, end_year: value } : item
                     )
                   )
                 }
               />
+              {item.isStill === true && (
+                <div className="absolute w-full h-full z-[50]" />
+              )}
             </div>
           </div>
 
@@ -92,7 +151,14 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler }) => {
                 small
                 text="Добавить"
                 style="w-fit px-[12px]"
-                onClick={() => setWorkState([...workState, { id: uuid() }])}
+                onClick={() =>
+                  setWorkState([
+                    ...workState,
+                    {
+                      id: uuid(),
+                    },
+                  ])
+                }
               >
                 <PlusIcon />
               </ButtonSecondary>
