@@ -79,7 +79,7 @@ const OthersLeft = ({
 
   const allChecks = async () => {
     const dataTimer = await getOtherProfileWithTimer({ userId: data.id });
-    console.log(dataTimer, "data timer");
+    console.log(dataTimer, ifChatExist, "data timer");
     setRequestStatus(dataTimer.requestStatus);
     setFriendStatus(dataTimer.friendStatus);
     setIfHeSentRequest(dataTimer.ifHeSentRequest);
@@ -113,9 +113,8 @@ const OthersLeft = ({
 
   // here we are getting pitches count
   const getNoun = (dig) => {
-    if (dig === 0 || dig >= 5 || dig % 10 === 0 || dig % 10 >= 5)
-      return "питчев";
-    if ((dig > 1 && dig < 5) || (dig % 10 > 1 && dig % 10 < 5)) return "питча";
+    if (dig % 10 === 0 || dig % 10 >= 5) return "питчей";
+    if (dig % 10 > 1 && dig % 10 < 5) return "питча";
     else return "питч";
   };
 
@@ -343,9 +342,15 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
           </div>
         )}
         {/* contacts */}
-
+        {/* data?.isFirstCircle?.length > 0
+                    ? " • 1"
+                    : data?.isSecondCircle?.find((i2) => i2 === true)
+                    ? " • 2"
+                    : data?.isThirdCircle?.length > 0
+                    ? " • 3"
+                    : " • 3+" */}
         {/* ёбка с питчами */}
-        {data?.isFirstCircle ? (
+        {data?.isFirstCircle?.length > 0 ? (
           <Card
             style={`max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] flex flex-col gap-[8px] ${
               "" // loading && "items-center"
@@ -409,7 +414,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
             </ButtonGhost>
             {/* )} */}
           </div>
-        ) : data?.isThirdCircle ? (
+        ) : data?.isThirdCircle?.length > 0 ? (
           <div
             className={`${
               "" // superpitchesState === null && "justify-center"
@@ -474,7 +479,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
         )}
 
         {/* тут кнопки все, которые будут, можешь потестить */}
-        {(ifChatExist?.id || data?.isFirstCircle) && (
+        {(ifChatExist?.id || data?.isFirstCircle?.length > 0) && (
           <Card
             style={`max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] flex flex-col gap-[8px] ${
               loading && "items-center"

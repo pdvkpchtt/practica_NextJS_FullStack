@@ -354,7 +354,7 @@ const EditCompanyLeft = ({
                   console.log(res, "lll");
                   if (res?.status === "error") setInvalid(res.message);
                   else {
-                    toast(`📧 Приглашение отправлено`, {
+                    toast(`📧 Приглашение отправлено на email`, {
                       position: isMobile ? "top-center" : "bottom-right",
                       autoClose: 2000,
                       hideProgressBar: true,

@@ -31,7 +31,7 @@ export const invite = async (email, compId, compName) => {
 
   const mailOptions = {
     from: process.env.EMAIL_FROM,
-    to: email,
+    to: email.toLowerCase(),
     subject: "Приглашение",
     html: emailHtml,
   };
@@ -43,7 +43,7 @@ export const invite = async (email, compId, compName) => {
       id: true,
     },
     where: {
-      email: email,
+      email: email.toLowerCase(),
     },
   });
 
