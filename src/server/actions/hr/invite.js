@@ -54,19 +54,35 @@ export const invite = async (email, compId, compName) => {
   const existingHr = await prisma.Hr.findMany({
     select: {
       userId: true,
+      dataVerified: true,
     },
     where: {
       userId: invitedUser[0].id,
     },
   });
 
-  if (existingHr[0]?.id) return { status: "error", message: "userHr" };
-
   console.log(invitedUser, existingHr, "jiii");
+
+  if (existingHr[0]?.id && existingHr[0]?.dataVerified !== null)
+    return { status: "error", message: "userHr" };
+
   // console.log(existingHr, "jopa2");
 
-  if (invitedUser.length !== 0 && existingHr.length === 0) {
+  if (invitedUser.length !== 0) {
     await transporter.sendMail(mailOptions);
+
+    if (existingHr[0]?.dataVerified === null) {
+      const data = await prisma.Hr.updateMany({
+        data: {
+          token: token,
+        },
+        where: {
+          userId: invitedUser[0].id,
+        },
+      });
+
+      return data?.token === token;
+    }
 
     const data = await prisma.Hr.create({
       data: {
