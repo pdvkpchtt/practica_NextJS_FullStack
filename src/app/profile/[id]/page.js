@@ -24,6 +24,7 @@ const OthersProfilePage = async ({ params: { id } }) => {
   }
 
   const ifChatExist = await chechIfChatExist(data.id);
+  console.log(ifChatExist, "ifChatExist");
 
   console.log("profile", data);
 
