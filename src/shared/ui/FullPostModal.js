@@ -17,6 +17,8 @@ import Reaction from "./Reaction";
 import EmptyAvatar from "./EmptyAvatar";
 
 import Cross2 from "../icons/Cross2";
+import OfftopIcon2 from "../../shared/icons/feed/OfftopIcon2";
+import FutureIcon2 from "../../shared/icons/feed/FutureIcon2";
 
 const modalVariant = {
   initial: { opacity: 0 },
@@ -32,6 +34,7 @@ const FullPostModal = ({
   toggleReaction = () => {},
   selectedId,
 }) => {
+  console.log("fuckpost", item.category);
   var textWithLinks = [];
   item.text &&
     item.text.replace(
@@ -111,14 +114,48 @@ const FullPostModal = ({
                       style="font-medium truncate text-[16px] leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal truncate select-none"
                     />
                   </div>
-                  <p
-                    className={`${
-                      //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
-                      "text-[#cfcfcf] cursor-default"
-                    } text-[16px] font-medium pb-[1px] tracking-[-0.015em] transition duration-[250ms] leading-[19px]`}
-                  >
-                    @{item?.username || item?.author_id}
-                  </p>
+                  <div className="flex flex-row flex-wrap text-[#8f8f8f] font-medium text-[14px] select-none leading-[18px] tracking-[-0.182px]">
+                    <p
+                      onClick={() => router.push(`/profile/${item?.username}`)}
+                      className={`${
+                        //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
+                        "text-[#8f8f8f] cursor-pointer"
+                      } text-[16px] font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
+                    >
+                      @{item?.username || item?.author_id}
+                    </p>
+                    {item?.isHrCompanyId && (
+                      <>
+                        &nbsp;•&nbsp;
+                        <p
+                          onClick={() =>
+                            router.push(
+                              `/companyprofile/${item?.isHrCompanyId}`
+                            )
+                          }
+                          className={`${
+                            //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
+                            "text-[#8f8f8f] cursor-pointer"
+                          } text-[16px] font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
+                        >
+                          {"@" + item?.isHrCompanyId}
+                        </p>
+                      </>
+                    )}
+
+                    {item.category?.name === "Офтоп" && (
+                      <>
+                        &nbsp;•&nbsp;
+                        <OfftopIcon2 fuck />
+                      </>
+                    )}
+                    {item.category?.name === "yes future!" && (
+                      <>
+                        &nbsp;•&nbsp;
+                        <FutureIcon2 fuck />
+                      </>
+                    )}
+                  </div>
                 </div>
 
                 <Cross2 onClick={() => setClose(false)} />

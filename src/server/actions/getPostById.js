@@ -12,18 +12,31 @@ export const getPostById = async (id, userId) => {
       user: {
         select: {
           name: true,
-          username: true,
           id: true,
           image: true,
+          username: true,
           role: true,
+          HR: { select: { company: { select: { id: true, username: true } } } },
           Company: {
-            select: { name: true, userId: true, image: true, username: true },
+            select: {
+              id: true,
+              name: true,
+              userId: true,
+              image: true,
+              username: true,
+            },
           },
         },
       },
       Reaction: { select: { type: true, userId: true } },
       title: true,
       text: true,
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   });
 
@@ -58,13 +71,19 @@ export const getPostById = async (id, userId) => {
       createdAt: currentPost.createdAt,
       author_name: currentPost.user.name,
       author_image: currentPost.user.image,
-      author_id: currentPost.user.id,
       username: currentPost.user.username,
+      author_id: currentPost.user.id,
       reactions,
       title: currentPost.title,
       text: currentPost.text,
+      hrCompanyId: currentPost.user?.HR[0]?.company?.id,
+      hrCompanyUsername: currentPost.user?.HR[0]?.company?.username,
+
+      isHrCompanyId: currentPost.user?.HR[0]?.company?.username
+        ? currentPost.user?.HR[0]?.company?.username
+        : currentPost.user?.HR[0]?.company?.id,
       role: currentPost.user.role,
-      myPost: currentPost.user.id === userId,
+      category: currentPost.category,
     };
   }
 };

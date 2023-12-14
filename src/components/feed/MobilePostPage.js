@@ -16,11 +16,13 @@ import TextSecondary from "../../shared/Text/TextSecondary";
 import Reaction from "../../shared/ui/Reaction";
 import CustomLoader from "../../shared/ui/CustomLoader";
 import PostBottomModalContent from "../../shared/ui/PostBottomModalContent";
-
-import EmptyAvatar from "../../shared/ui/EmptyAvatar";
-import DotsIcon from "../../shared/icons/DotsIcon";
 import BottomModal from "../../shared/ui/BottomModal";
 import MobileHeader from "../../shared/ui/MobileHeader";
+import EmptyAvatar from "../../shared/ui/EmptyAvatar";
+
+import DotsIcon from "../../shared/icons/DotsIcon";
+import OfftopIcon2 from "../../shared/icons/feed/OfftopIcon2";
+import FutureIcon2 from "../../shared/icons/feed/FutureIcon2";
 
 const MobilePostPage = ({ getPost, addReaction, userId }) => {
   const router = useRouter();
@@ -93,7 +95,17 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
               {/* image profile info time and dotsIcon  */}
               <div className="flex flex-row gap-[12px]">
                 {postState?.author_image ? (
-                  <div className="overflow-hidden rounded-[8px] min-h-[40px] min-w-[40px] cursor-pointer">
+                  <div
+                    className="overflow-hidden rounded-[8px] min-h-[40px] min-w-[40px] cursor-pointer"
+                    onClick={() => {
+                      postState.role === "student" ||
+                      postState.role.includes("hr")
+                        ? postState?.author_id === userId
+                          ? router.push("/profile")
+                          : router.push(`/profile/${postState.username}`)
+                        : router.push(`/companyprofile/${postState.username}`);
+                    }}
+                  >
                     <Image
                       src={postState?.author_image}
                       alt="Profile image"
@@ -115,7 +127,8 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
                       text={postState?.author_name}
                       style="font-medium text-[16px] leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] truncate cursor-pointer"
                       onClick={() => {
-                        item.role === "student" || item.role.includes("hr")
+                        postState.role === "student" ||
+                        postState.role.includes("hr")
                           ? postState?.author_id === userId
                             ? router.push("/profile")
                             : router.push(`/profile/${postState.username}`)
@@ -129,14 +142,50 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
                       style="font-medium truncate text-[16px] leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal truncate select-none"
                     />
                   </div>
-                  <p
-                    className={`${
-                      //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
-                      "text-[#cfcfcf] cursor-default"
-                    } text-[16px] truncate font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
-                  >
-                    @{postState?.username || postState?.author_id}
-                  </p>
+                  <div className="flex flex-row flex-wrap text-[#8f8f8f] font-medium text-[14px] select-none leading-[18px] tracking-[-0.182px]">
+                    <p
+                      onClick={() =>
+                        router.push(`/profile/${postState?.username}`)
+                      }
+                      className={`${
+                        //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
+                        "text-[#8f8f8f] cursor-pointer"
+                      } text-[16px] font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
+                    >
+                      @{postState?.username || postState?.author_id}
+                    </p>
+                    {postState?.isHrCompanyId && (
+                      <>
+                        &nbsp;•&nbsp;
+                        <p
+                          onClick={() =>
+                            router.push(
+                              `/companyprofile/${postState?.isHrCompanyId}`
+                            )
+                          }
+                          className={`${
+                            //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
+                            "text-[#8f8f8f] cursor-pointer"
+                          } text-[16px] font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
+                        >
+                          {"@" + postState?.isHrCompanyId}
+                        </p>
+                      </>
+                    )}
+
+                    {postState.category?.name === "Офтоп" && (
+                      <>
+                        &nbsp;•&nbsp;
+                        <OfftopIcon2 fuck />
+                      </>
+                    )}
+                    {postState.category?.name === "yes future!" && (
+                      <>
+                        &nbsp;•&nbsp;
+                        <FutureIcon2 fuck />
+                      </>
+                    )}
+                  </div>
                 </div>
 
                 {postState.myPost && <DotsIcon onClick={() => toggle(true)} />}
