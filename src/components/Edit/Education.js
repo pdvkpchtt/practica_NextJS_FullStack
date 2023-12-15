@@ -99,6 +99,35 @@ const Education = ({
   deleteHandler,
   status,
 }) => {
+  if (educationState.length == 0)
+    return (
+      <div className="flex flex-col gap-[8px]">
+        <TextSecondary
+          text={"Образование"}
+          style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+        />
+        <ButtonSecondary
+          small
+          text="Добавить"
+          style="w-fit px-[12px]"
+          onClick={() => {
+            setEducationState([
+              ...educationState,
+              {
+                id: uuid(),
+                name: null,
+                degree: null,
+                startDate: null,
+                endDate: null,
+              },
+            ]);
+          }}
+        >
+          <PlusIcon />
+        </ButtonSecondary>
+      </div>
+    );
+
   return (
     <>
       {/* education */}
@@ -113,11 +142,6 @@ const Education = ({
               }
               style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
             />
-            {status && status?.includes("educatWork check") && (
-              <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[-5px] text-[#F0BB31]">
-                Проверьте корректность заполнения полей
-              </p>
-            )}
             <input
               maxLength={60}
               placeholder="Университет или курс"
@@ -188,24 +212,28 @@ const Education = ({
                 onClick={() => {
                   setEducationState([
                     ...educationState,
-                    { id: uuid(), name: "", degree: "" },
+                    {
+                      id: uuid(),
+                      name: null,
+                      degree: null,
+                      startDate: null,
+                      endDate: null,
+                    },
                   ]);
                 }}
               >
                 <PlusIcon />
               </ButtonSecondary>
-              {key != 0 && (
-                <ButtonSecondary
-                  style="w-fit px-[12px]"
-                  small
-                  text=""
-                  onClick={() => {
-                    deleteHandler(item.id, setEducationState, educationState);
-                  }}
-                >
-                  <TrashIcon />
-                </ButtonSecondary>
-              )}
+              <ButtonSecondary
+                style="w-fit px-[12px]"
+                small
+                text=""
+                onClick={() => {
+                  deleteHandler(item.id, setEducationState, educationState);
+                }}
+              >
+                <TrashIcon />
+              </ButtonSecondary>
             </div>
           ) : (
             <ButtonSecondary

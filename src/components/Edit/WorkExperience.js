@@ -12,6 +12,38 @@ import TrashIcon from "../../shared/icons/TrashIcon";
 import CheckBox from "../../shared/ui/CheckBox";
 
 const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
+  if (workState.length == 0)
+    return (
+      <div className="flex flex-col gap-[8px]">
+        <TextSecondary
+          text={"Опыт работы"}
+          style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+        />
+        <ButtonSecondary
+          small
+          text="Добавить"
+          style="w-fit px-[12px]"
+          onClick={() => {
+            setWorkState([
+              ...workState,
+              {
+                id: uuid(),
+                organization: null,
+                post: null,
+                start_month: null,
+                start_year: null,
+                end_month: null,
+                end_year: null,
+                isStill: false,
+              },
+            ]);
+          }}
+        >
+          <PlusIcon />
+        </ButtonSecondary>
+      </div>
+    );
+
   return (
     <>
       {workState.map((item, key) => (
@@ -23,11 +55,7 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
               }
               style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
             />
-            {status && status?.includes("educatWork check") && (
-              <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[-5px] text-[#F0BB31]">
-                Проверьте корректность заполнения полей
-              </p>
-            )}
+
             <input
               maxLength={60}
               placeholder="Компания"
@@ -80,11 +108,32 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
             <CheckBox
               active={item.isStill}
               onClick={() => {
-                setWorkState(
-                  workState.map((i, index) =>
-                    index === key ? { ...i, isStill: !item.isStill } : i
-                  )
-                );
+                if (item.isStill === true)
+                  setWorkState(
+                    workState.map((i, index) =>
+                      index === key
+                        ? {
+                            ...i,
+                            isStill: false,
+                            end_month: null,
+                            end_year: null,
+                          }
+                        : i
+                    )
+                  );
+                else
+                  setWorkState(
+                    workState.map((i, index) =>
+                      index === key
+                        ? {
+                            ...i,
+                            isStill: true,
+                            end_month: "Месяц",
+                            end_year: "Год",
+                          }
+                        : i
+                    )
+                  );
               }}
             />
           </div>
@@ -162,18 +211,14 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
               >
                 <PlusIcon />
               </ButtonSecondary>
-              {key != 0 && (
-                <ButtonSecondary
-                  style="w-fit px-[12px]"
-                  small
-                  text=""
-                  onClick={() =>
-                    deleteHandler(item.id, setWorkState, workState)
-                  }
-                >
-                  <TrashIcon />
-                </ButtonSecondary>
-              )}
+              <ButtonSecondary
+                style="w-fit px-[12px]"
+                small
+                text=""
+                onClick={() => deleteHandler(item.id, setWorkState, workState)}
+              >
+                <TrashIcon />
+              </ButtonSecondary>
             </div>
           ) : (
             <ButtonSecondary

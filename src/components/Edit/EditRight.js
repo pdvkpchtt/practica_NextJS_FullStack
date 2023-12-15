@@ -51,11 +51,13 @@ const EditRight = ({
   useEffect(() => {
     if (data.education.length == 0)
       setEducationState([
-        {
-          id: uuid(),
-          name: "",
-          degree: "",
-        },
+        // {
+        //   id: uuid(),
+        //   name: null,
+        //   degree: null,
+        //   startDate: null,
+        //   endDate: null,
+        // },
       ]);
     else setEducationState(data.education);
   }, []);
@@ -63,16 +65,16 @@ const EditRight = ({
   useEffect(() => {
     if (data.workExperience.length == 0)
       setWorkState([
-        {
-          id: uuid(),
-          organization: "",
-          post: "",
-          start_month: "",
-          start_year: "",
-          end_month: "",
-          end_year: "",
-          isStill: false,
-        },
+        // {
+        //   id: uuid(),
+        //   organization: null,
+        //   post: null,
+        //   start_month: null,
+        //   start_year: null,
+        //   end_month: null,
+        //   end_year: null,
+        //   isStill: false,
+        // },
       ]);
     else setWorkState(data.workExperience);
   }, []);
@@ -82,7 +84,7 @@ const EditRight = ({
     JSON.stringify(dataToUpdate) !== JSON.stringify(dataToCompare) ||
     JSON.stringify(dataToUpdate.education) !== JSON.stringify(educationState) ||
     JSON.stringify(dataToUpdate.workExperience) !== JSON.stringify(workState);
-  console.log(isDataChanged, "dat chngd");
+  console.log(educationState, "educationState");
   // это основополагающий базис practica
 
   return (
@@ -113,22 +115,8 @@ const EditRight = ({
                   UserSkills: dataToUpdate.UserSkills.map(
                     (item) => true && { skillId: item.id }
                   ),
-                  education:
-                    educationState.length == 1 &&
-                    (educationState[0].name.length == 0 ||
-                      educationState[0].degree.length == 0)
-                      ? []
-                      : educationState,
-                  workExperience:
-                    workState.length == 1 &&
-                    (workState[0].organization?.length == 0 ||
-                      workState[0].post?.length == 0 ||
-                      workState[0].start_month?.length == 0 ||
-                      workState[0].start_year?.length == 0 ||
-                      workState[0].end_month?.length == 0 ||
-                      workState[0].end_year?.length == 0)
-                      ? []
-                      : workState,
+                  education: educationState,
+                  workExperience: workState,
                 });
                 console.log(res?.message, "ass");
                 setStatus(res?.message);
@@ -177,7 +165,7 @@ const EditRight = ({
             className={`
                 px-[12px] py-[8px] rounded-[16px] transition duration-[250ms] select-none w-fit
                 ${
-                  isDataChanged && educationState.length > 0
+                  isDataChanged
                     ? "bg-[#5875e8] hover:bg-[#3A56C5] active:bg-[#2C429C] cursor-pointer"
                     : "bg-[#74899B] bg-opacity-[8%] cursor-default"
                 }
@@ -206,6 +194,13 @@ const EditRight = ({
 
       {/* body */}
       <div className="p-[12px] flex flex-col gap-[16px] rounded-b-[20px] [@media(pointer:coarse)]:rounded-[20px] bg-white dark:bg-[#212122]">
+        {status && status?.includes("educatWork check") && (
+          <p className="text-[13px] leading-[16px] w-full text-center tracking-[-0.351px] mt-[-5px] text-[#F0BB31]">
+            Проверьте корректность заполнения полей «Образование» и «Опыт
+            работы»
+          </p>
+        )}
+
         {/* about me */}
         <Input
           placeholder="Расскажите о ваших мечтах и карьерных планах"

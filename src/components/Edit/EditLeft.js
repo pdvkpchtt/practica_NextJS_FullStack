@@ -24,6 +24,8 @@ const EditLeft = ({
 }) => {
   const router = useRouter();
 
+  console.log(status?.includes("inputBirth"), status, "fuck this");
+
   const [birthValue, setBirthValue] = useState(data.birthDate || "");
   const [myMail, setMyMail] = useState(data.email);
   const [error, setError] = useState(false);
@@ -182,11 +184,11 @@ const EditLeft = ({
               />
             )}
           </InputMask>
-          {status && status?.includes("inputBirth") && (
+          {!status ? null : status?.includes("inputBirth бля") ? (
             <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
               Введите корректную дату
             </p>
-          )}
+          ) : null}
         </div>
       </Card>
 
