@@ -162,7 +162,7 @@ const SkillsDropDown = ({
                               name: item.name,
                               id: item.id,
                               area: item.area,
-                              type: item.type,
+                              type: type,
                             },
                           ],
                         });
