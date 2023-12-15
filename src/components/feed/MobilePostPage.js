@@ -43,6 +43,28 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
     setLoading(false);
   };
 
+  var textWithLinks = [];
+  postState.text &&
+    postState.text.replace(
+      /((?:https?:\/\/|ftps?:\/\/|\bwww\.)(?:(?![.,?!;:()]*(?:\s|$))[^\s]){2,})|(\n+|(?:(?!(?:https?:\/\/|ftp:\/\/|\bwww\.)(?:(?![.,?!;:()]*(?:\s|$))[^\s]){2,}).)+)/gim,
+      (m, link, text) => {
+        textWithLinks.push(
+          link ? (
+            <a
+              target={"_blank"}
+              href={(link[0] === "w" ? "//" : "") + link}
+              key={textWithLinks.length}
+              className="text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition-all duration-[250ms]"
+            >
+              {link}
+            </a>
+          ) : (
+            text
+          )
+        );
+      }
+    );
+
   const toggleReaction = (reaction) => {
     addReaction(reaction.postId, reaction.type);
     // loop over the todos list and find the provided id.
@@ -96,7 +118,7 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
               <div className="flex flex-row gap-[12px]">
                 {postState?.author_image ? (
                   <div
-                    className="overflow-hidden rounded-[8px] min-h-[40px] min-w-[40px] cursor-pointer"
+                    className="overflow-hidden aspect-square rounded-[8px] h-[40px] min-w-[40px] cursor-pointer"
                     onClick={() => {
                       postState.role === "student" ||
                       postState.role.includes("hr")
@@ -110,7 +132,8 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
                       src={postState?.author_image}
                       alt="Profile image"
                       quality={100}
-                      className="h-[40px] w-[40px]"
+                      unoptimized
+                      className="h-[40px] w-[40px] object-cover"
                       width={40}
                       height={40}
                     />
@@ -201,7 +224,7 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
                 />
 
                 <TextMain
-                  text={postState.text}
+                  text={textWithLinks}
                   style="font-normal text-[16px] whitespace-pre-line leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0121875em]"
                 />
                 {/* header and text */}

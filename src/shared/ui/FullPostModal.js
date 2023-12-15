@@ -84,12 +84,16 @@ const FullPostModal = ({
               {/* img + name + id */}
               <div className="flex flex-row gap-[12px]">
                 {item?.author_image ? (
-                  <div className="overflow-hidden rounded-[8px] h-[40px] min-w-[40px] cursor-pointer">
+                  <div
+                    className="overflow-hidden aspect-square rounded-[8px] h-[40px] min-w-[40px] cursor-pointer"
+                    onClick={() => router.push(`/profile/${item.username}`)}
+                  >
                     <Image
                       src={item?.author_image}
                       alt="Profile image"
                       quality={100}
-                      className="h-[40px] w-[40px]"
+                      unoptimized
+                      className="h-[40px] w-[40px] object-cover"
                       width={40}
                       height={40}
                     />
