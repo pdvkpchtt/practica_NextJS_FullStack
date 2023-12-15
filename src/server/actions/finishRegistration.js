@@ -18,6 +18,9 @@ export const finishRegistration = async (inputRole) => {
   //   },
   // });
   //if (role) return
+
+  let name = generateNames();
+
   if (inputRole === "student") {
     const user = await prisma.user.update({
       where: {
@@ -25,10 +28,9 @@ export const finishRegistration = async (inputRole) => {
       },
       data: {
         role: inputRole,
-        name: generateNames().split(" ")[0],
-        lastname: generateNames().split(" ")[1],
-        fullname:
-          generateNames().split(" ")[0] + " " + generateNames().split(" ")[1],
+        name: name.split(" ")[0],
+        lastname: name.split(" ")[1],
+        fullname: name.split(" ")[0] + " " + name.split(" ")[1],
         username: session.user.id,
         plan: {
           connect: {
@@ -76,10 +78,9 @@ export const finishRegistration = async (inputRole) => {
     },
     data: {
       role: "hr_no_nickname",
-      name: generateNames().split(" ")[0],
-      lastname: generateNames().split(" ")[1],
-      fullname:
-        generateNames().split(" ")[0] + " " + generateNames().split(" ")[1],
+      name: name.split(" ")[0],
+      lastname: name.split(" ")[1],
+      fullname: name.split(" ")[0] + " " + name.split(" ")[1],
       username: session.user.id,
       plan: {
         connect: {
