@@ -16,7 +16,10 @@ const PeopleCard = ({ item }) => {
     <Card style="flex flex-col gap-[12px]" padding={12}>
       {/* image name time */}
       <div className="flex flex-row gap-[8px]">
-        <div className="h-[67px] w-[67px] max-h-[67px] max-w-[67px] min-h-[67px] min-w-[67px] aspect-square overflow-hidden  rounded-[8px]">
+        <div
+          className="h-[67px] w-[67px] max-h-[67px] cursor-pointer max-w-[67px] min-h-[67px] min-w-[67px] aspect-square overflow-hidden  rounded-[8px]"
+          onClick={() => router.push(`/profile/${item.username || item.id}`)}
+        >
           {item.image ? (
             <Image
               src={item.image}
@@ -34,7 +37,7 @@ const PeopleCard = ({ item }) => {
         </div>
         <div className="flex flex-col gap-[4px]">
           <TextMain
-            text={`${item.name}${
+            text={`${item.name}${item.lastname ? " " + item.lastname : ""}${
               !item.itsMe
                 ? item?.isFirstCircle.length > 0
                   ? " • 1"

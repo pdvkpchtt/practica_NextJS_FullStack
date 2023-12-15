@@ -12,6 +12,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
       select: {
         id: true,
         name: true,
+        lastname: true,
         username: true,
         role: true,
         image: true,
@@ -80,6 +81,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
       return {
         id: user.id,
         name: user.name,
+        lastname: user.lastname,
         username: user.username,
         role: user.role,
         image: user.image,
@@ -136,6 +138,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
       return {
         id: user.id,
         name: user.name,
+        lastname: user.lastname,
         username: user.username,
         role: user.role,
         image: user.image,

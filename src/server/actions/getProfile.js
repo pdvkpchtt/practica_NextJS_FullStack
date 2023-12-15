@@ -10,6 +10,8 @@ export const getProfile = async ({ userId }) => {
     select: {
       id: true,
       name: true,
+      lastname: true,
+      fullname: true,
       username: true,
       role: true,
       image: true,
@@ -121,6 +123,8 @@ export const getProfile = async ({ userId }) => {
     return {
       id: user.id,
       name: user.name,
+      lastname: user.lastname,
+      fullname: user.fullname,
       username: user.username,
       role: user.role,
       image: user.image,
@@ -193,6 +197,8 @@ export const getProfile = async ({ userId }) => {
     return {
       id: user.id,
       name: user.name,
+      lastname: user.lastname,
+      fullname: user.fullname,
       username: user.username,
       role: user.role,
       image: user.image,

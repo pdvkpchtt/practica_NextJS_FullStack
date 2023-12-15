@@ -52,6 +52,8 @@ model Session {
 model User {
   id             String           @id @default(cuid())
   name           String?
+  lastname       String?
+  fullname       String?
   username       String?          @unique
   birthDate      String?
   email          String?          @unique

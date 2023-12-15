@@ -42,6 +42,7 @@ export const addPost = async (input) => {
           role: true,
           username: true,
           name: true,
+          lastname: true,
           id: true,
           HR: { select: { company: { select: { username: true } } } },
           image: true,
@@ -88,7 +89,7 @@ export const addPost = async (input) => {
   return {
     id: post.id,
     createdAt: post.createdAt,
-    author_name: post.user.name,
+    author_name: post.user.name + " " + post.user.lastname,
     category: post.category,
     author_image: post.user.image,
     author_id: post.user.id,

@@ -48,6 +48,7 @@ const getMessages = async (
       User: {
         select: {
           name: true,
+          lastname: true,
           image: true,
           id: true,
           username: true,

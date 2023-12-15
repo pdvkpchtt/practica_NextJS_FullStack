@@ -31,6 +31,7 @@ export const getFollowers = async (companyId, cursor, input) => {
       },
       id: true,
       name: true,
+      lastname: true,
       image: true,
       username: true,
       _count: {
@@ -58,6 +59,7 @@ export const getFollowers = async (companyId, cursor, input) => {
   }
   const result = slicedFollowers.map((r) => {
     return {
+      lastname: r?.lastname,
       name: r?.name,
       image: r?.image,
       id: r?.id,

@@ -170,7 +170,12 @@ const VacancyRight = ({ data, role = "student", userId }) => {
                 style="font-semibold text-[14px] w-full leading-[18px] tracking-[-0.182px]"
               />
               <div className="flex flex-row gap-[12px]">
-                <div className="relative overflow-hidden aspect-square rounded-[8px] h-[50px] w-[50px]">
+                <div
+                  className="relative overflow-hidden aspect-square rounded-[8px] h-[50px] cursor-pointer w-[50px]"
+                  onClick={() =>
+                    router.push(`/profile/${data?.hrCreator?.username}`)
+                  }
+                >
                   {data?.hrCreator?.image ? (
                     <Image
                       src={data.hrCreator.image}
@@ -191,7 +196,11 @@ const VacancyRight = ({ data, role = "student", userId }) => {
                     onClick={() =>
                       router.push(`/profile/${data?.hrCreator?.username}`)
                     }
-                    text={data?.hrCreator?.name}
+                    text={`${data?.hrCreator?.name}${
+                      data?.hrCreator?.lastname
+                        ? " " + data?.hrCreator?.lastname
+                        : ""
+                    }`}
                     style="font-normal cursor-pointer text-[14px] w-full leading-[17px] tracking-[-0.21px]"
                   />
                   <TextSecondary

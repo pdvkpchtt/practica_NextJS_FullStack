@@ -15,6 +15,7 @@ export const getUpdates = async (myId, cursor) => {
         select: {
           id: true,
           name: true,
+          lastname: true,
           username: true,
           image: true,
         },

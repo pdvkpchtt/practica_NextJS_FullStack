@@ -91,7 +91,9 @@ const ConnectionCard = ({
           {update ? (
             <div className="flex flex-row gap-[8px] ">
               <TextMain
-                text={item?.userFrom?.name}
+                text={`${item?.userFrom?.name}${
+                  item?.userFrom?.lastname ? " " + item?.userFrom?.lastname : ""
+                }`}
                 style="font-medium text-[16px] cursor-pointer leading-[19.2px] tracking-[-0.015em] whitespace-nowrap truncate"
                 onClick={() => {
                   if (company) router.push(`/companyprofile/${item?.username}`);
@@ -118,7 +120,9 @@ const ConnectionCard = ({
             </div>
           ) : (
             <TextMain
-              text={item?.name}
+              text={`${item?.name}${
+                item?.lastname ? " " + item?.lastname : ""
+              }`}
               style="font-medium text-[16px] cursor-pointer leading-[19.2px] tracking-[-0.015em] whitespace-nowrap truncate"
               onClick={() => {
                 if (company) router.push(`/companyprofile/${item?.username}`);

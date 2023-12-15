@@ -12,6 +12,7 @@ export const getPostById = async (id, userId) => {
       user: {
         select: {
           name: true,
+          lastname: true,
           id: true,
           image: true,
           username: true,
@@ -69,7 +70,7 @@ export const getPostById = async (id, userId) => {
     return {
       id: currentPost.id,
       createdAt: currentPost.createdAt,
-      author_name: currentPost.user.name,
+      author_name: currentPost.user.name + " " + currentPost.user.lastname,
       author_image: currentPost.user.image,
       username: currentPost.user.username,
       author_id: currentPost.user.id,

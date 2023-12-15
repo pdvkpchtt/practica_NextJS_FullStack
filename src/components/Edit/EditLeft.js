@@ -86,7 +86,7 @@ const EditLeft = ({
         </div>
 
         <Input
-          placeholder="Например, Анастасия"
+          placeholder="Анастасия"
           label="Имя"
           value={dataToUpdate.name}
           caption={
@@ -94,6 +94,8 @@ const EditLeft = ({
               ? null
               : status?.includes("inputName minlen")
               ? "Поле обязательно к заполнению"
+              : status?.includes("inputName бля")
+              ? "Поле содержит недопустимые символы"
               : null
           }
           onChange={(name) => {
@@ -106,7 +108,27 @@ const EditLeft = ({
           }}
         />
         <Input
-          placeholder="Например, designer_23yo"
+          placeholder="Морозова"
+          label="Фамилия"
+          value={dataToUpdate.lastname}
+          caption={
+            !status
+              ? null
+              : status?.includes("inputLastname бля")
+              ? "Поле содержит недопустимые символы"
+              : null
+          }
+          onChange={(lastname) => {
+            setDataToUpdate({
+              ...dataToUpdate,
+              lastname: lastname,
+            });
+            if (status)
+              setStatus(status.filter((i) => !i.includes("inputLastname")));
+          }}
+        />
+        <Input
+          placeholder="designer_23yo"
           label="Имя пользователя"
           value={dataToUpdate.username}
           caption={
@@ -117,7 +139,7 @@ const EditLeft = ({
               : status?.includes("inputUsername unique")
               ? "Этот username занят"
               : status?.includes("inputUsername regex")
-              ? "Username содержит недопустимые символы или пробел"
+              ? "Поле содержит недопустимые символы"
               : null
           }
           onChange={(username) => {
@@ -130,7 +152,7 @@ const EditLeft = ({
           }}
         />
         <Input
-          placeholder="Например, Уфа"
+          placeholder="Уфа"
           label="Город"
           value={dataToUpdate.city}
           onChange={(city) =>

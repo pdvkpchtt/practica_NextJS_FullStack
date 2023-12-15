@@ -40,6 +40,7 @@ export const getUsersBookmarks = async (userId, cursor) => {
                   id: true,
                   username: true,
                   name: true,
+                  lastname: true,
                   image: true,
                 },
               },

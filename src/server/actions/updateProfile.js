@@ -4,7 +4,23 @@ import { z } from "zod";
 export const updateProfile = async ({ userId, data }) => {
   // валидация
   const validate = z.object({
-    name: z.string().min(1, { message: "inputName minlen" }),
+    name: z
+      .string()
+      .min(1, { message: "inputName minlen" })
+      .refine(
+        (value) => !/[`!@#$%^&*()+\-=\[\]{};._':"\\|,<>\/?~]/.test(value),
+        {
+          message: "inputName бля",
+        }
+      ),
+    lastname: z
+      .string()
+      .refine(
+        (value) => !/[`!@#$%^&*()+\-=\[\]{};._':"\\|,<>\/?~]/.test(value),
+        {
+          message: "inputLastname бля",
+        }
+      ),
     username: z
       .string()
       .min(1, { message: "inputUsername minlen" })
@@ -26,6 +42,7 @@ export const updateProfile = async ({ userId, data }) => {
 
   const validateRes = validate.safeParse({
     name: data.name,
+    lastname: data.lastname,
     username: data.username,
     about: data.about !== null ? data.about : "",
     birthDate: data.birthDate !== null ? data.birthDate : "",
@@ -51,6 +68,8 @@ export const updateProfile = async ({ userId, data }) => {
       },
       data: {
         name: data.name,
+        lastname: data.lastname,
+        fullname: data.name + " " + data.lastname,
         city: data.city,
         about: data.about,
         username: data.username.split(" ").join(""),

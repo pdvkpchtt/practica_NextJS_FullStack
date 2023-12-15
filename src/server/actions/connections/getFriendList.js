@@ -17,6 +17,7 @@ export const getFriendList = async (myId, cursor, input) => {
         ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
         select: {
           name: true,
+          lastname: true,
           image: true,
           id: true,
           username: true,
@@ -52,6 +53,7 @@ export const getFriendList = async (myId, cursor, input) => {
   const result = slicedPosts?.map((r) => {
     return {
       name: r?.name,
+      lastname: r?.lastname,
       image: r?.image,
       id: r?.id,
       username: r?.username,

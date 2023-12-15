@@ -13,6 +13,7 @@ export const getListOfChats = async (id, cursor, searchInput) => {
         select: {
           id: true,
           name: true,
+          lastname: true,
           image: true,
         },
       },
@@ -132,6 +133,7 @@ export const getListOfChats = async (id, cursor, searchInput) => {
       return {
         id: chat.id,
         name: chat.name,
+        lastname: chat.lastname,
         createdAt: chat.createdAt,
         updatedAt: chat.updatedAt,
         participants: chat.participants,

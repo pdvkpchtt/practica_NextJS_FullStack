@@ -162,7 +162,9 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
             {/* name and username */}
             <div className="flex flex-col gap-[8px]">
               <TextMain
-                text={data.name}
+                text={`${data.name}${
+                  data?.lastname ? " " + data?.lastname : ""
+                }`}
                 style="font-medium text-[18px] leading-[21.6px] tracking-[-0.025em]"
               />
               <TextSecondary

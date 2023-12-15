@@ -193,7 +193,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
             {/* name and username */}
             <div className="flex flex-col gap-[8px]">
               <TextMain
-                text={`${data.name}${
+                text={`${data.name}${data.lastname ? " " + data.lastname : ""}${
                   data?.isFirstCircle?.length > 0
                     ? " • 1"
                     : data?.isSecondCircle?.find((i2) => i2 === true)

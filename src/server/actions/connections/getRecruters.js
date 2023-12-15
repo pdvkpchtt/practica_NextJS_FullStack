@@ -23,6 +23,7 @@ export const getRecruters = async (companyId, cursor, input) => {
         select: {
           id: true,
           name: true,
+          lastname: true,
           image: true,
           username: true,
           _count: {
@@ -54,6 +55,7 @@ export const getRecruters = async (companyId, cursor, input) => {
     if (r.dataVerified !== null)
       return {
         name: r?.user?.name,
+        lastname: r?.user?.lastname,
         image: r?.user?.image,
         id: r?.user?.id,
         username: r?.user?.username,

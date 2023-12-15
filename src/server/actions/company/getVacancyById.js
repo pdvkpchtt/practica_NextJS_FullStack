@@ -101,6 +101,7 @@ export const getVacancyById = async (id) => {
               id: true,
               username: true,
               name: true,
+              lastname: true,
               image: true,
             },
           },

@@ -91,6 +91,7 @@ export const getVacancies = async (cursor, filters) => {
               id: true,
               username: true,
               name: true,
+              lastname: true,
               image: true,
             },
           },

@@ -30,6 +30,7 @@ export const getCompanyVacancies = async (id, cursor) => {
               id: true,
               username: true,
               name: true,
+              lastname: true,
               image: true,
             },
           },

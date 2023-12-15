@@ -10,6 +10,7 @@ export const getPosts = async (id, cursor, category) => {
       user: {
         select: {
           name: true,
+          lastname: true,
           id: true,
           image: true,
           username: true,
@@ -87,7 +88,7 @@ export const getPosts = async (id, cursor, category) => {
     return {
       id: post.id,
       createdAt: post.createdAt,
-      author_name: post.user.name,
+      author_name: post.user.name + " " + post.user.lastname,
       author_image: post.user.image,
       username: post.user.username,
       author_id: post.user.id,

@@ -12,6 +12,8 @@ export const getPeoples = async (cursor, filters) => {
     select: {
       id: true,
       name: true,
+      lastname: true,
+      fullname: true,
       username: true,
       image: true,
       country: true,
@@ -87,7 +89,7 @@ export const getPeoples = async (cursor, filters) => {
                   : {},
             }
           : {
-              name: { contains: filters?.input, mode: "insensitive" },
+              fullname: { contains: filters?.input, mode: "insensitive" },
               city: {
                 contains: filters?.peoplecity?.label,
                 mode: "insensitive",
@@ -159,7 +161,7 @@ export const getPeoples = async (cursor, filters) => {
             },
           }
         : {
-            name: { contains: filters?.input, mode: "insensitive" },
+            fullname: { contains: filters?.input, mode: "insensitive" },
           }
       : {},
   });
@@ -184,6 +186,7 @@ export const getPeoples = async (cursor, filters) => {
         return {
           id: u.id,
           name: u.name,
+          lastname: u.lastname,
           username: u.username,
           image: u.image,
           country: u.country,
@@ -202,6 +205,7 @@ export const getPeoples = async (cursor, filters) => {
         return {
           id: u.id,
           name: u.name,
+          lastname: u.lastname,
           username: u.username,
           image: u.image,
           country: u.country,

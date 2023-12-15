@@ -25,7 +25,10 @@ export const finishRegistration = async (inputRole) => {
       },
       data: {
         role: inputRole,
-        name: generateNames(),
+        name: generateNames().split(" ")[0],
+        lastname: generateNames().split(" ")[1],
+        fullname:
+          generateNames().split(" ")[0] + " " + generateNames().split(" ")[1],
         username: session.user.id,
         plan: {
           connect: {
@@ -73,7 +76,10 @@ export const finishRegistration = async (inputRole) => {
     },
     data: {
       role: "hr_no_nickname",
-      name: generateNames(),
+      name: generateNames().split(" ")[0],
+      lastname: generateNames().split(" ")[1],
+      fullname:
+        generateNames().split(" ")[0] + " " + generateNames().split(" ")[1],
       username: session.user.id,
       plan: {
         connect: {
