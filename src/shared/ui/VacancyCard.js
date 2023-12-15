@@ -182,25 +182,25 @@ const VacancyCard = ({ item, role = "student", userId }) => {
                   ))}
                   {item.VacancySkills.map(
                     (item) =>
-                      item.skill.type === "hard" && (
+                      item.type === "hard" && (
                         <SkillCard
-                          hard={item.skill.type == "hard"}
-                          soft={item.skill.type == "soft"}
+                          hard={item.type == "hard"}
+                          soft={item.type == "soft"}
                           key={item.id}
                           style="mr-[4px]"
-                          text={item.skill.name}
+                          text={item.name}
                         />
                       )
                   )}
                   {item.VacancySkills.map(
                     (item) =>
-                      item.skill.type === "soft" && (
+                      item.type === "soft" && (
                         <SkillCard
-                          hard={item.skill.type == "hard"}
-                          soft={item.skill.type == "soft"}
+                          hard={item.type == "hard"}
+                          soft={item.type == "soft"}
                           key={item.id}
                           style="mr-[4px]"
-                          text={item.skill.name}
+                          text={item.name}
                         />
                       )
                   )}

@@ -86,17 +86,7 @@ export const getCompanyVacancies = async (id, cursor) => {
           label: true,
         },
       },
-      VacancySkills: {
-        select: {
-          skillId: true,
-          skill: {
-            select: {
-              name: true,
-              type: true,
-            },
-          },
-        },
-      },
+      VacancySkills: true,
       Bookmarks: true,
     },
     orderBy: {

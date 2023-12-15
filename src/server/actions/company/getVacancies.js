@@ -72,17 +72,7 @@ export const getVacancies = async (cursor, filters) => {
           label: true,
         },
       },
-      VacancySkills: {
-        select: {
-          skillId: true,
-          skill: {
-            select: {
-              name: true,
-              type: true,
-            },
-          },
-        },
-      },
+      VacancySkills: true,
       Bookmarks: true,
       hrCreator: {
         select: {
@@ -107,9 +97,9 @@ export const getVacancies = async (cursor, filters) => {
               filters?.VacancySkills?.length > 0
                 ? {
                     some: {
-                      skillId: {
+                      name: {
                         in: filters?.VacancySkills?.map(
-                          (item) => true && item.id
+                          (item) => true && item.name
                         ),
                       },
                     },
@@ -146,9 +136,9 @@ export const getVacancies = async (cursor, filters) => {
               filters?.VacancySkills?.length > 0
                 ? {
                     some: {
-                      skillId: {
+                      name: {
                         in: filters?.VacancySkills?.map(
-                          (item) => true && item.id
+                          (item) => true && item.name
                         ),
                       },
                     },

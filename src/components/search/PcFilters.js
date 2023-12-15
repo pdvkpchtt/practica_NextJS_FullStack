@@ -133,6 +133,7 @@ const PcFilters = ({
               dropDataVacancies={dropDataVacancies}
               setSkillsModal={setSkillsModal}
               updateVacancies={updateVacancies}
+              skills={dropDataVacancies.vacskills}
               setUpdateVacancies={setUpdateVacancies}
             />
           )}

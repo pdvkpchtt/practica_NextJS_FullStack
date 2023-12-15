@@ -58,6 +58,7 @@ const SkillsModalVacs = ({
         });
   };
   const addHandler = (item) => {
+    console.log(item, "danil test");
     const foundSkills = data.filter((i) => i.name === item.name);
     if (foundSkills.length == 0) {
       if (!forVacancy)

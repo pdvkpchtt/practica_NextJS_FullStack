@@ -88,7 +88,7 @@ const FiltersWrap = () => {
           </MobileModal>
           {/* filters mobile */}
 
-          {pathname === navState[0].route && (
+          {/* {pathname === navState[0].route && (
             <SkillsModalVacs
               withAreas
               areas={updateVacancies.area}
@@ -100,7 +100,7 @@ const FiltersWrap = () => {
               skills={dropDataVacancies.vacskills}
               forVacancy
             />
-          )}
+          )} */}
           {pathname === navState[2].route && (
             <SkillsModalContent
               data={updatePeople.UserSkills}

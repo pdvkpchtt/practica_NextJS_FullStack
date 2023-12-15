@@ -90,17 +90,7 @@ export const getUsersBookmarks = async (userId, cursor) => {
               label: true,
             },
           },
-          VacancySkills: {
-            select: {
-              skillId: true,
-              skill: {
-                select: {
-                  name: true,
-                  type: true,
-                },
-              },
-            },
-          },
+          VacancySkills: true,
           Bookmarks: true,
         },
       },

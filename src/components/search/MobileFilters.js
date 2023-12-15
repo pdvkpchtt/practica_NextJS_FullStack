@@ -154,6 +154,7 @@ const MobileFilters = ({
             setSkillsModal={setSkillsModal}
             updateVacancies={updateVacancies}
             setUpdateVacancies={setUpdateVacancies}
+            skills={dropDataVacancies.vacskills}
           />
         )}
         {pathname === navState[1].route && (

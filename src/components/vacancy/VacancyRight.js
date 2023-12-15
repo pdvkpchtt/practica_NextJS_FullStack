@@ -91,11 +91,11 @@ const VacancyRight = ({ data, role = "student", userId }) => {
               ))}
               {data.VacancySkills.map((item) => (
                 <SkillCard
-                  hard={item.skill.type == "hard"}
-                  soft={item.skill.type == "soft"}
+                  hard={item.type == "hard"}
+                  soft={item.type == "soft"}
                   key={item.id}
                   style="mr-[4px]"
-                  text={item.skill.name}
+                  text={item.name}
                 />
               ))}
             </div>

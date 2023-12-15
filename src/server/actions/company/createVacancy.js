@@ -71,6 +71,8 @@ export const createVacancy = async (id, data, role = "company") => {
     });
   }
 
+  console.log(data, "nefor");
+
   const company = await prisma.company.update({
     where: { userId: getHrId?.company?.userId },
     data: {

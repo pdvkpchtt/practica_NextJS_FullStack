@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { MaskedInput, getCurrencyMaskGenerator } from "react-hook-mask";
 import { useMediaQuery } from "react-responsive";
 import { Oval } from "react-loader-spinner";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,14 +21,14 @@ import Card from "../../shared/ui/Card";
 import DropDownWithSearch from "../../shared/ui/DropDownWithSearch";
 import DropDownWithChoise from "../../shared/ui/DropDownWithChoise";
 import SkillsModalVacs from "../Edit/SkillsModalVacs";
+import SkillsDropDown from "../../shared/ui/SkillsDropDown";
+import CheckBox from "../../shared/ui/CheckBox";
 
 import CheckIcon from "../../shared/icons/CheckIcon";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 import PlusIcon from "../../shared/icons/PlusIcon";
 import AddCityIcon from "../../shared/icons/AddCityIcon";
-import CheckBox from "../../shared/ui/CheckBox";
-
-import { MaskedInput, getCurrencyMaskGenerator } from "react-hook-mask";
+import AddSkillIcon from "../../shared/icons/AddSkillIcon";
 
 const maskGenerator = getCurrencyMaskGenerator({
   prefix: "",
@@ -36,9 +37,9 @@ const maskGenerator = getCurrencyMaskGenerator({
 
 const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
   const router = useRouter();
-  console.log(dataToUpdate, "as");
 
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
+  console.log(dataToUpdate.VacancySkills);
 
   // validate
   const [status, setStatus] = useState(null);
@@ -46,6 +47,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
 
   const [littleLoader, setLittleLoader] = useState(false);
   const [isOpen, toggle] = useState(false);
+  const [isOpen2, toggle2] = useState(false);
   const [loading, setLoading] = useState(true);
   const [dropData, setDropData] = useState([]);
   const [state6, setState6] = useState(false);
@@ -78,7 +80,12 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               const res = await createVacancyHandler({
                 ...dataToUpdate,
                 VacancySkills: dataToUpdate.VacancySkills.map(
-                  (item) => true && { skillId: item.id }
+                  (item) =>
+                    true && {
+                      name: item?.name,
+                      type: item.type,
+                      area: item?.area?.label,
+                    }
                 ),
               });
               console.log(res, "asswe");
@@ -395,7 +402,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                     });
                   }}
                   items={dropData?.cities}
-                  placeholder="Сфера"
+                  placeholder="Локация"
                 />
               </div>
               {/* location */}
@@ -514,7 +521,104 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               {/* EducationLevel */}
 
               {/* skills */}
-              <div className="flex flex-col relative gap-[16px]">
+              <div className="flex flex-col relative">
+                <TextSecondary
+                  text={"Хард-скиллы"}
+                  style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+                />
+                {dataToUpdate.VacancySkills.filter(
+                  (item) => item.type !== "soft"
+                ).length > 0 ? (
+                  <div className="flex flex-row gap-[8px] flex-wrap">
+                    {dataToUpdate.VacancySkills.map(
+                      (item) =>
+                        item.type === "hard" && (
+                          <SkillCard
+                            noCopy
+                            onClick={() => toggle(true)}
+                            text={item.name}
+                            key={item.id}
+                          />
+                        )
+                    )}
+                  </div>
+                ) : (
+                  <AddSkillIcon
+                    hard
+                    disabled={dataToUpdate?.vacArea?.length === 0}
+                    onClick={() => {
+                      if (dataToUpdate?.vacArea?.length === 0)
+                        toast(`🔍 выберите сферу`, {
+                          position: isMobile ? "top-center" : "bottom-right",
+                          autoClose: 2000,
+                          hideProgressBar: true,
+                          closeOnClick: true,
+                          pauseOnHover: false,
+                          draggable: true,
+                          progress: undefined,
+                          // theme: "dark",
+                          progressStyle: { background: "#5875e8" },
+                          containerId: "forCopy",
+                        });
+                      else toggle(true);
+                    }}
+                  />
+                )}
+                <SkillsDropDown
+                  withAreas
+                  areas={dataToUpdate?.vacArea}
+                  state={isOpen}
+                  setState={() => toggle(false)}
+                  type={"hard"}
+                  city={dataToUpdate.VacancySkills}
+                  dataToUpdate={dataToUpdate}
+                  setCity={setDataToUpdate}
+                  items={skills?.skills?.filter((i) => i?.type === "hard")}
+                  placeholder="Хард-скиллы"
+                />
+              </div>
+              <div className="flex flex-col relative">
+                <TextSecondary
+                  text={"Софт-скиллы"}
+                  style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+                />
+                {dataToUpdate.VacancySkills.filter(
+                  (item) => item.type !== "hard"
+                ).length > 0 ? (
+                  <div className="flex flex-row gap-[8px] flex-wrap">
+                    {dataToUpdate.VacancySkills.map(
+                      (item) =>
+                        item.type === "soft" && (
+                          <SkillCard
+                            noCopy
+                            hard={false}
+                            soft
+                            onClick={() => toggle2(true)}
+                            text={item.name}
+                            key={item.id}
+                          />
+                        )
+                    )}
+                  </div>
+                ) : (
+                  <AddSkillIcon
+                    onClick={() => {
+                      toggle2(true);
+                    }}
+                  />
+                )}
+                <SkillsDropDown
+                  state={isOpen2}
+                  setState={() => toggle2(false)}
+                  type={"soft"}
+                  city={dataToUpdate.VacancySkills}
+                  dataToUpdate={dataToUpdate}
+                  setCity={setDataToUpdate}
+                  items={skills?.skills?.filter((i) => i?.type === "soft")}
+                  placeholder="Софт-скиллы"
+                />
+              </div>
+              {/* <div className="flex flex-col relative gap-[16px]">
                 {dataToUpdate.VacancySkills.length === 0 ? (
                   <div className="flex flex-col">
                     <TextSecondary
@@ -595,7 +699,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                     )}
                   </>
                 )}
-              </div>
+              </div> */}
               {/* skills */}
 
               {/* salary */}
@@ -723,7 +827,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
       {/* body */}
 
       {/* skills modal */}
-      <SkillsModalVacs
+      {/* <SkillsModalVacs
         withAreas
         areas={dataToUpdate?.vacArea}
         data={dataToUpdate.VacancySkills}
@@ -733,7 +837,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
         dataToUpdate={dataToUpdate}
         skills={skills}
         forVacancy
-      />
+      /> */}
       {/* skills modal */}
     </div>
   );

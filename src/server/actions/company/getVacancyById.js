@@ -83,17 +83,7 @@ export const getVacancyById = async (id) => {
           label: true,
         },
       },
-      VacancySkills: {
-        select: {
-          skillId: true,
-          skill: {
-            select: {
-              name: true,
-              type: true,
-            },
-          },
-        },
-      },
+      VacancySkills: true,
       hrCreator: {
         select: {
           user: {
