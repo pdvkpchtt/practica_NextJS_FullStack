@@ -309,61 +309,76 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
         {/* contacts */}
 
         {/* pitches + superpitches */}
-        <div
-          className={`${
-            "" // pitchesState === null && "justify-center"
-          } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
-        >
-          <button
-            className={`group text-center h-[28px] w-fit whitespace-nowrap items-center flex-row gap-[8px] flex 
-          font-medium leading-[20px] text-[16px] tracking-[-0.015em]
-       cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
-            onClick={() => setPitchesModalState(true)}
+        <Card rounded={20} padding={10} style={"flex flex-col gap-[8px]"}>
+          <div className="flex flex-row justify-between items-center">
+            <TextMain
+              text="Мои питчи"
+              style={
+                "text-[18px] font-medium leading-[22px] tracking-[-0.45px] flex-1"
+              }
+            />
+            <p
+              className="text-[#5875e8] text-[13px] cursor-pointer leading-[16px] font-medium tracking-[-0.325px] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms]"
+              onClick={() => setPitchesModalState(true)}
+            >
+              Что это такое?
+            </p>
+          </div>
+          <div
+            className={`${
+              "" // pitchesState === null && "justify-center"
+            } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
           >
-            {/* {pitchesState === null ? (
+            <div
+              className={`group text-center h-[28px] w-fit whitespace-nowrap items-center flex-row gap-[8px] flex 
+          font-medium leading-[20px] text-[16px] tracking-[-0.015em]
+       cursor-default select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
+            >
+              {/* {pitchesState === null ? (
               <CustomLoader
                 diameter={28}
                 strokeWidth={6}
                 strokeWidthSecondary={6}
               />
             ) : ( */}
-            <>
-              <PitchIcon black blue={false} />
-              {pitchesState === null
-                ? pitchesFirst + " " + getNoun(pitchesFirst)
-                : pitchesState + " " + getNoun(pitchesState)}
-            </>
-            {/* )} */}
-          </button>
-        </div>
+              <>
+                <PitchIcon black blue={false} />
+                {pitchesState === null
+                  ? pitchesFirst + " " + getNoun(pitchesFirst)
+                  : pitchesState + " " + getNoun(pitchesState)}
+              </>
+              {/* )} */}
+            </div>
+          </div>
 
-        <div
-          className={`${
-            "" // superpitchesState === null && "justify-center"
-          } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
-        >
-          <button
-            className={`group text-center h-[28px] w-fit whitespace-nowrap items-center flex-row gap-[8px] flex 
-          font-medium leading-[20px] text-[16px] tracking-[-0.015em]
-       cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
-            onClick={() => setPitchesModalState(true)}
+          <div
+            className={`${
+              "" // superpitchesState === null && "justify-center"
+            } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
           >
-            {/* {superpitchesState === null ? (
+            <div
+              className={`group text-center h-[28px] w-fit whitespace-nowrap items-center flex-row gap-[8px] flex 
+          font-medium leading-[20px] text-[16px] tracking-[-0.015em]
+       cursor-default select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
+            >
+              {/* {superpitchesState === null ? (
               <CustomLoader
                 diameter={28}
                 strokeWidth={6}
                 strokeWidthSecondary={6}
               />
             ) : ( */}
-            <>
-              <SuperpitchIcon black blue={false} />
-              {superpitchesState === null
-                ? superPitchesFirst + " супер" + getNoun(superPitchesFirst)
-                : superpitchesState + " супер" + getNoun(superpitchesState)}
-            </>
-            {/* )} */}
-          </button>
-        </div>
+              <>
+                <SuperpitchIcon black blue={false} />
+                {superpitchesState === null
+                  ? superPitchesFirst + " супер" + getNoun(superPitchesFirst)
+                  : superpitchesState + " супер" + getNoun(superpitchesState)}
+              </>
+              {/* )} */}
+            </div>
+          </div>
+        </Card>
+
         {/* pitches + superpitches */}
 
         <Card

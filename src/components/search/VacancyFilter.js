@@ -23,6 +23,11 @@ const VacancyFilter = ({
   dropDataVacancies = {},
   skills,
 }) => {
+  let uniqueList = Array.from(new Set(skills.map((a) => a.name))).map(
+    (name) => {
+      return skills.find((a) => a.name === name);
+    }
+  );
   const [state, setState] = useState(false);
   const [isOpen, toggle] = useState(false);
   const [isOpen2, toggle2] = useState(false);
@@ -198,7 +203,7 @@ const VacancyFilter = ({
           text={"Хард-скиллы"}
           style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
         />
-        {updateVacancies.VacancySkills.filter((item) => item.type !== "soft")
+        {updateVacancies?.VacancySkills?.filter((item) => item.type !== "soft")
           .length > 0 ? (
           <div className="flex flex-row gap-[8px] flex-wrap">
             {updateVacancies.VacancySkills.map(
@@ -245,7 +250,7 @@ const VacancyFilter = ({
           city={updateVacancies.VacancySkills}
           dataToUpdate={updateVacancies}
           setCity={setUpdateVacancies}
-          items={skills?.filter((i) => i?.type === "hard")}
+          items={uniqueList?.filter((i) => i?.type === "hard")}
           placeholder="Хард-скиллы"
         />
       </div>
@@ -254,7 +259,8 @@ const VacancyFilter = ({
           text={"Софт-скиллы"}
           style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
         />
-        {updateVacancies.VacancySkills.filter((item) => item.type !== "hard")
+
+        {updateVacancies?.VacancySkills?.filter((item) => item.type !== "hard")
           .length > 0 ? (
           <div className="flex flex-row gap-[8px] flex-wrap">
             {updateVacancies.VacancySkills.map(
@@ -288,7 +294,7 @@ const VacancyFilter = ({
           city={updateVacancies.VacancySkills}
           dataToUpdate={updateVacancies}
           setCity={setUpdateVacancies}
-          items={skills?.filter((i) => i?.type === "soft")}
+          items={uniqueList?.filter((i) => i?.type === "soft")}
           placeholder="Софт-скиллы"
         />
       </div>

@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Waypoint } from "react-waypoint";
+import Image from "next/image";
+// import { Waypoint } from "react-waypoint";
 
 import Modal from "../../shared/ui/Modal";
 import MobileModal from "../../shared/ui/MobileModal";
@@ -27,15 +28,22 @@ const PitchesModalOthers = ({
     <>
       <Modal isOpen={modalState} handleClose={() => setModalState(false)}>
         {/* header */}
-        <div className="flex flex-row justify-end pb-[12px] relative">
+        <div className="flex flex-row [@media(pointer:coarse)]:hidden justify-end pb-[24px] relative h-[182px]">
           <Cross2 onClick={() => setModalState(false)} />
 
+          <Image
+            src={"/PitchArt.png"}
+            alt={"pitch art"}
+            width={630}
+            height={182}
+            className="absolute top-[-12px] left-[-12px] min-w-[630px] min-h-[182px] z-[-1]  rounded-t-[20px]"
+          />
           {/* <div className="h-[0.5px] w-[calc(100%+24px)] bg-[#e7e7e7] dark:bg-[#2f2f2f] absolute top-[30px] left-[-12px]" /> */}
         </div>
         {/* header */}
 
         {/* body */}
-        <div className="h-fit mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px] gap-[34px]">
+        <div className="h-fit mt-[12px] [@media(pointer:coarse)]:hidden flex flex-col overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px] gap-[34px]">
           <div className="flex flex-col">
             <div className="flex flex-row gap-[4px] items-center">
               <PitchIcon black blue={false} />
@@ -125,9 +133,17 @@ const PitchesModalOthers = ({
         {/* header */}
 
         {/* body */}
-        <div className="mt-[61px] flex flex-col gap-[34px] p-[12px] overflow-y-scroll h-[calc(100%-61px)]">
+        <div className="mt-[61px] flex flex-col gap-[34px] overflow-y-scroll h-[calc(100%-61px)]">
           <div className="flex flex-col">
-            <div className="flex flex-row gap-[4px] items-center">
+            <Image
+              src={"/PitchArt.png"}
+              alt={"pitch art"}
+              width={630}
+              height={182}
+              className="w-full mb-[12px]"
+            />
+
+            <div className="flex px-[12px] flex-row gap-[4px] items-center">
               <PitchIcon black blue={false} />
 
               <TextMain
@@ -140,18 +156,18 @@ const PitchesModalOthers = ({
             <TextMain
               text="— короткое сообщение, которые вы можете отправить, чтобы познакомиться с другом вашего друга"
               style={
-                "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mt-[16px] mb-[4px]"
+                "text-[16px] px-[12px] font-normal leading-[19px] tracking-[-0.24px] mt-[16px] mb-[4px]"
               }
             />
             <TextSecondary
               text="Каждый день вам начисляется 3 питч-сообщения"
               style={
-                "text-[16px] font-normal leading-[19px] tracking-[-0.24px]"
+                "text-[16px] px-[12px] font-normal leading-[19px] tracking-[-0.24px]"
               }
             />
             {type === "pitch" && (
               <div
-                className={`mt-[16px] py-[12px] px-[16px] rounded-[20px] items-center flex flex-row w-fit [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+                className={`mt-[16px] mx-[12px] py-[12px] px-[16px] rounded-[20px] items-center flex flex-row w-fit [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
               >
                 <ButtonGhost text={"Отправить питч"} onClick={() => onClick()}>
                   <PitchIcon />
@@ -159,7 +175,7 @@ const PitchesModalOthers = ({
               </div>
             )}
           </div>
-          <div className="flex flex-col">
+          <div className="flex px-[12px] flex-col">
             <div className="flex flex-row gap-[4px] items-center">
               <SuperpitchIcon black blue={false} />
 
@@ -185,7 +201,7 @@ const PitchesModalOthers = ({
             />
             {type === "syperpitch" && (
               <div
-                className={`mt-[16px] py-[12px] px-[16px] rounded-[20px] items-center flex flex-row w-fit [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+                className={`mt-[16px] py-[12px] mx-[12px] px-[16px] rounded-[20px] items-center flex flex-row w-fit [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
               >
                 <ButtonGhost
                   text={"Отправить суперпитч"}
@@ -197,7 +213,7 @@ const PitchesModalOthers = ({
             )}
           </div>
 
-          <div className="flex flex-col gap-[16px]">
+          <div className="flex px-[12px] mb-[12px] flex-col gap-[16px]">
             <div className="w-full h-[1px] bg-[#e7e7e7] dark:bg-[#282828]" />
             <p
               onClick={() => router.push("/subscriptions")}

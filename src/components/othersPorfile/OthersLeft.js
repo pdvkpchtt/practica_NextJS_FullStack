@@ -403,7 +403,6 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
               onClick={async () => {
                 if (isFirstTime === true) {
                   setPitchmodalState(true);
-                  await setFirstTime();
                 } else
                   router.push(
                     !ifChatExist.id
@@ -438,7 +437,6 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
               onClick={async () => {
                 if (isFirstTime === true) {
                   setPitchmodalState(true);
-                  await setFirstTime();
                 } else
                   router.push(
                     !ifChatExist.id
@@ -473,7 +471,6 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
               onClick={async () => {
                 if (isFirstTime === true) {
                   setPitchmodalState(true);
-                  await setFirstTime();
                 } else
                   router.push(
                     !ifChatExist.id

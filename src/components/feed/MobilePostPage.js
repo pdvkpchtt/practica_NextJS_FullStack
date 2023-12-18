@@ -148,21 +148,15 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
                   <div className="flex flex-row gap-[4px] truncate [@media(pointer:coarse)]:max-w-[239px] [@media(pointer:coarse)]:w-full">
                     <TextMain
                       text={postState?.author_name}
-                      style="font-medium text-[16px] leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] truncate cursor-pointer"
-                      onClick={() => {
-                        postState.role === "student" ||
-                        postState.role.includes("hr")
-                          ? postState?.author_id === userId
-                            ? router.push("/profile")
-                            : router.push(`/profile/${postState.username}`)
-                          : router.push(
-                              `/companyprofile/${postState.username}`
-                            );
-                      }}
+                      style="font-medium text-[16px] leading-[19px] tracking-[-0.015em] truncate cursor-pointer"
+                      onClick={() =>
+                        router.push(`/profile/${postState.username}`)
+                      }
                     />
+
                     <TextSecondary
                       text={dayjs().to(postState.createdAt)}
-                      style="font-medium truncate text-[16px] leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal truncate select-none"
+                      style="font-medium truncate text-[16px] leading-[19px] tracking-[-0.015em] truncate select-none"
                     />
                   </div>
                   <div className="flex flex-row flex-wrap text-[#8f8f8f] font-medium text-[14px] select-none leading-[18px] tracking-[-0.182px]">
@@ -173,7 +167,7 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
                       className={`${
                         //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
                         "text-[#8f8f8f] cursor-pointer"
-                      } text-[16px] font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
+                      } font-medium text-[14px] pb-[1px] leading-[18px] tracking-[-0.182px] transition duration-[250ms]`}
                     >
                       @{postState?.username || postState?.author_id}
                     </p>
@@ -189,7 +183,7 @@ const MobilePostPage = ({ getPost, addReaction, userId }) => {
                           className={`${
                             //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
                             "text-[#8f8f8f] cursor-pointer"
-                          } text-[16px] font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
+                          } font-medium text-[14px] pb-[1px] leading-[18px] tracking-[-0.182px]  transition duration-[250ms]`}
                         >
                           {"@" + postState?.isHrCompanyId}
                         </p>

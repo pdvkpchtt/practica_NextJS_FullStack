@@ -102,20 +102,17 @@ const FullPostModal = ({
                   <EmptyAvatar little />
                 )}
 
-                <div className="flex flex-col gap-[3px] flex-1">
+                <div className="flex flex-col gap-[2px] maw-w-[500px] truncate w-full">
                   <div className="flex flex-row gap-[4px] truncate [@media(pointer:coarse)]:max-w-[239px] [@media(pointer:coarse)]:w-full">
                     <TextMain
                       text={item?.author_name}
-                      style="font-medium text-[16px] leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] truncate cursor-pointer"
-                      onClick={() =>
-                        item.role === "student" || item.role.includes("hr")
-                          ? router.push(`/profile/${item.username}`)
-                          : router.push(`/companyprofile/${item.username}`)
-                      }
+                      style="font-medium text-[16px] leading-[19px] tracking-[-0.015em] truncate cursor-pointer"
+                      onClick={() => router.push(`/profile/${item.username}`)}
                     />
+
                     <TextSecondary
                       text={dayjs().to(item.createdAt)}
-                      style="font-medium truncate text-[16px] leading-[19px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal truncate select-none"
+                      style="font-medium truncate text-[16px] leading-[19px] tracking-[-0.015em] truncate select-none"
                     />
                   </div>
                   <div className="flex flex-row flex-wrap text-[#8f8f8f] font-medium text-[14px] select-none leading-[18px] tracking-[-0.182px]">
@@ -124,7 +121,7 @@ const FullPostModal = ({
                       className={`${
                         //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
                         "text-[#8f8f8f] cursor-pointer"
-                      } text-[16px] font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
+                      } font-medium text-[14px] pb-[1px] leading-[18px] tracking-[-0.182px] transition duration-[250ms]`}
                     >
                       @{item?.username || item?.author_id}
                     </p>
@@ -140,7 +137,7 @@ const FullPostModal = ({
                           className={`${
                             //  "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
                             "text-[#8f8f8f] cursor-pointer"
-                          } text-[16px] font-medium pb-[1px] tracking-[-0.015em] [@media(pointer:coarse)]:text-[15px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.0140625em] [@media(pointer:coarse)]:font-normal  transition duration-[250ms] leading-[19px]`}
+                          } font-medium text-[14px] pb-[1px] leading-[18px] tracking-[-0.182px]  transition duration-[250ms]`}
                         >
                           {"@" + item?.isHrCompanyId}
                         </p>

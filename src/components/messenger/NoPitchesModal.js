@@ -34,20 +34,19 @@ const NoPitchesModal = ({
 
         {/* body */}
         <div className="h-fit mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px] gap-[16px]">
-          <TextMain
-            text={
-              type === "pitch"
-                ? "Закончились питчи? :("
-                : "Закончились суперпитчи? :("
-            }
-            style={"text-[20px] font-medium leading-[22px] tracking-[-0.4px]"}
-          />
-          <p
+          <p className="text-[#2c2c2c] dark:text-white text-[20px] leading-[22px] font-normal trackin-[-0.4px]">
+            Общение{" "}
+            <span className="text-[#5875e8] text-[20px] leading-[22px] font-semibold trackin-[-0.4px]">
+              со вторым и более
+            </span>{" "}
+            кругом доступно только с питчами и суперпитчами.
+          </p>
+          <button
             onClick={() => router.push("/subscriptions")}
-            className="text-[#5875e8] hover:text-[#3A56C5] cursor-pointer mb-[15px] active:text-[#2C429C] transition duration-[250ms] font-normal text-[16px] tracking-[-0.24px] leading-[19px]"
+            className="bg-[#5875e8] px-[16px] py-[12px] w-fit hover:bg-[#3A56C5] cursor-pointer rounded-[16px] active:bg-[#2C429C] transition duration-[250ms] text-[#fff] font-medium text-[16px] tracking-[-0.24px] leading-[19px]"
           >
             Получить больше :{")"}
-          </p>
+          </button>
         </div>
         {/* body */}
       </Modal>
@@ -59,20 +58,19 @@ const NoPitchesModal = ({
 
         {/* body */}
         <div className="mt-[61px] flex flex-col gap-[16px] p-[12px] overflow-y-scroll h-[calc(100%-61px)]">
-          <TextMain
-            text={
-              type === "pitch"
-                ? "Закончились питчи? :("
-                : "Закончились суперпитчи? :("
-            }
-            style={"text-[20px] font-medium leading-[22px] tracking-[-0.4px]"}
-          />
-          <p
+          <p className="text-[#2c2c2c] dark:text-white text-[20px] leading-[22px] font-normal trackin-[-0.4px]">
+            Общение{" "}
+            <span className="text-[#5875e8] text-[20px] leading-[22px] font-semibold trackin-[-0.4px]">
+              со вторым и более
+            </span>{" "}
+            кругом доступно только с питчами и суперпитчами.
+          </p>
+          <button
             onClick={() => router.push("/subscriptions")}
-            className="text-[#5875e8] hover:text-[#3A56C5] cursor-pointer mb-[15px] active:text-[#2C429C] transition duration-[250ms] font-normal text-[16px] tracking-[-0.24px] leading-[19px]"
+            className="bg-[#5875e8] px-[16px] py-[12px] w-fit hover:bg-[#3A56C5] cursor-pointer rounded-[16px] active:bg-[#2C429C] transition duration-[250ms] text-[#fff] font-medium text-[16px] tracking-[-0.24px] leading-[19px]"
           >
             Получить больше :{")"}
-          </p>
+          </button>
         </div>
         {/* body */}
       </MobileModal>

@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Waypoint } from "react-waypoint";
+// import { Waypoint } from "react-waypoint";
+import Image from "next/image";
 
 import Modal from "../../shared/ui/Modal";
 import MobileModal from "../../shared/ui/MobileModal";
@@ -21,15 +22,22 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
     <>
       <Modal isOpen={modalState} handleClose={() => setModalState(false)}>
         {/* header */}
-        <div className="flex flex-row justify-end pb-[12px] relative">
+        <div className="flex flex-row justify-end [@media(pointer:coarse)]:hidden pb-[24px] relative h-[182px]">
           <Cross2 onClick={() => setModalState(false)} />
 
+          <Image
+            src={"/PitchArt.png"}
+            alt={"pitch art"}
+            width={630}
+            height={182}
+            className="absolute top-[-12px] left-[-12px] min-w-[630px] min-h-[182px] z-[-1]  rounded-t-[20px]"
+          />
           {/* <div className="h-[0.5px] w-[calc(100%+24px)] bg-[#e7e7e7] dark:bg-[#2f2f2f] absolute top-[30px] left-[-12px]" /> */}
         </div>
         {/* header */}
 
         {/* body */}
-        <div className="h-fit mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px] gap-[34px]">
+        <div className="h-fit mt-[12px] flex flex-col [@media(pointer:coarse)]:hidden overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px] gap-[34px]">
           <div className="flex flex-col">
             <div className="flex flex-row gap-[4px] items-center">
               <PitchIcon black blue={false} />
@@ -88,7 +96,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
               />
             </svg>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col [@media(pointer:coarse)]:hidden">
             <div className="flex flex-row gap-[4px] items-center">
               <SuperpitchIcon black blue={false} />
 
@@ -175,7 +183,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
             </svg>
           </div>
 
-          <div className="flex flex-col gap-[16px]">
+          <div className="flex flex-col [@media(pointer:coarse)]:hidden gap-[16px]">
             <div className="w-full h-[1px] bg-[#e7e7e7] dark:bg-[#282828]" />
             <p
               onClick={() => router.push("/subscriptions")}
@@ -194,9 +202,17 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
         {/* header */}
 
         {/* body */}
-        <div className="mt-[61px] flex flex-col gap-[34px] p-[12px] overflow-y-scroll h-[calc(100%-61px)]">
+        <div className="mt-[61px] flex flex-col gap-[34px] overflow-y-scroll h-[calc(100%-61px)]">
           <div className="flex flex-col">
-            <div className="flex flex-row gap-[4px] items-center">
+            <Image
+              src={"/PitchArt.png"}
+              alt={"pitch art"}
+              width={630}
+              height={182}
+              className="w-full mb-[12px]"
+            />
+
+            <div className="flex flex-row gap-[4px] items-center px-[12px]">
               <PitchIcon black blue={false} />
 
               <TextMain
@@ -209,13 +225,13 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
             <TextMain
               text="— короткое сообщение, которые вы можете отправить, чтобы познакомиться с другом вашего друга"
               style={
-                "text-[16px] font-normal leading-[19px] tracking-[-0.24px] mt-[16px] mb-[4px]"
+                "text-[16px] font-normal px-[12px] leading-[19px] tracking-[-0.24px] mt-[16px] mb-[4px]"
               }
             />
             <TextSecondary
               text="Каждый день вам начисляется 3 питч-сообщения"
               style={
-                "text-[16px] font-normal leading-[19px] tracking-[-0.24px]"
+                "text-[16px] font-normal px-[12px] leading-[19px] tracking-[-0.24px]"
               }
             />
 
@@ -225,7 +241,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
               viewBox="0 0 178 44"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="mt-[16px]"
+              className="mt-[16px] px-[12px] min-w-[178px] min-h-[44px]"
             >
               <rect
                 width="178"
@@ -254,7 +270,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
               />
             </svg>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col px-[12px]">
             <div className="flex flex-row gap-[4px] items-center">
               <SuperpitchIcon black blue={false} />
 
@@ -284,7 +300,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
               viewBox="0 0 223 44"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="mt-[16px]"
+              className="mt-[16px] min-w-[223px] min-h-[44px]"
             >
               <rect
                 width="223"
@@ -342,7 +358,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
             </svg>
           </div>
 
-          <div className="flex flex-col gap-[16px]">
+          <div className="flex flex-col gap-[16px] px-[12px] mb-[-12px] pb-[24px]">
             <div className="w-full h-[1px] bg-[#e7e7e7] dark:bg-[#282828]" />
             <p
               onClick={() => router.push("/subscriptions")}
