@@ -609,7 +609,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
             ? "pitch"
             : data?.isThirdCircle?.length > 0
             ? "superpitch"
-            : null
+            : "superpitch"
         }
         modalState={pitchmodalState}
         setModalState={() => setPitchmodalState(false)}

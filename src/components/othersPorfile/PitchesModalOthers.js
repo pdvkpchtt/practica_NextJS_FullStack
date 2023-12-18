@@ -100,7 +100,7 @@ const PitchesModalOthers = ({
                 "text-[16px] font-normal leading-[19px] tracking-[-0.24px]"
               }
             />
-            {type === "syperpitch" && (
+            {type === "superpitch" && (
               <div
                 className={`mt-[16px] py-[12px] px-[16px] rounded-[20px] items-center flex flex-row w-fit [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
               >
@@ -199,7 +199,7 @@ const PitchesModalOthers = ({
                 "text-[16px] font-normal leading-[19px] tracking-[-0.24px]"
               }
             />
-            {type === "syperpitch" && (
+            {type === "superpitch" && (
               <div
                 className={`mt-[16px] py-[12px] mx-[12px] px-[16px] rounded-[20px] items-center flex flex-row w-fit [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
               >
