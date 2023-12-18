@@ -3,6 +3,7 @@
 import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../../db";
 import { getPitchesCount } from "../pitches/getPitchesCount";
+import { firstTime, setFirstTime } from "../profile/firstTime";
 import { checkCircles } from "./checkCircles";
 
 const sendMessage = async (input, chatId) => {
@@ -46,6 +47,18 @@ const sendMessage = async (input, chatId) => {
     circle?.status !== "1-ый"
   )
     return { status: "error", type: circle.circle };
+
+  if (check?.id || checkVacReply?.id) {
+    // :)
+  } else {
+    let isFirst = await firstTime();
+    if (
+      isFirst === true &&
+      (circle?.circle === "pitch" || circle?.circle === "superpitch")
+    ) {
+      await setFirstTime();
+    }
+  }
 
   const message = await prisma.message.create({
     data: {

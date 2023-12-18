@@ -1,11 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import dayjs from "dayjs";
 import { usePathname } from "next/navigation";
-import relativeTime from "dayjs/plugin/relativeTime";
-dayjs.extend(relativeTime);
+import dayjs from "dayjs";
+import calendar from "dayjs/plugin/calendar";
+import updateLocale from "dayjs/plugin/updateLocale";
+dayjs.extend(calendar);
+dayjs.extend(updateLocale);
 
+dayjs.updateLocale("en", {
+  months: [
+    "янв.",
+    "фев.",
+    "марта",
+    "апр.",
+    "мая",
+    "июня",
+    "июля",
+    "авг.",
+    "сен.",
+    "окт.",
+    "нояб.",
+    "дек.",
+  ],
+});
 import TextMain from "../../shared/Text/TextMain ";
 
 import ChatReadStatus from "../../shared/icons/ChatReadStatus";
@@ -42,7 +60,41 @@ const MessageCart = ({ item, onClick, active = false, last = false }) => {
             <EmptyAvatar sixtySeven />
           )}
           <div className="absolute bottom-0 left-0 bg-[#282828] bg-opacity-[80%] select-none rounded-[8px] text-[#fff] font-medium text-[9px] leading-[15px] tracking-[-0.013em] px-[4px]">
-            {dayjs(item.lastMessageCreatedAt).format("HH:mm")}
+            {dayjs(item.lastMessageCreatedAt).calendar(dayjs(), {
+              sameDay: "[Сегодня]", // В тот же день (сегодня в 2:30 утра)
+              nextDay: "[Завтра]", // Позавчера (вчера в 2:30 ночи)
+              nextWeek: "DD MMMM", // На следующей неделе (воскресенье в 2:30 ночи)
+              lastDay: "[Вчера]", // Позавчера (вчера в 2:30 ночи)
+              lastWeek: "DD MMMM", // Прошлая неделя (последний понедельник в 2:30 ночи)
+              sameElse: "DD MMMM", // Всё остальное ( 17/10/2011 )
+            }) === "Сегодня"
+              ? dayjs(item.lastMessageCreatedAt).format("HH:mm")
+              : dayjs(item.lastMessageCreatedAt).calendar(dayjs(), {
+                  sameDay: "[Сегодня]", // В тот же день (сегодня в 2:30 утра)
+                  nextDay: "[Завтра]", // Позавчера (вчера в 2:30 ночи)
+                  nextWeek: "DD MMMM", // На следующей неделе (воскресенье в 2:30 ночи)
+                  lastDay: "[Вчера]", // Позавчера (вчера в 2:30 ночи)
+                  lastWeek: "DD MMMM", // Прошлая неделя (последний понедельник в 2:30 ночи)
+                  sameElse: "DD MMMM", // Всё остальное ( 17/10/2011 )
+                })[0] === "0"
+              ? dayjs(item.lastMessageCreatedAt)
+                  .calendar(dayjs(), {
+                    sameDay: "[Сегодня]", // В тот же день (сегодня в 2:30 утра)
+                    nextDay: "[Завтра]", // Позавчера (вчера в 2:30 ночи)
+                    nextWeek: "DD MMMM", // На следующей неделе (воскресенье в 2:30 ночи)
+                    lastDay: "[Вчера]", // Позавчера (вчера в 2:30 ночи)
+                    lastWeek: "DD MMMM", // Прошлая неделя (последний понедельник в 2:30 ночи)
+                    sameElse: "DD MMMM", // Всё остальное ( 17/10/2011 )
+                  })
+                  .slice(1)
+              : dayjs(item.lastMessageCreatedAt).calendar(dayjs(), {
+                  sameDay: "[Сегодня]", // В тот же день (сегодня в 2:30 утра)
+                  nextDay: "[Завтра]", // Позавчера (вчера в 2:30 ночи)
+                  nextWeek: "DD MMMM", // На следующей неделе (воскресенье в 2:30 ночи)
+                  lastDay: "[Вчера]", // Позавчера (вчера в 2:30 ночи)
+                  lastWeek: "DD MMMM", // Прошлая неделя (последний понедельник в 2:30 ночи)
+                  sameElse: "DD MMMM", // Всё остальное ( 17/10/2011 )
+                })}
           </div>
         </div>
 

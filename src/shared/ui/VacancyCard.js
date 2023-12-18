@@ -129,7 +129,7 @@ const VacancyCard = ({ item, role = "student", userId }) => {
               <div className="flex flex-row gap-[8px] items-center h-fit">
                 {item?.hasMyReply && (
                   <TextSecondary
-                    text="Отклик отправлен"
+                    text="На рассмотрении"
                     style={
                       "text-[14px] font-medium leading-[18px] tracking-[-0.182px]"
                     }
