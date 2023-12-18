@@ -7,6 +7,7 @@ import { getUserPosts } from "../../../server/actions/getUserPosts";
 import { reactOnPost } from "../../../server/actions/reactOnPost";
 import { getServSession } from "../../api/auth/[...nextauth]/route";
 import { getPitchesCount } from "../../../server/actions/pitches/getPitchesCount";
+import { firstTime } from "../../../server/actions/profile/firstTime";
 
 const OthersProfilePage = async ({ params: { id } }) => {
   const session = await getServSession();
@@ -25,8 +26,9 @@ const OthersProfilePage = async ({ params: { id } }) => {
 
   const ifChatExist = await chechIfChatExist(data.id);
   console.log(ifChatExist, "ifChatExist");
+  const isFirstTime = await firstTime();
 
-  console.log("profile", data);
+  // console.log("profile", data, isFirstTime);
 
   async function getUserFeed(cursor) {
     "use server";
@@ -58,6 +60,7 @@ const OthersProfilePage = async ({ params: { id } }) => {
     >
       <OthersProfileWithNav
         ifChatExist={ifChatExist}
+        isFirstTime={isFirstTime}
         otherId={data.id}
         data={data}
         getUserFeed={getUserFeed}

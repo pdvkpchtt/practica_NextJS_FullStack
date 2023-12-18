@@ -60,6 +60,7 @@ model User {
   emailVerified  DateTime?
   phone          String?
   phoneVerified  DateTime?
+  isFirstTime    Boolean?         @default(true)
   image          String?
   accounts       Account[]
   sessions       Session[]

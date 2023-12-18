@@ -42,9 +42,12 @@ import CheckIcon from "../../shared/icons/CheckIcon";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import ContactsIcon from "../../shared/icons/ContactsIcon";
+import PitchesModalOthers from "./PitchesModalOthers";
+import { setFirstTime } from "server/actions/profile/firstTime";
 
 const OthersLeft = ({
   navState,
+  isFirstTime,
   data,
   ifChatExist,
   pitchesFirst,
@@ -70,6 +73,7 @@ const OthersLeft = ({
   const { height, width } = useWindowDimensions();
 
   const [modalState, setModalState] = useState(false);
+  const [pitchmodalState, setPitchmodalState] = useState(false);
   const [modal3State, setModal3State] = useState(false);
   const [contactsModalState, setContactsModalState] = useState(false);
   const [requestStatus, setRequestStatus] = useState(false);
@@ -342,13 +346,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
           </div>
         )}
         {/* contacts */}
-        {/* data?.isFirstCircle?.length > 0
-                    ? " • 1"
-                    : data?.isSecondCircle?.find((i2) => i2 === true)
-                    ? " • 2"
-                    : data?.isThirdCircle?.length > 0
-                    ? " • 3"
-                    : " • 3+" */}
+
         {/* ёбка с питчами */}
         {data?.isFirstCircle?.length > 0 ? (
           <Card
@@ -367,9 +365,9 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
             {!ifChatExist?.id && (
               <ButtonGhost
                 text="Отправить сообщение"
-                onClick={() =>
-                  router.push(`/messenger/preview?user_id=${data.id}`)
-                }
+                onClick={() => {
+                  router.push(`/messenger/preview?user_id=${data.id}`);
+                }}
               >
                 <MessengeIcon fill={"#5875e8"} />
               </ButtonGhost>
@@ -402,12 +400,16 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   ? pitchesFirst + " " + getNoun(pitchesFirst)
                   : pitchesState + " " + getNoun(pitchesState)
               }
-              onClick={() => {
-                router.push(
-                  !ifChatExist.id
-                    ? `/messenger/preview?user_id=${data?.id}`
-                    : `/messenger/${ifChatExist?.id}`
-                );
+              onClick={async () => {
+                if (isFirstTime === true) {
+                  setPitchmodalState(true);
+                  await setFirstTime();
+                } else
+                  router.push(
+                    !ifChatExist.id
+                      ? `/messenger/preview?user_id=${data?.id}`
+                      : `/messenger/${ifChatExist?.id}`
+                  );
               }}
             >
               <PitchIcon />
@@ -433,12 +435,16 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   ? superPitchesFirst + " супер" + getNoun(superPitchesFirst)
                   : superpitchesState + " супер" + getNoun(superpitchesState)
               }
-              onClick={() => {
-                router.push(
-                  !ifChatExist?.id
-                    ? `/messenger/preview?user_id=${data?.id}`
-                    : `/messenger/${ifChatExist?.id}`
-                );
+              onClick={async () => {
+                if (isFirstTime === true) {
+                  setPitchmodalState(true);
+                  await setFirstTime();
+                } else
+                  router.push(
+                    !ifChatExist.id
+                      ? `/messenger/preview?user_id=${data?.id}`
+                      : `/messenger/${ifChatExist?.id}`
+                  );
               }}
             >
               <SuperpitchIcon />
@@ -464,12 +470,16 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   ? superPitchesFirst + " супер" + getNoun(superPitchesFirst)
                   : superpitchesState + " супер" + getNoun(superpitchesState)
               }
-              onClick={() => {
-                router.push(
-                  !ifChatExist?.id
-                    ? `/messenger/preview?user_id=${data?.id}`
-                    : `/messenger/${ifChatExist?.id}`
-                );
+              onClick={async () => {
+                if (isFirstTime === true) {
+                  setPitchmodalState(true);
+                  await setFirstTime();
+                } else
+                  router.push(
+                    !ifChatExist.id
+                      ? `/messenger/preview?user_id=${data?.id}`
+                      : `/messenger/${ifChatExist?.id}`
+                  );
               }}
             >
               <SuperpitchIcon />
@@ -594,6 +604,27 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
         )}
         {/* тут кнопки все, которые будут, можешь потестить */}
       </motion.div>
+
+      {/* pitches modal other */}
+      <PitchesModalOthers
+        type={
+          data?.isSecondCircle?.find((i2) => i2 === true)
+            ? "pitch"
+            : data?.isThirdCircle?.length > 0
+            ? "superpitch"
+            : null
+        }
+        modalState={pitchmodalState}
+        setModalState={() => setPitchmodalState(false)}
+        onClick={() => {
+          router.push(
+            !ifChatExist.id
+              ? `/messenger/preview?user_id=${data?.id}`
+              : `/messenger/${ifChatExist?.id}`
+          );
+        }}
+      />
+      {/* pitches modal other */}
 
       {/* modal for connections handling */}
       <ConnectionsModal

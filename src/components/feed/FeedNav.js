@@ -47,7 +47,7 @@ const FeedNav = () => {
           >
             <CreateNoteIcon />
             <p
-              className={`text-white text-[14px] leading-[16px] tracking-[-0.21px] select-none transition duration-[250ms]`}
+              className={`text-white font-semibold text-[14px] leading-[16px] tracking-[-0.21px] select-none transition duration-[250ms]`}
             >
               создать пост
             </p>
@@ -77,7 +77,7 @@ const FeedNavItem = ({
         active && !modalCreatePost
           ? "text-[#5875e8]"
           : "text-[#2c2c2c] dark:text-[white]"
-      } text-[14px] leading-[16px] tracking-[-0.21px] select-none transition duration-[250ms]`}
+      } text-[14px] leading-[16px] tracking-[-0.21px] font-semibold select-none transition duration-[250ms]`}
     >
       {item.name}
     </p>

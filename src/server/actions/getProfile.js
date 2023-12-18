@@ -20,6 +20,7 @@ export const getProfile = async ({ userId }) => {
       country: true,
       city: true,
       views: true,
+      isFirstTime: true,
       inSearch: true,
       birthDate: true,
       phone: true,
@@ -135,6 +136,7 @@ export const getProfile = async ({ userId }) => {
       phoneVerified: user.phoneVerified,
       inSearch: user.inSearch,
       city: user.city,
+      isFirstTime: user.isFirstTime,
 
       views: JSON.stringify(user.views),
       birthDate: user.birthDate,
@@ -208,6 +210,7 @@ export const getProfile = async ({ userId }) => {
       phone: user.phone,
       phoneVerified: user.phoneVerified,
       inSearch: user.inSearch,
+      isFirstTime: user.isFirstTime,
 
       email: user.email,
       views: JSON.stringify(user.views),

@@ -10,6 +10,7 @@ import ProfileLiked from "../../components/Profile/ProfileLiked";
 import ProfilePosts from "../../components/Profile/ProfilePosts";
 
 const OthersProfileWithNav = ({
+  isFirstTime,
   data,
   getUserFeed,
   addReaction,
@@ -60,6 +61,7 @@ const OthersProfileWithNav = ({
         layoutId="mobileothers"
       />
       <OthersLeft
+        isFirstTime={isFirstTime}
         navState={navState[0].active}
         data={data}
         ifChatExist={ifChatExist}
