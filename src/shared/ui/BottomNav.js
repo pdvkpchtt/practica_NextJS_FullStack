@@ -2,10 +2,10 @@
 
 import { usePathname } from "next/navigation";
 
-import HomeIcon from "../icons/HomeIcon";
-import MessengerIcon from "../icons/MessengerIcon";
-import ProfileIcon from "../icons/ProfileIcon";
-import SearchIcon from "../icons/SearchIcon";
+import HomeIconBig from "../icons/HomeIconBig";
+import MessengerIconBig from "../icons/MessengerIconBig";
+import ProfileIconBig from "../icons/ProfileIconBig";
+import SearchIconBig from "../icons/SearchIconBig";
 
 const BottomNav = ({ role }) => {
   const pathname = usePathname();
@@ -20,21 +20,23 @@ const BottomNav = ({ role }) => {
   return (
     <>
       {isHideBottomNav ? null : (
-        <div className="bg-white dark:bg-[#212122] border-t-[0.7px] border-t-[#e7e7e7] dark:border-t-[#282828] [@media(pointer:coarse)]:fixed [@media(hover)]:hidden h-[80px] z-10 bottom-0 w-full pt-[10px] pb-[20px]">
-          <div className="mx-auto w-full max-w-[500px] grid grid-cols-4">
-            <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
-              <HomeIcon />
-            </div>
-            <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
-              <SearchIcon />
-            </div>
+        <div className="flex justify-center items-center max-w-[500px] mx-auto">
+          <div className="max-w-[500px] px-[12px] border-t-[#e7e7e7] dark:border-t-[#282828] [@media(pointer:coarse)]:fixed bottom-[20px] [@media(hover)]:hidden h-[49px] z-10 w-full">
+            <div className="mx-auto w-full grid grid-cols-4 bg-[#ECEDF1] dark:bg-[#1A1A1A] dark:bg-opacity-[70%] dark:backdrop-blur-sm bg-opacity-[70%] backdrop-blur-sm rounded-[50px] h-[49px] pt-[10px] pb-[20px]">
+              <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
+                <HomeIconBig />
+              </div>
+              <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
+                <SearchIconBig />
+              </div>
 
-            <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
-              <MessengerIcon />
-            </div>
+              <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
+                <MessengerIconBig />
+              </div>
 
-            <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
-              <ProfileIcon role={role} />
+              <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
+                <ProfileIconBig role={role} />
+              </div>
             </div>
           </div>
         </div>
