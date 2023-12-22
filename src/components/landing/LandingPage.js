@@ -1,22 +1,154 @@
 import Image from "next/image";
+
 import WTF from "./WTF";
+import Slider from "./Slider";
+import RaodMapCard from "./RaodMapCard";
+
+import roadmap1 from "./imgs/text-editor 1.png";
+import roadmap2 from "./imgs/text-editor 2.png";
+import roadmap3 from "./imgs/Frame 4231.png";
 import first from "./first.png";
 import second from "./second.png";
 import third from "./third.png";
+import ava1 from "../../shared/icons/landing/ava1.png";
+
 import SvgFancy1 from "../../shared/icons/landing/SvgFancy1";
 import SwgFancy2 from "../../shared/icons/landing/SwgFancy2";
-import ava1 from "../../shared/icons/landing/ava1.png";
-import Slider from "./Slider";
+import Icon1 from "./icons/Icon1";
+import Icon2 from "./icons/Icon2";
+import Icon3 from "./icons/Icon3";
+import Icon4 from "./icons/Icon4";
+import Icon5 from "./icons/Icon5";
+import { Telega, TikTok, YouTube } from "./icons/Icon6";
+import Icon7 from "./icons/Icon7";
+import Icon8 from "./icons/Icon8";
+
+const roadmap = [
+  {
+    title: "Комьюнити",
+    content: [
+      {
+        icon: [<Icon1 />],
+        title: "Нетворкинг",
+        text1:
+          "Забудьте про глухие отклики, теперь вы непосредственно влиятие на успех своего отклика.",
+        text2: "Расширяйте сеть  полезных знакомств, советуйтесь...",
+        done: true,
+      },
+      {
+        icon: [<Icon2 />],
+        title: "Текстовый редактор для постов",
+        text1:
+          "Создавайте уникальный текст с вашим стилем, разделяя на блоки с информацией.",
+        text2: "",
+        done: false,
+        img: (
+          <Image
+            quality={100}
+            unoptimized
+            width={276}
+            height={210}
+            className="absolute bottom-0 z-[1] select-none"
+            src={roadmap1}
+            alt="roadmap img"
+          />
+        ),
+      },
+      {
+        icon: [<Icon3 />],
+        title: "iOS & Android",
+        text1:
+          "Когда достигнем N - кол-во пользователей, мы сделаем для вас удобное приложение на 2 платформы",
+        text2: "",
+        done: false,
+      },
+    ],
+  },
+  {
+    title: "Компаниям",
+    content: [
+      {
+        icon: [<Icon4 />],
+        title: "ии - рекрутинг",
+        text1:
+          "Платформа для видеосозвона, для облегчения онлайн рекрутинга, с приминением машинного обучения, для облегчения выбора соискателя",
+        text2: "",
+        done: false,
+      },
+      {
+        icon: [<Icon5 />],
+        title: "developers wars",
+        text1:
+          "Поиск сильных специалистов, например таких как senior-разработчик, зачастую является сложной задачей для рекрутеров-новичков.",
+        text2:
+          "Мы бросает вызов компетентным разработчикам высококачественными задачами по программированию, сокращая время найма.",
+        done: false,
+      },
+      {
+        icon: [<TikTok />, <YouTube />, <Telega />],
+        title: "Реклама вакансий у популярных блогеров",
+        text1:
+          "Расскажите, о вашей вакансии, интересующимся людям, которые подписаны на известных блогеров.",
+        text2:
+          "Мы предложим вам выборку из каналов Telegram и You Tube наших партнеров",
+        done: false,
+      },
+      {
+        icon: [<Icon7 />],
+        title: "Редактор вакансий",
+        text1: "Создавайте свое уникальное предложение на рынке с новыми",
+        text2: "",
+        done: false,
+        img: (
+          <Image
+            quality={100}
+            unoptimized
+            width={276}
+            height={152}
+            className="mt-[20px] select-none"
+            src={roadmap2}
+            alt="roadmap img"
+          />
+        ),
+      },
+      {
+        icon: [<Icon8 />],
+        title: "Кастомизация профиля",
+        text1: "Возможность сделать вашу страничку более заметной",
+        text2: "",
+        done: false,
+      },
+      {
+        icon: [<></>],
+        title: "",
+        text1: "",
+        text2: "",
+        done: false,
+        img: (
+          <Image
+            quality={100}
+            unoptimized
+            width={316}
+            height={450}
+            className="absolute select-none top-0 left-0 z-[1]"
+            src={roadmap3}
+            alt="roadmap img"
+          />
+        ),
+      },
+    ],
+  },
+];
 
 const blocks = [
   {
-    title: "Нетворкинг за пределами обычных платформ для поиска работы.",
+    title: "Нетворкинг за пределами обычных\nплатформ для поиска работы.",
     subtitle:
       "Найдете не только работу, но и ценные контакты для карьеры мечты.",
     img: first,
   },
   {
-    title: "Доверие и эмоции важны молодым специалистам.",
+    title: "Доверие и эмоции важны молодым\nспециалистам.",
     subtitle:
       "Новомодный профиль компании повысит узнаваемость и подогреет интерес соискателей.",
     img: second,
@@ -83,10 +215,10 @@ const LandingPage = () => {
       <div className="h-full flex-col flex gap-[64px] mt-[calc(100vh+64px)] text-center items-center">
         {blocks.map((item, key) => (
           <div
-            className="flex flex-col gap-[12px] text-center items-cente  [@media(pointer:coarse)]:px-[12px]"
+            className="flex flex-col gap-[12px] text-center items-center [@media(pointer:coarse)]:px-[12px]"
             key={key}
           >
-            <p className="text-[#2D52E6] text-[38px] font-semibold leading-[38px] tracking-[-1.52px] [@media(hover)]:w-[652px]">
+            <p className="text-[#2D52E6] text-[38px] whitespace-pre-wrap text-center font-semibold leading-[38px] tracking-[-1.52px]">
               {item.title}
             </p>
             <p className="text-[#5E5E5E] text-[16px] font-normal leading-[19px] mb-[24px] tracking-[-0.32px]">
@@ -104,9 +236,8 @@ const LandingPage = () => {
           </div>
         ))}
 
-        <p className="text-[#2D52E6] text-[38px] font-semibold leading-[38px] tracking-[-1.52px] flex flex-wrap [@media(hover)]:w-[652px]  [@media(pointer:coarse)]:px-[12px]">
-          practica&nbsp;
-          <span className="fancyText">многогранна</span>
+        <p className="text-[#2D52E6] text-[38px] font-semibold whitespace-pre-wrap leading-[38px] tracking-[-1.52px] flex flex-wrap [@media(hover)]:w-[652px]  [@media(pointer:coarse)]:px-[12px]">
+          practica <span className="fancyText">многогранна</span>
         </p>
 
         <Slider />
@@ -213,6 +344,32 @@ const LandingPage = () => {
             </div>
           ))}
         </div> */}
+
+        <p className="text-[#2D52E6] text-[38px] mt-[64px] mb-[15px] whitespace-pre-wrap text-center font-semibold leading-[38px] tracking-[-1.52px]">
+          Roadmap
+        </p>
+
+        {roadmap.map((i, key) => (
+          <div className="flex flex-col gap-[32px]">
+            <p className="text-[36px] text-start [@media(pointer:coarse)]:text-center text-[#2c2c2c] font-medium tracking-[-0.54px]">
+              {i.title}
+            </p>
+
+            <div className="flex flex-row justify-center gap-[16px] flex-wrap">
+              {i.content.map((i, key) => (
+                <RaodMapCard
+                  key={key}
+                  done={i.done}
+                  icon={i.icon}
+                  title={i.title}
+                  text1={i.text1}
+                  text2={i.text2}
+                  img={i.img || <></>}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
 
         <div className="flex flex-col gap-[24px] text-start w-full [@media(hover)]:ml-[66px] mb-[83px] [@media(pointer:coarse)]:px-[12px]">
           <div className="flex flex-col gap-[5px]">

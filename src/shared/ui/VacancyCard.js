@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import * as HoverCard from "@radix-ui/react-hover-card";
 
 import TextMain from "../Text/TextMain ";
 import TextSecondary from "../Text/TextSecondary";
@@ -15,6 +16,7 @@ import DeleteVacContent from "./DeleteVacContent";
 
 import BookmarkIcon from "../icons/BookmarkIcon";
 import DotsIcon from "../icons/DotsIcon";
+import VacCheckedStatusIcon from "../icons/VacCheckedStatusIcon";
 
 const VacancyCard = ({ item, role = "student", userId }) => {
   const router = useRouter();
@@ -45,7 +47,7 @@ const VacancyCard = ({ item, role = "student", userId }) => {
                   )}
                 </div>
                 <div className="flex flex-col gap-[4px]">
-                  <div className="flex flex-row text-[#8f8f8f] flex-wrap font-medium text-[14px] cursor-pointer leading-[18px] tracking-[-0.182px]">
+                  <div className="flex items-center flex-row text-[#8f8f8f] flex-wrap font-medium text-[14px] cursor-pointer leading-[18px] tracking-[-0.182px]">
                     <p
                       onClick={() =>
                         router.push(
@@ -128,12 +130,32 @@ const VacancyCard = ({ item, role = "student", userId }) => {
               </div>
               <div className="flex flex-row gap-[8px] items-center h-fit">
                 {item?.hasMyReply && (
-                  <TextSecondary
-                    text="На рассмотрении"
-                    style={
-                      "text-[14px] font-medium leading-[18px] tracking-[-0.182px]"
-                    }
-                  />
+                  // <TextSecondary
+                  //   text="На рассмотрении"
+                  //   style={
+                  //     "text-[14px] truncate font-medium max-w-[120px] leading-[18px] tracking-[-0.182px]"
+                  //   }
+                  // />
+
+                  <HoverCard.Root openDelay={250}>
+                    <HoverCard.Trigger asChild>
+                      <div>
+                        <VacCheckedStatusIcon />
+                      </div>
+                    </HoverCard.Trigger>
+                    <HoverCard.Portal>
+                      <HoverCard.Content
+                        className="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-fit rounded-[12px] bg-[#141414] bg-opacity-[50%] px-[12px] py-[6px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:transition-all"
+                        sideOffset={5}
+                      >
+                        <TextMain
+                          text="На рассмотрении"
+                          style={"text-[12px] font-medium"}
+                        />
+                        <HoverCard.Arrow className="fill-[rgba(20,20,20)] opacity-[50%]" />
+                      </HoverCard.Content>
+                    </HoverCard.Portal>
+                  </HoverCard.Root>
                 )}
 
                 <div className="flex flex-row gap-[4px] items-center">
