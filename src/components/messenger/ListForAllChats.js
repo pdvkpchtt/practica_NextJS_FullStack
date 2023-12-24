@@ -94,11 +94,17 @@ const ListForAllChats = ({ searchInputValue, setSearchInputValue }) => {
         ) : (
           <div className="flex flex-col gap-[8px] p-[16px]">
             <TextSecondary
-              text="Диалогов еще нет"
+              text={
+                role.includes("hr") ? "Связь не налажена" : "Связь не налажена"
+              }
               style="font-medium text-[16px] leading-[20px] tracking-[-0.015em] select-none"
             />
             <TextSecondary
-              text="Свяжитесь с участником и начните обсуждение для развития своей карьеры"
+              text={
+                role.includes("hr")
+                  ? "Отправьте питч понравившемуся специалисту и начните общение"
+                  : "Начни общение, отправив питч интересующему специалисту"
+              }
               style="font-normal text-[13px] leading-[15.6px] tracking-[-0.027em] select-none"
             />
           </div>

@@ -21,7 +21,10 @@ export const getVacancies = async (cursor, filters) => {
       salaryEnd: true,
       distantWork: true,
 
-      VacancyReply: { select: { userId: true } },
+      VacancyReply: {
+        select: { userId: true, status: true },
+        where: { userId: session?.user?.id },
+      },
       format: {
         select: {
           id: true,
@@ -195,6 +198,7 @@ export const getVacancies = async (cursor, filters) => {
       vacArea: vacancy.vacArea,
       company: vacancy.Company,
       VacancySkills: vacancy.VacancySkills,
+      VacancyReply: vacancy?.VacancyReply,
       Location: vacancy.Location,
       currency: vacancy.currency,
       Bookmarks: vacancy.Bookmarks,

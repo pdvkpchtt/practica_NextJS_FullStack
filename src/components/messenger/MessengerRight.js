@@ -18,6 +18,7 @@ import { sendFriendRequest } from "../../server/actions/connections/sendFriendRe
 import { cancelFriendRequest } from "../../server/actions/connections/cancelFriendRequest";
 import { addConnection } from "../../server/actions/connections/addConnection";
 import CustomLoader from "../../shared/ui/CustomLoader";
+import CardOpacity from "../../shared/ui/CardOpacity";
 import PitchesModal from "../../components/Profile/PitchesModal";
 
 import CalendarIcon from "../../shared/icons/CalendarIcon";
@@ -250,135 +251,97 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
           </div>
         )}
         {/* hr */}
-
-        <Card rounded={20} padding={10} style={"flex flex-col gap-[8px]"}>
-          <div className="flex flex-row justify-between items-center">
+        {timer !== null ? (
+          <Card rounded={20} padding={10} style={"flex flex-col gap-[8px]"}>
             <TextMain
-              text="Мои питчи"
+              text="Свободное общение"
               style={
                 "text-[18px] font-medium leading-[22px] tracking-[-0.45px] flex-1"
               }
             />
-            <p
-              className="text-[#5875e8] text-[13px] cursor-pointer leading-[16px] font-medium tracking-[-0.325px] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms]"
-              onClick={() => setPitchesModalState(true)}
-            >
-              Что это такое?
-            </p>
-          </div>
-          <div
-            className={`${
-              "" // pitchesState === null && "justify-center"
-            } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
-          >
-            <div
-              className={`group text-center h-[28px] w-fit whitespace-nowrap items-center flex-row gap-[8px] flex 
-          font-medium leading-[20px] text-[16px] tracking-[-0.015em]
-       cursor-default select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
-            >
-              {/* {pitchesState === null ? (
-              <CustomLoader
-                diameter={28}
-                strokeWidth={6}
-                strokeWidthSecondary={6}
+            <CardOpacity rounded={16} styled="gap-[8px] mt-[2px]">
+              <Clock />
+              <TextMain
+                text={getFuckingTimer(timer)}
+                style={
+                  "text-[16px] font-medium tracking-[-0.24px] leading-[20px]"
+                }
               />
-            ) : ( */}
-              <>
-                <PitchIcon black blue={false} />
-                {pitchesState + " " + getNoun(pitchesState)}
-              </>
-              {/* )} */}
-            </div>
-          </div>
-
-          <div
-            className={`${
-              "" // superpitchesState === null && "justify-center"
-            } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
-          >
-            <div
-              className={`group text-center h-[28px] w-fit whitespace-nowrap items-center flex-row gap-[8px] flex 
-          font-medium leading-[20px] text-[16px] tracking-[-0.015em]
-       cursor-default select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
-            >
-              {/* {superpitchesState === null ? (
-              <CustomLoader
-                diameter={28}
-                strokeWidth={6}
-                strokeWidthSecondary={6}
-              />
-            ) : ( */}
-              <>
-                <SuperpitchIcon black blue={false} />
-                {superpitchesState + " супер" + getNoun(superpitchesState)}
-              </>
-              {/* )} */}
-            </div>
-          </div>
-        </Card>
-
-        {/* ёбка с питчами */}
-        {/* {profileData.isFirstCircle ? (
-          <></>
-        ) : profileData.isSecondCircle.find((i2) => i2 === true) ? (
-          <div
-            className={`${
-              pitchesState === null && "justify-center"
-            } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
-          >
-            {pitchesState === null ? (
-              <CustomLoader
-                diameter={28}
-                strokeWidth={6}
-                strokeWidthSecondary={6}
-              />
-            ) : (
-              <ButtonGhost text={pitchesState + " " + getNoun(pitchesState)}>
-                <PitchIcon />
-              </ButtonGhost>
-            )}
-          </div>
-        ) : profileData.isThirdCircle ? (
-          <div
-            className={`${
-              superpitchesState === null && "justify-center"
-            } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
-          >
-            {superpitchesState === null ? (
-              <CustomLoader
-                diameter={28}
-                strokeWidth={6}
-                strokeWidthSecondary={6}
-              />
-            ) : (
-              <ButtonGhost
-                text={superpitchesState + " супер" + getNoun(superpitchesState)}
-              >
-                <SuperpitchIcon />
-              </ButtonGhost>
-            )}
-          </div>
+            </CardOpacity>
+          </Card>
         ) : (
-          <div
-            className={`${
-              superpitchesState === null && "justify-center"
-            } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
-          >
-            {superpitchesState === null ? (
+          // <div className="p-[12px] rounded-[20px] items-center flex flex-row justify-between max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]">
+          //   <ButtonGhost
+          //     withoutHover
+          //     text={getFuckingTimer(timer)}
+          //   ></ButtonGhost>
+          // </div>
+          <Card rounded={20} padding={10} style={"flex flex-col gap-[8px]"}>
+            <div className="flex flex-row justify-between items-center">
+              <TextMain
+                text="Мои питчи"
+                style={
+                  "text-[18px] font-medium leading-[22px] tracking-[-0.45px] flex-1"
+                }
+              />
+              <p
+                className="text-[#5875e8] text-[13px] cursor-pointer leading-[16px] font-medium tracking-[-0.325px] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms]"
+                onClick={() => setPitchesModalState(true)}
+              >
+                Что это такое?
+              </p>
+            </div>
+            <div
+              className={`${
+                "" // pitchesState === null && "justify-center"
+              } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+            >
+              <div
+                className={`group text-center h-[28px] w-fit whitespace-nowrap items-center flex-row gap-[8px] flex 
+          font-medium leading-[20px] text-[16px] tracking-[-0.015em]
+       cursor-default select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
+              >
+                {/* {pitchesState === null ? (
               <CustomLoader
                 diameter={28}
                 strokeWidth={6}
                 strokeWidthSecondary={6}
               />
-            ) : (
-              <ButtonGhost
-                text={superpitchesState + " супер" + getNoun(superpitchesState)}
+            ) : ( */}
+                <>
+                  <PitchIcon black blue={false} />
+                  {pitchesState + " " + getNoun(pitchesState)}
+                </>
+                {/* )} */}
+              </div>
+            </div>
+
+            <div
+              className={`${
+                "" // superpitchesState === null && "justify-center"
+              } p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+            >
+              <div
+                className={`group text-center h-[28px] w-fit whitespace-nowrap items-center flex-row gap-[8px] flex 
+          font-medium leading-[20px] text-[16px] tracking-[-0.015em]
+       cursor-default select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
               >
-                <SuperpitchIcon />
-              </ButtonGhost>
-            )}
-          </div>
-        )} */}
+                {/* {superpitchesState === null ? (
+              <CustomLoader
+                diameter={28}
+                strokeWidth={6}
+                strokeWidthSecondary={6}
+              />
+            ) : ( */}
+                <>
+                  <SuperpitchIcon black blue={false} />
+                  {superpitchesState + " супер" + getNoun(superpitchesState)}
+                </>
+                {/* )} */}
+              </div>
+            </div>
+          </Card>
+        )}
 
         {/* тут кнопки все, которые будут, можешь потестить */}
         {(!pathname.includes("/preview") || profileData.isFirstCircle) && (
@@ -510,15 +473,6 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
           </div>
         )}
         {/* тут кнопки все, которые будут, можешь потестить */}
-
-        {timer !== null && (
-          <div className="p-[12px] rounded-[20px] items-center flex flex-row justify-between max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]">
-            <ButtonGhost
-              withoutHover
-              text={getFuckingTimer(timer)}
-            ></ButtonGhost>
-          </div>
-        )}
       </div>
 
       <PitchesModal
@@ -531,7 +485,42 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
 };
 
 export default MessengerRight;
-// dayjs(timer)
-//               .add(3, "hour")
-//               .subtract(timer)
-//               .format("hh:mm:ss")
+
+const Clock = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M7.99935 14.0007C9.41384 14.0007 10.7704 13.4387 11.7706 12.4386C12.7708 11.4384 13.3327 10.0818 13.3327 8.66732C13.3327 7.25283 12.7708 5.89628 11.7706 4.89608C10.7704 3.89589 9.41384 3.33398 7.99935 3.33398C6.58486 3.33398 5.22831 3.89589 4.22811 4.89608C3.22792 5.89628 2.66602 7.25283 2.66602 8.66732C2.66602 10.0818 3.22792 11.4384 4.22811 12.4386C5.22831 13.4387 6.58486 14.0007 7.99935 14.0007Z"
+      className="stroke-[#2c2c2c] dark:stroke-white"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M8 8.66667V6"
+      className="stroke-[#2c2c2c] dark:stroke-white"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M13.9993 3.99935L12.666 2.66602"
+      className="stroke-[#2c2c2c] dark:stroke-white"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M6.66602 1.33398H9.33268"
+      className="stroke-[#2c2c2c] dark:stroke-white"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);

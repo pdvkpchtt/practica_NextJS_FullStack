@@ -100,12 +100,14 @@ const ChatsList = ({ role }) => {
         >
           {navState[0].active && (
             <ListForReplies
+              role={role}
               searchInputValue={searchInputValue}
               setSearchInputValue={setSearchInputValue}
             />
           )}
           {navState[1].active && (
             <ListForAllChats
+              role={role}
               searchInputValue={searchInputValue}
               setSearchInputValue={setSearchInputValue}
             />

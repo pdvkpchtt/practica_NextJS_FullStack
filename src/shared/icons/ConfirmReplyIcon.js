@@ -1,6 +1,11 @@
-const ConfirmReplyIcon = () => {
+const ConfirmReplyIcon = ({ big = false }) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={17} height={16} fill="none">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={big ? 18 : 17}
+      height={big ? 18 : 16}
+      fill="none"
+    >
       <path
         className="stroke-[#5875e8] group-hover:stroke-[#3A56C5] group-active:stroke-[#2C429C] transition duration-[250ms]"
         strokeLinecap="round"

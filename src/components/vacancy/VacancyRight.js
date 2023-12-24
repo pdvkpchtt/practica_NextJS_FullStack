@@ -51,27 +51,38 @@ const VacancyRight = ({ data, role = "student", userId }) => {
             {(role === "student" || role.includes("hr")) &&
               !data.amICreator &&
               (data.hasMyReply !== null ? (
-                <NaRassmotrenii />
-              ) : (
-                <div
-                  className={`rounded-[30px] w-fit h-[33px] transition duration-[250ms] px-[12px] py-[7.5px] flex items-center justify-center font-medium text-[14px] leading-[16px] tracking-[-0.013125em] select-none
+                data.hasMyReply?.status === "wait" ? (
+                  <NaRassmotrenii />
+                ) : data.hasMyReply?.status === "accepted" ? (
+                  <div className="text-[14px] leading-[16px] font-medium tracking-[-0.21px] text-[#5875e8]">
+                    У вас свидание с HR 🎉
+                  </div>
+                ) : data.hasMyReply?.status === "declined" ? (
+                  <TextMain
+                    style="text-[14px] leading-[16px] font-medium tracking-[-0.21px]"
+                    text="Отказ"
+                  />
+                ) : (
+                  <div
+                    className={`rounded-[30px] w-fit h-[33px] transition duration-[250ms] px-[12px] py-[7.5px] flex items-center justify-center font-medium text-[14px] leading-[16px] tracking-[-0.013125em] select-none
                     ${
                       data.hasMyReply === null
                         ? "active:bg-[#2C429C] hover:bg-[#3A56C5] bg-[#5875e8] text-white  cursor-pointer"
                         : "bg-[#f6f6f8] dark:bg-[#74899B] dark:bg-opacity-[8%] text-[#BFBFBF]"
                     }
                 `}
-                  onClick={() =>
-                    data.ifIHavePhone === false
-                      ? setModalExplain(true)
-                      : data.hasMyReply === null
-                      ? setModalState(true)
-                      : {}
-                  }
-                >
-                  {"Откликнуться"}
-                </div>
-              ))}
+                    onClick={() =>
+                      data.ifIHavePhone === false
+                        ? setModalExplain(true)
+                        : data.hasMyReply === null
+                        ? setModalState(true)
+                        : {}
+                    }
+                  >
+                    {"Откликнуться"}
+                  </div>
+                )
+              ) : null)}
 
             {role === "student" ||
               (role.includes("hr") && (

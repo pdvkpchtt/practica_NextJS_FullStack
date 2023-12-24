@@ -10,7 +10,7 @@ import MessageCart from "./MessageCart";
 import { MesContext } from "./MesContextWrap";
 import { fetchChats } from "../../server/actions/messenger/fetchChats";
 
-const ListForReplies = ({ searchInputValue, setSearchInputValue }) => {
+const ListForReplies = ({ searchInputValue, setSearchInputValue, role }) => {
   const router = useRouter();
 
   const { currentChatCursor } = useContext(MesContext);
@@ -92,11 +92,15 @@ const ListForReplies = ({ searchInputValue, setSearchInputValue }) => {
         ) : (
           <div className="flex flex-col gap-[8px] p-[16px]">
             <TextSecondary
-              text="Диалогов еще нет"
+              text={role.includes("hr") ? "Будьте активнее" : "Будь активнее"}
               style="font-medium text-[16px] leading-[20px] tracking-[-0.015em] select-none"
             />
             <TextSecondary
-              text="Свяжитесь с участником и начните обсуждение для развития своей карьеры"
+              text={
+                role.includes("hr")
+                  ? "Отправьте приглашение понравившемуся соискателю или дождитесь откликов"
+                  : "Чтобы здесь появились диалоги, отправляй отклики на интересующие вакансии"
+              }
               style="font-normal text-[13px] leading-[15.6px] tracking-[-0.027em] select-none"
             />
           </div>
