@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 import NavigationMobile from "../../shared/ui/NavigationMobile";
 import Left from "./Left";
@@ -18,7 +19,9 @@ const Profile = ({
   pitchesFirst,
   superPitchesFirst,
 }) => {
-  console.log("client profile", data);
+  const searchParams = useSearchParams();
+
+  console.log("client profile", data, searchParams.get("contacts"));
   const [navState, setNavState] = useState([
     {
       id: 0,
@@ -61,6 +64,11 @@ const Profile = ({
         layoutId="mobile"
       />
       <Left
+        searchParams={
+          searchParams.get("contacts") !== null
+            ? searchParams.get("contacts")
+            : false
+        }
         navState={navState[0].active}
         data={data}
         pitchesFirst={pitchesFirst}

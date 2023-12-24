@@ -21,12 +21,14 @@ import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
 import BookmarkIcon from "../../shared/icons/BookmarkIcon";
 import ReplyModal from "./ReplyModal";
 import NaRassmotrenii from "./NaRassmotrenii";
+import ModalExplain from "./ModalExplain";
 
 const VacancyRight = ({ data, role = "student", userId }) => {
   const router = useRouter();
   console.log(data);
 
   const [modalState, setModalState] = useState(false);
+  const [modalExplain, setModalExplain] = useState(false);
 
   console.log(data, "vac data");
 
@@ -60,7 +62,11 @@ const VacancyRight = ({ data, role = "student", userId }) => {
                     }
                 `}
                   onClick={() =>
-                    data.hasMyReply === null ? setModalState(true) : {}
+                    data.ifIHavePhone === false
+                      ? setModalExplain(true)
+                      : data.hasMyReply === null
+                      ? setModalState(true)
+                      : {}
                   }
                 >
                   {"Откликнуться"}
@@ -226,6 +232,10 @@ const VacancyRight = ({ data, role = "student", userId }) => {
           setModalState={() => setModalState(false)}
         />
       )}
+      <ModalExplain
+        modalState={modalExplain}
+        setModalState={() => setModalExplain(false)}
+      />
     </div>
   );
 };

@@ -135,6 +135,7 @@ model VacancyReply {
   userId    String
   link      String?
   vacancyId String
+  status    String @default("wait")
 }
 
 model File {

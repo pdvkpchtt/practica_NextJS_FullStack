@@ -107,6 +107,14 @@ export const getVacancyById = async (id) => {
     },
   });
 
+  const ifIHavePhone = await prisma.user.findUnique({
+    where: { id: session?.user?.id },
+    select: {
+      phone: true,
+      phoneVerified: true,
+    },
+  });
+
   return {
     id: currentVacancy.id,
     name: currentVacancy.name,
@@ -132,5 +140,7 @@ export const getVacancyById = async (id) => {
       ?.length,
     followersCount: currentVacancy?.Company?.user?._count?.myCompanyFolowers,
     hasMyReply: myReply,
+    ifIHavePhone:
+      ifIHavePhone?.phone !== null && ifIHavePhone?.phoneVerified !== null,
   };
 };

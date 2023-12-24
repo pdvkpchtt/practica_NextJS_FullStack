@@ -5,7 +5,7 @@ import { reactOnPost } from "../../server/actions/reactOnPost";
 import Profile from "../../components/Profile/Profile";
 import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 
-const ProfiePage = async () => {
+const ProfiePage = async ({}) => {
   const session = await getServSession();
 
   const data = await getProfile({

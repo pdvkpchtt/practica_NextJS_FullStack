@@ -4,14 +4,20 @@ import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { getListOfChats } from "./getListOfChats";
 import { updateListOfChats } from "./updateListOfChats";
 
-export async function fetchChats(lastDate, searchInputValue, isUpdate = false) {
+export async function fetchChats(
+  lastDate,
+  searchInputValue,
+  isUpdate = false,
+  filterType
+) {
   const session = await getServSession();
 
   if (isUpdate) {
     const chats = await updateListOfChats(
       session.user.id,
       lastDate,
-      searchInputValue
+      searchInputValue,
+      filterType
     );
     return chats;
   }
@@ -19,7 +25,7 @@ export async function fetchChats(lastDate, searchInputValue, isUpdate = false) {
     session.user.id,
     lastDate,
     searchInputValue,
-    isUpdate
+    filterType
   );
 
   return chats;

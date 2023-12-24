@@ -129,6 +129,8 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
             <div className="flex flex-col gap-[8px]">
               <TextMain
                 text={`${profileData.name}${
+                  profileData?.lastname ? " " + profileData?.lastname : ""
+                }${
                   profileData.isFirstCircle
                     ? " • 1"
                     : profileData.isSecondCircle.find((i2) => i2 === true)

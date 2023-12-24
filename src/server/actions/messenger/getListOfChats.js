@@ -1,6 +1,8 @@
 import { prisma } from "../../db";
 
-export const getListOfChats = async (id, cursor, searchInput) => {
+export const getListOfChats = async (id, cursor, searchInput, filterType) => {
+  console.log(filterType, "пчем2у");
+
   const chats = await prisma.chat.findMany({
     take: 11,
     ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
@@ -27,7 +29,7 @@ export const getListOfChats = async (id, cursor, searchInput) => {
           createdAt: true,
           type: true,
         },
-        take: -1,
+        orderBy: { createdAt: "desc" },
       },
     },
     where: {
@@ -35,6 +37,13 @@ export const getListOfChats = async (id, cursor, searchInput) => {
         some: {
           id: {
             in: [id],
+          },
+        },
+      },
+      messages: {
+        some: {
+          type: {
+            in: filterType,
           },
         },
       },
@@ -53,8 +62,14 @@ export const getListOfChats = async (id, cursor, searchInput) => {
   const result = slicedPosts.map((chat) => {
     // тут мы проеряяем, если это не беседа, то карточка чата имеет имя собеседника
     if (chat.participants.length === 2) {
-      const chatLabel = chat.participants.filter((item) => item.id !== id)[0]
-        .name;
+      const chatLabel = `${
+        chat.participants.filter((item) => item.id !== id)[0].name
+      }${
+        chat.participants.filter((item) => item.id !== id)[0]?.lastname
+          ? " " +
+            chat.participants.filter((item) => item.id !== id)[0]?.lastname
+          : ""
+      }`;
       const chatImage = chat.participants.filter((item) => item.id !== id)[0]
         .image;
       // если сообщений в чате нет, то lasnMessage для картоки это заготовленный текст
@@ -66,22 +81,20 @@ export const getListOfChats = async (id, cursor, searchInput) => {
       if (chat.messages.length === 0)
         chatText = "Начните диалог в беседе прямо сейчас";
       else {
-        lastMessageType = chat?.messages[chat.messages.length - 1]?.type;
-        chatIsUnread = chat?.messages[chat.messages.length - 1]?.unRead;
-        myMessageIsLast =
-          chat?.messages[chat.messages.length - 1]?.userId === id;
-        lastMessageCreatedAt =
-          chat?.messages[chat.messages.length - 1]?.createdAt;
+        lastMessageType = chat?.messages[0]?.type;
+        chatIsUnread = chat?.messages[0]?.unRead;
+        myMessageIsLast = chat?.messages[0]?.userId === id;
+        lastMessageCreatedAt = chat?.messages[0]?.createdAt;
 
-        if (chat.messages[chat.messages.length - 1].type === "vacancyReply")
+        if (chat.messages[0].type === "vacancyReply")
           chatText = myMessageIsLast
             ? "Вы отправили отклик"
-            : chat.messages[chat.messages.length - 1].text;
-        else if (chat.messages[chat.messages.length - 1].type === "pitch")
+            : chat.messages[0].text;
+        else if (chat.messages[0].type === "pitch")
           chatText = myMessageIsLast ? "Питч" : "Питч";
-        else if (chat.messages[chat.messages.length - 1].type === "superpitch")
+        else if (chat.messages[0].type === "superpitch")
           chatText = myMessageIsLast ? "Cуперпитч" : "Cуперпитч";
-        else chatText = chat.messages[chat.messages.length - 1].text;
+        else chatText = chat.messages[0].text;
       }
 
       return {
@@ -91,8 +104,7 @@ export const getListOfChats = async (id, cursor, searchInput) => {
         updatedAt: chat.updatedAt,
         participants: chat.participants,
         messages: chat.messages,
-        myMessageIsLast:
-          chat?.messages[chat.messages.length - 1]?.userId === id,
+        myMessageIsLast: chat?.messages[0]?.userId === id,
         lastMessageCreatedAt: lastMessageCreatedAt,
 
         lastMessageType: lastMessageType,
@@ -112,22 +124,20 @@ export const getListOfChats = async (id, cursor, searchInput) => {
       if (chat.messages.length === 0)
         chatText = "Начните диалог в беседе прямо сейчас";
       else {
-        lastMessageType = chat.messages[chat.messages.length - 1].type;
-        chatIsUnread = chat.messages[chat.messages.length - 1].unRead;
-        myMessageIsLast =
-          chat?.messages[chat.messages.length - 1]?.userId === id;
-        lastMessageCreatedAt =
-          chat.messages[chat.messages.length - 1].createdAt;
+        lastMessageType = chat.messages[0].type;
+        chatIsUnread = chat.messages[0].unRead;
+        myMessageIsLast = chat?.messages[0]?.userId === id;
+        lastMessageCreatedAt = chat.messages[0].createdAt;
 
-        if (chat.messages[chat.messages.length - 1].type === "vacancyReply")
+        if (chat.messages[0].type === "vacancyReply")
           chatText = myMessageIsLast
             ? "Вы отправили отклик"
-            : chat.messages[chat.messages.length - 1].text;
-        else if (chat.messages[chat.messages.length - 1].type === "pitch")
+            : chat.messages[0].text;
+        else if (chat.messages[0].type === "pitch")
           chatText = myMessageIsLast ? "Питч" : "Питч";
-        else if (chat.messages[chat.messages.length - 1].type === "superpitch")
+        else if (chat.messages[0].type === "superpitch")
           chatText = myMessageIsLast ? "Cуперпитч" : "Cуперпитч";
-        else chatText = chat.messages[chat.messages.length - 1].text;
+        else chatText = chat.messages[0].text;
       }
 
       return {
@@ -138,8 +148,7 @@ export const getListOfChats = async (id, cursor, searchInput) => {
         updatedAt: chat.updatedAt,
         participants: chat.participants,
         messages: chat.messages,
-        myMessageIsLast:
-          chat?.messages[chat.messages.length - 1]?.userId === id,
+        myMessageIsLast: chat?.messages[0]?.userId === id,
         lastMessageCreatedAt: lastMessageCreatedAt,
 
         lastMessageType: lastMessageType,

@@ -9,6 +9,28 @@ import TextSecondary from "../../shared/Text/TextSecondary";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 
 const MessageItem = ({ item, style, last = false }) => {
+  var textWithLinks = [];
+  item.text &&
+    item.text.replace(
+      /((?:https?:\/\/|ftps?:\/\/|\bwww\.)(?:(?![.,?!;:()]*(?:\s|$))[^\s]){2,})|(\n+|(?:(?!(?:https?:\/\/|ftp:\/\/|\bwww\.)(?:(?![.,?!;:()]*(?:\s|$))[^\s]){2,}).)+)/gim,
+      (m, link, text) => {
+        textWithLinks.push(
+          link ? (
+            <a
+              target={"_blank"}
+              href={(link[0] === "w" ? "//" : "") + link}
+              key={textWithLinks.length}
+              className="text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition-all duration-[250ms]"
+            >
+              {link}
+            </a>
+          ) : (
+            text
+          )
+        );
+      }
+    );
+
   // console.log("img", item.user.image);
   return (
     <div
@@ -30,8 +52,8 @@ const MessageItem = ({ item, style, last = false }) => {
           <EmptyAvatar thirty />
         ))}
       <TextMain
-        text={item.text}
-        style={`font-medium max-w-[288px] w-fit text-[14px] leading-[18px] tracking-[-0.013em] px-[12px] pt-[12px] pb-[11px] ${
+        text={textWithLinks}
+        style={`font-medium max-w-[288px] whitespace-pre-line w-fit text-[14px] leading-[18px] tracking-[-0.013em] px-[12px] pt-[12px] pb-[11px] ${
           item.myMessage
             ? "bg-[#cad5ff] dark:bg-[#5875e8]"
             : "bg-[#e7e7e7] dark:bg-[#2c2c2c]"

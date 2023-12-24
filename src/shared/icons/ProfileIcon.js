@@ -50,14 +50,13 @@ const ProfileIcon = ({ fill = "#000", size = 25, role }) => {
         href={pathname === "/profile" ? "/companyprofile" : "/profile"}
         className="group"
       >
-        <div className="w-[30px] h-[30px] flex items-center justify-center cursor-pointer bg-transparent group-hover:bg-[#74899B] group-hover:bg-opacity-[8%] transition duration-[250ms] rounded-[8px]">
+        <div className="w-[30px] h-[30px] ml-[-3px] flex items-center justify-center cursor-pointer bg-transparent group-hover:bg-[#74899B] group-hover:bg-opacity-[8%] transition duration-[250ms] rounded-[8px]">
           <svg
             width="25"
             height="25"
             viewBox="0 0 25 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="ml-[-3px]"
           >
             <path
               d="M1.62 20V7.4H3.78V12.584H9.9V7.4H12.06V20H9.9V14.456H3.78V20H1.62ZM13.8558 20V7.4H18.6258C19.6818 7.4 20.5578 7.568 21.2538 7.904C21.9618 8.24 22.4958 8.702 22.8558 9.29C23.2158 9.878 23.3958 10.556 23.3958 11.324C23.3958 12.188 23.1618 12.938 22.6938 13.574C22.2258 14.198 21.5238 14.648 20.5878 14.924L23.7558 20H21.3798L18.5898 15.176H16.0158V20H13.8558ZM16.0158 13.376H18.2658C19.3698 13.376 20.1378 13.196 20.5698 12.836C21.0138 12.476 21.2358 11.972 21.2358 11.324C21.2358 10.676 21.0138 10.172 20.5698 9.812C20.1378 9.452 19.3698 9.272 18.2658 9.272H16.0158V13.376Z"

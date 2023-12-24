@@ -6,7 +6,7 @@ import { getPitchesCount } from "../pitches/getPitchesCount";
 import { firstTime, setFirstTime } from "../profile/firstTime";
 import { checkCircles } from "./checkCircles";
 
-const sendMessage = async (input, chatId) => {
+const sendMessage = async (input, chatId, emptyType = false) => {
   const session = await getServSession();
 
   const circle = await checkCircles(null, chatId);
@@ -21,7 +21,7 @@ const sendMessage = async (input, chatId) => {
     where: {
       AND: [
         { chatId: chatId },
-        { type: circle.circle },
+        { type: emptyType === true ? "" : circle.circle },
         { createdAt: { gte: new Date(d.toString()).toISOString() } },
       ],
     },
@@ -32,7 +32,7 @@ const sendMessage = async (input, chatId) => {
     where: {
       AND: [
         { chatId: chatId },
-        { type: "vacancyReply" },
+        { type: emptyType === true ? "" : "vacancyReply" },
         { createdAt: { gte: new Date(d2.toString()).toISOString() } },
       ],
     },
@@ -64,7 +64,12 @@ const sendMessage = async (input, chatId) => {
     data: {
       text: input,
       unRead: true,
-      type: check?.id || checkVacReply?.id ? "" : circle.circle,
+      type:
+        emptyType === true
+          ? ""
+          : check?.id || checkVacReply?.id
+          ? ""
+          : circle.circle,
       Chat: {
         connect: { id: chatId },
       },

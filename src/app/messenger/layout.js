@@ -1,33 +1,12 @@
-"use client";
+"use server";
 
-import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { getServSession } from "../../app/api/auth/[...nextauth]/route";
+import MsgLayoutWrap from "../../components/messenger/MsgLayoutWrap";
 
-import MesContextWrap from "../../components/messenger/MesContextWrap";
-import ChatsList from "../../components/messenger/ChatsList";
-import { useEffect } from "react";
+const TestLayout = async ({ children }) => {
+  const session = await getServSession();
 
-const TestLayout = ({ children }) => {
-  const pathname = usePathname();
-  const searchParams = useParams();
-
-  const chatId = searchParams.chatId;
-
-  return (
-    <div
-      className={`flex ${
-        pathname === "/messenger" && "[@media(pointer:coarse)]:mb-[80px]"
-      } ${
-        pathname !== "/messenger" &&
-        pathname.includes("/messenger/") &&
-        "[@media(pointer:coarse)]:mt-[57px] [@media(pointer:coarse)]:pb-[143px]"
-      } [@media(pointer:coarse)]:overflow-y-hidden h-full flex-row gap-[16px] w-full`}
-    >
-      <MesContextWrap chatId={chatId}>
-        <ChatsList />
-        {children}
-      </MesContextWrap>
-    </div>
-  );
+  return <MsgLayoutWrap role={session?.user?.role}>{children}</MsgLayoutWrap>;
 };
 
 export default TestLayout;

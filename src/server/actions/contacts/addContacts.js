@@ -13,6 +13,7 @@ export const addContacts = async (phoneNum) => {
     data: {
       phone: phoneNum,
       phoneVerified: new Date(),
+      inSearch: true,
     },
   });
 };

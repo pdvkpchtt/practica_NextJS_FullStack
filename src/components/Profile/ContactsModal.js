@@ -37,10 +37,10 @@ const ContactsModal = ({
       setLoading(true);
       await addContacts(phoneInput);
       setModalState();
-      router.refresh();
       setCodeInput("");
       setIsEdit(false);
       setLoading(false);
+      router.push("/profile");
     }
   };
 

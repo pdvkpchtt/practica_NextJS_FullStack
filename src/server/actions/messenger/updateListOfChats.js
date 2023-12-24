@@ -1,6 +1,11 @@
 import { prisma } from "../../db";
 
-export const updateListOfChats = async (id, lastDate, searchInputValue) => {
+export const updateListOfChats = async (
+  id,
+  lastDate,
+  searchInputValue,
+  filterType
+) => {
   const chats = await prisma.chat.findMany({
     select: {
       id: true,
@@ -10,6 +15,7 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
         select: {
           id: true,
           name: true,
+          lastname: true,
           image: true,
         },
       },
@@ -22,7 +28,7 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
           userId: true,
           type: true,
         },
-        take: -1,
+        orderBy: { createdAt: "desc" },
       },
     },
     where: {
@@ -33,6 +39,13 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
           },
         },
       },
+      messages: {
+        some: {
+          type: {
+            in: filterType,
+          },
+        },
+      },
 
       updatedAt: lastDate
         ? {
@@ -40,7 +53,6 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
           }
         : {},
     },
-
     orderBy: {
       updatedAt: "desc",
     },
@@ -49,8 +61,14 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
   const result = chats.map((chat) => {
     // тут мы проеряяем, если это не беседа, то карточка чата имеет имя собеседника
     if (chat.participants.length === 2) {
-      const chatLabel = chat.participants.filter((item) => item.id !== id)[0]
-        .name;
+      const chatLabel = `${
+        chat.participants.filter((item) => item.id !== id)[0].name
+      }${
+        chat.participants.filter((item) => item.id !== id)[0]?.lastname
+          ? " " +
+            chat.participants.filter((item) => item.id !== id)[0]?.lastname
+          : ""
+      }`;
       const chatImage = chat.participants.filter((item) => item.id !== id)[0]
         .image;
 
@@ -63,21 +81,20 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
       if (chat.messages.length === 0)
         chatText = "Начните диалог в беседе прямо сейчас";
       else {
-        lastMessageType = chat.messages[chat.messages.length - 1].type;
-        chatIsUnread = chat.messages[chat.messages.length - 1].unRead;
-        myMessageIsLast = chat.messages[chat.messages.length - 1].userId === id;
-        lastMessageCreatedAt =
-          chat.messages[chat.messages.length - 1].createdAt;
+        lastMessageType = chat.messages[0].type;
+        chatIsUnread = chat.messages[0].unRead;
+        myMessageIsLast = chat.messages[0].userId === id;
+        lastMessageCreatedAt = chat.messages[0].createdAt;
 
-        if (chat.messages[chat.messages.length - 1].type === "vacancyReply")
+        if (chat.messages[0].type === "vacancyReply")
           chatText = myMessageIsLast
             ? "Вы отправили отклик"
-            : chat.messages[chat.messages.length - 1].text;
-        else if (chat.messages[chat.messages.length - 1].type === "pitch")
+            : chat.messages[0].text;
+        else if (chat.messages[0].type === "pitch")
           chatText = myMessageIsLast ? "Питч" : "Питч";
-        else if (chat.messages[chat.messages.length - 1].type === "superpitch")
+        else if (chat.messages[0].type === "superpitch")
           chatText = myMessageIsLast ? "Суперпитч" : "Суперпитч";
-        else chatText = chat.messages[chat.messages.length - 1].text;
+        else chatText = chat.messages[0].text;
       }
 
       return {
@@ -107,21 +124,20 @@ export const updateListOfChats = async (id, lastDate, searchInputValue) => {
       if (chat.messages.length === 0)
         chatText = "Начните диалог в беседе прямо сейчас";
       else {
-        lastMessageType = chat.messages[chat.messages.length - 1].type;
-        chatIsUnread = chat.messages[chat.messages.length - 1].unRead;
-        myMessageIsLast = chat.messages[chat.messages.length - 1].userId === id;
-        lastMessageCreatedAt =
-          chat.messages[chat.messages.length - 1].createdAt;
+        lastMessageType = chat.messages[0].type;
+        chatIsUnread = chat.messages[0].unRead;
+        myMessageIsLast = chat.messages[0].userId === id;
+        lastMessageCreatedAt = chat.messages[0].createdAt;
 
-        if (chat.messages[chat.messages.length - 1].type === "vacancyReply")
+        if (chat.messages[0].type === "vacancyReply")
           chatText = myMessageIsLast
             ? "Вы отправили отклик"
-            : chat.messages[chat.messages.length - 1].text;
-        else if (chat.messages[chat.messages.length - 1].type === "pitch")
+            : chat.messages[0].text;
+        else if (chat.messages[0].type === "pitch")
           chatText = myMessageIsLast ? "Питч" : "Питч";
-        else if (chat.messages[chat.messages.length - 1].type === "superpitch")
+        else if (chat.messages[0].type === "superpitch")
           chatText = myMessageIsLast ? "Суперпитч" : "Суперпитч";
-        else chatText = chat.messages[chat.messages.length - 1].text;
+        else chatText = chat.messages[0].text;
       }
 
       return {

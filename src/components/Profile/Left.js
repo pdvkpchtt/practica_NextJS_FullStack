@@ -34,7 +34,13 @@ import ContactsIcon from "shared/icons/ContactsIcon";
 import ContactsModal from "./ContactsModal";
 import SubscrModal from "./SubscrModal";
 
-const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
+const Left = ({
+  navState,
+  data,
+  pitchesFirst,
+  superPitchesFirst,
+  searchParams,
+}) => {
   // console.log(data, "saasassaasas2");
   const router = useRouter();
   const ref = useRef(null);
@@ -65,7 +71,7 @@ const Left = ({ navState, data, pitchesFirst, superPitchesFirst }) => {
   const [modal2State, setModal2State] = useState(false);
   const [modal3State, setModal3State] = useState(false);
   const [pitchesModalState, setPitchesModalState] = useState(false);
-  const [contactsModalState, setContactsModalState] = useState(false);
+  const [contactsModalState, setContactsModalState] = useState(searchParams);
 
   const [updatesState, setUpdatesState] = useState(null);
   const clipboard = useClipboard();

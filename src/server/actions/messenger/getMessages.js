@@ -28,7 +28,7 @@ const getMessages = async (
     select: { id: true, type: true, createdAt: true },
   });
 
-  const checkVacReply = await prisma.message.findFirst({
+  const checkVacReply = await prisma.message.findMany({
     where: {
       AND: [
         { chatId: chatId },
@@ -36,7 +36,13 @@ const getMessages = async (
         { createdAt: { gte: new Date(d2.toString()).toISOString() } },
       ],
     },
-    select: { id: true, type: true, createdAt: true },
+    select: {
+      id: true,
+      type: true,
+      createdAt: true,
+      vacancyReply: { select: { id: true, status: true } },
+    },
+    take: -1,
   });
 
   const data = await prisma.message.findMany({
@@ -52,6 +58,7 @@ const getMessages = async (
           image: true,
           id: true,
           username: true,
+          phone: true,
         },
       },
       text: true,
@@ -77,6 +84,7 @@ const getMessages = async (
               },
             },
           },
+          status: true,
           file: true,
           link: true,
           vacancyId: true,
@@ -168,7 +176,7 @@ const getMessages = async (
     cursor: newCursor,
     lastDate,
     check: check,
-    checkVacReply: checkVacReply,
+    checkVacReply: checkVacReply[0],
     circle: circle.circle,
   };
 };
