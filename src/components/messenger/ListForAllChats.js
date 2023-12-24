@@ -10,7 +10,7 @@ import MessageCart from "./MessageCart";
 import { MesContext } from "./MesContextWrap";
 import { fetchChats } from "../../server/actions/messenger/fetchChats";
 
-const ListForAllChats = ({ searchInputValue, setSearchInputValue }) => {
+const ListForAllChats = ({ searchInputValue, setSearchInputValue, role }) => {
   const router = useRouter();
 
   const { currentChatCursor } = useContext(MesContext);
