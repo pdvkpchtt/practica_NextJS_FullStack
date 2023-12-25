@@ -66,7 +66,7 @@ const ListForReplies = ({ searchInputValue, setSearchInputValue, role }) => {
     () => {
       getUserChatsWithTimer();
     },
-    isRunning ? delay : null
+    navState[0].active ? delay : null
   );
 
   useEffect(() => {

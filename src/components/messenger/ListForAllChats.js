@@ -68,7 +68,7 @@ const ListForAllChats = ({ searchInputValue, setSearchInputValue, role }) => {
     () => {
       getUserChatsWithTimer();
     },
-    isRunning ? delay : null
+    navState[1].active ? delay : null
   );
 
   useEffect(() => {

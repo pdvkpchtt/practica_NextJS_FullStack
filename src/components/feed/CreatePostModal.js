@@ -171,10 +171,20 @@ const CreatePostModal = ({
               trackColor={
                 textState.length === 0
                   ? "stroke-[#ececec] dark:stroke-[#202436]"
+                  : textState.length >= 450 && textState.length < 490
+                  ? "stroke-[#cdb077] dark:stroke-[#5a512d]"
+                  : textState.length >= 490
+                  ? "stroke-[#cd7777] dark:stroke-[#5a2d2d]"
                   : "stroke-[#CDD6F8] dark:stroke-[#353D5C]"
               }
               indicatorColor={
-                textState.length === 0 ? "stroke-[#ececec]" : "stroke-[#758DEC]"
+                textState.length === 0
+                  ? "stroke-[#ececec]"
+                  : textState.length >= 450 && textState.length < 490
+                  ? "stroke-[#ecba75]"
+                  : textState.length >= 490
+                  ? "stroke-[#ec7575]"
+                  : "stroke-[#758DEC]"
               }
               trackWidth={2.67}
               indicatorWidth={2.67}
