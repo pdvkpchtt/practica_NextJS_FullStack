@@ -22,7 +22,7 @@ const ListForAllChats = ({ searchInputValue, setSearchInputValue, role }) => {
   const [chatsState, setChatsState] = useState(null); // ChatsList
 
   const getUserChatsWithTimer = async () => {
-    console.log("timer fetching 2");
+    console.log("mr white yo");
     if (loading) return;
 
     console.log(lastDate);

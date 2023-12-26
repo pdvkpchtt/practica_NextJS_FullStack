@@ -25,30 +25,15 @@ const ChatsList = ({ role }) => {
   const [navState, setNavState] = useState([
     {
       id: 0,
-      active: false,
-      component: <CaseIcon />,
+      active: true,
+      component: role.includes("hr") ? <CaseIcon /> : <HandShakeIcon />,
     },
     {
       id: 1,
-      active: true,
-      component: <HandShakeIcon />,
+      active: false,
+      component: role.includes("hr") ? <HandShakeIcon /> : <CaseIcon />,
     },
   ]);
-
-  // useEffect(() => {
-  //   //getUserChatsWithTimer();
-  //   if (!chatsState) {
-  //     getUserChats();
-  //   }
-  //   const timer = setInterval(() => {
-  //     console.log("chat list timer");
-  //     getUserChatsWithTimer();
-  //   }, [5000]);
-
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // }, [currentChatCursor]);
 
   return (
     <>
@@ -83,19 +68,40 @@ const ChatsList = ({ role }) => {
         <div
           className={`flex flex-col z-0 [@media(pointer:coarse)]:mt-[57px] [@media(pointer:coarse)]:h-[calc(100%-57px)] overflow-y-auto hideScrollbarNavMobile [@media(hover)]:h-[calc(100%-92px)] [@media(pointer:coarse)]:p-[12px] [@media(hover)]:rounded-b-[20px] [@media(pointer:coarse)]:gap-[8px] [@media(pointer:coarse)]:bg-transparent bg-white [@media(hover)]:dark:bg-[#212122]`}
         >
-          {navState[0].active && (
-            <ListForReplies
-              role={role}
-              searchInputValue={searchInputValue}
-              setSearchInputValue={setSearchInputValue}
-            />
-          )}
-          {navState[1].active && (
-            <ListForAllChats
-              role={role}
-              searchInputValue={searchInputValue}
-              setSearchInputValue={setSearchInputValue}
-            />
+          {role.includes("hr") ? (
+            <>
+              {navState[0].active && (
+                <ListForReplies
+                  role={role}
+                  searchInputValue={searchInputValue}
+                  setSearchInputValue={setSearchInputValue}
+                />
+              )}
+              {navState[1].active && (
+                <ListForAllChats
+                  role={role}
+                  searchInputValue={searchInputValue}
+                  setSearchInputValue={setSearchInputValue}
+                />
+              )}
+            </>
+          ) : (
+            <>
+              {navState[1].active && (
+                <ListForReplies
+                  role={role}
+                  searchInputValue={searchInputValue}
+                  setSearchInputValue={setSearchInputValue}
+                />
+              )}
+              {navState[0].active && (
+                <ListForAllChats
+                  role={role}
+                  searchInputValue={searchInputValue}
+                  setSearchInputValue={setSearchInputValue}
+                />
+              )}
+            </>
           )}
         </div>
         {/* body */}
