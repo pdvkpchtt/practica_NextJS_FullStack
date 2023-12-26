@@ -56,17 +56,19 @@ const ChatsList = ({ role }) => {
             showCross={searchInputValue.length != 0}
           />
 
-          <Nav
-            navState={navState}
-            useState={(val) => setNavState(val)}
-            layoutId="messenger"
-            role={role}
-          />
+          <div className="[@media(pointer:coarse)]:max-w-[500px] [@media(pointer:coarse)]:px-[12px] [@media(pointer:coarse)]:mx-auto">
+            <Nav
+              navState={navState}
+              useState={(val) => setNavState(val)}
+              layoutId="messenger"
+              role={role}
+            />
+          </div>
         </div>
 
         {/* body */}
         <div
-          className={`flex flex-col z-0 [@media(pointer:coarse)]:mt-[57px] [@media(pointer:coarse)]:h-[calc(100%-57px)] overflow-y-auto hideScrollbarNavMobile [@media(hover)]:h-[calc(100%-92px)] [@media(pointer:coarse)]:p-[12px] [@media(hover)]:rounded-b-[20px] [@media(pointer:coarse)]:gap-[8px] [@media(pointer:coarse)]:bg-transparent bg-white [@media(hover)]:dark:bg-[#212122]`}
+          className={`flex flex-col z-0 [@media(pointer:coarse)]:mt-[87px] [@media(pointer:coarse)]:h-[calc(100%-57px)] overflow-y-auto hideScrollbarNavMobile [@media(hover)]:h-[calc(100%-92px)] [@media(pointer:coarse)]:p-[12px] [@media(hover)]:rounded-b-[20px] [@media(pointer:coarse)]:gap-[8px] [@media(pointer:coarse)]:bg-transparent bg-white [@media(hover)]:dark:bg-[#212122]`}
         >
           {role.includes("hr") ? (
             <>
