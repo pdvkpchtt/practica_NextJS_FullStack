@@ -11,30 +11,30 @@ const MessengerIconBig = ({ fill = "#000", size = 25 }) => {
 
   const [totalUnread, setTotalUnread] = useState(0);
 
-  const getData = async (lastDate = null) => {
-    const data = (await axios.post("/api/messenger/count", { lastDate })).data;
-    console.log(data);
-    setTotalUnread(data.totalUnread);
-    await getData(data.lastDate);
-  };
+  // const getData = async (lastDate = null) => {
+  //   const data = (await axios.post("/api/messenger/count", { lastDate })).data;
+  //   console.log(data);
+  //   setTotalUnread(data.totalUnread);
+  //   await getData(data.lastDate);
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
-  useEffect(() => {
-    console.log("message source mobile");
-    const eventSource = new EventSource(`/api/messenger/count`);
+  // useEffect(() => {
+  //   console.log("message source mobile");
+  //   const eventSource = new EventSource(`/api/messenger/count`);
 
-    eventSource.onmessage = (event) => {
-      console.log(event);
-      ///setTotalUnread(event.totalUnread)
-    };
+  //   eventSource.onmessage = (event) => {
+  //     console.log(event);
+  //     ///setTotalUnread(event.totalUnread)
+  //   };
 
-    return () => {
-      eventSource.close();
-    };
-  }, []);
+  //   return () => {
+  //     eventSource.close();
+  //   };
+  // }, []);
 
   return (
     <Link href={"/messenger"} className="group relative">

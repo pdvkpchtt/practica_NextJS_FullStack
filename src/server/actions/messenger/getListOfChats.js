@@ -1,57 +1,114 @@
 import { prisma } from "../../db";
 
-export const getListOfChats = async (id, cursor, searchInput, filterType) => {
-  console.log(filterType, "пчем2у");
-
-  const chats = await prisma.chat.findMany({
-    take: 11,
-    ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
-    select: {
-      id: true,
-      name: true,
-      createdAt: true,
-      updatedAt: true,
-      participants: {
-        select: {
-          id: true,
-          name: true,
-          lastname: true,
-          image: true,
+export const getListOfChats = async (
+  id,
+  cursor,
+  searchInput,
+  forAll = false
+) => {
+  var chats = [];
+  if (forAll === true)
+    chats = await prisma.chat.findMany({
+      take: 11,
+      ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
+      select: {
+        id: true,
+        name: true,
+        createdAt: true,
+        updatedAt: true,
+        participants: {
+          select: {
+            id: true,
+            name: true,
+            lastname: true,
+            image: true,
+          },
+        },
+        messages: {
+          select: {
+            id: true,
+            chatId: true,
+            userId: true,
+            text: true,
+            unRead: true,
+            createdAt: true,
+            type: true,
+          },
+          orderBy: { createdAt: "desc" },
         },
       },
-      messages: {
-        select: {
-          id: true,
-          chatId: true,
-          userId: true,
-          text: true,
-          unRead: true,
-          createdAt: true,
-          type: true,
+      where: {
+        participants: {
+          some: {
+            id: {
+              in: [id],
+            },
+          },
         },
-        orderBy: { createdAt: "desc" },
-      },
-    },
-    where: {
-      participants: {
-        some: {
-          id: {
-            in: [id],
+        NOT: {
+          messages: {
+            some: {
+              type: {
+                in: ["vacancyReply", "vacancyReplyDeclined"],
+              },
+            },
           },
         },
       },
-      messages: {
-        some: {
-          type: {
-            in: filterType,
+      orderBy: {
+        updatedAt: "desc",
+      },
+    });
+  else
+    chats = await prisma.chat.findMany({
+      take: 11,
+      ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
+      select: {
+        id: true,
+        name: true,
+        createdAt: true,
+        updatedAt: true,
+        participants: {
+          select: {
+            id: true,
+            name: true,
+            lastname: true,
+            image: true,
+          },
+        },
+        messages: {
+          select: {
+            id: true,
+            chatId: true,
+            userId: true,
+            text: true,
+            unRead: true,
+            createdAt: true,
+            type: true,
+          },
+          orderBy: { createdAt: "desc" },
+        },
+      },
+      where: {
+        participants: {
+          some: {
+            id: {
+              in: [id],
+            },
+          },
+        },
+        messages: {
+          some: {
+            type: {
+              in: ["vacancyReply", "vacancyReplyDeclined"],
+            },
           },
         },
       },
-    },
-    orderBy: {
-      updatedAt: "desc",
-    },
-  });
+      orderBy: {
+        updatedAt: "desc",
+      },
+    });
 
   const hasNextPage = chats.length > 10;
   let slicedPosts = chats;

@@ -8,7 +8,7 @@ export async function fetchChats(
   lastDate,
   searchInputValue,
   isUpdate = false,
-  filterType
+  forAll = false
 ) {
   const session = await getServSession();
 
@@ -17,7 +17,7 @@ export async function fetchChats(
       session.user.id,
       lastDate,
       searchInputValue,
-      filterType
+      forAll
     );
     return chats;
   }
@@ -25,7 +25,7 @@ export async function fetchChats(
     session.user.id,
     lastDate,
     searchInputValue,
-    filterType
+    forAll
   );
 
   return chats;

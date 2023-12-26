@@ -26,11 +26,7 @@ const ListForAllChats = ({ searchInputValue, setSearchInputValue, role }) => {
     if (loading) return;
 
     console.log(lastDate);
-    const data = await fetchChats(lastDate, searchInputValue, true, [
-      "pitch",
-      "superpitch",
-      "",
-    ]);
+    const data = await fetchChats(lastDate, searchInputValue, true, true);
     console.log("chats update", data);
 
     if (loading) return;
@@ -44,11 +40,7 @@ const ListForAllChats = ({ searchInputValue, setSearchInputValue, role }) => {
     console.log("fetching");
     // if (loading) return;
     setLoading(true);
-    const data = await fetchChats(cursor, searchInputValue, false, [
-      "pitch",
-      "superpitch",
-      "",
-    ]);
+    const data = await fetchChats(cursor, searchInputValue, false, true);
     console.log("client chats", data);
     if (cursor?.length) {
       setChatsState([...chatsState, ...data.data]);

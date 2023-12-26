@@ -26,10 +26,7 @@ const ListForReplies = ({ searchInputValue, setSearchInputValue, role }) => {
     if (loading) return;
 
     console.log(lastDate);
-    const data = await fetchChats(lastDate, searchInputValue, true, [
-      "vacancyReply",
-      "vacancyReplyDeclined",
-    ]);
+    const data = await fetchChats(lastDate, searchInputValue, true);
     console.log("chats update", data);
 
     if (loading) return;
@@ -43,10 +40,7 @@ const ListForReplies = ({ searchInputValue, setSearchInputValue, role }) => {
     console.log("fetching");
     // if (loading) return;
     setLoading(true);
-    const data = await fetchChats(cursor, searchInputValue, false, [
-      "vacancyReply",
-      "vacancyReplyDeclined",
-    ]);
+    const data = await fetchChats(cursor, searchInputValue, false);
     console.log("client chats", data);
     if (cursor?.length) {
       setChatsState([...chatsState, ...data.data]);

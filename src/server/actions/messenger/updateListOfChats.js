@@ -4,59 +4,115 @@ export const updateListOfChats = async (
   id,
   lastDate,
   searchInputValue,
-  filterType
+  forAll = false
 ) => {
-  const chats = await prisma.chat.findMany({
-    select: {
-      id: true,
-      name: true,
-      createdAt: true,
-      participants: {
-        select: {
-          id: true,
-          name: true,
-          lastname: true,
-          image: true,
-        },
-      },
-      messages: {
-        select: {
-          id: true,
-          text: true,
-          createdAt: true,
-          unRead: true,
-          userId: true,
-          type: true,
-        },
-        orderBy: { createdAt: "desc" },
-      },
-    },
-    where: {
-      participants: {
-        some: {
-          id: {
-            in: [id],
+  var chats = [];
+  if (forAll === true)
+    chats = await prisma.chat.findMany({
+      select: {
+        id: true,
+        name: true,
+        createdAt: true,
+        participants: {
+          select: {
+            id: true,
+            name: true,
+            lastname: true,
+            image: true,
           },
         },
-      },
-      messages: {
-        some: {
-          type: {
-            in: filterType,
+        messages: {
+          select: {
+            id: true,
+            text: true,
+            createdAt: true,
+            unRead: true,
+            userId: true,
+            type: true,
           },
+          orderBy: { createdAt: "desc" },
         },
       },
+      where: {
+        participants: {
+          some: {
+            id: {
+              in: [id],
+            },
+          },
+        },
+        NOT: {
+          messages: {
+            some: {
+              type: {
+                in: ["vacancyReply", "vacancyReplyDeclined"],
+              },
+            },
+          },
+        },
 
-      updatedAt: lastDate
-        ? {
-            gte: lastDate,
-          }
-        : {},
-    },
-    orderBy: {
-      updatedAt: "desc",
-    },
-  });
+        updatedAt: lastDate
+          ? {
+              gte: lastDate,
+            }
+          : {},
+      },
+      orderBy: {
+        updatedAt: "desc",
+      },
+    });
+  else
+    chats = await prisma.chat.findMany({
+      select: {
+        id: true,
+        name: true,
+        createdAt: true,
+        participants: {
+          select: {
+            id: true,
+            name: true,
+            lastname: true,
+            image: true,
+          },
+        },
+        messages: {
+          select: {
+            id: true,
+            text: true,
+            createdAt: true,
+            unRead: true,
+            userId: true,
+            type: true,
+          },
+          orderBy: { createdAt: "desc" },
+        },
+      },
+      where: {
+        participants: {
+          some: {
+            id: {
+              in: [id],
+            },
+          },
+        },
+        messages: {
+          some: {
+            type: {
+              in: ["vacancyReply", "vacancyReplyDeclined"],
+            },
+          },
+        },
+
+        updatedAt: lastDate
+          ? {
+              gte: lastDate,
+            }
+          : {},
+      },
+      orderBy: {
+        updatedAt: "desc",
+      },
+    });
 
   const result = chats.map((chat) => {
     // тут мы проеряяем, если это не беседа, то карточка чата имеет имя собеседника
