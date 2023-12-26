@@ -31,7 +31,7 @@ const ReplyItem = ({ lastMsg, item, style, type = "vacancyReply" }) => {
             <EmptyAvatar thirty />
           ))}
         <div
-          className={`bg-[#e7e7e7] dark:bg-[#2c2c2c] rounded-[12px] p-[12px] max-w-[288px] w-fit flex flex-row text-[14px] leading-[18px] tracking-[-0.013em] px-[12px] pt-[12px] pb-[11px] ${
+          className={`bg-[#e7e7e7] dark:bg-[#2c2c2c] text-[#2c2c2c] dark:text-white rounded-[12px] p-[12px] max-w-[288px] w-fit flex flex-row text-[14px] leading-[18px] tracking-[-0.013em] px-[12px] pt-[12px] pb-[11px] ${
             item.myMessage
               ? "bg-[#cad5ff] dark:bg-[#5875e8]"
               : "bg-[#e7e7e7] dark:bg-[#2c2c2c]"
@@ -41,11 +41,15 @@ const ReplyItem = ({ lastMsg, item, style, type = "vacancyReply" }) => {
           <a
             href={"https://practica.team/vacancy/" + item?.vacancy?.id}
             target="_blank"
-            className="text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] сursor-pointer"
+            className={
+              item.myMessage
+                ? "text-white underline transition duration-[250ms] сursor-pointer"
+                : "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] сursor-pointer"
+            }
           >
             вакансию
           </a>
-          &nbsp; отклонён
+          &nbsp;отклонён
         </div>
         {/* <TextMain
         text={textWithLinks}

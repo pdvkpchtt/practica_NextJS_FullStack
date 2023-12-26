@@ -44,7 +44,7 @@ const ModalExplain = ({ modalState = false, setModalState = () => {} }) => {
         {/* body */}
         <div className="h-fit w-[360px] mx-auto items-center mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] mb-[-12px] pb-[12px] gap-[32px]">
           <TextMain
-            text="Чтобы откликнуться на вакансию, нужно указать свои контактные данные в профиле"
+            text="Для отклика укажите в профиле контактные данные, чтобы рекрутер смог с вами связаться"
             style={
               "text-[22px] text-center font-medium mx-auto leading-[26px] tracking-[-0.594px]"
             }
@@ -65,7 +65,7 @@ const ModalExplain = ({ modalState = false, setModalState = () => {} }) => {
         {/* body */}
         <div className="mt-[61px] flex flex-col gap-[34px] p-[12px] h-[calc(100%-61px)]">
           <TextMain
-            text="Чтобы откликнуться на вакансию, нужно указать свои контактные данные в профиле"
+            text="Для отклика укажите в профиле контактные данные, чтобы рекрутер смог с вами связаться"
             style={
               "text-[22px] text-center font-medium mx-auto leading-[26px] tracking-[-0.594px]"
             }

@@ -250,7 +250,6 @@ const EditLeft = ({
         isOpen={bottomModal}
         handleClose={() => {
           setBottomModal(false);
-          window.location.reload();
         }}
       />
     </div>
