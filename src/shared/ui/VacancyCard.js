@@ -142,10 +142,10 @@ const VacancyCard = ({ item, role = "student", userId }) => {
                           className="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-fit rounded-[12px] bg-[#141414] bg-opacity-[50%] px-[12px] py-[6px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:transition-all"
                           sideOffset={5}
                         >
-                          <TextMain
-                            text="На рассмотрении"
-                            style={"text-[12px] font-medium"}
-                          />
+                          <p className={"text-[12px] font-medium text-white"}>
+                            На рассмотрении
+                          </p>
+
                           <HoverCard.Arrow className="fill-[rgba(20,20,20)] opacity-[50%]" />
                         </HoverCard.Content>
                       </HoverCard.Portal>
@@ -183,10 +183,9 @@ const VacancyCard = ({ item, role = "student", userId }) => {
                           className="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-fit rounded-[12px] bg-[#141414] bg-opacity-[50%] px-[12px] py-[6px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:transition-all"
                           sideOffset={5}
                         >
-                          <TextMain
-                            text="У вас свидание с HR"
-                            style={"text-[12px] font-medium"}
-                          />
+                          <p className={"text-[12px] font-medium text-white"}>
+                            У вас свидание с HR
+                          </p>
                           <HoverCard.Arrow className="fill-[rgba(20,20,20)] opacity-[50%]" />
                         </HoverCard.Content>
                       </HoverCard.Portal>
@@ -231,10 +230,9 @@ const VacancyCard = ({ item, role = "student", userId }) => {
                           className="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-fit rounded-[12px] bg-[#141414] bg-opacity-[50%] px-[12px] py-[6px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:transition-all"
                           sideOffset={5}
                         >
-                          <TextMain
-                            text="У вас свидание с HR"
-                            style={"text-[12px] font-medium"}
-                          />
+                          <p className={"text-[12px] font-medium text-white"}>
+                            Отказ
+                          </p>
                           <HoverCard.Arrow className="fill-[rgba(20,20,20)] opacity-[50%]" />
                         </HoverCard.Content>
                       </HoverCard.Portal>

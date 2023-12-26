@@ -10,6 +10,8 @@ export const getFiltersInfo = async (cursor) => {
     by: ["label"],
   });
 
+  const skills = await prisma.skill.findMany({});
+
   const vacskills = await prisma.VacancySkills.findMany({});
   // vacancies
 
@@ -67,10 +69,18 @@ export const getFiltersInfo = async (cursor) => {
   });
   // people
 
+  var filteredArray = vacskills.filter(function (array_el) {
+    return (
+      skills.filter(function (anotherOne_el) {
+        return anotherOne_el.name === array_el.name;
+      }).length !== 0
+    );
+  });
+
   return {
     location: location,
     vacArea: vacArea,
-    vacskills: vacskills,
+    vacskills: filteredArray,
     peoplecity: peoplecity.map((i) => ({ label: i.city })),
     workExperience: workExperience.map((i) => ({ label: i.post })),
     educationLevel: educationLevel.map((i) => ({ label: i.text })),
