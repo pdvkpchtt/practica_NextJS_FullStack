@@ -22,33 +22,18 @@ const ChatsList = ({ role }) => {
   const pathname = usePathname();
   const [searchInputValue, setSearchInputValue] = useState(""); // ChatsList
 
-  const [navState, setNavState] = useState(
-    role?.includes("hr")
-      ? [
-          {
-            id: 0,
-            active: true,
-            component: <CaseIcon />,
-          },
-          {
-            id: 1,
-            active: false,
-            component: <HandShakeIcon />,
-          },
-        ]
-      : [
-          {
-            id: 0,
-            active: false,
-            component: <CaseIcon />,
-          },
-          {
-            id: 1,
-            active: true,
-            component: <HandShakeIcon />,
-          },
-        ]
-  );
+  const [navState, setNavState] = useState([
+    {
+      id: 0,
+      active: false,
+      component: <CaseIcon />,
+    },
+    {
+      id: 1,
+      active: true,
+      component: <HandShakeIcon />,
+    },
+  ]);
 
   // useEffect(() => {
   //   //getUserChatsWithTimer();
@@ -102,14 +87,14 @@ const ChatsList = ({ role }) => {
             <ListForReplies
               role={role}
               searchInputValue={searchInputValue}
-              navState={navState}
+              setSearchInputValue={setSearchInputValue}
             />
           )}
           {navState[1].active && (
             <ListForAllChats
               role={role}
               searchInputValue={searchInputValue}
-              navState={navState}
+              setSearchInputValue={setSearchInputValue}
             />
           )}
         </div>

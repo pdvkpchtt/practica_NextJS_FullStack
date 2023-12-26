@@ -10,7 +10,7 @@ import MessageCart from "./MessageCart";
 import { MesContext } from "./MesContextWrap";
 import { fetchChats } from "../../server/actions/messenger/fetchChats";
 
-const ListForReplies = ({ searchInputValue, navState, role }) => {
+const ListForReplies = ({ searchInputValue, setSearchInputValue, role }) => {
   const router = useRouter();
 
   const { currentChatCursor } = useContext(MesContext);
@@ -66,7 +66,7 @@ const ListForReplies = ({ searchInputValue, navState, role }) => {
     () => {
       getUserChatsWithTimer();
     },
-    navState[0].active ? delay : null
+    isRunning ? delay : null
   );
 
   useEffect(() => {
