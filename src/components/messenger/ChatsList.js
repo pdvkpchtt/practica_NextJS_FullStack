@@ -102,14 +102,14 @@ const ChatsList = ({ role }) => {
             <ListForReplies
               role={role}
               searchInputValue={searchInputValue}
-              setSearchInputValue={setSearchInputValue}
+              navState={navState}
             />
           )}
           {navState[1].active && (
             <ListForAllChats
               role={role}
               searchInputValue={searchInputValue}
-              setSearchInputValue={setSearchInputValue}
+              navState={navState}
             />
           )}
         </div>
