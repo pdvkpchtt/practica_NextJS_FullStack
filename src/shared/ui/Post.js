@@ -35,6 +35,7 @@ const Post = ({
   selectedId,
   userId,
 }) => {
+  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
   var textWithLinks = [];
   item.text &&
     item.text.replace(
@@ -51,7 +52,16 @@ const Post = ({
               {link}
             </a>
           ) : (
-            text
+            <p
+              className="cursor-pointer"
+              onClick={() => {
+                !isMobile
+                  ? setSelectedId(item.id)
+                  : router.push(`/feed/post/${item?.id}`);
+              }}
+            >
+              {text}
+            </p>
           )
         );
       }
@@ -59,7 +69,6 @@ const Post = ({
   console.log(textWithLinks, "textWithLinks");
 
   const router = useRouter();
-  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
   const [isOpen, toggle] = useState(false);
   const [reactions, setReactions] = useState(item.reactions || []);
@@ -195,7 +204,12 @@ const Post = ({
               {/* header and text */}
               <TextMain
                 text={item.title}
-                style="text-[20px] font-medium leading-[22px] tracking-[-0.025em] [@media(pointer:coarse)]:text-[18px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.014625em]"
+                style="text-[20px] cursor-pointer font-medium leading-[22px] tracking-[-0.025em] [@media(pointer:coarse)]:text-[18px] [@media(pointer:coarse)]:leading-[18px] [@media(pointer:coarse)]:tracking-[-0.014625em]"
+                onClick={() => {
+                  !isMobile
+                    ? setSelectedId(item.id)
+                    : router.push(`/feed/post/${item?.id}`);
+                }}
               />
 
               <TextMain
