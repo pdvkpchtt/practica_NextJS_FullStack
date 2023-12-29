@@ -35,7 +35,7 @@ const ProfileInfo = ({ data, others = false }) => {
         my-[38px] [@media(pointer:coarse)]:my-[33px]"
           >
             <TextMain
-              text={`Заполните профиль, чтобы здесь появилась информация о вас`}
+              text={`Заполните профиль, чтобы привлекать больше специалистов и откликов`}
               style="text-[18px] leading-[21.6px] tracking-[-0.025em]"
             />
             <Link href="/profile/edit">

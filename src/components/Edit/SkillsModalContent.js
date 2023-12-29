@@ -128,7 +128,7 @@ const SkillsModalContent = ({
         >
           <Input
             placeholder="Python"
-            label="Поиск хард-скиллов"
+            label="Выберите хард-скиллы"
             value={hardInput}
             onChange={(e) => {
               console.log("s");
@@ -162,7 +162,7 @@ const SkillsModalContent = ({
         <div className="flex flex-col gap-[16px] mt-[24px]">
           <Input
             placeholder="Лидерские качества"
-            label="Поиск софт-скиллов"
+            label="Выберите софт-скиллы"
             value={softInput}
             onChange={(e) => {
               setSoftInput(e);
@@ -264,7 +264,7 @@ const SkillsModalContent = ({
           >
             <Input
               placeholder="Python"
-              label="Поиск хард-скиллов"
+              label="Выберите хард-скиллы"
               value={hardInput}
               onChange={(e) => {
                 setHardInput(e);
@@ -296,7 +296,7 @@ const SkillsModalContent = ({
           <Card style="flex flex-col gap-[16px] mt-[24px] mb-[61px]">
             <Input
               placeholder="Лидерские качества"
-              label="Поиск софт-скиллов"
+              label="Выберите софт-скиллы"
               value={softInput}
               onChange={(e) => {
                 setSoftInput(e);

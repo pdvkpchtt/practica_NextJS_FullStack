@@ -225,7 +225,7 @@ const EditCompanyRight = ({
 
         {/* about me */}
         <Input
-          placeholder="Миссия, принципы и ценности"
+          placeholder="Важные факты о компании, миссия, ценности"
           label="О нас"
           value={dataToUpdate.about}
           maxLength={240}

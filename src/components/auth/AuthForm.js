@@ -54,7 +54,7 @@ const AuthForm = () => {
         )}
         <ButtonPrimary
           type="submit"
-          text="Отправить ссылку"
+          text="Отправить код"
           style="mt-[10px] w-full"
         />
       </form>

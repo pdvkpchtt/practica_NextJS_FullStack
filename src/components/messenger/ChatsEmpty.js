@@ -9,7 +9,7 @@ const ChatsEmpty = () => {
       }
     >
       <TextSecondary
-        text="Начни общение выбрав чат"
+        text="Начните общение, выбрав чат"
         style={"h-full w-full flex justify-center items-center select-none"}
       />
     </Card>

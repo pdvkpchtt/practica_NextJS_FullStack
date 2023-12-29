@@ -212,7 +212,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
 
               {/* short description */}
               <TextArea
-                placeholder="Опишите в одном предложении, какой специалист вам нужен и для чего. Это очень даже сильно увелит реакцию на нее в ленте."
+                placeholder="Кратко опишите суть вакансии и требования к специалисту. Это увеличит открываемость вакансии из ленты."
                 label="Краткое описание"
                 minRows={2}
                 maxRows={5}
@@ -244,7 +244,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
             <Card padding={12} style={"flex flex-col gap-[16px]"}>
               {/* description */}
               <TextArea
-                placeholder="Начните с описания в одном предложении, какой специалист вам нужен и для чего. Это резко улучшает реакцию. "
+                placeholder="Полностью опишите вакансию."
                 label="Описание работы и обязанности"
                 maxLength={640}
                 minRows={2}
@@ -300,8 +300,8 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
 
               {/* waitings */}
               <Input
-                placeholder="Опишите какими навыками должен обладать ваш работник мечты"
-                label="Что вы ждете от соискателя"
+                placeholder="Опишите идеального кандидата."
+                label="Ожидания от соискателя"
                 maxLength={480}
                 caption={
                   !status

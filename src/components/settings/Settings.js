@@ -50,7 +50,7 @@ const Settings = () => {
           </div>
 
           <TextMain
-            text="Настройка"
+            text="Настройки"
             style="font-medium text-[22px] leading-[26.4px] tracking-[-0.027em]"
           />
 

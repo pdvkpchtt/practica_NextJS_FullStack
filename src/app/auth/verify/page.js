@@ -26,7 +26,7 @@ const VerifyPage = () => {
           </div>
 
           <div className="font-normal text-[21px] leading-[22.05px] tracking-[-0.945px] text-[#8f8f8f] [@media(hover)]:max-w-[449px] w-full">
-            Проверьте спам, ссылка может быть там
+            письмо могло попасть не туда, проверьте папку спам
           </div>
         </div>
 
@@ -36,7 +36,7 @@ const VerifyPage = () => {
           padding={10}
         >
           <TextMain
-            text="подтвердите адрес электронной почты"
+            text="подтвердите почту, чтобы войти в профиль"
             style={
               "mb-[24px] text-[21px] font-medium leading-[24.36px] tracking-[-0.84px]"
             }
@@ -59,7 +59,7 @@ const VerifyPage = () => {
           )}
           <ButtonPrimary
             type="submit"
-            text="Найти успешный успех"
+            text="Присоединиться к комьюнити"
             style="mt-[24px] w-full"
             onClick={() => {
               if (code.length > 0)

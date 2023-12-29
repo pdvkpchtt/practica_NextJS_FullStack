@@ -64,7 +64,7 @@ const Feed = ({ getFeed, addReaction, userId }) => {
             />
             <div className="flex flex-col gap-[12px] px-[12px] pb-[12px]">
               <TextMain
-                text={`Заведите связи, чтобы увидеть отобранные для вас новости`}
+                text={`Расширьте сеть знакомств и мы сформируем ленту по вашим предпочтениям`}
                 style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
               />
 

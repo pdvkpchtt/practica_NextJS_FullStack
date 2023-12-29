@@ -18,8 +18,8 @@ const RolePage = async () => {
 
       <div className="flex flex-col gap-[16px] z-10 mt-[15vh] [@media(pointer:coarse)]:mt-[30vh] w-full [@media(hover)]:max-w-[503px]">
         <RoleButton
-          text="Я студент"
-          subtext="Хочу работать в супер компании"
+          text="Я специалист"
+          subtext="Хочу достойный оффер в крутой компании"
           onClick={async () => {
             await finishRegistration("student");
             router.push("/feed");
@@ -27,7 +27,7 @@ const RolePage = async () => {
         />
         <RoleButton
           text="Мы компания"
-          subtext="Хотим найти супер сотрудников"
+          subtext="Хотим стоящего специалиста в команду"
           onClick={async () => {
             await finishRegistration("company");
             router.push("/companyprofile/edit");

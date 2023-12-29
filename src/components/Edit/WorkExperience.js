@@ -100,11 +100,7 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
             />
           </div>
 
-          <div className="flex flex-col">
-            <TextSecondary
-              text="На данный момент я работаю в этой должности"
-              style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
-            />
+          <div className="flex flex-row items-center">
             <CheckBox
               active={item.isStill}
               onClick={() => {
@@ -135,6 +131,10 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
                     )
                   );
               }}
+            />
+            <TextSecondary
+              text="Сейчас работаю на этой должности"
+              style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] ml-[6px]"
             />
           </div>
 
