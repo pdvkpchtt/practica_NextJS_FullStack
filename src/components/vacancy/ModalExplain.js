@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Oval } from "react-loader-spinner";
+import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -34,19 +35,28 @@ const ModalExplain = ({ modalState = false, setModalState = () => {} }) => {
     <>
       <Modal isOpen={modalState} handleClose={() => setModalState(false)}>
         {/* header */}
-        <div className="flex flex-row justify-end pb-[12px] relative">
+        <div className="flex flex-row justify-end [@media(pointer:coarse)]:hidden pb-[12px] relative h-[286px]">
           <Cross2 onClick={() => setModalState(false)} />
 
+          <Image
+            src={"/altGirl.png"}
+            alt={"explain art"}
+            width={1620}
+            height={286}
+            quality={100}
+            unoptimized
+            className="absolute top-[-12px] left-[-12px] min-w-[630px] min-h-[286px] z-[-1]  rounded-t-[20px]"
+          />
           {/* <div className="h-[0.5px] w-[calc(100%+24px)] bg-[#e7e7e7] dark:bg-[#2f2f2f] absolute top-[30px] left-[-12px]" /> */}
         </div>
         {/* header */}
 
         {/* body */}
-        <div className="h-fit w-[360px] mx-auto items-center mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] mb-[-12px] pb-[12px] gap-[32px]">
+        <div className="h-fit w-[360px] [@media(pointer:coarse)]:hidden mx-auto items-center mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] mb-[-12px] pb-[12px] gap-[32px]">
           <TextMain
-            text="Для отклика укажите в профиле контактные данные, чтобы рекрутер смог с вами связаться"
+            text={`Чтобы откликнуться на вакансию,\nнужно указать свои контактные\nданные в профиле`}
             style={
-              "text-[22px] text-center font-medium mx-auto leading-[26px] tracking-[-0.594px]"
+              "text-[22px] text-center whitespace-pre-line font-medium mx-auto leading-[26px] tracking-[-0.594px]"
             }
           />
 
@@ -64,10 +74,20 @@ const ModalExplain = ({ modalState = false, setModalState = () => {} }) => {
 
         {/* body */}
         <div className="mt-[61px] flex flex-col gap-[34px] p-[12px] h-[calc(100%-61px)]">
+          <Image
+            src={"/altGirl.png"}
+            alt={"pitch art"}
+            width={1620}
+            height={286}
+            quality={100}
+            unoptimized
+            className="w-full"
+          />
+
           <TextMain
-            text="Для отклика укажите в профиле контактные данные, чтобы рекрутер смог с вами связаться"
+            text={`Чтобы откликнуться на вакансию,\nнужно указать свои контактные\nданные в профиле`}
             style={
-              "text-[22px] text-center font-medium mx-auto leading-[26px] tracking-[-0.594px]"
+              "text-[22px] text-center whitespace-pre-line font-medium mx-auto leading-[26px] tracking-[-0.594px]"
             }
           />
 

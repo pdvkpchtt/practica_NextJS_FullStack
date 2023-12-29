@@ -33,6 +33,7 @@ import OthersContactsModal from "./OthersContactsModal";
 import SubscrModal from "../../components/Profile/SubscrModal";
 import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 import { getOtherProfileWithTimer } from "../../server/actions/profileTimer/getOtherProfileWithTimer";
+import NoPitchesModal from "../../components/messenger/NoPitchesModal";
 
 import AddFriendIcon from "../../shared/icons/AddFriendIcon";
 import ClockIcon from "../../shared/icons/ClockIcon";
@@ -43,7 +44,6 @@ import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import ContactsIcon from "../../shared/icons/ContactsIcon";
 import PitchesModalOthers from "./PitchesModalOthers";
-import { setFirstTime } from "server/actions/profile/firstTime";
 
 const OthersLeft = ({
   navState,
@@ -79,6 +79,7 @@ const OthersLeft = ({
   const [requestStatus, setRequestStatus] = useState(false);
   const [friendStatus, setFriendStatus] = useState(false);
   const [ifHeSentRequest, setIfHeSentRequest] = useState(false);
+  const [modalExplain, setModalExplain] = useState(false);
   const [loading, setloading] = useState(true);
 
   const allChecks = async () => {
@@ -401,6 +402,10 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   : pitchesState + " " + getNoun(pitchesState)
               }
               onClick={async () => {
+                if (pitchesFirst === 0 || pitchesState === 0) {
+                  setModalExplain(true);
+                  return;
+                }
                 if (isFirstTime === true) {
                   setPitchmodalState(true);
                 } else
@@ -435,6 +440,11 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   : superpitchesState + " супер" + getNoun(superpitchesState)
               }
               onClick={async () => {
+                if (superPitchesFirst === 0 || superpitchesState === 0) {
+                  setModalExplain(true);
+                  return;
+                }
+
                 if (isFirstTime === true) {
                   setPitchmodalState(true);
                 } else
@@ -469,6 +479,11 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   : superpitchesState + " супер" + getNoun(superpitchesState)
               }
               onClick={async () => {
+                if (superPitchesFirst === 0 || superpitchesState === 0) {
+                  setModalExplain(true);
+                  return;
+                }
+
                 if (isFirstTime === true) {
                   setPitchmodalState(true);
                 } else
@@ -647,6 +662,13 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
         setModalState={setModal3State}
       />
       {/* subscr modal */}
+
+      {/* no ptches modal */}
+      <NoPitchesModal
+        modalState={modalExplain}
+        setModalState={setModalExplain}
+      />
+      {/* no ptches modal */}
     </>
   );
 };

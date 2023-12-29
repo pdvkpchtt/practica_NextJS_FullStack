@@ -48,7 +48,7 @@ const ContactsModal = ({
     <>
       <Modal isOpen={modalState} handleClose={() => setModalState(false)}>
         {/* header */}
-        <div className="flex flex-row justify-end pb-[12px] relative">
+        <div className="flex flex-row justify-end pb-[12px] [@media(pointer:coarse)]:hidden relative">
           <Cross2 onClick={() => setModalState(false)} />
 
           {/* <div className="h-[0.5px] w-[calc(100%+24px)] bg-[#e7e7e7] dark:bg-[#2f2f2f] absolute top-[30px] left-[-12px]" /> */}
@@ -56,7 +56,7 @@ const ContactsModal = ({
         {/* header */}
 
         {/* body */}
-        <div className="h-fit mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px]">
+        <div className="h-fit mt-[12px] flex flex-col [@media(pointer:coarse)]:hidden overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px]">
           {phone && phoneVerified && !isEdit && (
             <>
               <TextMain

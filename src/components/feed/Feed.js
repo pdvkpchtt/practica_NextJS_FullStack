@@ -1,6 +1,8 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { Waypoint } from "react-waypoint";
 
@@ -10,6 +12,7 @@ import { ModalContext } from "./ModalContext";
 import { LayoutGroup } from "framer-motion";
 import Card from "../../shared/ui/Card";
 import TextMain from "../../shared/Text/TextMain ";
+import CardOpacity from "../../shared/ui/CardOpacity";
 
 const Feed = ({ getFeed, addReaction, userId }) => {
   const pathname = usePathname();
@@ -48,11 +51,35 @@ const Feed = ({ getFeed, addReaction, userId }) => {
     <>
       <LayoutGroup>
         {done && pathname.includes("foryou") && posts.length === 0 && (
-          <Card style={"flex justify-center text-center"}>
-            <TextMain
-              text={`Расширьте свою сеть нетворкинга`}
-              style="text-[14px] font-medium leading-[18px] tracking-[-0.013em]"
+          <Card style={"flex flex-col justify-center gap-[16px]"} padding={0}>
+            <Image
+              src={"/artFeed.png"}
+              width={805}
+              height={200}
+              alt="feed art"
+              quality={100}
+              unoptimized
+              loading="lazy"
+              className="w-full"
             />
+            <div className="flex flex-col gap-[12px] px-[12px] pb-[12px]">
+              <TextMain
+                text={`Заведите связи, чтобы увидеть отобранные для вас новости`}
+                style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
+              />
+
+              <Link href="/search/people" className="w-fit">
+                <CardOpacity
+                  padding={12}
+                  styled="cursor-pointer w-fit"
+                  rounded={16}
+                >
+                  <p className="text-[16px] font-medium leading-[19px] tracking-[-0.24px] text-[#5875e8] group-hover:text-[#3A56C5] group-active:text-[#2C429C]">
+                    Перейти в поиск
+                  </p>
+                </CardOpacity>
+              </Link>
+            </div>
           </Card>
         )}
         {posts.map((item) => (

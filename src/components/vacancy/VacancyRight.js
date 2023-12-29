@@ -37,7 +37,7 @@ const VacancyRight = ({ data, role = "student", userId }) => {
       {/* header */}
       <div
         className={`${
-          modalState
+          modalState || modalExplain
             ? "[@media(pointer:coarse)]:z-[-1]"
             : "[@media(pointer:coarse)]:z-[300]"
         } [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:left-0 [@media(pointer:coarse)]:rounded-t-[0px] border-b-[0.7px] border-b-[#E7E7E7] bg-white dark:bg-[#212122] dark:border-b-[#2f2f2f] rounded-t-[20px] p-[12px]`}

@@ -26,10 +26,12 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
           <Cross2 onClick={() => setModalState(false)} />
 
           <Image
-            src={"/PitchArt.png"}
+            src={"/artPitch.png"}
             alt={"pitch art"}
-            width={630}
-            height={182}
+            width={1344}
+            height={384}
+            quality={100}
+            unoptimized
             className="absolute top-[-12px] left-[-12px] min-w-[630px] min-h-[182px] z-[-1]  rounded-t-[20px]"
           />
           {/* <div className="h-[0.5px] w-[calc(100%+24px)] bg-[#e7e7e7] dark:bg-[#2f2f2f] absolute top-[30px] left-[-12px]" /> */}
@@ -38,7 +40,7 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
 
         {/* body */}
         <div className="h-fit mt-[12px] flex flex-col [@media(pointer:coarse)]:hidden overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px] gap-[34px]">
-          <div className="flex flex-col">
+          <div className="flex flex-col [@media(pointer:coarse)]:hidden">
             <div className="flex flex-row gap-[4px] items-center">
               <PitchIcon black blue={false} />
 
@@ -205,10 +207,12 @@ const PitchesModal = ({ modalState = false, setModalState = () => {} }) => {
         <div className="mt-[61px] flex flex-col gap-[34px] overflow-y-scroll h-[calc(100%-61px)]">
           <div className="flex flex-col">
             <Image
-              src={"/PitchArt.png"}
+              src={"/artPitch.png"}
               alt={"pitch art"}
-              width={630}
-              height={182}
+              width={1344}
+              height={384}
+              quality={100}
+              unoptimized
               className="w-full mb-[12px]"
             />
 

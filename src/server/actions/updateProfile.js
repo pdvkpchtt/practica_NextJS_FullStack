@@ -37,7 +37,9 @@ export const updateProfile = async ({ userId, data }) => {
             value
           ),
         { message: "inputBirth бля" }
-      ),
+      )
+      .optional()
+      .or(z.literal("")),
   });
 
   const validateRes = validate.safeParse({

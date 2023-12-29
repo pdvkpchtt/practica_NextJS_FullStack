@@ -45,7 +45,7 @@ const NoPitchesModal = ({
             onClick={() => router.push("/subscriptions")}
             className="bg-[#5875e8] px-[16px] py-[12px] w-fit hover:bg-[#3A56C5] cursor-pointer rounded-[16px] active:bg-[#2C429C] transition duration-[250ms] text-[#fff] font-medium text-[16px] tracking-[-0.24px] leading-[19px]"
           >
-            Получить больше :{")"}
+            Получить больше
           </button>
         </div>
         {/* body */}
@@ -69,7 +69,7 @@ const NoPitchesModal = ({
             onClick={() => router.push("/subscriptions")}
             className="bg-[#5875e8] px-[16px] py-[12px] w-fit hover:bg-[#3A56C5] cursor-pointer rounded-[16px] active:bg-[#2C429C] transition duration-[250ms] text-[#fff] font-medium text-[16px] tracking-[-0.24px] leading-[19px]"
           >
-            Получить больше :{")"}
+            Получить больше
           </button>
         </div>
         {/* body */}
