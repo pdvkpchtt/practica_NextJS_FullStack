@@ -7,6 +7,7 @@ import AuthLayout from '../layouts/AuthLayout'
 import Layout from '../layouts/Layout'
 import Header from '../shared/ui/Header'
 import BottomNav from '../shared/ui/BottomNav'
+import Script from 'next/script'
 
 export const metadata = {
 	title: 'Practica',
@@ -27,10 +28,10 @@ export default async function RootLayout({ children }) {
 					content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'
 				/>
 				<meta name='HandheldFriendly' content='true' />
-                                <meta name="yandex-verification" content="76f3eafd299bf6ab" />
+				<meta name='yandex-verification' content='76f3eafd299bf6ab' />
 			</head>
-                        <script type="text/javascript" >
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+			<Script type='text/javascript'>
+				{`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();
    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
@@ -42,9 +43,17 @@ export default async function RootLayout({ children }) {
         accurateTrackBounce:true,
         webvisor:true,
         trackHash:true
-   });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/96032500" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+   });`}
+			</Script>
+			<noscript>
+				<div>
+					<img
+						src='https://mc.yandex.ru/watch/96032500'
+						style='position:absolute; left:-9999px;'
+						alt=''
+					/>
+				</div>
+			</noscript>
 
 			<body
 				className={`bg-[#f6f6f8] ${
