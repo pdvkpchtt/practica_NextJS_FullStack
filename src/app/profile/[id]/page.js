@@ -62,6 +62,7 @@ const OthersProfilePage = async ({ params: { id } }) => {
         ifChatExist={ifChatExist}
         isFirstTime={isFirstTime}
         otherId={data.id}
+        userId={session?.user?.id}
         data={data}
         getUserFeed={getUserFeed}
         addReaction={addReaction}

@@ -214,7 +214,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                 onClick={() => {
                   toast(`🗂 Текст скопирован`, {
                     position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
+                    autoClose: 4000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
@@ -524,7 +524,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
 
                   toast(`🚫 Пользователь удалён из друзей`, {
                     position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
+                    autoClose: 4000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
@@ -546,7 +546,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   await cancelFriendRequest(data?.id);
                   toast(`🙅 Заявка в друзья отменена`, {
                     position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
+                    autoClose: 4000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
@@ -573,7 +573,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                     // setRequestStatus(true);
                     toast(`🌐 Заявка в друзья отправлена`, {
                       position: isMobile ? "top-center" : "bottom-right",
-                      autoClose: 2000,
+                      autoClose: 4000,
                       hideProgressBar: true,
                       closeOnClick: true,
                       pauseOnHover: false,
@@ -597,7 +597,7 @@ transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@m
                   router.refresh();
                   toast(`🤝 Заявка принята`, {
                     position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
+                    autoClose: 4000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,

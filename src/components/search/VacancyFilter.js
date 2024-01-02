@@ -127,7 +127,7 @@ const VacancyFilter = ({
                 if (updateVacancies.area.length === 0)
                   toast(`🔍 выберите сферу`, {
                     position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
+                    autoClose: 4000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
@@ -226,7 +226,7 @@ const VacancyFilter = ({
               if (updateVacancies.area.length === 0)
                 toast(`🔍 выберите сферу`, {
                   position: isMobile ? "top-center" : "bottom-right",
-                  autoClose: 2000,
+                  autoClose: 4000,
                   hideProgressBar: true,
                   closeOnClick: true,
                   pauseOnHover: false,

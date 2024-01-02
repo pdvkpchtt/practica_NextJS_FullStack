@@ -302,7 +302,7 @@ const CreatePostModal = ({
 
                     //   toast(`🦄 Scroll to post?`, {
                     //     position: isMobile ? "top-center" : "bottom-center",
-                    //     autoClose: 2000,
+                    //     autoClose: 4000,
                     //     hideProgressBar: false,
                     //     closeOnClick: true,
                     //     pauseOnHover: false,
@@ -421,7 +421,7 @@ const CreatePostModal = ({
                       // if (isMobile)
                       //   toast(`🦄 Scroll to post?`, {
                       //     position: isMobile ? "top-center" : "bottom-center",
-                      //     autoClose: 2000,
+                      //     autoClose: 4000,
                       //     hideProgressBar: false,
                       //     closeOnClick: true,
                       //     pauseOnHover: false,

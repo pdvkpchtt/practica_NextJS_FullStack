@@ -141,7 +141,7 @@ const OthersCompanyLeft = ({ navState, data }) => {
               onClick={() => {
                 toast(`🗂 Текст скопирован`, {
                   position: isMobile ? "top-center" : "bottom-right",
-                  autoClose: 2000,
+                  autoClose: 4000,
                   hideProgressBar: true,
                   closeOnClick: true,
                   pauseOnHover: false,
@@ -303,7 +303,7 @@ const OthersCompanyLeft = ({ navState, data }) => {
                   await followCompany(data.user.id);
                   toast(`🔔 Вы подписались`, {
                     position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
+                    autoClose: 4000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
@@ -325,7 +325,7 @@ const OthersCompanyLeft = ({ navState, data }) => {
                   await unfollowCompany(data.user.id);
                   toast(`🔕 Вы отписались`, {
                     position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
+                    autoClose: 4000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,

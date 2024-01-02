@@ -30,7 +30,7 @@ const RolePage = async () => {
           subtext="Хотим стоящего специалиста в команду"
           onClick={async () => {
             await finishRegistration("company");
-            router.push("/companyprofile/edit");
+            router.push("/feed");
           }}
         />
       </div>

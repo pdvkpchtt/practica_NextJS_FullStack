@@ -356,7 +356,7 @@ const EditCompanyLeft = ({
                   else {
                     toast(`📧 Приглашение отправлено на email`, {
                       position: isMobile ? "top-center" : "bottom-right",
-                      autoClose: 2000,
+                      autoClose: 4000,
                       hideProgressBar: true,
                       closeOnClick: true,
                       pauseOnHover: false,

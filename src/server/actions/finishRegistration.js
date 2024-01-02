@@ -4,9 +4,11 @@ import { uuid } from "uuidv4";
 import { getServSession } from "../../app/api/auth/[...nextauth]/route";
 import { generateNames } from "../../shared/utils/generateNames";
 import { prisma } from "../db";
+import { uniqueNamesGenerator, NumberDictionary } from "unique-names-generator";
 
 export const finishRegistration = async (inputRole) => {
   const session = await getServSession();
+  const numberDictionary = NumberDictionary.generate({ min: 0, max: 999 });
 
   // const { role, email, name, id } = await prisma.user.findFirst({
   //   where: { id: session.user.id },
@@ -43,15 +45,25 @@ export const finishRegistration = async (inputRole) => {
     return user;
   }
 
+  const compName = generateNames();
+
   const company = await prisma.company.upsert({
     where: { userId: session.user.id },
     update: {
-      name: generateNames(),
+      name: compName,
       username: session.user.id,
     },
     create: {
-      name: generateNames(),
-      username: session.user.id,
+      name: compName,
+      username: uniqueNamesGenerator({
+        dictionaries: [
+          [compName.split(" ")[0]],
+          [compName.split(" ")[1]],
+          numberDictionary,
+        ],
+        length: 3,
+        separator: "",
+      }),
       user: { connect: { id: session.user.id } },
     },
     select: {
@@ -77,7 +89,7 @@ export const finishRegistration = async (inputRole) => {
       id: session.user.id,
     },
     data: {
-      role: "hr_no_nickname",
+      role: "hr",
       name: name.split(" ")[0],
       lastname: name.split(" ")[1],
       fullname: name.split(" ")[0] + " " + name.split(" ")[1],

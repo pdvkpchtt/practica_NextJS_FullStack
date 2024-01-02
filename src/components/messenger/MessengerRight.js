@@ -148,7 +148,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                 onClick={() => {
                   toast(`🗂 Текст скопирован`, {
                     position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
+                    autoClose: 4000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
@@ -359,7 +359,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                   await removeConnection(profileData.id);
                   toast(`🚫 Пользователь удалён из друзей`, {
                     position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
+                    autoClose: 4000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
@@ -390,7 +390,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                       await cancelFriendRequest(profileData.id);
                       toast(`🙅 Заявка в друзья отменена`, {
                         position: isMobile ? "top-center" : "bottom-right",
-                        autoClose: 2000,
+                        autoClose: 4000,
                         hideProgressBar: true,
                         closeOnClick: true,
                         pauseOnHover: false,
@@ -421,7 +421,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                       await sendFriendRequest(profileData.id);
                       toast(`🌐 Заявка в друзья отправлена`, {
                         position: isMobile ? "top-center" : "bottom-right",
-                        autoClose: 2000,
+                        autoClose: 4000,
                         hideProgressBar: true,
                         closeOnClick: true,
                         pauseOnHover: false,
@@ -453,7 +453,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                       await addConnection(profileData.id);
                       toast(`🤝 Заявка принята`, {
                         position: isMobile ? "top-center" : "bottom-right",
-                        autoClose: 2000,
+                        autoClose: 4000,
                         hideProgressBar: true,
                         closeOnClick: true,
                         pauseOnHover: false,

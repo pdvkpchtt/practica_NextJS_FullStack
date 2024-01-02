@@ -19,11 +19,11 @@ const AuthLayout = async ({ children }) => {
     return redirect("/auth/role");
   }
 
-  if (
-    session?.user?.role === "hr_no_nickname" &&
-    fullUrl !== "/companyprofile/edit"
-  )
-    return redirect("/companyprofile/edit");
+  // if (
+  //   session?.user?.role === "hr_no_nickname" &&
+  //   fullUrl !== "/companyprofile/edit"
+  // )
+  //   return redirect("/companyprofile/edit");
 
   if (
     session?.user?.role &&

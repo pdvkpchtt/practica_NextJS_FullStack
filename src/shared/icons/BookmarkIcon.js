@@ -30,7 +30,7 @@ const BookmarkIcon = ({ fill = "#5875e8", item, userId }) => {
         if (check !== 0) {
           toast(`⭐️ Добавлено в избранное`, {
             position: isMobile ? "top-center" : "bottom-right",
-            autoClose: 1000,
+            autoClose: 4000,
             hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: false,
@@ -46,7 +46,7 @@ const BookmarkIcon = ({ fill = "#5875e8", item, userId }) => {
           await removeBookmark(item.id);
           toast(`🗑 Убрано из избранного`, {
             position: isMobile ? "top-center" : "bottom-right",
-            autoClose: 2000,
+            autoClose: 4000,
             hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: false,

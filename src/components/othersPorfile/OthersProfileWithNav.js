@@ -15,6 +15,7 @@ const OthersProfileWithNav = ({
   getUserFeed,
   addReaction,
   otherId,
+  userId,
   ifChatExist,
   pitchesFirst,
   superPitchesFirst,
@@ -44,7 +45,12 @@ const OthersProfileWithNav = ({
       active: false,
       name: "Оценено",
       component: (
-        <ProfileLiked otherId={otherId} others addReaction={addReaction} />
+        <ProfileLiked
+          otherId={otherId}
+          others
+          addReaction={addReaction}
+          userId={userId}
+        />
       ),
     },
   ]);

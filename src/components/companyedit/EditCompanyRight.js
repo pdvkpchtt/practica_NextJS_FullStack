@@ -34,7 +34,7 @@ const EditCompanyRight = ({
     if (dataToUpdate.role === "hr_no_nickname") {
       toast(`🤡 Измените username`, {
         position: isMobile ? "top-center" : "bottom-right",
-        autoClose: 2000,
+        autoClose: 10000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: false,
@@ -96,7 +96,7 @@ const EditCompanyRight = ({
                 if (!res) {
                   toast(`💾 Изменения сохранены`, {
                     position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
+                    autoClose: 4000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,
@@ -115,7 +115,7 @@ const EditCompanyRight = ({
                   setLittleLoader(false);
                   toast(`🙇 Cорри, что-то пропущено`, {
                     position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 2000,
+                    autoClose: 4000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: false,

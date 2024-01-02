@@ -93,7 +93,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
               if (!res) {
                 toast(`💼 Вакансия создана`, {
                   position: isMobile ? "top-center" : "bottom-right",
-                  autoClose: 2000,
+                  autoClose: 4000,
                   hideProgressBar: true,
                   closeOnClick: true,
                   pauseOnHover: false,
@@ -129,7 +129,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                 setLittleLoader(false);
                 toast(`🙇 Cорри, что-то пропущено`, {
                   position: isMobile ? "top-center" : "bottom-right",
-                  autoClose: 2000,
+                  autoClose: 4000,
                   hideProgressBar: true,
                   closeOnClick: true,
                   pauseOnHover: false,
@@ -550,7 +550,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                       if (dataToUpdate?.vacArea?.length === 0)
                         toast(`🔍 выберите сферу`, {
                           position: isMobile ? "top-center" : "bottom-right",
-                          autoClose: 2000,
+                          autoClose: 4000,
                           hideProgressBar: true,
                           closeOnClick: true,
                           pauseOnHover: false,
@@ -630,7 +630,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                         if (dataToUpdate.vacArea.length === 0)
                           toast(`🔍 выберите сферу`, {
                             position: isMobile ? "top-center" : "bottom-right",
-                            autoClose: 2000,
+                            autoClose: 4000,
                             hideProgressBar: true,
                             closeOnClick: true,
                             pauseOnHover: false,
