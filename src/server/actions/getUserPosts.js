@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "../db";
 
 export const getUserPosts = async (id, cursor, yourId) => {
@@ -12,19 +14,25 @@ export const getUserPosts = async (id, cursor, yourId) => {
           name: true,
           lastname: true,
           id: true,
-          username: true,
           image: true,
-          HR: { select: { company: { select: { username: true } } } },
+          username: true,
           role: true,
+          HR: { select: { company: { select: { id: true, username: true } } } },
           Company: {
             select: {
               id: true,
               name: true,
               userId: true,
-              username: true,
               image: true,
+              username: true,
             },
           },
+        },
+      },
+      category: {
+        select: {
+          id: true,
+          name: true,
         },
       },
       Reaction: { select: { type: true, userId: true } },
@@ -83,12 +91,14 @@ export const getUserPosts = async (id, cursor, yourId) => {
       title: post.title,
       reactions,
       text: post.text,
+      hrCompanyId: post.user?.HR[0]?.company?.id,
+      hrCompanyUsername: post.user?.HR[0]?.company?.username,
       role: post.user.role,
       isHrCompanyId:
         post.user?.HR[0]?.company?.username !== null
           ? post.user?.HR[0]?.company?.username
           : post.user?.HR[0]?.company?.id,
-      role: post.user.role,
+      category: post.category,
     };
   });
 

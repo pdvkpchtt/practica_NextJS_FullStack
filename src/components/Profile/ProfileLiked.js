@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Waypoint } from "react-waypoint";
+import { LayoutGroup } from "framer-motion";
 
 import CustomLoader from "../../shared/ui/CustomLoader";
 import TextMain from "../../shared/Text/TextMain ";
@@ -16,6 +17,7 @@ const ProfileLiked = ({
   company = false,
   otherId,
   addReaction,
+  userId,
 }) => {
   const [cursor, setCursor] = useState("");
   const [hasNextPage, setHasNextPage] = useState(true);
@@ -45,7 +47,7 @@ const ProfileLiked = ({
   }, [getRated]);
 
   return (
-    <>
+    <LayoutGroup>
       {!posts ? (
         <div className="w-full flex justify-center items-center h-full">
           <CustomLoader diameter={36} />
@@ -69,6 +71,7 @@ const ProfileLiked = ({
         <>
           {posts.map((item) => (
             <Post
+              userId={userId}
               key={item?.id}
               item={item}
               addReaction={addReaction}
@@ -91,7 +94,7 @@ const ProfileLiked = ({
           ) : null}
         </>
       )}
-    </>
+    </LayoutGroup>
   );
 };
 

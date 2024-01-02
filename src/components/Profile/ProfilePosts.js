@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Waypoint } from "react-waypoint";
+import { LayoutGroup } from "framer-motion";
 
 import Card from "../../shared/ui/Card";
 import CustomLoader from "../../shared/ui/CustomLoader";
@@ -13,6 +14,7 @@ const ProfilePosts = ({
   addReaction,
   others = false,
   company = false,
+  userId,
 }) => {
   const [posts, setPosts] = useState(null);
   const [cursor, setCursor] = useState("");
@@ -45,50 +47,53 @@ const ProfilePosts = ({
 
   return (
     <>
-      {!posts ? (
-        <div className="w-full flex justify-center items-center h-full">
-          <CustomLoader diameter={36} />
-        </div>
-      ) : posts?.length === 0 ? (
-        <Card style={"flex justify-center"}>
-          <div className="items-center flex flex-col gap-[24px] justify-center w-full text-center ">
-            <TextMain
-              text={
-                !company
-                  ? `У ${!others ? "вас" : "пользователя"} пока нет постов`
-                  : `У компании пока нет постов`
-              }
-              style="text-[14px] font-medium leading-[18px] tracking-[-0.013em]"
-            />
+      <LayoutGroup>
+        {!posts ? (
+          <div className="w-full flex justify-center items-center h-full">
+            <CustomLoader diameter={36} />
           </div>
-        </Card>
-      ) : (
-        <>
-          {posts.map((item) => (
-            <Post
-              key={item?.id}
-              item={item}
-              addReaction={addReaction}
-              selectedId={selectedId}
-              setSelectedId={(val) => setSelectedId(val)}
-            />
-          ))}
+        ) : posts?.length === 0 ? (
+          <Card style={"flex justify-center"}>
+            <div className="items-center flex flex-col gap-[24px] justify-center w-full text-center ">
+              <TextMain
+                text={
+                  !company
+                    ? `У ${!others ? "вас" : "пользователя"} пока нет постов`
+                    : `У компании пока нет постов`
+                }
+                style="text-[14px] font-medium leading-[18px] tracking-[-0.013em]"
+              />
+            </div>
+          </Card>
+        ) : (
+          <>
+            {posts.map((item) => (
+              <Post
+                userId={userId}
+                key={item?.id}
+                item={item}
+                addReaction={addReaction}
+                selectedId={selectedId}
+                setSelectedId={(val) => setSelectedId(val)}
+              />
+            ))}
 
-          {hasNextPage ? (
-            <Waypoint
-              onEnter={async () => {
-                console.log("Enter waypoint");
-                await getPosts(cursor);
-              }}
-              topOffset="50px"
-            >
-              <div className="w-full flex  justify-center items-center h-full">
-                <CustomLoader diameter={36} />
-              </div>
-            </Waypoint>
-          ) : null}
-        </>
-      )}
+            {hasNextPage ? (
+              <Waypoint
+                onEnter={async () => {
+                  console.log("Enter waypoint");
+                  await getPosts(cursor);
+                }}
+                topOffset="50px"
+              >
+                <div className="w-full flex  justify-center items-center h-full">
+                  <CustomLoader diameter={36} />
+                </div>
+              </Waypoint>
+            ) : null}
+          </>
+        )}
+      </LayoutGroup>
     </>
   );
 };

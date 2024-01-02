@@ -34,7 +34,11 @@ const Profile = ({
       active: false,
       name: "Посты",
       component: (
-        <ProfilePosts getUserFeed={getUserFeed} addReaction={addReaction} />
+        <ProfilePosts
+          getUserFeed={getUserFeed}
+          addReaction={addReaction}
+          userId={userId}
+        />
       ),
     },
     {
@@ -48,7 +52,7 @@ const Profile = ({
       id: 3,
       active: false,
       name: "Оценено",
-      component: <ProfileLiked addReaction={addReaction} />,
+      component: <ProfileLiked addReaction={addReaction} userId={userId} />,
     },
   ]);
 
