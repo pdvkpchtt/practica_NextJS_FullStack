@@ -127,8 +127,8 @@ model Plan {
 
 model VacancyReply {
   id        String  @id @default(cuid())
-  user      User    @relation(fields: [userId], references: [id])
-  vacancy   Vacancy @relation(fields: [vacancyId], references: [id])
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vacancy   Vacancy @relation(fields: [vacancyId], references: [id], onDelete: Cascade)
   message   String?
   file      File[]
   messages  Message[]

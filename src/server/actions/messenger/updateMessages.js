@@ -35,6 +35,7 @@ const updateMessages = async (
         { type: "vacancyReply" },
         { createdAt: { gte: new Date(d2.toString()).toISOString() } },
       ],
+      NOT: [{ vacancyReplyId: null }],
     },
     select: {
       id: true,

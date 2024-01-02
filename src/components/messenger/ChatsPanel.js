@@ -459,7 +459,8 @@ const ChatsPanel = ({ chatId, user_id, profileData, setTimer, timer }) => {
           className={`pt-[11.3px] pb-[12px] p-[12px] flex flex-row gap-[8px] border-t-[0.7px] bg-white dark:bg-[#212122] [@media(pointer:coarse)]:hidden [@media(hover)]:rounded-b-[20px] ${"border-t-[#e7e7e7] dark:border-t-[#282828]"}`}
         >
           {dataStateMessages?.length > 0 &&
-          dataStateMessages[0]?.type === "vacancyReply" ? (
+          dataStateMessages[0]?.type === "vacancyReply" &&
+          dataStateMessages[0]?.vacancyReply !== null ? (
             <HRsBottomButtons
               myMessage={dataStateMessages[0]?.myMessage}
               onLeftClick={async () => {
@@ -577,7 +578,8 @@ const ChatsPanel = ({ chatId, user_id, profileData, setTimer, timer }) => {
         >
           <div className="items-center flex flex-row w-full gap-[8px] max-w-[468px] max-auto">
             {dataStateMessages?.length > 0 &&
-            dataStateMessages[0]?.type === "vacancyReply" ? (
+            dataStateMessages[0]?.type === "vacancyReply" &&
+            dataStateMessages[0]?.vacancyReply !== null ? (
               <HRsBottomButtons myMessage={dataStateMessages[0]?.myMessage} />
             ) : (
               <>
