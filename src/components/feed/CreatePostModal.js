@@ -316,13 +316,48 @@ const CreatePostModal = ({
 
                     setSlideToTop(false);
                     setReactitons([
-                      { type: "fire", ...fire, active: false },
-                      { type: "big_thumb", ...big_thumb, active: true },
-                      { type: "thumb_down", ...thumb_down, active: false },
-                      { type: "blow_my_mind", ...blow_my_mind, active: false },
-                      { type: "smile", ...smile, active: false },
-                      { type: "cry", ...cry, active: false },
-                      { type: "clown", ...clown, active: false },
+                      {
+                        type: "fire",
+                        icon: <Fire size={30} />,
+                        iconMobile: <FireBig />,
+                        active: false,
+                      },
+                      {
+                        type: "big_thumb",
+                        icon: <BigThumb size={30} />,
+                        iconMobile: <BigThumbBig />,
+                        active: true,
+                      },
+                      {
+                        type: "thumb_down",
+                        icon: <ThumbDown size={30} />,
+                        iconMobile: <ThumbDownBig />,
+                        active: false,
+                      },
+                      {
+                        type: "blow_my_mind",
+                        icon: <BlowMyMind size={30} />,
+                        iconMobile: <BlowMyMindBig />,
+                        active: false,
+                      },
+                      {
+                        type: "smile",
+                        icon: <Smile size={30} />,
+                        iconMobile: <SmileBig />,
+                        active: false,
+                      },
+                      {
+                        type: "cry",
+                        icon: <Cry size={30} />,
+                        iconMobile: <CryBig />,
+                        active: false,
+                      },
+                      {
+                        type: "clown",
+                        icon: <Clown size={30} />,
+                        iconMobile: <ClownBig />,
+                        active: false,
+                      },
                     ]);
                   }
                 : () => {}
@@ -402,17 +437,48 @@ const CreatePostModal = ({
 
                       setSlideToTop(false);
                       setReactitons([
-                        { type: "fire", ...fire, active: false },
-                        { type: "big_thumb", ...big_thumb, active: true },
-                        { type: "thumb_down", ...thumb_down, active: false },
                         {
-                          type: "blow_my_mind",
-                          ...blow_my_mind,
+                          type: "fire",
+                          icon: <Fire size={30} />,
+                          iconMobile: <FireBig />,
                           active: false,
                         },
-                        { type: "smile", ...smile, active: false },
-                        { type: "cry", ...cry, active: false },
-                        { type: "clown", ...clown, active: false },
+                        {
+                          type: "big_thumb",
+                          icon: <BigThumb size={30} />,
+                          iconMobile: <BigThumbBig />,
+                          active: true,
+                        },
+                        {
+                          type: "thumb_down",
+                          icon: <ThumbDown size={30} />,
+                          iconMobile: <ThumbDownBig />,
+                          active: false,
+                        },
+                        {
+                          type: "blow_my_mind",
+                          icon: <BlowMyMind size={30} />,
+                          iconMobile: <BlowMyMindBig />,
+                          active: false,
+                        },
+                        {
+                          type: "smile",
+                          icon: <Smile size={30} />,
+                          iconMobile: <SmileBig />,
+                          active: false,
+                        },
+                        {
+                          type: "cry",
+                          icon: <Cry size={30} />,
+                          iconMobile: <CryBig />,
+                          active: false,
+                        },
+                        {
+                          type: "clown",
+                          icon: <Clown size={30} />,
+                          iconMobile: <ClownBig />,
+                          active: false,
+                        },
                       ]);
                     }
                   : () => {}
