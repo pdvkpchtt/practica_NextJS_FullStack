@@ -224,15 +224,26 @@ const LandingPage = () => {
             <p className="text-[#5E5E5E] text-[16px] font-normal leading-[19px] mb-[24px] tracking-[-0.32px]">
               {item.subtitle}
             </p>
-            <Image
-              width={1420}
-              height={878}
-              src={item.img}
-              quality={100}
-              priority
-              unoptimized
-              alt="landing first"
-            />
+            {key === 0 ? (
+              <video
+                className="rounded-[30px] shadow-2xl w-[963px] h-[496px]"
+                muted
+                autoPlay
+                loop
+              >
+                <source src="/loopa.mp4" type="video/mp4" />
+              </video>
+            ) : (
+              <Image
+                width={1420}
+                height={878}
+                src={item.img}
+                quality={100}
+                priority
+                unoptimized
+                alt="landing first"
+              />
+            )}
           </div>
         ))}
 
