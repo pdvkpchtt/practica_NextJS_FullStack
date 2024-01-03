@@ -79,9 +79,7 @@ const MessengerRight = ({
         : `${d.getHours() < 10 ? "0" + d.getHours() : d.getHours()} ${getNoun3(
             d.getHours() < 10 ? "0" + d.getHours() : d.getHours()
           )}`
-    }  ${
-      d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()
-    } ${getNoun4(d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes())}`;
+    }  ${d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()} мин.`;
   };
 
   const getNoun = (dig) => {

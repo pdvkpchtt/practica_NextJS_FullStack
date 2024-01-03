@@ -33,7 +33,16 @@ export const finishRegistration = async (inputRole) => {
         name: name.split(" ")[0],
         lastname: name.split(" ")[1],
         fullname: name.split(" ")[0] + " " + name.split(" ")[1],
-        username: session.user.id,
+        username: uniqueNamesGenerator({
+          dictionaries: [
+            [name.split(" ")[0]],
+            [name.split(" ")[1]],
+            numberDictionary,
+          ],
+          length: 3,
+          separator: "",
+        }),
+        educationLevel: { connect: { id: "clnwyikrr00819rnkylzwsojh" } },
         plan: {
           connect: {
             id: "cloe5d9670000viko6sm3k870",
@@ -93,7 +102,17 @@ export const finishRegistration = async (inputRole) => {
       name: name.split(" ")[0],
       lastname: name.split(" ")[1],
       fullname: name.split(" ")[0] + " " + name.split(" ")[1],
-      username: session.user.id,
+      username: name.split(" ")[0] + " " + name.split(" ")[1],
+      username: uniqueNamesGenerator({
+        dictionaries: [
+          [name.split(" ")[0]],
+          [name.split(" ")[1]],
+          numberDictionary,
+        ],
+        length: 3,
+        separator: "",
+      }),
+      educationLevel: { connect: { id: "clnwyikrr00819rnkylzwsojh" } },
       plan: {
         connect: {
           id: "cloe5d9670000viko6sm3k870",

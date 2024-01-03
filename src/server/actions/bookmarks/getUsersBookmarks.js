@@ -26,7 +26,10 @@ export const getUsersBookmarks = async (userId, cursor) => {
           waitings: true,
           salaryStart: true,
           salaryEnd: true,
-          VacancyReply: { select: { userId: true } },
+          VacancyReply: {
+            select: { userId: true, status: true },
+            where: { userId: session?.user?.id },
+          },
           format: {
             select: {
               id: true,

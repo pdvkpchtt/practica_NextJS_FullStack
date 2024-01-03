@@ -140,7 +140,7 @@ model VacancyReply {
 
 model File {
   id     String @id @default(cuid())
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   vacancyReplyId String?
   vacancyReply   VacancyReply? @relation(fields: [vacancyReplyId], references: [id])
   path   String

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import InputMask from "react-input-mask";
+import { useSession } from "next-auth/react";
 
 import Card from "../../shared/ui/Card";
 import { Input } from "../../shared/ui/Input";
@@ -23,6 +24,7 @@ const EditLeft = ({
   setStatus,
 }) => {
   const router = useRouter();
+  const { update } = useSession();
 
   console.log(status?.includes("inputBirth"), status, "fuck this");
 
@@ -250,7 +252,7 @@ const EditLeft = ({
         isOpen={bottomModal}
         handleClose={() => {
           setBottomModal(false);
-          router.refresh();
+          update();
         }}
       />
     </div>

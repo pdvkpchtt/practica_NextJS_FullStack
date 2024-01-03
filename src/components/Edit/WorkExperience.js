@@ -100,44 +100,6 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
             />
           </div>
 
-          <div className="flex flex-row items-center">
-            <CheckBox
-              active={item.isStill}
-              onClick={() => {
-                if (item.isStill === true)
-                  setWorkState(
-                    workState.map((i, index) =>
-                      index === key
-                        ? {
-                            ...i,
-                            isStill: false,
-                            end_month: null,
-                            end_year: null,
-                          }
-                        : i
-                    )
-                  );
-                else
-                  setWorkState(
-                    workState.map((i, index) =>
-                      index === key
-                        ? {
-                            ...i,
-                            isStill: true,
-                            end_month: "Месяц",
-                            end_year: "Год",
-                          }
-                        : i
-                    )
-                  );
-              }}
-            />
-            <TextSecondary
-              text="Сейчас работаю на этой должности"
-              style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] ml-[6px]"
-            />
-          </div>
-
           <div className="flex flex-row gap-[32px] items-center [@media(pointer:coarse)]:flex-col [@media(pointer:coarse)]:gap-[16px]">
             <div className="flex flex-col gap-[6px] w-full ">
               <TextSecondary
@@ -188,6 +150,7 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
                   )
                 }
               />
+
               {item.isStill === true && (
                 <div className="absolute w-full h-full z-[50]" />
               )}
@@ -195,40 +158,124 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
           </div>
 
           {key + 1 == workState.length ? (
-            <div className="flex flex-row gap-[8px]">
-              <ButtonSecondary
-                small
-                text="Добавить"
-                style="w-fit px-[12px]"
-                onClick={() =>
-                  setWorkState([
-                    ...workState,
-                    {
-                      id: uuid(),
-                    },
-                  ])
-                }
-              >
-                <PlusIcon />
-              </ButtonSecondary>
-              <ButtonSecondary
-                style="w-fit px-[12px]"
-                small
-                text=""
-                onClick={() => deleteHandler(item.id, setWorkState, workState)}
-              >
-                <TrashIcon />
-              </ButtonSecondary>
+            <div className="w-full flex [@media(hover)]:flex-row [@media(pointer:coarse)]:flex-col-reverse [@media(pointer:coarse)]:gap-[16px]">
+              <div className="flex flex-row gap-[8px] [@media(hover)]:w-[356px]">
+                <ButtonSecondary
+                  small
+                  text="Добавить"
+                  style="w-fit px-[12px]"
+                  onClick={() =>
+                    setWorkState([
+                      ...workState,
+                      {
+                        id: uuid(),
+                      },
+                    ])
+                  }
+                >
+                  <PlusIcon />
+                </ButtonSecondary>
+                <ButtonSecondary
+                  style="w-fit px-[12px]"
+                  small
+                  text=""
+                  onClick={() =>
+                    deleteHandler(item.id, setWorkState, workState)
+                  }
+                >
+                  <TrashIcon />
+                </ButtonSecondary>
+              </div>
+              <div className="flex flex-row items-center">
+                <CheckBox
+                  active={item.isStill}
+                  onClick={() => {
+                    if (item.isStill === true)
+                      setWorkState(
+                        workState.map((i, index) =>
+                          index === key
+                            ? {
+                                ...i,
+                                isStill: false,
+                                end_month: null,
+                                end_year: null,
+                              }
+                            : i
+                        )
+                      );
+                    else
+                      setWorkState(
+                        workState.map((i, index) =>
+                          index === key
+                            ? {
+                                ...i,
+                                isStill: true,
+                                end_month: "Месяц",
+                                end_year: "Год",
+                              }
+                            : i
+                        )
+                      );
+                  }}
+                />
+                <TextSecondary
+                  text="Сейчас работаю на этой должности"
+                  style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] ml-[6px]"
+                />
+              </div>
             </div>
           ) : (
-            <ButtonSecondary
-              small
-              style="w-fit px-[12px]"
-              text=""
-              onClick={() => deleteHandler(item.id, setWorkState, workState)}
-            >
-              <TrashIcon />
-            </ButtonSecondary>
+            <div className="w-full flex [@media(hover)]:flex-row [@media(pointer:coarse)]:flex-col-reverse [@media(pointer:coarse)]:gap-[16px]">
+              <div className="[@media(hover)]:w-[356px]">
+                <ButtonSecondary
+                  small
+                  style="w-fit px-[12px]"
+                  text=""
+                  onClick={() =>
+                    deleteHandler(item.id, setWorkState, workState)
+                  }
+                >
+                  <TrashIcon />
+                </ButtonSecondary>
+              </div>
+              <div className="flex flex-row items-center">
+                <CheckBox
+                  active={item.isStill}
+                  onClick={() => {
+                    if (item.isStill === true)
+                      setWorkState(
+                        workState.map((i, index) =>
+                          index === key
+                            ? {
+                                ...i,
+                                isStill: false,
+                                end_month: null,
+                                end_year: null,
+                              }
+                            : i
+                        )
+                      );
+                    else
+                      setWorkState(
+                        workState.map((i, index) =>
+                          index === key
+                            ? {
+                                ...i,
+                                isStill: true,
+                                end_month: "Месяц",
+                                end_year: "Год",
+                              }
+                            : i
+                        )
+                      );
+                  }}
+                />
+                <TextSecondary
+                  text="Сейчас работаю на этой должности"
+                  style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] ml-[6px]"
+                />
+              </div>
+            </div>
           )}
         </div>
       ))}
