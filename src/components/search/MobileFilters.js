@@ -170,6 +170,7 @@ const MobileFilters = ({
             dropDataVacancies={dropDataVacancies}
             updatePeople={updatePeople}
             setUpdatePeople={setUpdatePeople}
+            skills={dropDataVacancies.userskills}
           />
         )}
         <div className="mb-[61px]" />

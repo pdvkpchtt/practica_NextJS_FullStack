@@ -393,6 +393,7 @@ const EditCompanyLeft = ({
         handleClose={() => {
           setBottomModal(false);
           router.refresh();
+          router.refresh();
         }}
         company
       />

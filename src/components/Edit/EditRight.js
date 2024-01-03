@@ -17,10 +17,11 @@ import TextSecondary from "../../shared/Text/TextSecondary";
 import SkillsModalContent from "./SkillsModalContent";
 import DropDownWithSearch from "../../shared/ui/DropDownWithSearch";
 import CheckBox from "../../shared/ui/CheckBox";
+import SkillsDropDownUser from "../../shared/ui/SkillsDropDownUser";
 
 import CheckIcon from "../../shared/icons/CheckIcon";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
-import AddCityIcon from "../../shared/icons/AddCityIcon";
+import AddSkillIcon from "../../shared/icons/AddSkillIcon";
 
 const EditRight = ({
   data,
@@ -42,6 +43,7 @@ const EditRight = ({
   };
 
   const [isOpen, toggle] = useState(false);
+  const [isOpen2, toggle2] = useState(false);
 
   const [educationState, setEducationState] = useState([]);
   const [workState, setWorkState] = useState([]);
@@ -310,8 +312,86 @@ const EditRight = ({
         {/* work expirience */}
 
         {/* skills */}
-        {/* skills */}
-        <div className="flex flex-col relative gap-[16px]">
+        <div className="flex flex-col relative">
+          <TextSecondary
+            text={"Хард-скиллы"}
+            style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+          />
+          {dataToUpdate.UserSkills.filter((item) => item.type !== "soft")
+            .length > 0 ? (
+            <div className="flex flex-row gap-[8px] flex-wrap">
+              {dataToUpdate.UserSkills.map(
+                (item) =>
+                  item.type === "hard" && (
+                    <SkillCard
+                      noCopy
+                      onClick={() => toggle(true)}
+                      text={item.name}
+                      key={item.id}
+                    />
+                  )
+              )}
+            </div>
+          ) : (
+            <AddSkillIcon
+              hard
+              onClick={() => {
+                toggle(true);
+              }}
+            />
+          )}
+          <SkillsDropDownUser
+            state={isOpen}
+            setState={() => toggle(false)}
+            type={"hard"}
+            city={dataToUpdate.UserSkills}
+            dataToUpdate={dataToUpdate}
+            setCity={setDataToUpdate}
+            items={skills?.skills?.filter((i) => i?.type === "hard")}
+            placeholder="Хард-скиллы"
+          />
+        </div>
+        <div className="flex flex-col relative">
+          <TextSecondary
+            text={"Софт-скиллы"}
+            style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+          />
+          {dataToUpdate.UserSkills.filter((item) => item.type !== "hard")
+            .length > 0 ? (
+            <div className="flex flex-row gap-[8px] flex-wrap">
+              {dataToUpdate.UserSkills.map(
+                (item) =>
+                  item.type === "soft" && (
+                    <SkillCard
+                      noCopy
+                      hard={false}
+                      soft
+                      onClick={() => toggle2(true)}
+                      text={item.name}
+                      key={item.id}
+                    />
+                  )
+              )}
+            </div>
+          ) : (
+            <AddSkillIcon
+              onClick={() => {
+                toggle2(true);
+              }}
+            />
+          )}
+          <SkillsDropDownUser
+            state={isOpen2}
+            setState={() => toggle2(false)}
+            type={"soft"}
+            city={dataToUpdate.UserSkills}
+            dataToUpdate={dataToUpdate}
+            setCity={setDataToUpdate}
+            items={skills?.skills?.filter((i) => i?.type === "soft")}
+            placeholder="Софт-скиллы"
+          />
+        </div>
+        {/* <div className="flex flex-col relative gap-[16px]">
           {dataToUpdate.UserSkills.length === 0 ? (
             <div className="flex flex-col">
               <TextSecondary
@@ -372,21 +452,20 @@ const EditRight = ({
               )}
             </>
           )}
-        </div>
-        {/* skills */}
+        </div> */}
         {/* skills */}
       </div>
       {/* body */}
 
       {/* skills modal */}
-      <SkillsModalContent
+      {/* <SkillsModalContent
         data={dataToUpdate.UserSkills}
         isOpen={isOpen}
         handleClose={() => toggle(false)}
         setDataToUpdate={setDataToUpdate}
         dataToUpdate={dataToUpdate}
         skills={skills}
-      />
+      /> */}
       {/* skills modal */}
     </div>
   );

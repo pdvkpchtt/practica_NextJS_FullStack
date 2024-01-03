@@ -149,6 +149,7 @@ const PcFilters = ({
               dropDataVacancies={dropDataVacancies}
               setSkillsModal={setSkillsModal}
               updatePeople={updatePeople}
+              skills={dropDataVacancies.userskills}
               setUpdatePeople={setUpdatePeople}
             />
           )}

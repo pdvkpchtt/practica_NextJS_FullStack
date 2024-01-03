@@ -101,7 +101,7 @@ const FiltersWrap = () => {
               forVacancy
             />
           )} */}
-          {pathname === navState[2].route && (
+          {/* {pathname === navState[2].route && (
             <SkillsModalContent
               data={updatePeople.UserSkills}
               isOpen={skillsModal}
@@ -110,7 +110,7 @@ const FiltersWrap = () => {
               dataToUpdate={updatePeople}
               skills={dropDataVacancies.userskills}
             />
-          )}
+          )} */}
         </>
       )}
     </>

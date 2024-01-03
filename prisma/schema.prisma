@@ -67,7 +67,7 @@ model User {
   role           String?
   about          String?          @db.Text
   country        String?          @db.Text
-  city           String?          @db.Text
+  city           String?          @db.Text @default("")
   Education      Education[]
   WorkExperience WorkExperience[]
   UserSkills     UserSkills[]
