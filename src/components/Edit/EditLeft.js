@@ -15,7 +15,6 @@ import UpploadAvatarModal from "../../shared/ui/UpploadAvatarModal";
 import ImageIcon from "../../shared/icons/ImageIcon";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import CircularProggressBar from "../../shared/ui/CircularProggressBar";
-import { getAvaServ } from "../../server/actions/profile/getAvaServ";
 
 const EditLeft = ({
   data,
@@ -28,13 +27,6 @@ const EditLeft = ({
   const { update } = useSession();
 
   console.log(status?.includes("inputBirth"), status, "fuck this");
-
-  const [ava, setAva] = useState(null);
-
-  const getAva = async () => {
-    const ava = await getAvaServ(data.id);
-    setAva(ava);
-  };
 
   const [birthValue, setBirthValue] = useState(data.birthDate || "");
   const [myMail, setMyMail] = useState(data.email);
@@ -81,7 +73,7 @@ const EditLeft = ({
           </div>
           {data.image ? (
             <Image
-              src={ava === null ? data.image : ava}
+              src={data.image}
               alt="Profile photo"
               unoptimized
               className="[@media(hover)]:min-w-[236px] object-cover [@media(hover)]:w-[236px] [@media(hover)]:h-[236px] [@media(hover)]:min-h-[236px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full"
@@ -260,7 +252,8 @@ const EditLeft = ({
         isOpen={bottomModal}
         handleClose={() => {
           setBottomModal(false);
-          getAva();
+          router.refresh();
+          router.refresh();
         }}
       />
     </div>
