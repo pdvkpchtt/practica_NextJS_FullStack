@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import TextMain from "../../shared/Text/TextMain ";
@@ -11,6 +12,10 @@ import subscriptions from "../../assets/subscriptions.png";
 
 const Subscriptions = ({ data }) => {
   const router = useRouter();
+
+  useEffect(() => {
+    document.body.style.overflow = "unset";
+  }, []);
 
   const getNoun = (dig) => {
     if (dig === 0 || dig >= 5 || dig % 10 === 0 || dig % 10 >= 5) return "дней";

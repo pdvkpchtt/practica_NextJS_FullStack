@@ -26,6 +26,9 @@ export const getUsersBookmarks = async (userId, cursor) => {
           waitings: true,
           salaryStart: true,
           salaryEnd: true,
+          _count: {
+            select: { VacancyReply: true },
+          },
           VacancyReply: {
             select: { userId: true, status: true },
             where: { userId: session?.user?.id },
@@ -119,6 +122,7 @@ export const getUsersBookmarks = async (userId, cursor) => {
     item.vacancy.partOfTeam = item.vacancy?.Company?.HR?.find(
       (i) => i.userId === session?.user?.id
     );
+    item.vacancy.replyCount = item?.vacancy?._count?.VacancyReply;
 
     return item;
   });

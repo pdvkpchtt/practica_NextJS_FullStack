@@ -67,7 +67,7 @@ model User {
   role           String?
   about          String?          @db.Text
   country        String?          @db.Text
-  city           String?          @db.Text @default("")
+  city           String?          @default("") @db.Text
   Education      Education[]
   WorkExperience WorkExperience[]
   UserSkills     UserSkills[]
@@ -77,10 +77,11 @@ model User {
   chats                Chat[]
   messages             Message[]
   BookMarks            Bookmarks[]
+  VacancyViews         VacancyViews[]
   // This second "side" of the UserFriends relation exists solely 
   // to satisfy prisma's requirements; we won't access it directly.
-  connections          User[]      @relation("UserConnections")
-  symmetricConnections User[]      @relation("UserConnections")
+  connections          User[]         @relation("UserConnections")
+  symmetricConnections User[]         @relation("UserConnections")
 
   educationLevelId String?
   educationLevel   EducationLevel? @relation(fields: [educationLevelId], references: [id])
@@ -126,28 +127,28 @@ model Plan {
 }
 
 model VacancyReply {
-  id        String  @id @default(cuid())
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  vacancy   Vacancy @relation(fields: [vacancyId], references: [id], onDelete: Cascade)
+  id        String    @id @default(cuid())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vacancy   Vacancy   @relation(fields: [vacancyId], references: [id], onDelete: Cascade)
   message   String?
   file      File[]
   messages  Message[]
   userId    String
   link      String?
   vacancyId String
-  status    String @default("wait")
+  status    String    @default("wait")
 }
 
 model File {
-  id     String @id @default(cuid())
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id             String        @id @default(cuid())
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   vacancyReplyId String?
   vacancyReply   VacancyReply? @relation(fields: [vacancyReplyId], references: [id])
-  path   String
-  name   String
-  userId String
-  vacancyId String?
-  vacancy   Vacancy? @relation(fields: [vacancyId], references: [id])
+  path           String
+  name           String
+  userId         String
+  vacancyId      String?
+  vacancy        Vacancy?      @relation(fields: [vacancyId], references: [id])
 }
 
 model Hr {
@@ -234,6 +235,16 @@ model Cities {
   Company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 }
 
+model VacancyViews {
+  id        String  @id @default(cuid())
+  vacancyId String
+  Vacancy   Vacancy @relation(fields: [vacancyId], references: [id], onDelete: Cascade)
+  userId    String
+  User      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([vacancyId, userId])
+}
+
 model Vacancy {
   id        String  @id @default(cuid())
   name      String
@@ -253,6 +264,7 @@ model Vacancy {
   VacancySkills VacancySkills[]
   Bookmarks     Bookmarks[]
   Location      Location[]
+  VacancyViews  VacancyViews[]
 
   distantWork Boolean @default(false)
 
@@ -278,8 +290,8 @@ model Vacancy {
   hrCreatorId  String?
   hrCreator    Hr?            @relation(fields: [hrCreatorId], references: [id])
   VacancyReply VacancyReply[]
-  file      File[]
-  createdAt        DateTime        @default(now())
+  file         File[]
+  createdAt    DateTime       @default(now())
 }
 
 model VacArea {
@@ -345,12 +357,12 @@ model Area {
 }
 
 model Bookmarks {
-  id        String  @id @default(cuid())
-  userId    String  @db.Text
-  vacancyId String  @db.Text
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  vacancy   Vacancy @relation(fields: [vacancyId], references: [id], onDelete: Cascade)
-  createdAt        DateTime        @default(now())
+  id        String   @id @default(cuid())
+  userId    String   @db.Text
+  vacancyId String   @db.Text
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vacancy   Vacancy  @relation(fields: [vacancyId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 }
 
 model Post {
@@ -383,36 +395,36 @@ model Reaction {
 }
 
 model Education {
-  id     String  @id @default(cuid())
-  name   String @db.Text
-  degree String @db.Text
+  id        String @id @default(cuid())
+  name      String @db.Text
+  degree    String @db.Text
   startDate String @db.Text
-  endDate String @db.Text
-  userId String
-  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endDate   String @db.Text
+  userId    String
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model WorkExperience {
   id           String  @id @default(cuid())
-  organization String @db.Text
-  post         String @db.Text
-  start_month  String @db.Text
-  start_year   String @db.Text
-  end_month     String @db.Text
-  end_year     String @db.Text
+  organization String  @db.Text
+  post         String  @db.Text
+  start_month  String  @db.Text
+  start_year   String  @db.Text
+  end_month    String  @db.Text
+  end_year     String  @db.Text
   userId       String
   isStill      Boolean @default(false)
   user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Skill {
-  id            String          @id @default(cuid())
-  name          String          @db.Text
-  type          String          @default("")
-  UserSkills    UserSkills[]
+  id         String       @id @default(cuid())
+  name       String       @db.Text
+  type       String       @default("")
+  UserSkills UserSkills[]
   // VacancySkills VacancySkills[]
-  areaId        String?
-  area          Area?           @relation(fields: [areaId], references: [id])
+  areaId     String?
+  area       Area?        @relation(fields: [areaId], references: [id])
 }
 
 model UserSkills {
@@ -436,8 +448,8 @@ model VacancySkills {
   name      String
   vacancyId String  @db.Text
   vacancy   Vacancy @relation(fields: [vacancyId], references: [id], onDelete: Cascade)
-  area        String?
-  type  String  
+  area      String?
+  type      String
 }
 
 model VerificationToken {
@@ -458,15 +470,15 @@ model Chat {
 }
 
 model Message {
-  id        String   @id @default(cuid())
-  chatId    String
-  userId    String
-  text      String
-  type      String   @default("")
-  Chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
-  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  unRead    Boolean  @default(true)
-  createdAt DateTime @default(now())
+  id             String        @id @default(cuid())
+  chatId         String
+  userId         String
+  text           String
+  type           String        @default("")
+  Chat           Chat          @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  User           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  unRead         Boolean       @default(true)
+  createdAt      DateTime      @default(now())
   vacancyReplyId String?
   vacancyReply   VacancyReply? @relation(fields: [vacancyReplyId], references: [id])
 }

@@ -21,6 +21,9 @@ export const getVacancies = async (cursor, filters) => {
       salaryEnd: true,
       distantWork: true,
 
+      _count: {
+        select: { VacancyReply: true },
+      },
       VacancyReply: {
         select: { userId: true, status: true },
         where: { userId: session?.user?.id },
@@ -210,6 +213,7 @@ export const getVacancies = async (cursor, filters) => {
       partOfTeam: vacancy?.Company?.HR?.find(
         (i) => i.userId === session?.user?.id
       ),
+      replyCount: vacancy?._count?.VacancyReply,
     };
   });
 

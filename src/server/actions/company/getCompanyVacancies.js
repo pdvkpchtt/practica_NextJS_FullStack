@@ -23,6 +23,13 @@ export const getCompanyVacancies = async (id, cursor) => {
       salaryEnd: true,
       distantWork: true,
 
+      _count: {
+        select: { VacancyReply: true },
+      },
+      VacancyReply: {
+        select: { userId: true, status: true },
+        where: { userId: session?.user?.id },
+      },
       hrCreator: {
         select: {
           user: {
@@ -100,6 +107,10 @@ export const getCompanyVacancies = async (id, cursor) => {
     slicedPosts = vacancy.slice(0, -1);
   }
   const result = slicedPosts.map((vacancy) => {
+    const myReply = vacancy.VacancyReply.find(
+      (i) => i.userId === session?.user?.id
+    );
+
     return {
       id: vacancy.id,
       name: vacancy.name,
@@ -113,6 +124,7 @@ export const getCompanyVacancies = async (id, cursor) => {
       company: vacancy.Company,
       VacancySkills: vacancy.VacancySkills,
       Location: vacancy.Location,
+      VacancyReply: vacancy?.VacancyReply,
       currency: vacancy.currency,
       Bookmarks: vacancy.Bookmarks,
       Company: vacancy.Company,
@@ -122,6 +134,8 @@ export const getCompanyVacancies = async (id, cursor) => {
       partOfTeam: vacancy?.Company?.HR?.find(
         (i) => i.userId === session?.user?.id
       ),
+      hasMyReply: myReply,
+      replyCount: vacancy?._count?.VacancyReply,
     };
   });
 

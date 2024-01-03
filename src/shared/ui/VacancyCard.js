@@ -13,10 +13,12 @@ import EmptyAvatar from "./EmptyAvatar";
 import { useRouter } from "next/navigation";
 import BottomModal from "./BottomModal";
 import DeleteVacContent from "./DeleteVacContent";
+import Helper from "./Helper";
 
 import BookmarkIcon from "../icons/BookmarkIcon";
 import DotsIcon from "../icons/DotsIcon";
 import VacCheckedStatusIcon from "../icons/VacCheckedStatusIcon";
+import ReplyCountIcon from "../icons/ReplyCountIcon";
 
 const VacancyCard = ({ item, role = "student", userId }) => {
   const router = useRouter();
@@ -312,6 +314,19 @@ const VacancyCard = ({ item, role = "student", userId }) => {
               </div>
             )}
             {/* skills */}
+
+            {/* counts */}
+            <div className="w-full flex flex-row gap-[12px] items-center justify-end">
+              <Helper text="Откликов">
+                <div className="flex flex-row gap-[4px] items-center justify-center">
+                  <ReplyCountIcon />
+                  <p className="text-[#8F8F8F] text-[13px] leading-[16px] font-medium tracking-[-0.351px] select-none">
+                    {item.replyCount}
+                  </p>
+                </div>
+              </Helper>
+            </div>
+            {/* counts */}
           </Card>
         </motion.div>
       )}
