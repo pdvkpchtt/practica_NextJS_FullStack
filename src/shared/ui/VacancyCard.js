@@ -318,7 +318,7 @@ const VacancyCard = ({ item, role = "student", userId }) => {
 
             {/* counts */}
             <div className="w-full flex flex-row gap-[12px] items-center justify-end">
-              <Helper text="Откликов">
+              <Helper text="Отклики">
                 <div className="flex flex-row gap-[4px] items-center justify-center">
                   <ReplyCountIcon />
                   <p className="text-[#8F8F8F] text-[13px] leading-[16px] font-medium tracking-[-0.351px] select-none">
@@ -326,7 +326,7 @@ const VacancyCard = ({ item, role = "student", userId }) => {
                   </p>
                 </div>
               </Helper>
-              <Helper text="Откликов">
+              <Helper text="Просмотры">
                 <div className="flex flex-row gap-[4px] items-center justify-center">
                   <VacViewIcon />
                   <p className="text-[#8F8F8F] text-[13px] leading-[16px] font-medium tracking-[-0.351px] select-none">
