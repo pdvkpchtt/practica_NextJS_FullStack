@@ -19,6 +19,7 @@ import BookmarkIcon from "../icons/BookmarkIcon";
 import DotsIcon from "../icons/DotsIcon";
 import VacCheckedStatusIcon from "../icons/VacCheckedStatusIcon";
 import ReplyCountIcon from "../icons/ReplyCountIcon";
+import VacViewIcon from "../icons/VacViewIcon";
 
 const VacancyCard = ({ item, role = "student", userId }) => {
   const router = useRouter();
@@ -322,6 +323,14 @@ const VacancyCard = ({ item, role = "student", userId }) => {
                   <ReplyCountIcon />
                   <p className="text-[#8F8F8F] text-[13px] leading-[16px] font-medium tracking-[-0.351px] select-none">
                     {item.replyCount}
+                  </p>
+                </div>
+              </Helper>
+              <Helper text="Откликов">
+                <div className="flex flex-row gap-[4px] items-center justify-center">
+                  <VacViewIcon />
+                  <p className="text-[#8F8F8F] text-[13px] leading-[16px] font-medium tracking-[-0.351px] select-none">
+                    {item.viewsCount}
                   </p>
                 </div>
               </Helper>

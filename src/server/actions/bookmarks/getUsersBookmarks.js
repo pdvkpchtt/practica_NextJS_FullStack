@@ -27,7 +27,7 @@ export const getUsersBookmarks = async (userId, cursor) => {
           salaryStart: true,
           salaryEnd: true,
           _count: {
-            select: { VacancyReply: true },
+            select: { VacancyReply: true, VacancyViews: true },
           },
           VacancyReply: {
             select: { userId: true, status: true },
@@ -123,6 +123,7 @@ export const getUsersBookmarks = async (userId, cursor) => {
       (i) => i.userId === session?.user?.id
     );
     item.vacancy.replyCount = item?.vacancy?._count?.VacancyReply;
+    item.vacancy.viewsCount = item?.vacancy?._count?.VacancyViews;
 
     return item;
   });

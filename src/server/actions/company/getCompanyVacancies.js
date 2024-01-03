@@ -24,7 +24,7 @@ export const getCompanyVacancies = async (id, cursor) => {
       distantWork: true,
 
       _count: {
-        select: { VacancyReply: true },
+        select: { VacancyReply: true, VacancyViews: true },
       },
       VacancyReply: {
         select: { userId: true, status: true },
@@ -136,6 +136,7 @@ export const getCompanyVacancies = async (id, cursor) => {
       ),
       hasMyReply: myReply,
       replyCount: vacancy?._count?.VacancyReply,
+      viewsCount: vacancy?._count?.VacancyViews,
     };
   });
 
