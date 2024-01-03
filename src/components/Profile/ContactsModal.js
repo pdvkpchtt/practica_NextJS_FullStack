@@ -17,6 +17,7 @@ import Cross2 from "../../shared/icons/Cross2";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import CheckIcon from "shared/icons/CheckIcon";
+import Image from "next/image";
 
 const ContactsModal = ({
   modalState = false,
@@ -48,15 +49,24 @@ const ContactsModal = ({
     <>
       <Modal isOpen={modalState} handleClose={() => setModalState(false)}>
         {/* header */}
-        <div className="flex flex-row justify-end pb-[12px] [@media(pointer:coarse)]:hidden relative">
+        <div className="flex flex-row justify-end [@media(pointer:coarse)]:hidden pb-[24px] relative h-[180px]">
           <Cross2 onClick={() => setModalState(false)} />
 
+          <Image
+            src={"/phoneArt.png"}
+            alt={"pitch art"}
+            width={630}
+            height={180}
+            quality={100}
+            unoptimized
+            className="absolute top-[-12px] left-[-12px] min-w-[630px] min-h-[180px] z-[-1]  rounded-t-[20px]"
+          />
           {/* <div className="h-[0.5px] w-[calc(100%+24px)] bg-[#e7e7e7] dark:bg-[#2f2f2f] absolute top-[30px] left-[-12px]" /> */}
         </div>
         {/* header */}
 
         {/* body */}
-        <div className="h-fit mt-[12px] flex flex-col [@media(pointer:coarse)]:hidden overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px]">
+        <div className="h-fit mt-[12px] flex flex-col [@media(pointer:coarse)]:hidden overflow-y-auto rounded-b-[20px] px-[12px]  pb-[12px]">
           {phone && phoneVerified && !isEdit && (
             <>
               <TextMain
@@ -203,6 +213,16 @@ const ContactsModal = ({
 
         {/* body */}
         <div className="mt-[61px] flex flex-col p-[12px] overflow-y-scroll h-[calc(100%-61px)]">
+          <Image
+            src={"/phoneArt.png"}
+            alt={"pitch art"}
+            width={630}
+            height={180}
+            quality={100}
+            unoptimized
+            className="w-full mb-[12px]"
+          />
+
           {phone && phoneVerified && !isEdit && (
             <>
               <TextMain
