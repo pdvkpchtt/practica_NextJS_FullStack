@@ -116,13 +116,22 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
                     )
                   )
                 }
-                onUpdateYear={(value) =>
+                onUpdateYear={(value) => {
                   setWorkState(
                     workState.map((item, index) =>
                       index === key ? { ...item, start_year: value } : item
                     )
+                  );
+                  if (
+                    Number(value) > Number(workState[key]?.end_year) &&
+                    workState[key]?.end_year !== null
                   )
-                }
+                    setWorkState(
+                      workState.map((item, index) =>
+                        index === key ? { ...item, end_year: null } : item
+                      )
+                    );
+                }}
               />
             </div>
             <div className="flex flex-col gap-[6px] w-full relative">
@@ -133,7 +142,11 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
               <DropDownHandler
                 start={false}
                 end
-                isStill={item.isStill}
+                isStill={
+                  item.isStill ||
+                  workState[key]?.start_month === null ||
+                  workState[key]?.start_year === null
+                }
                 item={item}
                 onUpdateMonth={(value) =>
                   setWorkState(
@@ -142,16 +155,18 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
                     )
                   )
                 }
-                onUpdateYear={(value) =>
+                onUpdateYear={(value) => {
                   setWorkState(
                     workState.map((item, index) =>
                       index === key ? { ...item, end_year: value } : item
                     )
-                  )
-                }
+                  );
+                }}
               />
 
-              {item.isStill === true && (
+              {(item.isStill === true ||
+                workState[key]?.start_month === null ||
+                workState[key]?.start_year === null) && (
                 <div className="absolute w-full h-full z-[50]" />
               )}
             </div>

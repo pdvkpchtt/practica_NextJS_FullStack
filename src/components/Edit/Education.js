@@ -7,7 +7,7 @@ import { ButtonSecondary } from "../../shared/ui/Button";
 import PlusIcon from "../../shared/icons/PlusIcon";
 import TrashIcon from "../../shared/icons/TrashIcon";
 import TextSecondary from "../../shared/Text/TextSecondary";
-import DropDown from "../../shared/ui/DropDown";
+import DropDownWithSearch from "../../shared/ui/DropDownWithSearch";
 
 let years = function (startYear) {
   var currentYear = new Date().getFullYear(),
@@ -98,36 +98,69 @@ const Education = ({
             />
 
             <div className="w-full flex flex-row gap-[8px] [@media(pointer:coarse)]:flex-col">
-              <DropDown
-                label="Год начала обучения"
-                styled="w-full"
-                // choise={item.split(" ")[1] || "Год"}
-                choise={item.startDate ? item.startDate : "Год"}
-                handleSetChoise={(e) =>
-                  setEducationState(
-                    educationState.map((item, index) =>
-                      index === key ? { ...item, startDate: e } : item
+              <div className="w-full flex flex-col gap-[6px]">
+                <TextSecondary
+                  text={"Год начала обучения"}
+                  style="font-medium text-[14px] select-none leading-[18px] tracking-[-0.013em] whitespace-nowrap"
+                />
+                <DropDownWithSearch
+                  styled={`w-full`}
+                  city={item.startDate || ""}
+                  setCity={(val) => {
+                    setEducationState(
+                      educationState.map((item, index) =>
+                        index === key ? { ...item, startDate: val.label } : item
+                      )
+                    );
+                    if (
+                      Number(val.label) > Number(item.endDate) &&
+                      item.endDate !== null
                     )
-                  )
-                }
-                items={yearDropDownInfo}
-                itemsFor={"Год"}
-              />
-              <DropDown
-                label="Год окончания обучения"
-                styled="w-full"
-                // choise={item.split(" ")[1] || "Год"}
-                choise={item.endDate ? item.endDate : "Год"}
-                handleSetChoise={(e) =>
-                  setEducationState(
-                    educationState.map((item, index) =>
-                      index === key ? { ...item, endDate: e } : item
-                    )
-                  )
-                }
-                items={yearDropDownInfo}
-                itemsFor={"Год"}
-              />
+                      setEducationState(
+                        educationState.map((item, index) =>
+                          index === key ? { ...item, endDate: "" } : item
+                        )
+                      );
+                  }}
+                  items={yearDropDownInfo}
+                  placeholder={"Год"}
+                />
+              </div>
+
+              <div className="w-full relative">
+                {educationState[key]?.startDate === null && (
+                  <div className="absolute w-full h-full z-[50]" />
+                )}
+                <div className="w-full flex flex-col gap-[6px]">
+                  <TextSecondary
+                    text={"Год окончания обучения"}
+                    style="font-medium text-[14px] select-none leading-[18px] tracking-[-0.013em] whitespace-nowrap"
+                  />
+                  <DropDownWithSearch
+                    styled={`w-full ${
+                      educationState[key]?.startDate === null && "opacity-[30%]"
+                    }`}
+                    city={item.endDate || ""}
+                    setCity={(val) => {
+                      setEducationState(
+                        educationState.map((item, index) =>
+                          index === key ? { ...item, endDate: val.label } : item
+                        )
+                      );
+                    }}
+                    items={
+                      educationState[key].startDate === null
+                        ? yearDropDownInfo
+                        : yearDropDownInfo.filter(
+                            (i) =>
+                              Number(educationState[key].startDate) <=
+                              Number(i.label)
+                          )
+                    }
+                    placeholder={"Год"}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 

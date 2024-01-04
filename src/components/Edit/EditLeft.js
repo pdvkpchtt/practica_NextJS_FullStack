@@ -157,6 +157,13 @@ const EditLeft = ({
           placeholder="Уфа"
           label="Город"
           value={dataToUpdate.city}
+          caption={
+            !status
+              ? null
+              : status?.includes("inputCity бля")
+              ? "Поле содержит недопустимые символы"
+              : null
+          }
           onChange={(city) =>
             setDataToUpdate({
               ...dataToUpdate,

@@ -49,7 +49,14 @@ const DropDownHandler = ({
   //   setMonthChoise(item?.split(" ")[0]);
   //   setYearChoise(item?.split(" ")[1]);
   // }, [item]);
-
+  // educationState[key].startDate === null
+  // ? yearDropDownInfo
+  // : yearDropDownInfo.filter(
+  //     (i) =>
+  //       Number(educationState[key].startDate) <=
+  //       Number(i.label)
+  //   )
+  console.log(Number(item.start_year) > Number(item.end_year));
   return (
     <div className="flex flex-row gap-[8px] w-full">
       <DropDownWithSearch
@@ -71,7 +78,15 @@ const DropDownHandler = ({
         setCity={(val) => {
           onUpdateYear(val.label);
         }}
-        items={yearDropDownInfo}
+        items={
+          end
+            ? item?.start_year === null
+              ? yearDropDownInfo
+              : yearDropDownInfo.filter(
+                  (i) => Number(item?.start_year) <= Number(i.label)
+                )
+            : yearDropDownInfo
+        }
         placeholder={"Год"}
       />
       {/* <DropDown

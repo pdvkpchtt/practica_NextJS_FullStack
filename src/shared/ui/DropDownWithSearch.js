@@ -12,14 +12,19 @@ const DropDownWithSearch = ({
   setCity = () => {},
 }) => {
   const ref = useRef();
+  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
+
   const [state, setState] = useState(false);
   const [input, setInput] = useState(city);
-  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
   const [filtered, setFiltered] = useState(items);
 
   useEffect(() => {
     if (city.length === 0) setInput("");
   }, [city]);
+
+  useEffect(() => {
+    setFiltered(items);
+  }, [state]);
 
   return (
     <>
@@ -102,7 +107,7 @@ const DropDownWithSearch = ({
                   ))
                 ) : (
                   <div
-                    className={`flex rounded-b-[8px] select-none flex-col transition duration-[250ms] p-[12px] font-normal text-[14px] leading-[18px] tracking-[-0.015em] text-[#2c2c2c] dark:text-[#fff]`}
+                    className={`flex rounded-b-[8px] select-none flex-col transition duration-[250ms] p-[12px] font-normal text-[14px] leading-[18px] tracking-[-0.015em] text-[#8f8f8f]`}
                     onClick={() => {
                       ref?.current?.focus();
                     }}

@@ -58,7 +58,7 @@ const OthersLeft = ({
   const getNoun2 = (dig) => {
     if (dig % 10 === 0 || dig % 10 >= 5) return "Связей";
     if (dig % 10 > 1 && dig % 10 < 5) return "Связи";
-    else return "Свзязь";
+    else return "Связь";
   };
   const getNoun3 = (dig) => {
     if (dig % 10 === 0 || dig % 10 >= 5) return "Подписок";

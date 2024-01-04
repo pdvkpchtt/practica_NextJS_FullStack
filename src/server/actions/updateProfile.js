@@ -40,6 +40,14 @@ export const updateProfile = async ({ userId, data }) => {
       )
       .optional()
       .or(z.literal("")),
+    city: z
+      .string()
+      .refine(
+        (value) => /^[a-zA-Zа-яА-Я]+(?:[\s-][a-zA-Zа-яА-Я]+)*$/.test(value),
+        {
+          message: "inputCity бля",
+        }
+      ),
   });
 
   const validateRes = validate.safeParse({
@@ -48,6 +56,7 @@ export const updateProfile = async ({ userId, data }) => {
     username: data.username,
     about: data.about !== null ? data.about : "",
     birthDate: data.birthDate !== null ? data.birthDate : "",
+    city: data.city !== null ? data.city : "",
   });
 
   const checkusername = await prisma.user.findFirst({
