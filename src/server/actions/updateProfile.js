@@ -24,9 +24,12 @@ export const updateProfile = async ({ userId, data }) => {
     username: z
       .string()
       .min(1, { message: "inputUsername minlen" })
-      .refine((value) => !/[`!@#$%^&*()+\-=\[\]{};':"\\|,<>\/?~]/.test(value), {
-        message: "inputUsername regex",
-      }),
+      .refine(
+        (value) => !/[`!@#$%^&*()+\-=\[\]{};':"\\|,<>\/?~а-яА-Я]/.test(value),
+        {
+          message: "inputUsername regex",
+        }
+      ),
     about: z.string().max(240, { message: "inputAbout maxlen" }),
     birthDate: z
       .string()
