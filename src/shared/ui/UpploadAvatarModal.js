@@ -17,17 +17,17 @@ const UpploadAvatarModal = ({
   const inputRef = useRef(null);
   const buttRef = useRef(null);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     let formData = new FormData();
     formData.append("file", e.target.files[0]);
     // formData.append("avatar", e.target.files[0]);
     if (company === false)
-      axios
+      await axios
         .post("/api/upload/avatar", formData)
         .then(console.log)
         .catch(console.log);
     else
-      axios
+      await axios
         .post("/api/upload/avatarComp", formData)
         .then(console.log)
         .catch(console.log);
