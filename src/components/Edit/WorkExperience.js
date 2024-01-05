@@ -128,7 +128,9 @@ const WorkExperience = ({ workState, setWorkState, deleteHandler, status }) => {
                   )
                     setWorkState(
                       workState.map((item, index) =>
-                        index === key ? { ...item, end_year: null } : item
+                        index === key
+                          ? { ...item, end_year: null, start_year: value }
+                          : item
                       )
                     );
                 }}

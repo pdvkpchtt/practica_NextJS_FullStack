@@ -115,12 +115,16 @@ const Education = ({
                     if (
                       Number(val.label) > Number(item.endDate) &&
                       item.endDate !== null
-                    )
+                    ) {
                       setEducationState(
                         educationState.map((item, index) =>
-                          index === key ? { ...item, endDate: "" } : item
+                          index === key
+                            ? { ...item, endDate: null, startDate: val.label }
+                            : item
                         )
                       );
+                    }
+                    console.log(educationState, "ass");
                   }}
                   items={yearDropDownInfo}
                   placeholder={"Год"}
