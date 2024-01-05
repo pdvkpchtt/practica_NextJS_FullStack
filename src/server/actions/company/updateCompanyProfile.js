@@ -27,8 +27,8 @@ export const updateCompanyProfile = async ({ userId, data }) => {
     name: z.string().min(1, { message: "inputName minlen" }),
     username: z
       .string()
-      .min(1, { message: "inputUsername minlen" })
-      .refine((value) => !/[`!@#$%^&*()+\-=\[\]{};':"\\|,<>\/?~]/.test(value), {
+      .min(3, { message: "inputUsername minlen" })
+      .refine((value) => /^[a-zA-Z0-9._]+$/.test(value), {
         message: "inputUsername regex",
       }),
     slogan: z.string().max(60, { message: "inputSlogan maxlen" }),

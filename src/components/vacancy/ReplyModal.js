@@ -272,7 +272,7 @@ const ReplyModal = ({
                   : status?.includes("inputMessage minlen")
                   ? "Поле обязательно к заполнению"
                   : status?.includes("inputMessage maxlen")
-                  ? "Максимальная длинна поля 2000 сиволов"
+                  ? "Максимальная длина поля 2000 сиволов"
                   : null
               }
             />
@@ -516,7 +516,7 @@ const ReplyModal = ({
                   : status?.includes("inputMessage minlen")
                   ? "Поле обязательно к заполнению"
                   : status?.includes("inputMessage maxlen")
-                  ? "Максимальная длинна поля 2000 сиволов"
+                  ? "Максимальная длина поля 2000 сиволов"
                   : null
               }
             />

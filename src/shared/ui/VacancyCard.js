@@ -275,42 +275,45 @@ const VacancyCard = ({ item, role = "student", userId }) => {
             {/* name and short desc */}
 
             {/* skills */}
-            {item.VacancySkills.length > 0 && (
+            {(item.VacancySkills.length > 0 || item.vacArea.length > 0) && (
               <div className="flex flex-col gap-[8px]">
                 <div className="flex flex-row flex-wrap overflow-hidden gap-[8px] h-[24px] [@media(pointer:coarse)]:h-fit [@media(pointer:coarse)]:max-h-[56px]">
-                  {item.vacArea.map((item) => (
-                    <SkillCard
-                      area
-                      hard={false}
-                      key={item.id}
-                      style="mr-[4px]"
-                      text={item.label}
-                    />
-                  ))}
-                  {item.VacancySkills.map(
-                    (item) =>
-                      item.type === "hard" && (
-                        <SkillCard
-                          hard={item.type == "hard"}
-                          soft={item.type == "soft"}
-                          key={item.id}
-                          style="mr-[4px]"
-                          text={item.name}
-                        />
-                      )
-                  )}
-                  {item.VacancySkills.map(
-                    (item) =>
-                      item.type === "soft" && (
-                        <SkillCard
-                          hard={item.type == "hard"}
-                          soft={item.type == "soft"}
-                          key={item.id}
-                          style="mr-[4px]"
-                          text={item.name}
-                        />
-                      )
-                  )}
+                  {item.vacArea.length > 0 &&
+                    item.vacArea.map((item) => (
+                      <SkillCard
+                        area
+                        hard={false}
+                        key={item.id}
+                        style="mr-[4px]"
+                        text={item.label}
+                      />
+                    ))}
+                  {item.VacancySkills.length > 0 &&
+                    item.VacancySkills.map(
+                      (item) =>
+                        item.type === "hard" && (
+                          <SkillCard
+                            hard={item.type == "hard"}
+                            soft={item.type == "soft"}
+                            key={item.id}
+                            style="mr-[4px]"
+                            text={item.name}
+                          />
+                        )
+                    )}
+                  {item.VacancySkills.length > 0 &&
+                    item.VacancySkills.map(
+                      (item) =>
+                        item.type === "soft" && (
+                          <SkillCard
+                            hard={item.type == "hard"}
+                            soft={item.type == "soft"}
+                            key={item.id}
+                            style="mr-[4px]"
+                            text={item.name}
+                          />
+                        )
+                    )}
                 </div>
               </div>
             )}

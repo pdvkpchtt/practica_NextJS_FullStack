@@ -122,7 +122,9 @@ export const getVacancies = async (cursor, filters) => {
                   }
                 : {},
             distantWork:
-              filters?.distantWork === null ? false : filters?.distantWork,
+              filters?.distantWork === null
+                ? true || false
+                : filters?.distantWork,
             Location:
               filters?.location?.length > 0
                 ? {
@@ -137,7 +139,9 @@ export const getVacancies = async (cursor, filters) => {
           }
         : {
             distantWork:
-              filters?.distantWork === null ? false : filters?.distantWork,
+              filters?.distantWork === null
+                ? true || false
+                : filters?.distantWork,
             VacancySkills:
               filters?.VacancySkills?.length > 0
                 ? {

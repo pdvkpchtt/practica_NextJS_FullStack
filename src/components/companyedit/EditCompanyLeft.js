@@ -126,7 +126,7 @@ const EditCompanyLeft = ({
             !status
               ? null
               : status?.includes("inputUsername minlen")
-              ? "Поле обязательно к заполнению"
+              ? "Минимальная длина поля 3 символа"
               : status?.includes("inputUsername unique")
               ? "Этот username занят"
               : status?.includes("inputUsername change")

@@ -96,27 +96,45 @@ const VacancyRight = ({ data, role = "student", userId }) => {
       {/* body */}
       <div className="h-fit hideScrollbarNavMobile p-[12px] flex flex-col gap-[16px] rounded-b-[20px] [@media(pointer:coarse)]:rounded-[20px] bg-white dark:bg-[#212122]">
         {/* skills */}
-        {data.VacancySkills.length > 0 && (
+        {(data.VacancySkills.length > 0 || data.vacArea.length > 0) && (
           <div className="flex flex-col gap-[8px]">
-            <div className="flex flex-row flex-wrap gap-[8px]">
-              {data.vacArea.map((item) => (
-                <SkillCard
-                  area
-                  hard={false}
-                  key={item.id}
-                  style="mr-[4px]"
-                  text={item.label}
-                />
-              ))}
-              {data.VacancySkills.map((item) => (
-                <SkillCard
-                  hard={item.type == "hard"}
-                  soft={item.type == "soft"}
-                  key={item.id}
-                  style="mr-[4px]"
-                  text={item.name}
-                />
-              ))}
+            <div className="flex flex-row flex-wrap overflow-hidden gap-[8px] h-[24px] [@media(pointer:coarse)]:h-fit [@media(pointer:coarse)]:max-h-[56px]">
+              {data.vacArea.length > 0 &&
+                data.vacArea.map((item) => (
+                  <SkillCard
+                    area
+                    hard={false}
+                    key={item.id}
+                    style="mr-[4px]"
+                    text={item.label}
+                  />
+                ))}
+              {data.VacancySkills.length > 0 &&
+                data.VacancySkills.map(
+                  (item) =>
+                    item.type === "hard" && (
+                      <SkillCard
+                        hard={item.type == "hard"}
+                        soft={item.type == "soft"}
+                        key={item.id}
+                        style="mr-[4px]"
+                        text={item.name}
+                      />
+                    )
+                )}
+              {data.VacancySkills.length > 0 &&
+                data.VacancySkills.map(
+                  (item) =>
+                    item.type === "soft" && (
+                      <SkillCard
+                        hard={item.type == "hard"}
+                        soft={item.type == "soft"}
+                        key={item.id}
+                        style="mr-[4px]"
+                        text={item.name}
+                      />
+                    )
+                )}
             </div>
           </div>
         )}

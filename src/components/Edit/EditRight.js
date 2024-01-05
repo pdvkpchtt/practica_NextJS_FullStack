@@ -198,7 +198,7 @@ const EditRight = ({
       <div className="p-[12px] flex flex-col gap-[16px] rounded-b-[20px] [@media(pointer:coarse)]:rounded-[20px] bg-white dark:bg-[#212122]">
         {status && status?.includes("educatWork check") && (
           <p className="text-[13px] leading-[16px] w-full text-center tracking-[-0.351px] mt-[-5px] text-[#F0BB31]">
-            Проверьте корректность заполнения полей «Образование» и «Опыт
+            Проверьте корректность заполнения полей «Образование» или «Опыт
             работы»
           </p>
         )}
@@ -217,7 +217,7 @@ const EditRight = ({
             !status
               ? null
               : status?.includes("inputAbout maxlen")
-              ? "Максимальная длинна поля 120 сиволов"
+              ? "Максимальная длина поля 120 сиволов"
               : null
           }
           onChange={(about) => {

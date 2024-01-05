@@ -174,7 +174,7 @@ const EditCompanyRight = ({
             !status
               ? null
               : status?.includes("inputSlogan maxlen")
-              ? "Максимальная длинна поля 60 сиволов"
+              ? "Максимальная длина поля 60 сиволов"
               : null
           }
           onChange={(slogan) => {
@@ -233,7 +233,7 @@ const EditCompanyRight = ({
             !status
               ? null
               : status?.includes("inputAbout maxlen")
-              ? "Максимальная длинна поля 240 сиволов"
+              ? "Максимальная длина поля 240 сиволов"
               : null
           }
           onChange={(about) => {

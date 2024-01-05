@@ -204,7 +204,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                     : status?.includes("inputName minlen")
                     ? "Поле обязательно к заполнению"
                     : status?.includes("inputName maxlen")
-                    ? "Максимальная длинна поля 80 сиволов"
+                    ? "Максимальная длина поля 80 сиволов"
                     : null
                 }
               />
@@ -220,7 +220,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                   !status
                     ? null
                     : status?.includes("inputShortDesc maxlen")
-                    ? "Максимальная длинна поля 240 сиволов"
+                    ? "Максимальная длина поля 240 сиволов"
                     : null
                 }
                 maxLength={240}
@@ -266,7 +266,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                     : status?.includes("inputDescription minlen")
                     ? "Поле обязательно к заполнению"
                     : status?.includes("inputDescription maxlen")
-                    ? "Максимальная длинна поля 640 сиволов"
+                    ? "Максимальная длина поля 640 сиволов"
                     : null
                 }
               />
@@ -281,7 +281,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                   !status
                     ? null
                     : status?.includes("inputConditions maxlen")
-                    ? "Максимальная длинна поля 480 сиволов"
+                    ? "Максимальная длина поля 480 сиволов"
                     : null
                 }
                 value={dataToUpdate?.conditions}
@@ -307,7 +307,7 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
                   !status
                     ? null
                     : status?.includes("inputWaitings maxlen")
-                    ? "Максимальная длинна поля 480 сиволов"
+                    ? "Максимальная длина поля 480 сиволов"
                     : null
                 }
                 value={dataToUpdate?.waitings}
