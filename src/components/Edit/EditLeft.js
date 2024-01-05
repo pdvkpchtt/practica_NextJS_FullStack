@@ -15,6 +15,7 @@ import UpploadAvatarModal from "../../shared/ui/UpploadAvatarModal";
 import ImageIcon from "../../shared/icons/ImageIcon";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import CircularProggressBar from "../../shared/ui/CircularProggressBar";
+import getNewAva from "../../server/actions/profile/getNewAva";
 
 const EditLeft = ({
   data,
@@ -31,7 +32,14 @@ const EditLeft = ({
   const [birthValue, setBirthValue] = useState(data.birthDate || "");
   const [myMail, setMyMail] = useState(data.email);
   const [error, setError] = useState(false);
+  const [ava, setAva] = useState(null);
   const [bottomModal, setBottomModal] = useState(false);
+
+  const getNewAvatar = async () => {
+    const ava = await getNewAva();
+    setAva(ava);
+    console.log(ava);
+  };
 
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -260,8 +268,8 @@ const EditLeft = ({
         handleClose={() => {
           setBottomModal(false);
           router.refresh();
-          router.refresh();
         }}
+        onDone={getNewAvatar}
       />
     </div>
   );

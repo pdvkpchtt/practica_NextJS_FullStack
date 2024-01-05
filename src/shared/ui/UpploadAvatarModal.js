@@ -11,6 +11,7 @@ import axios from "axios";
 const UpploadAvatarModal = ({
   isOpen = false,
   handleClose = () => {},
+  onDone = () => {},
   company = false,
 }) => {
   const inputRef = useRef(null);
@@ -30,6 +31,7 @@ const UpploadAvatarModal = ({
         .post("/api/upload/avatarComp", formData)
         .then(console.log)
         .catch(console.log);
+    onDone();
   };
 
   return (
@@ -39,7 +41,7 @@ const UpploadAvatarModal = ({
           <input
             type="file"
             name="file"
-            accept="image/*"
+            accept="image/png, image/jpg, image/jpeg"
             className="hidden"
             ref={inputRef}
             onChange={(e) => {
