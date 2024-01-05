@@ -36,9 +36,9 @@ const EditLeft = ({
   const [bottomModal, setBottomModal] = useState(false);
 
   const getNewAvatar = async () => {
-    const ava = await getNewAva();
+    const ava = await getNewAva(data.id);
     setAva(ava);
-    console.log(ava);
+    console.log(ava, "jopa pizda");
   };
 
   function isValidEmail(email) {
