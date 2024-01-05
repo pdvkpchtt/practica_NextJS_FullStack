@@ -38,7 +38,7 @@ const EditLeft = ({
   const getNewAvatar = async () => {
     const ava = await getNewAva(data.id);
     setAva(ava);
-    console.log(ava, "jopa pizda");
+    console.log(ava, "wow");
   };
 
   function isValidEmail(email) {

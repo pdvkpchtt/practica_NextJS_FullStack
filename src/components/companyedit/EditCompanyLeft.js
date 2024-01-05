@@ -15,6 +15,7 @@ import TextSecondary from "../../shared/Text/TextSecondary";
 import { updateEmail } from "../../server/actions/company/updateCompanyProfile";
 import { invite } from "../../server/actions/hr/invite";
 import UpploadAvatarModal from "../../shared/ui/UpploadAvatarModal";
+import getCompanyNewAva from "../../server/actions/company/getCompanyNewAva";
 
 import AddCityIcon from "../../shared/icons/AddCityIcon";
 import ImageIcon from "../../shared/icons/ImageIcon";
@@ -40,6 +41,13 @@ const EditCompanyLeft = ({
   const [error, setError] = useState(false);
   const [error2, setError2] = useState(false);
   const [invalid, setInvalid] = useState(null);
+  const [ava, setAva] = useState(null);
+
+  const getNewAvatar = async () => {
+    const ava = await getCompanyNewAva(data.id);
+    setAva(ava);
+    console.log(ava, "wow");
+  };
 
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -75,9 +83,9 @@ const EditCompanyLeft = ({
               style="opacity-0 group-hover:opacity-100 object-cover scale-50 group-hover:scale-100 transition duration-[150ms]"
             />
           </div>
-          {data.image ? (
+          {data.image || ava !== null ? (
             <Image
-              src={data.image}
+              src={ava !== null ? ava : data.image}
               alt="Profile photo"
               className="min-w-[110px] object-cover w-[110px] h-[110px] min-h-[110px]"
               width={110}
@@ -396,6 +404,7 @@ const EditCompanyLeft = ({
           router.refresh();
         }}
         company
+        onDone={getNewAvatar}
       />
     </div>
   );
