@@ -5,7 +5,7 @@ import { prisma } from "../../db";
 const getNewAva = async (id) => {
   const ava = await prisma.user.findUnique({
     where: { id: id },
-    data: {
+    select: {
       image: true,
     },
   });

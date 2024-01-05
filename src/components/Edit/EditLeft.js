@@ -79,9 +79,9 @@ const EditLeft = ({
           <div className="absolute flex items-center justify-center w-full h-full bg-transparent group hover:bg-black hover:bg-opacity-25 transition duration-[150ms]">
             <ImageIcon style="opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition duration-[150ms]" />
           </div>
-          {data.image ? (
+          {data.image || ava !== null ? (
             <Image
-              src={data.image}
+              src={ava !== null ? ava : data.image}
               alt="Profile photo"
               unoptimized
               className="[@media(hover)]:min-w-[236px] object-cover [@media(hover)]:w-[236px] [@media(hover)]:h-[236px] [@media(hover)]:min-h-[236px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full"
