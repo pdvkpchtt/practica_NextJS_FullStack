@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "../../db";
 
 const getNewAva = async (id) => {
