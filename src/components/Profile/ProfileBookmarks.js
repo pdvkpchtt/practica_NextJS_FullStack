@@ -9,8 +9,9 @@ import TextMain from "../../shared/Text/TextMain ";
 import Card from "../../shared/ui/Card";
 import CustomLoader from "../../shared/ui/CustomLoader";
 import { LayoutGroup } from "framer-motion";
+import Image from "next/image";
 
-const ProfileBookmarks = ({ userId }) => {
+const ProfileBookmarks = ({ userId, others = false }) => {
   const [cursor, setCursor] = useState("");
   const [hasNextPage, setHasNextPage] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -45,7 +46,19 @@ const ProfileBookmarks = ({ userId }) => {
         </div>
       ) : posts?.length === 0 ? (
         <Card style={"flex justify-center"} padding={16}>
-          <div className="items-center flex flex-col gap-[24px] justify-center w-full text-center ">
+          <div className="[@media(pointer:coarse)]:items-center [@media(pointer:coarse)]:justify-center flex flex-col gap-[24px] justify-center w-full  ">
+            {others === false && (
+              <div className="w-full flex justify-center items-center">
+                <Image
+                  src={"/2Guys1post.png"}
+                  quality={100}
+                  unoptimized
+                  className="h-[300px] w-fit"
+                  width={1620}
+                  height={2160}
+                />
+              </div>
+            )}
             <TextMain
               text={`У вас пока нет избранного`}
               style="text-[14px] font-medium leading-[18px] tracking-[-0.013em]"

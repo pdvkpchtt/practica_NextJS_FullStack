@@ -9,6 +9,7 @@ import TextMain from "../../shared/Text/TextMain ";
 import Card from "../../shared/ui/Card";
 import Post from "../../shared/ui/Post";
 import { getRated } from "../../server/actions/posts/getRated";
+import Image from "next/image";
 
 const dummyData = [];
 
@@ -54,7 +55,20 @@ const ProfileLiked = ({
         </div>
       ) : posts?.length === 0 ? (
         <Card style={"flex justify-center"} padding={16}>
-          <div className="items-center flex flex-col gap-[24px] justify-center w-full text-center ">
+          <div className="[@media(pointer:coarse)]:items-center [@media(pointer:coarse)]:justify-center flex flex-col gap-[24px]  w-full text-start ">
+            {others === false && (
+              <div className="w-full flex justify-center items-center">
+                <Image
+                  src={"/2Guys1post.png"}
+                  quality={100}
+                  unoptimized
+                  className="h-[300px] w-fit"
+                  width={1620}
+                  height={2160}
+                />
+              </div>
+            )}
+
             <TextMain
               text={
                 !company

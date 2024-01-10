@@ -8,6 +8,7 @@ import Card from "../../shared/ui/Card";
 import CustomLoader from "../../shared/ui/CustomLoader";
 import TextMain from "../../shared/Text/TextMain ";
 import Post from "../../shared/ui/Post";
+import Image from "next/image";
 
 const ProfilePosts = ({
   getUserFeed,
@@ -54,14 +55,26 @@ const ProfilePosts = ({
           </div>
         ) : posts?.length === 0 ? (
           <Card style={"flex justify-center"}>
-            <div className="items-center flex flex-col gap-[24px] justify-center w-full text-center ">
+            <div className="[@media(pointer:coarse)]:items-center [@media(pointer:coarse)]:justify-center flex flex-col gap-[24px]  w-full text-start ">
+              {others === false && (
+                <div className="w-full flex justify-center items-center">
+                  <Image
+                    src={"/2Guys1post.png"}
+                    quality={100}
+                    unoptimized
+                    className="h-[300px] w-fit"
+                    width={1620}
+                    height={2160}
+                  />
+                </div>
+              )}
               <TextMain
                 text={
                   !company
                     ? `У ${!others ? "вас" : "пользователя"} пока нет постов`
                     : `У компании пока нет постов`
                 }
-                style="text-[14px] font-medium leading-[18px] tracking-[-0.013em]"
+                style="text-[14px] font-medium leading-[18px] tracking-[-0.013em] "
               />
             </div>
           </Card>
