@@ -59,7 +59,7 @@ const ProfilePosts = ({
               {others === false && (
                 <div className="w-full flex justify-center items-center">
                   <Image
-                    src={"/2Guys1post.png"}
+                    src={"/TwoGuys1post.png"}
                     quality={100}
                     unoptimized
                     className="h-[300px] w-fit"
