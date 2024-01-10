@@ -1,13 +1,14 @@
 "use client";
 
 import Right from "../../components/Profile/Right";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import NavigationMobile from "../../shared/ui/NavigationMobile";
 import OthersLeft from "./OthersLeft";
 import ProfileInfo from "../../components/Profile/ProfileInfo";
 import ProfileLiked from "../../components/Profile/ProfileLiked";
 import ProfilePosts from "../../components/Profile/ProfilePosts";
+import useWindowDimensions from "../../components/Profile/useWindowDimensions";
 
 const OthersProfileWithNav = ({
   isFirstTime,
@@ -20,6 +21,29 @@ const OthersProfileWithNav = ({
   pitchesFirst,
   superPitchesFirst,
 }) => {
+  const { height, width } = useWindowDimensions();
+  const ref = useRef(null);
+
+  const [opacity, setOpacity] = useState(false);
+  const [trigger, setTrigger] = useState(false);
+
+  useLayoutEffect(() => {
+    if (typeof window !== "undefined")
+      setTrigger(height - ref?.current?.clientHeight < 86);
+  }, [height]);
+
+  const changeOpacity = () => {
+    if (
+      window.scrollY > ref?.current?.clientHeight - height + 24 + 86 &&
+      trigger === true
+    )
+      setOpacity(true);
+    else setOpacity(false);
+  };
+
+  if (typeof window !== "undefined")
+    window.addEventListener("scroll", changeOpacity);
+
   console.log("client other profile", data);
   const [navState, setNavState] = useState([
     {
@@ -67,6 +91,9 @@ const OthersProfileWithNav = ({
         layoutId="mobileothers"
       />
       <OthersLeft
+        trigger={trigger}
+        refElement={ref}
+        opacity={opacity}
         isFirstTime={isFirstTime}
         navState={navState[0].active}
         data={data}
@@ -75,6 +102,8 @@ const OthersProfileWithNav = ({
         superPitchesFirst={superPitchesFirst}
       />
       <Right
+        trigger={trigger}
+        opacity={opacity}
         handleClick={(value) => handleClick(value)}
         navState={navState}
         data={data}

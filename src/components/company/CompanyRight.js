@@ -2,9 +2,20 @@
 
 import NavigationPc from "../../shared/ui/NavigationPc";
 
-const CompanyRight = ({ handleClick, navState }) => {
+const CompanyRight = ({
+  handleClick,
+  navState,
+  opacity = false,
+  trigger = false,
+}) => {
   return (
-    <div className="flex flex-col [@media(hover)]:ml-[276px] gap-[16px] w-full">
+    <div
+      className={`flex flex-col ${
+        !trigger
+          ? "[@media(hover)]:ml-[276px]"
+          : opacity && "[@media(hover)]:ml-[276px]"
+      }  gap-[16px] w-full`}
+    >
       <NavigationPc
         useState={(value) => handleClick(value)}
         navState={navState}

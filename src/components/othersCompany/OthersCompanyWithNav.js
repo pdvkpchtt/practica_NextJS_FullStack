@@ -1,7 +1,7 @@
 "use client";
 
 import Right from "../../components/Profile/Right";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import NavigationMobile from "../../shared/ui/NavigationMobile";
 import OthersCompanyLeft from "./OthersCompanyLeft";
@@ -9,6 +9,7 @@ import CompanyInfo from "../../components/company/CompanyInfo";
 import ProfilePosts from "../../components/Profile/ProfilePosts";
 import ProfileLiked from "../../components/Profile/ProfileLiked";
 import CompanyVacancies from "../../components/company/CompanyVacancies";
+import useWindowDimensions from "../../components/Profile/useWindowDimensions";
 
 const OthersCompanyWithNav = ({
   data,
@@ -18,6 +19,29 @@ const OthersCompanyWithNav = ({
   userId,
   role,
 }) => {
+  const { height, width } = useWindowDimensions();
+  const ref = useRef(null);
+
+  const [opacity, setOpacity] = useState(false);
+  const [trigger, setTrigger] = useState(false);
+
+  useLayoutEffect(() => {
+    if (typeof window !== "undefined")
+      setTrigger(height - ref?.current?.clientHeight < 86);
+  }, [height]);
+
+  const changeOpacity = () => {
+    if (
+      window.scrollY > ref?.current?.clientHeight - height + 24 + 86 &&
+      trigger === true
+    )
+      setOpacity(true);
+    else setOpacity(false);
+  };
+
+  if (typeof window !== "undefined")
+    window.addEventListener("scroll", changeOpacity);
+
   const [navState, setNavState] = useState([
     {
       id: 0,
@@ -67,8 +91,19 @@ const OthersCompanyWithNav = ({
         useState={(value) => handleClick(value)}
         layoutId="mobileothers"
       />
-      <OthersCompanyLeft navState={navState[0].active} data={data} />
-      <Right handleClick={(value) => handleClick(value)} navState={navState} />
+      <OthersCompanyLeft
+        navState={navState[0].active}
+        data={data}
+        trigger={trigger}
+        refElement={ref}
+        opacity={opacity}
+      />
+      <Right
+        handleClick={(value) => handleClick(value)}
+        navState={navState}
+        trigger={trigger}
+        opacity={opacity}
+      />
     </>
   );
 };

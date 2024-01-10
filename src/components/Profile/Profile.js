@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useLayoutEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 
 import NavigationMobile from "../../shared/ui/NavigationMobile";
@@ -10,6 +10,7 @@ import ProfileInfo from "../../components/Profile/ProfileInfo";
 import ProfileLiked from "../../components/Profile/ProfileLiked";
 import ProfilePosts from "../../components/Profile/ProfilePosts";
 import ProfileBookmarks from "../../components/Profile/ProfileBookmarks";
+import useWindowDimensions from "./useWindowDimensions";
 
 const Profile = ({
   data,
@@ -20,6 +21,28 @@ const Profile = ({
   superPitchesFirst,
 }) => {
   const searchParams = useSearchParams();
+  const { height, width } = useWindowDimensions();
+  const ref = useRef(null);
+
+  const [opacity, setOpacity] = useState(false);
+  const [trigger, setTrigger] = useState(false);
+
+  useLayoutEffect(() => {
+    if (typeof window !== "undefined")
+      setTrigger(height - ref?.current?.clientHeight < 86);
+  }, [height]);
+
+  const changeOpacity = () => {
+    if (
+      window.scrollY > ref?.current?.clientHeight - height + 24 + 86 &&
+      trigger === true
+    )
+      setOpacity(true);
+    else setOpacity(false);
+  };
+
+  if (typeof window !== "undefined")
+    window.addEventListener("scroll", changeOpacity);
 
   console.log("client profile", data, searchParams.get("contacts"));
   const [navState, setNavState] = useState([
@@ -68,6 +91,9 @@ const Profile = ({
         layoutId="mobile"
       />
       <Left
+        trigger={trigger}
+        refElement={ref}
+        opacity={opacity}
         searchParams={
           searchParams.get("contacts") !== null
             ? searchParams.get("contacts")
@@ -78,7 +104,12 @@ const Profile = ({
         pitchesFirst={pitchesFirst}
         superPitchesFirst={superPitchesFirst}
       />
-      <Right handleClick={(value) => handleClick(value)} navState={navState} />
+      <Right
+        trigger={trigger}
+        opacity={opacity}
+        handleClick={(value) => handleClick(value)}
+        navState={navState}
+      />
     </>
   );
 };

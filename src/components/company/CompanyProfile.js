@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
+import useWindowDimensions from "../../components/Profile/useWindowDimensions";
 import ProfileLiked from "../../components/Profile/ProfileLiked";
 import ProfilePosts from "../../components/Profile/ProfilePosts";
 import NavigationMobile from "../../shared/ui/NavigationMobile";
@@ -11,6 +12,29 @@ import CompanyRight from "./CompanyRight";
 import CompanyVacancies from "./CompanyVacancies";
 
 const CompanyProfile = ({ data, getUserFeed, addReaction, role, userId }) => {
+  const { height, width } = useWindowDimensions();
+  const ref = useRef(null);
+
+  const [opacity, setOpacity] = useState(false);
+  const [trigger, setTrigger] = useState(false);
+
+  useLayoutEffect(() => {
+    if (typeof window !== "undefined")
+      setTrigger(height - ref?.current?.clientHeight < 86);
+  }, [height]);
+
+  const changeOpacity = () => {
+    if (
+      window.scrollY > ref?.current?.clientHeight - height + 24 + 86 &&
+      trigger === true
+    )
+      setOpacity(true);
+    else setOpacity(false);
+  };
+
+  if (typeof window !== "undefined")
+    window.addEventListener("scroll", changeOpacity);
+
   const [navState, setNavState] = useState([
     {
       id: 0,
@@ -56,8 +80,16 @@ const CompanyProfile = ({ data, getUserFeed, addReaction, role, userId }) => {
         useState={(value) => handleClick(value)}
         layoutId="mobile"
       />
-      <CompanyLeft navState={navState[0].active} data={data} />
+      <CompanyLeft
+        navState={navState[0].active}
+        data={data}
+        trigger={trigger}
+        refElement={ref}
+        opacity={opacity}
+      />
       <CompanyRight
+        trigger={trigger}
+        opacity={opacity}
         handleClick={(value) => handleClick(value)}
         navState={navState}
       />

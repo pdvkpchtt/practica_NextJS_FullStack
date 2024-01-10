@@ -30,30 +30,19 @@ import SettingsIcon from "../../shared/icons/SettingsIcon";
 import AddVacancyIcon from "../../shared/icons/AddVacancyIcon";
 import useInterval from "use-interval";
 
-const OthersCompanyLeft = ({ navState, data }) => {
+const OthersCompanyLeft = ({
+  navState,
+  data,
+  refElement = null,
+  opacity = false,
+  trigger = false,
+}) => {
   const router = useRouter();
-  const ref = useRef(null);
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
-  const { height, width } = useWindowDimensions();
   const clipboard = useClipboard();
 
-  const [trigger, setTrigger] = useState(false);
-  const [opacity, setOpacity] = useState(false);
   const [modalState, setModalState] = useState(false);
   const [modalState2, setModalState2] = useState(false);
-
-  useLayoutEffect(() => {
-    if (typeof window !== "undefined")
-      setTrigger(height - ref?.current?.clientHeight < 86);
-  }, [height]);
-
-  const changeOpacity = () => {
-    if (window.scrollY >= 16) setOpacity(true);
-    if (window.scrollY < 16) setOpacity(false);
-  };
-
-  if (typeof window !== "undefined")
-    window.addEventListener("scroll", changeOpacity);
 
   const [ifFollow, setIfFollow] = useState(false);
   const [loading, setloading] = useState(true);
@@ -84,31 +73,20 @@ const OthersCompanyLeft = ({ navState, data }) => {
   return (
     <>
       <motion.div
-        whileHover={
-          navState
-            ? trigger && !isMobile
-              ? { y: height - ref?.current?.clientHeight - 86 - 24 }
-              : { y: 0 }
-            : {}
-        }
-        animate={
-          trigger
-            ? opacity && !isMobile
-              ? {
-                  y: height - ref?.current?.clientHeight - 86 - 24,
-                }
-              : { y: 0 }
-            : { y: 0 }
-        }
-        transition={{ duration: 0.01 }}
         className={`${
           navState == true
             ? "[@media(hover)]:flex [@media(pointer:coarse)]:flex flex-col gap-[16px]"
             : "[@media(hover)]:flex [@media(pointer:coarse)]:hidden flex-col gap-[16px]"
         }
    
-  transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@media(hover)]:max-w-[260px]  w-full`}
-        ref={ref}
+  transition-all duration-[250ms] ${
+    !trigger
+      ? "[@media(hover)]:fixed [@media(hover)]:top-[86px]"
+      : opacity
+      ? "[@media(hover)]:fixed [@media(hover)]:bottom-[24px]"
+      : "[@media(hover)]:top-[86px]"
+  } [@media(hover)]:max-w-[260px]  w-full h-fit`}
+        ref={refElement}
       >
         <Card
           style="[@media(hover)]:w-[260px] [@media(pointer:coarse)]:w-full flex flex-col gap-[12px]"

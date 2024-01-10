@@ -40,12 +40,13 @@ const Left = ({
   pitchesFirst,
   superPitchesFirst,
   searchParams,
+  refElement = null,
+  opacity = false,
+  trigger = false,
 }) => {
   // console.log(data, "saasassaasas2");
   const router = useRouter();
-  const ref = useRef(null);
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
-  const { height, width } = useWindowDimensions();
 
   const getNoun = (dig) => {
     if (dig === 0 || dig >= 5 || dig % 10 === 0 || dig % 10 >= 5)
@@ -63,9 +64,6 @@ const Left = ({
     if (dig % 10 > 1 && dig % 10 < 5) return "Подписки";
     else return "Подписка";
   };
-
-  const [trigger, setTrigger] = useState(false);
-  const [opacity, setOpacity] = useState(false);
 
   const [modalState, setModalState] = useState(false);
   const [modal2State, setModal2State] = useState(false);
@@ -93,18 +91,10 @@ const Left = ({
     isRunning ? delay : null
   );
 
-  useLayoutEffect(() => {
-    if (typeof window !== "undefined")
-      setTrigger(height - ref?.current?.clientHeight < 86);
-  }, [height]);
-
-  const changeOpacity = () => {
-    if (window.scrollY >= 16) setOpacity(true);
-    if (window.scrollY < 16) setOpacity(false);
-  };
-
-  if (typeof window !== "undefined")
-    window.addEventListener("scroll", changeOpacity);
+  // useLayoutEffect(() => {
+  //   if (typeof window !== "undefined")
+  //     setTrigger(height - ref?.current?.clientHeight < 86);
+  // }, [height]);
 
   // here we are getting pitches count
   const [pitchesState, setPitchesState] = useState(null);
@@ -119,29 +109,35 @@ const Left = ({
   return (
     <>
       <motion.div
-        whileHover={
-          trigger && !isMobile
-            ? { y: height - ref?.current?.clientHeight - 86 - 24 }
-            : { y: 0 }
-        }
-        animate={
-          trigger
-            ? opacity && !isMobile
-              ? {
-                  y: height - ref?.current?.clientHeight - 86 - 24,
-                }
-              : { y: 0 }
-            : { y: 0 }
-        }
-        transition={{ duration: 0.01 }}
+        // whileHover={
+        //   trigger && !isMobile
+        //     ? { y: height - ref?.current?.clientHeight - 86 - 24 }
+        //     : { y: 0 }
+        // }
+        // animate={
+        //   trigger
+        //     ? opacity && !isMobile
+        //       ? {
+        //           y: height - ref?.current?.clientHeight - 86 - 24,
+        //         }
+        //       : { y: 0 }
+        //     : { y: 0 }
+        // }
+        // transition={{ duration: 0.01 }}
         className={`${
           navState == true
             ? "[@media(hover)]:flex [@media(pointer:coarse)]:flex flex-col gap-[16px] [@media(pointer:coarse)]:gap-[12px]"
             : "[@media(hover)]:flex [@media(pointer:coarse)]:hidden flex-col gap-[16px] [@media(pointer:coarse)]:gap-[12px]"
         }
        
-      transition duration-[250ms] [@media(hover)]:top-[86px] [@media(hover)]:fixed [@media(hover)]:max-w-[260px]  w-full`}
-        ref={ref}
+        transition-all duration-[250ms]  ${
+          !trigger
+            ? "[@media(hover)]:fixed [@media(hover)]:top-[86px]"
+            : opacity
+            ? "[@media(hover)]:fixed [@media(hover)]:bottom-[24px]"
+            : "[@media(hover)]:top-[86px]"
+        } [@media(hover)]:max-w-[260px] h-fit w-full`}
+        ref={refElement}
       >
         <Card
           style="[@media(hover)]:max-w-[260px] w-full flex flex-col gap-[12px]"
