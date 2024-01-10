@@ -56,10 +56,12 @@ export const getPeoples = async (cursor, filters) => {
                 contains: filters?.input.slice(1),
                 mode: "insensitive",
               },
-              city: {
-                contains: filters?.peoplecity?.label,
-                mode: "insensitive",
-              },
+              city:
+                filters?.peoplecity.length > 0
+                  ? {
+                      in: filters?.peoplecity?.map((i) => true && i.label),
+                    }
+                  : {},
               educationLevel: {
                 text: {
                   contains: filters?.educationLevel?.label,
@@ -90,10 +92,12 @@ export const getPeoples = async (cursor, filters) => {
             }
           : {
               fullname: { contains: filters?.input, mode: "insensitive" },
-              city: {
-                contains: filters?.peoplecity?.label,
-                mode: "insensitive",
-              },
+              city:
+                filters?.peoplecity.length > 0
+                  ? {
+                      in: filters?.peoplecity?.map((i) => true && i.label),
+                    }
+                  : {},
               educationLevel: {
                 text: {
                   contains: filters?.educationLevel?.label,
@@ -123,10 +127,12 @@ export const getPeoples = async (cursor, filters) => {
                   : {},
             }
         : {
-            city: {
-              contains: filters?.peoplecity?.label,
-              mode: "insensitive",
-            },
+            city:
+              filters?.peoplecity.length > 0
+                ? {
+                    in: filters?.peoplecity?.map((i) => true && i.label),
+                  }
+                : {},
             educationLevel: {
               text: {
                 contains: filters?.educationLevel?.label,

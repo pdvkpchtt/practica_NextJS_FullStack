@@ -6,7 +6,7 @@ import { prisma } from "../../db";
 export const getVacancies = async (cursor, filters) => {
   const session = await getServSession();
 
-  console.log(filters.VacancySkills);
+  console.log(filters, "estim");
   const vacancy = await prisma.vacancy.findMany({
     take: 11,
     ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
@@ -96,8 +96,87 @@ export const getVacancies = async (cursor, filters) => {
     },
     where: filters?.startFiltering
       ? filters?.input.length > 0
+        ? filters?.distantWork !== null
+          ? {
+              name: { contains: filters?.input, mode: "insensitive" },
+
+              VacancySkills:
+                filters?.VacancySkills?.length > 0
+                  ? {
+                      some: {
+                        name: {
+                          in: filters?.VacancySkills?.map(
+                            (item) => true && item.name
+                          ),
+                        },
+                      },
+                    }
+                  : {},
+              vacArea:
+                filters?.area?.length > 0
+                  ? {
+                      some: {
+                        label: {
+                          in: filters?.area?.map((item) => true && item.label),
+                        },
+                      },
+                    }
+                  : {},
+              distantWork: filters?.distantWork,
+              Location:
+                filters?.location?.length > 0
+                  ? {
+                      some: {
+                        label: {
+                          in: filters?.location?.map(
+                            (item) => true && item.label
+                          ),
+                        },
+                      },
+                    }
+                  : {},
+            }
+          : {
+              name: { contains: filters?.input, mode: "insensitive" },
+
+              VacancySkills:
+                filters?.VacancySkills?.length > 0
+                  ? {
+                      some: {
+                        name: {
+                          in: filters?.VacancySkills?.map(
+                            (item) => true && item.name
+                          ),
+                        },
+                      },
+                    }
+                  : {},
+              vacArea:
+                filters?.area?.length > 0
+                  ? {
+                      some: {
+                        label: {
+                          in: filters?.area?.map((item) => true && item.label),
+                        },
+                      },
+                    }
+                  : {},
+              Location:
+                filters?.location?.length > 0
+                  ? {
+                      some: {
+                        label: {
+                          in: filters?.location?.map(
+                            (item) => true && item.label
+                          ),
+                        },
+                      },
+                    }
+                  : {},
+            }
+        : filters?.distantWork !== null
         ? {
-            name: { contains: filters?.input, mode: "insensitive" },
+            distantWork: filters?.distantWork,
 
             VacancySkills:
               filters?.VacancySkills?.length > 0
@@ -121,27 +200,21 @@ export const getVacancies = async (cursor, filters) => {
                     },
                   }
                 : {},
-            distantWork:
-              filters?.distantWork === null
-                ? true || false
-                : filters?.distantWork,
+
             Location:
               filters?.location?.length > 0
                 ? {
                     some: {
                       label: {
-                        contains: filters?.location?.label,
-                        mode: "insensitive",
+                        in: filters?.location?.map(
+                          (item) => true && item.label
+                        ),
                       },
                     },
                   }
                 : {},
           }
         : {
-            distantWork:
-              filters?.distantWork === null
-                ? true || false
-                : filters?.distantWork,
             VacancySkills:
               filters?.VacancySkills?.length > 0
                 ? {
@@ -170,8 +243,9 @@ export const getVacancies = async (cursor, filters) => {
                 ? {
                     some: {
                       label: {
-                        contains: filters?.location?.label,
-                        mode: "insensitive",
+                        in: filters?.location?.map(
+                          (item) => true && item.label
+                        ),
                       },
                     },
                   }

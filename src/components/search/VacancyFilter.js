@@ -23,25 +23,64 @@ const VacancyFilter = ({
   dropDataVacancies = {},
   skills,
 }) => {
+  console.log(dropDataVacancies?.location);
+
   let uniqueList = Array.from(new Set(skills.map((a) => a.name))).map(
     (name) => {
       return skills.find((a) => a.name === name);
     }
   );
   const [state, setState] = useState(false);
+  const [state7, setState7] = useState(false);
   const [isOpen, toggle] = useState(false);
   const [isOpen2, toggle2] = useState(false);
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
   return (
     <div className="w-full  flex flex-col gap-[16px] h-fit bg-white dark:bg-[#212122] p-[12px] rounded-b-[20px]">
-      <div className="flex flex-col w-full">
+      {/* <div className="flex flex-col w-full">
         <TextSecondary
           text={"Расположение"}
           style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
         />
         <DropDownWithSearch
           city={updateVacancies?.location?.label}
+          setCity={(val) => {
+            setUpdateVacancies({
+              ...updateVacancies,
+              location: val,
+            });
+          }}
+          items={dropDataVacancies?.location}
+          placeholder={"Не выбрано"}
+        />
+      </div> */}
+
+      <div className="flex flex-col relative">
+        <TextSecondary
+          text={"Расположение"}
+          style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+        />
+        {updateVacancies.location.length > 0 ? (
+          <p
+            className={
+              "text-[14px] break-words text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] font-medium leading-[18px] tracking-[-0.182px] cursor-pointer [@media(hover)]:w-[680px]"
+            }
+            onClick={() => setState7(true)}
+          >
+            {updateVacancies.location.map(
+              (item, key) =>
+                item.label +
+                `${key === updateVacancies.location.length - 1 ? "" : ", "}`
+            )}
+          </p>
+        ) : (
+          <AddCityIcon onClick={() => setState7(true)} />
+        )}
+        <DropDownWithChoise
+          state={state7}
+          setState={setState7}
+          city={updateVacancies?.location}
           setCity={(val) => {
             setUpdateVacancies({
               ...updateVacancies,

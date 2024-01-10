@@ -7,10 +7,11 @@ import { ButtonSecondary } from "../../shared/ui/Button";
 import DropDown from "../../shared/ui/DropDown";
 import SkillCard from "../../shared/ui/SkillCard";
 import DropDownWithSearch from "../../shared/ui/DropDownWithSearch";
+import DropDownWithChoise from "../../shared/ui/DropDownWithChoise";
+import SkillsDropDownUser from "../../shared/ui/SkillsDropDownUser";
 
 import AddCityIcon from "../../shared/icons/AddCityIcon";
-import AddSkillIcon from "shared/icons/AddSkillIcon";
-import SkillsDropDownUser from "shared/ui/SkillsDropDownUser";
+import AddSkillIcon from "../../shared/icons/AddSkillIcon";
 
 const PeopleFilters = ({
   setSkillsModal,
@@ -21,10 +22,46 @@ const PeopleFilters = ({
 }) => {
   const [isOpen, toggle] = useState(false);
   const [isOpen2, toggle2] = useState(false);
+  const [state7, setState7] = useState(false);
 
   return (
     <div className="w-full  flex flex-col gap-[16px] h-fit bg-white dark:bg-[#212122] p-[12px] rounded-b-[20px]">
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col relative">
+        <TextSecondary
+          text={"Город"}
+          style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
+        />
+        {updatePeople?.peoplecity.length > 0 ? (
+          <p
+            className={
+              "text-[14px] break-words text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] font-medium leading-[18px] tracking-[-0.182px] cursor-pointer [@media(hover)]:w-[680px]"
+            }
+            onClick={() => setState7(true)}
+          >
+            {updatePeople?.peoplecity.map(
+              (item, key) =>
+                item.label +
+                `${key === updatePeople?.peoplecity.length - 1 ? "" : ", "}`
+            )}
+          </p>
+        ) : (
+          <AddCityIcon onClick={() => setState7(true)} />
+        )}
+        <DropDownWithChoise
+          state={state7}
+          setState={setState7}
+          city={updatePeople?.peoplecity}
+          setCity={(val) => {
+            setUpdatePeople({
+              ...updatePeople,
+              peoplecity: val,
+            });
+          }}
+          items={dropDataVacancies?.peoplecity?.filter((i) => i.label !== null)}
+          placeholder={"Не выбрано"}
+        />
+      </div>
+      {/* <div className="flex flex-col w-full">
         <TextSecondary
           text={"Город"}
           style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
@@ -40,7 +77,7 @@ const PeopleFilters = ({
           items={dropDataVacancies?.peoplecity?.filter((i) => i.label !== null)}
           placeholder={"Не выбрано"}
         />
-      </div>
+      </div> */}
 
       <div className="flex flex-col w-full">
         <TextSecondary

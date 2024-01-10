@@ -25,7 +25,7 @@ const PcFilters = ({
 
   const ifVacancies =
     pathname === navState[0].route &&
-    (updateVacancies.location.label !== "" ||
+    (updateVacancies.location.length !== null ||
       updateVacancies.distantWork !== null ||
       updateVacancies.area.length !== 0 ||
       updateVacancies.VacancySkills.length !== 0);
@@ -38,7 +38,7 @@ const PcFilters = ({
 
   const ifPeople =
     pathname === navState[2].route &&
-    (updatePeople.peoplecity.label !== "" ||
+    (updatePeople.peoplecity.lengt !== 0 ||
       updatePeople.educationLevel.label !== "" ||
       updatePeople.workExperience.label !== "" ||
       updatePeople.UserSkills.length !== 0);
@@ -49,7 +49,7 @@ const PcFilters = ({
         startFiltering: false,
         distantWork: null,
         input: "",
-        location: { label: "" },
+        location: [],
         area: [],
         VacancySkills: [],
       });
@@ -65,7 +65,7 @@ const PcFilters = ({
       setUpdatePeople({
         startFiltering: false,
         input: "",
-        peoplecity: { label: "" },
+        peoplecity: [],
         educationLevel: { label: "" },
         workExperience: { label: "" },
         UserSkills: [],

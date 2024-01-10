@@ -17,8 +17,40 @@ export const getCompanies = async (cursor, filters) => {
     },
     where: filters?.startFiltering
       ? filters?.input.length > 0
+        ? filters?.isStartap !== null
+          ? {
+              name: { contains: filters?.input, mode: "insensitive" },
+              employee: {
+                label: {
+                  contains: filters?.employee?.label,
+                  mode: "insensitive",
+                },
+              },
+              industry: {
+                label: {
+                  contains: filters?.industry?.label,
+                  mode: "insensitive",
+                },
+              },
+              isStartap: filters?.isStartap,
+            }
+          : {
+              name: { contains: filters?.input, mode: "insensitive" },
+              employee: {
+                label: {
+                  contains: filters?.employee?.label,
+                  mode: "insensitive",
+                },
+              },
+              industry: {
+                label: {
+                  contains: filters?.industry?.label,
+                  mode: "insensitive",
+                },
+              },
+            }
+        : filters?.isStartap !== null
         ? {
-            name: { contains: filters?.input, mode: "insensitive" },
             employee: {
               label: {
                 contains: filters?.employee?.label,
@@ -31,7 +63,7 @@ export const getCompanies = async (cursor, filters) => {
                 mode: "insensitive",
               },
             },
-            isStartap: filters?.isStartap === null ? false : filters?.isStartap,
+            isStartap: filters?.isStartap,
           }
         : {
             employee: {
@@ -46,7 +78,6 @@ export const getCompanies = async (cursor, filters) => {
                 mode: "insensitive",
               },
             },
-            isStartap: filters?.isStartap === null ? false : filters?.isStartap,
           }
       : filters?.input.length > 0
       ? {

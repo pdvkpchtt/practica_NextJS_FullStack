@@ -40,7 +40,7 @@ const SearchNavContextWrap = ({ children }) => {
   const [updateVacancies, setUpdateVacancies] = useState({
     startFiltering: false,
     input: "",
-    location: { label: "" },
+    location: [],
     distantWork: null,
     area: [],
     VacancySkills: [],
@@ -55,7 +55,7 @@ const SearchNavContextWrap = ({ children }) => {
   const [updatePeople, setUpdatePeople] = useState({
     startFiltering: false,
     input: "",
-    peoplecity: { label: "" },
+    peoplecity: [],
     educationLevel: { label: "" },
     workExperience: { label: "" },
     UserSkills: [],

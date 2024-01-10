@@ -29,7 +29,7 @@ const MobileFilters = ({
 
   const ifVacancies =
     pathname === navState[0].route &&
-    (updateVacancies.location.label !== "" ||
+    (updateVacancies.location.length !== 0 ||
       updateVacancies.distantWork !== null ||
       updateVacancies.area.length !== 0 ||
       updateVacancies.VacancySkills.length !== 0);
@@ -42,7 +42,7 @@ const MobileFilters = ({
 
   const ifPeople =
     pathname === navState[2].route &&
-    (updatePeople.peoplecity.label !== "" ||
+    (updatePeople.peoplecity.length !== 0 ||
       updatePeople.educationLevel.label !== "" ||
       updatePeople.workExperience.label !== "" ||
       updatePeople.UserSkills.length !== 0);
@@ -53,7 +53,7 @@ const MobileFilters = ({
         startFiltering: false,
         distantWork: null,
         input: "",
-        location: { label: "" },
+        location: [],
         area: [],
         VacancySkills: [],
       });
@@ -69,7 +69,7 @@ const MobileFilters = ({
       setUpdatePeople({
         startFiltering: false,
         input: "",
-        peoplecity: { label: "" },
+        peoplecity: [],
         educationLevel: { label: "" },
         workExperience: { label: "" },
         UserSkills: [],

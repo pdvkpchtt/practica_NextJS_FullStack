@@ -69,6 +69,35 @@ export const getFiltersInfo = async (cursor) => {
   });
   // people
 
+  const bigCity = await prisma.BigCity.findMany({});
+  const areas = await prisma.Area.findMany({});
+
+  var vacAreaFiltered = vacArea.filter(function (array_el) {
+    return (
+      areas.filter(function (anotherOne_el) {
+        return anotherOne_el.label === array_el.label;
+      }).length !== 0
+    );
+  });
+
+  var locationFiltered = location.filter(function (array_el) {
+    return (
+      bigCity.filter(function (anotherOne_el) {
+        return anotherOne_el.label === array_el.label;
+      }).length !== 0
+    );
+  });
+
+  var peoplecityFiltered = peoplecity
+    .map((i) => ({ label: i.city }))
+    .filter(function (array_el) {
+      return (
+        bigCity.filter(function (anotherOne_el) {
+          return anotherOne_el.label === array_el.label;
+        }).length !== 0
+      );
+    });
+
   var filteredArray = vacskills.filter(function (array_el) {
     return (
       skills.filter(function (anotherOne_el) {
@@ -78,10 +107,10 @@ export const getFiltersInfo = async (cursor) => {
   });
 
   return {
-    location: location,
-    vacArea: vacArea,
+    location: locationFiltered,
+    vacArea: vacAreaFiltered,
     vacskills: filteredArray,
-    peoplecity: peoplecity.map((i) => ({ label: i.city })),
+    peoplecity: peoplecityFiltered,
     workExperience: workExperience.map((i) => ({ label: i.post })),
     educationLevel: educationLevel.map((i) => ({ label: i.text })),
     userskills: { skills: userskills },
