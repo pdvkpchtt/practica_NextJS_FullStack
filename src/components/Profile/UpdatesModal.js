@@ -43,6 +43,7 @@ const UpdatesModal = ({ modalState = false, setModalState = () => {} }) => {
     setCursor("");
     getRequests("");
   }, [modalState]);
+
   return (
     <>
       <Modal
@@ -61,7 +62,6 @@ const UpdatesModal = ({ modalState = false, setModalState = () => {} }) => {
         {/* body */}
         <div className="h-[371px] mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] mx-[-12px] px-[12px] mb-[-12px] pb-[12px] gap-[12px]">
           <>
-            {" "}
             {!users ? (
               <div className="w-full flex justify-center items-center h-full">
                 <CustomLoader diameter={36} />

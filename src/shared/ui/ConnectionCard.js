@@ -150,6 +150,12 @@ const ConnectionCard = ({
               style="font-medium text-[14px] leading-[18px] tracking-[-0.013em]"
             />
           )}
+          {update && (
+            <TextSecondary
+              text={item?.text}
+              style="font-medium text-[14px] leading-[18px] truncate tracking-[-0.013em]"
+            />
+          )}
         </div>
         {/* text */}
       </div>
