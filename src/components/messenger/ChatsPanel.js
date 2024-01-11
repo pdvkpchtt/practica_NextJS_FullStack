@@ -222,16 +222,18 @@ const ChatsPanel = ({ chatId, user_id, profileData, setTimer, timer }) => {
                   text={`${profileData.name}${
                     profileData?.lastname ? " " + profileData?.lastname : ""
                   }${
-                    profileData.isFirstCircle
+                    profileData.isFirstCircle?.length > 0
                       ? " • 1"
                       : profileData.isSecondCircle.find((i2) => i2 === true)
                       ? " • 2"
-                      : profileData.isThirdCircle
+                      : profileData.isThirdCircle?.length > 0
                       ? " • 3"
                       : " • 3+"
                   }`} //////////////////
                   style="font-medium text-center text-[18px] leading-[21.6px] tracking-[-0.015em] w-full overflow-hidden whitespace-nowrap truncate"
-                  onClick={() => router.push(`/proile/${profileData.username}`)}
+                  onClick={() =>
+                    router.push(`/profile/${profileData.username}`)
+                  }
                 />
                 {/* <TextSecondary
               text="онлайн"
