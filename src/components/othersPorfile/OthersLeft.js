@@ -44,6 +44,8 @@ import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
 import ContactsIcon from "../../shared/icons/ContactsIcon";
 import PitchesModalOthers from "./PitchesModalOthers";
+import Helper from "../../shared/ui/Helper";
+import CopyIcon from "../../shared/icons/CopyIcon";
 
 const OthersLeft = ({
   navState,
@@ -184,25 +186,35 @@ transition-all duration-[250ms] ${
                 }`}
                 style="font-medium text-[18px] leading-[21.6px] tracking-[-0.025em]"
               />
-              <TextSecondary
-                text={`@${data?.username}`}
-                onClick={() => {
-                  toast(`🗂 Текст скопирован`, {
-                    position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 4000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    // theme: "dark",
-                    progressStyle: { background: "#5875e8" },
-                    containerId: "forCopy",
-                  });
-                  clipboard.copy(data?.username);
-                }}
-                style="font-medium cursor-pointer text-[14px] leading-[16px] tracking-[-0.015em]"
-              />
+              <Helper text="Скопировать ссылку на профиль" styled="">
+                <div
+                  className="flex flex-row gap-[2px] items-center cursor-pointer"
+                  onClick={() => {
+                    toast(`🗂 Текст скопирован`, {
+                      position: isMobile ? "top-center" : "bottom-right",
+                      autoClose: 4000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: false,
+                      draggable: true,
+                      progress: undefined,
+                      // theme: "dark",
+                      progressStyle: { background: "#5875e8" },
+                      containerId: "forCopy",
+                    });
+                    clipboard.copy(
+                      "https://practica.team/profile/" + data.username
+                    );
+                  }}
+                >
+                  <TextSecondary
+                    text={`@${data.username}`}
+                    style="font-medium text-[14px] cursor-pointer leading-[16px] tracking-[-0.015em]"
+                  />
+
+                  <CopyIcon />
+                </div>
+              </Helper>
             </div>
             {/* name and username */}
 

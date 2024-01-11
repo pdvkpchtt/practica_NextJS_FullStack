@@ -45,12 +45,40 @@ const VacancyLeft = ({ data, children }) => {
             }
             style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] cursor-pointer`}
           />
-          <TextSecondary
-            text={`@${
-              data.Company.username ? data.Company.username : data.Company.id
-            }`}
-            style="font-medium text-[16px] leading-[20px] tracking-[-0.24px] w-full text-center"
-          />
+          <Helper text="Скопировать ссылку на профиль" styled="mx-auto">
+            <div
+              className="flex flex-row gap-[2px] items-center cursor-pointer"
+              onClick={() => {
+                toast(`🗂 Текст скопирован`, {
+                  position: isMobile ? "top-center" : "bottom-right",
+                  autoClose: 4000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: false,
+                  draggable: true,
+                  progress: undefined,
+                  // theme: "dark",
+                  progressStyle: { background: "#5875e8" },
+                  containerId: "forCopy",
+                });
+                clipboard.copy(
+                  "https://practica.team/companyprofile/" +
+                    data.Company.username
+                );
+              }}
+            >
+              <TextSecondary
+                text={`@${
+                  data.Company.username
+                    ? data.Company.username
+                    : data.Company.id
+                }`}
+                style="font-medium text-[16px] leading-[20px] cursor-pointer tracking-[-0.24px] w-fit text-center"
+              />
+
+              <CopyIcon />
+            </div>
+          </Helper>
         </div>
         {/* name and username */}
 

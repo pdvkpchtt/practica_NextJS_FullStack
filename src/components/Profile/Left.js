@@ -20,6 +20,7 @@ import UpdatesModal from "./UpdatesModal";
 import useWindowDimensions from "./useWindowDimensions";
 import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 import CustomLoader from "../../shared/ui/CustomLoader";
+import Helper from "../../shared/ui/Helper";
 import { getMyProfileInfoTimer } from "../../server/actions/profileTimer/getMyProfileInfoTimer";
 
 import LocationIcon from "../../shared/icons/LocationIcon";
@@ -33,6 +34,7 @@ import PitchesModal from "./PitchesModal";
 import ContactsIcon from "shared/icons/ContactsIcon";
 import ContactsModal from "./ContactsModal";
 import SubscrModal from "./SubscrModal";
+import CopyIcon from "../../shared/icons/CopyIcon";
 
 const Left = ({
   navState,
@@ -169,25 +171,35 @@ const Left = ({
                 }`}
                 style="font-medium text-[18px] leading-[21.6px] tracking-[-0.025em]"
               />
-              <TextSecondary
-                text={`@${data.username}`}
-                style="font-medium text-[14px] cursor-pointer leading-[16px] tracking-[-0.015em]"
-                onClick={() => {
-                  toast(`🗂 Текст скопирован`, {
-                    position: isMobile ? "top-center" : "bottom-right",
-                    autoClose: 4000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    // theme: "dark",
-                    progressStyle: { background: "#5875e8" },
-                    containerId: "forCopy",
-                  });
-                  clipboard.copy(data.username);
-                }}
-              />
+              <Helper text="Скопировать ссылку на профиль" styled="">
+                <div
+                  className="flex flex-row gap-[2px] items-center cursor-pointer"
+                  onClick={() => {
+                    toast(`🗂 Текст скопирован`, {
+                      position: isMobile ? "top-center" : "bottom-right",
+                      autoClose: 4000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: false,
+                      draggable: true,
+                      progress: undefined,
+                      // theme: "dark",
+                      progressStyle: { background: "#5875e8" },
+                      containerId: "forCopy",
+                    });
+                    clipboard.copy(
+                      "https://practica.team/profile/" + data.username
+                    );
+                  }}
+                >
+                  <TextSecondary
+                    text={`@${data.username}`}
+                    style="font-medium text-[14px] cursor-pointer leading-[16px] tracking-[-0.015em]"
+                  />
+
+                  <CopyIcon />
+                </div>
+              </Helper>
             </div>
             {/* name and username */}
 
