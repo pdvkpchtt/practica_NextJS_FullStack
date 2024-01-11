@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+import CopyIcon from "../../shared/icons/CopyIcon";
+import Helper from "../../shared/ui/Helper";
 import TextMain from "../../shared/Text/TextMain ";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import Card from "../../shared/ui/Card";

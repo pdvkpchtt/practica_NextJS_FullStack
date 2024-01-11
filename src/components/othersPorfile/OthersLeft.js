@@ -209,7 +209,7 @@ transition-all duration-[250ms] ${
                 >
                   <TextSecondary
                     text={`@${data.username}`}
-                    style="font-medium text-[14px] cursor-pointer leading-[16px] tracking-[-0.015em]"
+                    style="font-medium text-[16px] leading-[20px] cursor-pointer tracking-[-0.24px]"
                   />
 
                   <CopyIcon />

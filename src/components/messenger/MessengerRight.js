@@ -166,7 +166,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                 >
                   <TextSecondary
                     text={`@${profileData?.username}`}
-                    style="font-medium text-[14px] cursor-pointer leading-[16px] tracking-[-0.015em]"
+                    style="font-medium text-[16px] leading-[20px] cursor-pointer tracking-[-0.24px]"
                   />
 
                   <CopyIcon />
