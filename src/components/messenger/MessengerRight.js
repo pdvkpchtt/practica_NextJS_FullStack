@@ -128,21 +128,35 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
           <div className="flex flex-col">
             {/* name and username */}
             <div className="flex flex-col gap-[8px]">
-              <TextMain
-                text={`${profileData.name}${
-                  profileData?.lastname ? " " + profileData?.lastname : ""
-                }${
-                  profileData.isFirstCircle
-                    ? " • 1"
-                    : profileData.isSecondCircle.find((i2) => i2 === true)
-                    ? " • 2"
-                    : profileData.isThirdCircle
-                    ? " • 3"
-                    : " • 3+"
-                }`}
-                style="font-medium cursor-pointer text-[18px] leading-[21.6px] tracking-[-0.025em]"
-                onClick={() => router.push(`/profile/${profileData.username}`)}
-              />
+              <Helper
+                text={
+                  profileData?.isFirstCircle?.length > 0
+                    ? "Твои друзья"
+                    : profileData?.isSecondCircle?.find((i2) => i2 === true)
+                    ? "Друзья через одно рукопожатие"
+                    : profileData?.isThirdCircle?.length > 0
+                    ? "Друзья через два рукопожатия"
+                    : "Друзья через три и более рукопожатия"
+                }
+              >
+                <TextMain
+                  text={`${profileData.name}${
+                    profileData?.lastname ? " " + profileData?.lastname : ""
+                  }${
+                    profileData?.isFirstCircle?.length > 0
+                      ? " • 1"
+                      : profileData?.isSecondCircle?.find((i2) => i2 === true)
+                      ? " • 2"
+                      : profileData?.isThirdCircle?.length > 0
+                      ? " • 3"
+                      : " • 3+"
+                  }`}
+                  style="font-medium cursor-pointer text-[18px] leading-[21.6px] tracking-[-0.025em]"
+                  onClick={() =>
+                    router.push(`/profile/${profileData.username}`)
+                  }
+                />
+              </Helper>
               <Helper text="Скопировать ссылку на профиль" styled="">
                 <div
                   className="flex flex-row gap-[2px] items-center cursor-pointer"

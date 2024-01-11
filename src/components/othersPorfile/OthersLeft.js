@@ -174,18 +174,32 @@ transition-all duration-[250ms] ${
           <div className="flex flex-col">
             {/* name and username */}
             <div className="flex flex-col gap-[8px]">
-              <TextMain
-                text={`${data.name}${data.lastname ? " " + data.lastname : ""}${
+              <Helper
+                text={
                   data?.isFirstCircle?.length > 0
-                    ? " • 1"
+                    ? "Твои друзья"
                     : data?.isSecondCircle?.find((i2) => i2 === true)
-                    ? " • 2"
+                    ? "Друзья через одно рукопожатие"
                     : data?.isThirdCircle?.length > 0
-                    ? " • 3"
-                    : " • 3+"
-                }`}
-                style="font-medium text-[18px] leading-[21.6px] tracking-[-0.025em]"
-              />
+                    ? "Друзья через два рукопожатия"
+                    : "Друзья через три и более рукопожатия"
+                }
+              >
+                <TextMain
+                  text={`${data.name}${
+                    data.lastname ? " " + data.lastname : ""
+                  }${
+                    data?.isFirstCircle?.length > 0
+                      ? " • 1"
+                      : data?.isSecondCircle?.find((i2) => i2 === true)
+                      ? " • 2"
+                      : data?.isThirdCircle?.length > 0
+                      ? " • 3"
+                      : " • 3+"
+                  }`}
+                  style="font-medium text-[18px] leading-[21.6px] tracking-[-0.025em]"
+                />
+              </Helper>
               <Helper text="Скопировать ссылку на профиль" styled="">
                 <div
                   className="flex flex-row gap-[2px] items-center cursor-pointer"

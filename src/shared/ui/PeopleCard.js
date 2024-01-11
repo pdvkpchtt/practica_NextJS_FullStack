@@ -8,6 +8,7 @@ import TextSecondary from "../Text/TextSecondary";
 import Card from "./Card";
 import EmptyAvatar from "./EmptyAvatar";
 import SkillCard from "./SkillCard";
+import Helper from "./Helper";
 
 const PeopleCard = ({ item }) => {
   const router = useRouter();
@@ -36,21 +37,35 @@ const PeopleCard = ({ item }) => {
           )}
         </div>
         <div className="flex flex-col gap-[4px]">
-          <TextMain
-            text={`${item.name}${item.lastname ? " " + item.lastname : ""}${
-              !item.itsMe
-                ? item?.isFirstCircle.length > 0
-                  ? " • 1"
-                  : item?.isSecondCircle?.find((i2) => i2 === true)
-                  ? " • 2"
-                  : item?.isThirdCircle.length > 0
-                  ? " • 3"
-                  : " • 3+"
-                : ""
-            }`}
-            style="font-medium text-[16px] cursor-pointer leading-[19.2px] tracking-[-0.015em]"
-            onClick={() => router.push(`/profile/${item.username || item.id}`)}
-          />
+          <Helper
+            text={
+              item?.isFirstCircle?.length > 0
+                ? "Твои друзья"
+                : item?.isSecondCircle?.find((i2) => i2 === true)
+                ? "Друзья через одно рукопожатие"
+                : item?.isThirdCircle?.length > 0
+                ? "Друзья через два рукопожатия"
+                : "Друзья через три и более рукопожатия"
+            }
+          >
+            <TextMain
+              text={`${item.name}${item.lastname ? " " + item.lastname : ""}${
+                !item.itsMe
+                  ? item?.isFirstCircle.length > 0
+                    ? " • 1"
+                    : item?.isSecondCircle?.find((i2) => i2 === true)
+                    ? " • 2"
+                    : item?.isThirdCircle.length > 0
+                    ? " • 3"
+                    : " • 3+"
+                  : ""
+              }`}
+              style="font-medium text-[16px] cursor-pointer leading-[19.2px] tracking-[-0.015em]"
+              onClick={() =>
+                router.push(`/profile/${item.username || item.id}`)
+              }
+            />
+          </Helper>
           <TextSecondary
             text={"@" + item.username}
             style="font-medium text-[14px] leading-[18px] tracking-[-0.015em]"
