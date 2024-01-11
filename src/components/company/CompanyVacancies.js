@@ -9,6 +9,7 @@ import TextMain from "../../shared/Text/TextMain ";
 import Card from "../../shared/ui/Card";
 import CustomLoader from "../../shared/ui/CustomLoader";
 import { LayoutGroup } from "framer-motion";
+import Image from "next/image";
 
 const CompanyVacancies = ({ id, others = false, role, userId }) => {
   const [cursor, setCursor] = useState("");
@@ -45,9 +46,21 @@ const CompanyVacancies = ({ id, others = false, role, userId }) => {
         </div>
       ) : users?.length === 0 ? (
         <Card style={"flex justify-center"} padding={16}>
-          <div className="items-center flex flex-col gap-[24px] justify-center w-full text-center ">
+          <div className="[@media(pointer:coarse)]:items-center [@media(pointer:coarse)]:justify-center flex flex-col gap-[24px]  w-full text-start ">
+            {others === false && (
+              <div className="w-full flex justify-center items-center">
+                <Image
+                  src={"/TwoGuys1post.png"}
+                  quality={100}
+                  unoptimized
+                  className="h-[300px] w-fit"
+                  width={1620}
+                  height={2160}
+                />
+              </div>
+            )}
             <TextMain
-              text={`У компании пока нет вакансий`}
+              text={"У компании поа нет вакансий"}
               style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
             />
           </div>

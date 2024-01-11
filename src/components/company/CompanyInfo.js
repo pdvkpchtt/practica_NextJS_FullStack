@@ -6,6 +6,7 @@ import Card from "../../shared/ui/Card";
 import { ButtonSecondary } from "../../shared/ui/Button";
 
 import PenIcon from "../../shared/icons/PenIcon";
+import Image from "next/image";
 
 const CompanyInfo = ({ data, others = false }) => {
   if (
@@ -28,14 +29,26 @@ const CompanyInfo = ({ data, others = false }) => {
       return (
         <Card>
           <div
-            className="items-center flex flex-col gap-[24px] mx-auto justify-center w-full max-w-[288px] text-center 
-        my-[38px] [@media(pointer:coarse)]:my-[33px]"
+            className="[@media(pointer:coarse)]:items-center flex flex-col [@media(hover)]:w-full  [@media(pointer:coarse)]:gap-[24px] gap-[12px] [@media(pointer:coarse)]:mx-auto [@media(pointer:coarse)]:justify-center w-full [@media(pointer:coarse)]:max-w-[288px] [@media(pointer:coarse)]:text-center 
+         [@media(pointer:coarse)]:my-[33px]"
           >
+            {others === false && (
+              <div className="w-full flex justify-center items-center">
+                <Image
+                  src={"/cupOfTea.png"}
+                  quality={100}
+                  unoptimized
+                  className="h-[300px] w-fit"
+                  width={1620}
+                  height={2160}
+                />
+              </div>
+            )}
+
             <TextMain
               text={`Заполните профиль, чтобы здесь появилась информация о компании`}
               style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
             />
-
             <Link href="/companyprofile/edit">
               <ButtonSecondary
                 rounded={16}
