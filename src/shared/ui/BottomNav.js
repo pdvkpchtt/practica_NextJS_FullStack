@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import MessengerIcon from "shared/icons/MessengerIcon";
 
 import HomeIconBig from "../icons/HomeIconBig";
 import MessengerIconBig from "../icons/MessengerIconBig";
@@ -31,7 +32,7 @@ const BottomNav = ({ role }) => {
               </div>
 
               <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
-                <MessengerIconBig />
+                <MessengerIcon big />
               </div>
 
               <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
