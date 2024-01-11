@@ -48,7 +48,7 @@ const CompanyVacancies = ({ id, others = false, role, userId }) => {
           <div className="items-center flex flex-col gap-[24px] justify-center w-full text-center ">
             <TextMain
               text={`У компании пока нет вакансий`}
-              style="text-[14px] font-medium leading-[18px] tracking-[-0.013em]"
+              style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
             />
           </div>
         </Card>

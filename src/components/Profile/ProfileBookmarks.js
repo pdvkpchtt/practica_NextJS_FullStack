@@ -59,9 +59,10 @@ const ProfileBookmarks = ({ userId, others = false }) => {
                 />
               </div>
             )}
+
             <TextMain
               text={`У вас пока нет избранного`}
-              style="text-[14px] font-medium leading-[18px] tracking-[-0.013em]"
+              style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
             />
           </div>
         </Card>

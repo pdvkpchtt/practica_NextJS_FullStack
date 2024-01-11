@@ -23,7 +23,7 @@ const ProfileInfo = ({ data, others = false }) => {
           <div className="items-center flex flex-col gap-[24px] justify-center w-full text-center ">
             <TextMain
               text={`Пользователь не заполнил информацию о себе`}
-              style="text-[14px] font-medium leading-[18px] tracking-[-0.013em]"
+              style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
             />
           </div>
         </Card>
@@ -47,9 +47,10 @@ const ProfileInfo = ({ data, others = false }) => {
                 />
               </div>
             )}
+
             <TextMain
               text={`Заполните профиль, чтобы привлекать больше специалистов и откликов`}
-              style="text-[18px] leading-[21.6px] tracking-[-0.025em] [@media(hover)]:w-full "
+              style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
             />
             <Link href="/profile/edit">
               <ButtonSecondary

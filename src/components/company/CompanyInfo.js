@@ -19,7 +19,7 @@ const CompanyInfo = ({ data, others = false }) => {
           <div className="items-center flex flex-col gap-[24px] justify-center w-full text-center ">
             <TextMain
               text={`Нет информации о компании`}
-              style="text-[14px] font-medium leading-[18px] tracking-[-0.013em]"
+              style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
             />
           </div>
         </Card>
@@ -33,8 +33,9 @@ const CompanyInfo = ({ data, others = false }) => {
           >
             <TextMain
               text={`Заполните профиль, чтобы здесь появилась информация о компании`}
-              style="text-[18px] leading-[21.6px] tracking-[-0.025em]"
+              style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
             />
+
             <Link href="/companyprofile/edit">
               <ButtonSecondary
                 rounded={16}
