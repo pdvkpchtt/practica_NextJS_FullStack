@@ -226,16 +226,16 @@ const LandingPage = () => {
             </p>
             {key === 0 ? (
               <video
-                className="rounded-[30px] shadow-2xl w-[963px] h-[496px]"
+                className="rounded-[30px] shadow-2xl w-[963px] h-fit"
                 muted
                 autoPlay
                 loop
               >
-                <source src="/loopa.mp4" type="video/mp4" />
+                <source src="/loopa.mov" type="video/mp4" />
               </video>
             ) : (
               <Image
-                width={1420}
+                width={1300}
                 height={878}
                 src={item.img}
                 quality={100}
