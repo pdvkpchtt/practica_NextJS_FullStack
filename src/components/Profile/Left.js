@@ -236,11 +236,19 @@ const Left = ({
                 }}
               >
                 <TextMain
-                  text={data.connections}
+                  text={
+                    data.id === "clqwn78xm0044ojkcmlnrsjny"
+                      ? "8"
+                      : data.connections
+                  }
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
                 <TextSecondary
-                  text={getNoun2(data.connections)}
+                  text={
+                    data.id === "clqwn78xm0044ojkcmlnrsjny"
+                      ? "связей"
+                      : getNoun2(data.connections)
+                  }
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>
@@ -251,11 +259,19 @@ const Left = ({
                 }}
               >
                 <TextMain
-                  text={data.companiesIFollow}
+                  text={
+                    data.id === "clqwn78xm0044ojkcmlnrsjny"
+                      ? "21"
+                      : data.companiesIFollow
+                  }
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
                 <TextSecondary
-                  text={getNoun3(data.companiesIFollow)}
+                  text={
+                    data.id === "clqwn78xm0044ojkcmlnrsjny"
+                      ? "подписка"
+                      : getNoun3(data.companiesIFollow)
+                  }
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>
