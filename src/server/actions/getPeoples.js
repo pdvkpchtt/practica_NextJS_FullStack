@@ -177,52 +177,54 @@ export const getPeoples = async (cursor, filters) => {
   if (users.length > 10) {
     slicedPosts = users.slice(0, -1);
   }
-  const result = slicedPosts.map((u) => {
-    let arr2 = [];
-    u.connections.map((i) =>
-      i.connections.map((i2) => i2.connections.map((i3) => arr2.push(i3)))
-    );
-    let arr1 = [];
-    u.connections.map((i) => i.id === session.user.id && arr1.push(i.id));
-    let arr3 = [];
-    arr2.map((i) => i.id === session.user.id && arr3.push(i.id));
+  const result = slicedPosts
+    .map((u) => {
+      let arr2 = [];
+      u.connections.map((i) =>
+        i.connections.map((i2) => i2.connections.map((i3) => arr2.push(i3)))
+      );
+      let arr1 = [];
+      u.connections.map((i) => i.id === session.user.id && arr1.push(i.id));
+      let arr3 = [];
+      arr2.map((i) => i.id === session.user.id && arr3.push(i.id));
 
-    if (u.role !== "company")
-      if (u.id !== session.user.id)
-        return {
-          id: u.id,
-          name: u.name,
-          lastname: u.lastname,
-          username: u.username,
-          image: u.image,
-          country: u.country,
-          city: u.city,
-          UserSkills: u.UserSkills,
-          Company: u.Company,
-          educationLevel: u.educationLevel,
-          about: u.about,
-          isFirstCircle: arr1,
-          isSecondCircle: u.connections
-            .map((i2) => i2.connections.map((i) => i.id === session.user.id))
-            .map((i) => i.find((i2) => i2 === true)),
-          isThirdCircle: arr3,
-        };
-      else
-        return {
-          id: u.id,
-          name: u.name,
-          lastname: u.lastname,
-          username: u.username,
-          image: u.image,
-          country: u.country,
-          city: u.city,
-          UserSkills: u.UserSkills,
-          Company: u.Company,
-          educationLevel: u.educationLevel,
-          about: u.about,
-          itsMe: true,
-        };
-  });
+      if (u.role !== "company")
+        if (u.id !== session.user.id)
+          return {
+            id: u.id,
+            name: u.name,
+            lastname: u.lastname,
+            username: u.username,
+            image: u.image,
+            country: u.country,
+            city: u.city,
+            UserSkills: u.UserSkills,
+            Company: u.Company,
+            educationLevel: u.educationLevel,
+            about: u.about,
+            isFirstCircle: arr1,
+            isSecondCircle: u.connections
+              .map((i2) => i2.connections.map((i) => i.id === session.user.id))
+              .map((i) => i.find((i2) => i2 === true)),
+            isThirdCircle: arr3,
+          };
+        else
+          return {
+            id: u.id,
+            name: u.name,
+            lastname: u.lastname,
+            username: u.username,
+            image: u.image,
+            country: u.country,
+            city: u.city,
+            UserSkills: u.UserSkills,
+            Company: u.Company,
+            educationLevel: u.educationLevel,
+            about: u.about,
+            itsMe: true,
+          };
+    })
+    .filter((i) => i.username !== null);
 
   const lastPostInResults = result[result.length - 1];
   const newCursor = lastPostInResults?.id || "";

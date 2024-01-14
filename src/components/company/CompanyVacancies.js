@@ -10,6 +10,9 @@ import Card from "../../shared/ui/Card";
 import CustomLoader from "../../shared/ui/CustomLoader";
 import { LayoutGroup } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { ButtonSecondary } from "../../shared/ui/Button";
+import AddVacancyIcon from "../../shared/icons/AddVacancyIcon";
 
 const CompanyVacancies = ({ id, others = false, role, userId }) => {
   const [cursor, setCursor] = useState("");
@@ -46,7 +49,10 @@ const CompanyVacancies = ({ id, others = false, role, userId }) => {
         </div>
       ) : users?.length === 0 ? (
         <Card style={"flex justify-center"} padding={16}>
-          <div className="[@media(pointer:coarse)]:items-center [@media(pointer:coarse)]:justify-center flex flex-col gap-[24px]  w-full text-start ">
+          <div
+            className="[@media(pointer:coarse)]:items-center flex flex-col [@media(hover)]:w-full   gap-[12px] [@media(pointer:coarse)]:mx-auto [@media(pointer:coarse)]:justify-center w-full [@media(pointer:coarse)]:max-w-[288px] [@media(pointer:coarse)]:text-center 
+         [@media(pointer:coarse)]:my-[33px]"
+          >
             {others === false && (
               <div className="w-full flex justify-center items-center">
                 <Image
@@ -60,9 +66,18 @@ const CompanyVacancies = ({ id, others = false, role, userId }) => {
               </div>
             )}
             <TextMain
-              text={"У компании поа нет вакансий"}
+              text={"У компании пока нет вакансий"}
               style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
             />
+            <Link href="/companyprofile/createvacancy">
+              <ButtonSecondary
+                rounded={16}
+                style="w-fit px-[12px] "
+                text="Добавить вакансию"
+              >
+                <AddVacancyIcon fill={"#5875e8"} />
+              </ButtonSecondary>
+            </Link>
           </div>
         </Card>
       ) : (

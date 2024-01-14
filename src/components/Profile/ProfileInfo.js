@@ -32,18 +32,18 @@ const ProfileInfo = ({ data, others = false }) => {
       return (
         <Card>
           <div
-            className="[@media(pointer:coarse)]:items-center flex flex-col [@media(hover)]:w-full  [@media(pointer:coarse)]:gap-[24px] gap-[12px] [@media(pointer:coarse)]:mx-auto [@media(pointer:coarse)]:justify-center w-full [@media(pointer:coarse)]:max-w-[288px] [@media(pointer:coarse)]:text-center 
+            className="[@media(pointer:coarse)]:items-center flex flex-col [@media(hover)]:w-full   gap-[12px] [@media(pointer:coarse)]:mx-auto [@media(pointer:coarse)]:justify-center w-full [@media(pointer:coarse)]:max-w-[288px] [@media(pointer:coarse)]:text-center 
          [@media(pointer:coarse)]:my-[33px]"
           >
             {others === false && (
               <div className="w-full flex justify-center items-center">
                 <Image
-                  src={"/cupOfTea.png"}
+                  src={"/editGuys.png"}
                   quality={100}
                   unoptimized
                   className="h-[300px] w-fit"
-                  width={1620}
-                  height={2160}
+                  width={2160}
+                  height={1620}
                 />
               </div>
             )}

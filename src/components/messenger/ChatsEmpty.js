@@ -11,12 +11,12 @@ const ChatsEmpty = () => {
     >
       <div className="w-full h-fit flex justify-center items-center">
         <Image
-          src={"/cupOfTea.png"}
+          src={"/TwoGuysOneCup.png"}
           quality={100}
           unoptimized
           className="h-[300px] w-fit"
           width={1620}
-          height={2160}
+          height={1308}
         />
       </div>
       <TextSecondary
