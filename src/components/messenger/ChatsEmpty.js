@@ -21,7 +21,9 @@ const ChatsEmpty = () => {
       </div>
       <TextSecondary
         text="Начните общение, выбрав чат"
-        style={"h-fit w-full flex justify-center items-center select-none"}
+        style={
+          "h-fit w-full mt-[12px] flex justify-center items-center select-none"
+        }
       />
     </Card>
   );
