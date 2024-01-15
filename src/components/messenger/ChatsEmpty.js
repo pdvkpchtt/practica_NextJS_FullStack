@@ -14,9 +14,9 @@ const ChatsEmpty = () => {
           src={"/TwoGuysOneCup.png"}
           quality={100}
           unoptimized
-          className="h-[300px] w-fit"
-          width={1620}
-          height={1308}
+          className="w-full h-full max-w-[330px] max-h-[267px] mx-auto"
+          width={1320}
+          height={1068}
         />
       </div>
       <TextSecondary

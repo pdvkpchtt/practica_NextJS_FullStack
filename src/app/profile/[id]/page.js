@@ -33,7 +33,7 @@ const OthersProfilePage = async ({ params: { id } }) => {
   async function getUserFeed(cursor) {
     "use server";
     const session = await getServSession();
-    const posts = await getUserPosts(data.id, cursor);
+    const posts = await getUserPosts(data.id, cursor, session?.user?.id);
 
     return posts;
   }

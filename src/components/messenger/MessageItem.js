@@ -20,7 +20,11 @@ const MessageItem = ({ item, style, last = false }) => {
               target={"_blank"}
               href={(link[0] === "w" ? "//" : "") + link}
               key={textWithLinks.length}
-              className="text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition-all duration-[250ms]"
+              className={
+                item.myMessage
+                  ? "text-[#fff] underline"
+                  : "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition-all duration-[250ms]"
+              }
             >
               {link}
             </a>

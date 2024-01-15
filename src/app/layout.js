@@ -7,6 +7,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import Layout from "../layouts/Layout";
 import Header from "../shared/ui/Header";
 import BottomNav from "../shared/ui/BottomNav";
+import Head from "next/head";
 // import Script from 'next/script'
 
 export const metadata = {
@@ -22,14 +23,15 @@ export default async function RootLayout({ children }) {
 
   return (
     <html>
-      <head>
+      <Head>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
+        <link rel="shortcut icon" type="image/png" href="/favicon.png" />
         {/* <meta name='HandheldFriendly' content='true' />
 				<meta name='yandex-verification' content='76f3eafd299bf6ab' /> */}
-      </head>
+      </Head>
       {/* <Script type='text/javascript'>
 				{`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();

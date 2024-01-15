@@ -59,6 +59,7 @@ const OthersProfileWithNav = ({
       component: (
         <ProfilePosts
           others
+          userId={userId}
           getUserFeed={getUserFeed}
           addReaction={addReaction}
         />

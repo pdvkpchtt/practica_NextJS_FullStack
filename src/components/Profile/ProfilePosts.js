@@ -17,6 +17,8 @@ const ProfilePosts = ({
   company = false,
   userId,
 }) => {
+  console.log(userId, "userId");
+
   const [posts, setPosts] = useState(null);
   const [cursor, setCursor] = useState("");
   const [hasNextPage, setHasNextPage] = useState(true);
@@ -55,16 +57,16 @@ const ProfilePosts = ({
           </div>
         ) : posts?.length === 0 ? (
           <Card style={"flex justify-center"}>
-            <div className="[@media(pointer:coarse)]:items-center [@media(pointer:coarse)]:justify-center flex flex-col gap-[24px]  w-full text-start ">
+            <div className="[@media(pointer:coarse)]:items-center [@media(pointer:coarse)]:justify-center flex flex-col gap-[7px]  w-full text-start ">
               {others === false && (
                 <div className="w-full flex justify-center items-center">
                   <Image
                     src={"/TwoGuys1post.png"}
                     quality={100}
                     unoptimized
-                    className="h-[300px] w-fit"
-                    width={1620}
-                    height={2160}
+                    className="w-full h-full max-w-[327px] max-h-[376px] mx-auto"
+                    width={1308}
+                    height={1504}
                   />
                 </div>
               )}
