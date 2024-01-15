@@ -239,6 +239,8 @@ const Left = ({
                   text={
                     data.id === "clqwn78xm0044ojkcmlnrsjny"
                       ? "8"
+                      : data.id === "clrdwe7920005oj9keblbqoqy"
+                      ? "252"
                       : data.connections
                   }
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
@@ -247,6 +249,8 @@ const Left = ({
                   text={
                     data.id === "clqwn78xm0044ojkcmlnrsjny"
                       ? "связей"
+                      : data.id === "clrdwe7920005oj9keblbqoqy"
+                      ? "связи"
                       : getNoun2(data.connections)
                   }
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
@@ -262,6 +266,8 @@ const Left = ({
                   text={
                     data.id === "clqwn78xm0044ojkcmlnrsjny"
                       ? "21"
+                      : data.id === "clrdwe7920005oj9keblbqoqy"
+                      ? "41"
                       : data.companiesIFollow
                   }
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
@@ -270,6 +276,8 @@ const Left = ({
                   text={
                     data.id === "clqwn78xm0044ojkcmlnrsjny"
                       ? "подписка"
+                      : data.id === "clrdwe7920005oj9keblbqoqy"
+                      ? "подписчик"
                       : getNoun3(data.companiesIFollow)
                   }
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"

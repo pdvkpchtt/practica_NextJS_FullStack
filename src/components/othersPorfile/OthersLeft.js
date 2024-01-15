@@ -269,7 +269,7 @@ transition-all duration-[250ms] ${
                       : data.id === "clqwn78xm0044ojkcmlnrsjny"
                       ? "8"
                       : data.id === "clrdwe7920005oj9keblbqoqy"
-                      ? "160"
+                      ? "252"
                       : data?.connections
                   }
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
@@ -281,7 +281,7 @@ transition-all duration-[250ms] ${
                       : data.id === "clqwn78xm0044ojkcmlnrsjny"
                       ? "связей"
                       : data.id === "clrdwe7920005oj9keblbqoqy"
-                      ? "связей"
+                      ? "связи"
                       : getNoun2(data?.connections)
                   }
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
@@ -300,7 +300,7 @@ transition-all duration-[250ms] ${
                       : data.id === "clqwn78xm0044ojkcmlnrsjny"
                       ? "21"
                       : data.id === "clrdwe7920005oj9keblbqoqy"
-                      ? "389"
+                      ? "41"
                       : data?.companiesIFollow
                   }
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
@@ -312,7 +312,7 @@ transition-all duration-[250ms] ${
                       : data.id === "clqwn78xm0044ojkcmlnrsjny"
                       ? "подписка"
                       : data.id === "clrdwe7920005oj9keblbqoqy"
-                      ? "подписка"
+                      ? "подписчик"
                       : getNoun3(data?.companiesIFollow)
                   }
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
