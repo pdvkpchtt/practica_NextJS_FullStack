@@ -8,6 +8,7 @@ import VkIcon from "../../shared/icons/VkIcon";
 import { ButtonPrimary } from "../../shared/ui/Button";
 import Card from "../../shared/ui/Card";
 import TextSecondary from "../../shared/Text/TextSecondary";
+import Link from "next/link";
 
 const AuthForm = () => {
   const router = useRouter();
@@ -57,6 +58,29 @@ const AuthForm = () => {
           text="Отправить код"
           style="mt-[10px] w-full"
         />
+
+        <p className="text-[#8f8f8f] text-[12px] leading-[14px] mt-[24px]">
+          Нажимая «Отправить код», вы принимаете{" "}
+          <Link
+            href={
+              "https://worried-robin-41e.notion.site/practica-2f23d456a24a46c38b89982a2cdebce5"
+            }
+            className="text-[#cdcdcd] hover:underline"
+            target="_blank"
+          >
+            пользовательское соглашение
+          </Link>{" "}
+          и{" "}
+          <Link
+            href={
+              "https://www.notion.so/practica-881c68c185544ef28b5c4571fedd6eac?pvs=4"
+            }
+            className="text-[#cdcdcd] hover:underline"
+            target="_blank"
+          >
+            обработку персональных данных
+          </Link>
+        </p>
       </form>
 
       {/* <TextSecondary

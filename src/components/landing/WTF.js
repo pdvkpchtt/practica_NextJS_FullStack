@@ -17,6 +17,7 @@ import { useMediaQuery } from "react-responsive";
 import { useEffect } from "react";
 import Gear from "./Gear";
 import noise from "./noise.png";
+import { useRouter } from "next/navigation";
 
 const color = "#5875e8";
 
@@ -90,6 +91,8 @@ export default function WTF() {
   const [transit, setTransit] = useState(false);
   const [fixed, setFixed] = useState(false);
 
+  const router = useRouter();
+
   const setFixedHandler = () => {
     if (window.scrollY >= window.innerHeight - 74) setFixed(true);
     if (window.scrollY < window.innerHeight - 74) setFixed(false);
@@ -150,6 +153,9 @@ export default function WTF() {
               ? "cursor-pointer fixed top-[12px] right-[3%] z-[10] [@media(pointer:coarse)]:right-[5%] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
               : "cursor-pointer absolute bottom-[15px] right-[3%] z-[70] [@media(pointer:coarse)]:right-[5%] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
           }
+          onClick={() => {
+            router.push("/auth");
+          }}
         >
           <EnterIcon />
           Войти

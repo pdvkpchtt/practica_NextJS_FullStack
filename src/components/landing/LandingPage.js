@@ -33,6 +33,7 @@ import six2 from "./slides2/6.png";
 import seven2 from "./slides2/7.png";
 import eight2 from "./slides2/8.png";
 import nine2 from "./slides2/9.png";
+import Link from "next/link";
 
 const roadmap = [
   {
@@ -410,12 +411,33 @@ const LandingPage = () => {
         {/* bottom */}
 
         <div className="flex w-full min-h-[104px] text-start flex-row gap-[32px] [@media(hover)]:ml-[66px] mb-[80px] [@media(pointer:coarse)]:px-[12px]">
-          <p className="text-[20px] font-medium cursor-pointer underline leading-[24px] tracking-[-0.3px] text-[#2c2c2c]">
-            Terms of Service
-          </p>
-          <p className="text-[20px] font-medium cursor-pointer underline leading-[24px] tracking-[-0.3px] text-[#2c2c2c]">
-            Privacy Policy
-          </p>
+          <Link
+            target={"_blank"}
+            href={
+              "https://worried-robin-41e.notion.site/practica-2f23d456a24a46c38b89982a2cdebce5"
+            }
+            className="text-[20px] font-medium cursor-pointer underline leading-[24px] tracking-[-0.3px] text-[#2c2c2c]"
+          >
+            Пользовательское соглашение
+          </Link>
+          <Link
+            target={"_blank"}
+            href={
+              "https://www.notion.so/practica-881c68c185544ef28b5c4571fedd6eac?pvs=4"
+            }
+            className="text-[20px] font-medium cursor-pointer underline leading-[24px] tracking-[-0.3px] text-[#2c2c2c]"
+          >
+            Обработка персональных данных
+          </Link>
+          <Link
+            target={"_blank"}
+            href={
+              "https://worried-robin-41e.notion.site/f7d806ac13ae4e1ea402175edb00b331"
+            }
+            className="text-[20px] font-medium cursor-pointer underline leading-[24px] tracking-[-0.3px] text-[#2c2c2c]"
+          >
+            Оферта
+          </Link>
         </div>
       </div>
     </div>
