@@ -21,7 +21,7 @@ const Slider = () => {
 
   return (
     <>
-      <div className="w-full min-h-[383px] sm:hidden relative [@media(hover)]:hidden">
+      <div className="w-full h-fit sm:hidden relative [@media(hover)]:hidden">
         {/* <div className="h-full absolute w-[50px] blur-sm bg-[#f6f6f8] z-[2] right-[-30px]" /> */}
         <Swiper
           effect={"coverflow"}
@@ -37,10 +37,10 @@ const Slider = () => {
             slideShadows: false,
           }}
           modules={[EffectCoverflow]}
-          className="min-h-[383px] z-[1]"
+          className="h-fit z-[1]"
         >
           {data.map((d, index) => (
-            <SwiperSlide key={index} className="min-h-[383px]">
+            <SwiperSlide key={index} className="h-fit">
               <Image
                 src={d}
                 unoptimized

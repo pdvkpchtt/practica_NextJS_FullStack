@@ -7,7 +7,7 @@ const RaodMapCard = ({
   img = <></>,
 }) => {
   return (
-    <div className="bg-[#ECEDF1] p-[20px] rounded-[30px] select-none overflow-hidden text-start h-[450px] w-[316px] [@media(pointer:coarse)]:h-[383px] [@media(pointer:coarse)]:w-[269px] [@media(pointer:coarse)]:shadow-md flex flex-col gap-[12px] justify-between relative">
+    <div className="bg-[#ECEDF1] p-[20px] rounded-[30px] select-none overflow-hidden text-start h-[450px] w-[316px] flex flex-col gap-[12px] justify-between relative">
       <div className="flex flex-col gap-[12px]">
         <div className="flex flex-row gap-[12px]">
           {icon.map((i, key) => (

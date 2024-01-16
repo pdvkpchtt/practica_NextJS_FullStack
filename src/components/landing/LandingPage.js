@@ -24,6 +24,16 @@ import Icon7 from "./icons/Icon7";
 import Icon8 from "./icons/Icon8";
 import Slider2 from "./Slider2";
 
+import first2 from "./slides2/1.png";
+import second2 from "./slides2/2.png";
+import third2 from "./slides2/3.png";
+import fourth2 from "./slides2/4.png";
+import fifth2 from "./slides2/5.png";
+import six2 from "./slides2/6.png";
+import seven2 from "./slides2/7.png";
+import eight2 from "./slides2/8.png";
+import nine2 from "./slides2/9.png";
+
 const roadmap = [
   {
     title: "Комьюнити",
@@ -36,6 +46,7 @@ const roadmap = [
         text2:
           "Заполняйте профиль, привлекайте офферы и расширяйте сеть полезных знакомств.",
         done: true,
+        subimg: first2,
       },
       {
         icon: [<Icon2 />],
@@ -55,6 +66,7 @@ const roadmap = [
             alt="roadmap img"
           />
         ),
+        subimg: second2,
       },
       {
         icon: [<Icon3 />],
@@ -62,6 +74,7 @@ const roadmap = [
         text1: "Для вашего удобства мы создадим приложение на две платформы.",
         text2: "",
         done: false,
+        subimg: third2,
       },
     ],
   },
@@ -75,6 +88,7 @@ const roadmap = [
           "Онлайн-собеседования с применением современных технологий, чтобы облегчить и ускорить поиск лучшего кандидата.",
         text2: "",
         done: false,
+        subimg: fourth2,
       },
       {
         icon: [<Icon5 />],
@@ -84,6 +98,7 @@ const roadmap = [
         text2:
           "Поэтому мы поможем оценить компетентность специалиста высококачественными задачами по программированию, сокращая время найма.",
         done: false,
+        subimg: fifth2,
       },
       {
         icon: [<TikTok />, <YouTube />, <Telega />],
@@ -92,6 +107,7 @@ const roadmap = [
         text2:
           "Расскажите об открытых вакансиях компании на аудиторию известных блогеров.",
         done: false,
+        subimg: six2,
       },
       {
         icon: [<Icon7 />],
@@ -110,6 +126,7 @@ const roadmap = [
             alt="roadmap img"
           />
         ),
+        subimg: seven2,
       },
       {
         icon: [<Icon8 />],
@@ -118,6 +135,7 @@ const roadmap = [
           "Сделайте свою страничку заметной и привлекайте больше специалистов и офферов.",
         text2: "",
         done: false,
+        subimg: eight2,
       },
       {
         icon: [<></>],
@@ -136,6 +154,7 @@ const roadmap = [
             alt="roadmap img"
           />
         ),
+        subimg: nine2,
       },
     ],
   },
