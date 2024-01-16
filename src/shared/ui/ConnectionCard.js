@@ -35,15 +35,42 @@ const ConnectionCard = ({
   const router = useRouter();
 
   const getNoun = (dig) => {
-    if (dig % 10 === 0 || dig % 10 >= 5) return " связей";
+    if (dig % 10 === 0 || dig % 10 >= 5 || dig > 999) return " связей";
     if (dig % 10 > 1 && dig % 10 < 5) return " связи";
     else return " связь";
   };
   const getNoun2 = (dig) => {
-    if (dig % 10 === 0 || dig % 10 >= 5) return " подписчиков";
+    if (dig % 10 === 0 || dig % 10 >= 5 || dig > 999) return " подписчиков";
     if (dig % 10 > 1 && dig % 10 < 5) return " подписчика";
     else return " подписчик";
   };
+
+  function abbreviateNumber(value) {
+    var newValue = value;
+    if (value >= 1000) {
+      var suffixes = ["", "k", "m", "b", "t"];
+      var suffixNum = Math.floor(("" + value).length / 3);
+      var shortValue = "";
+      for (var precision = 2; precision >= 1; precision--) {
+        shortValue = parseFloat(
+          (suffixNum != 0
+            ? value / Math.pow(1000, suffixNum)
+            : value
+          ).toPrecision(precision)
+        );
+        var dotLessShortValue = (shortValue + "").replace(
+          /[^a-zA-Z 0-9]+/g,
+          ""
+        );
+        if (dotLessShortValue.length <= 2) {
+          break;
+        }
+      }
+      if (shortValue % 1 != 0) shortValue = shortValue.toFixed(1);
+      newValue = shortValue + suffixes[suffixNum];
+    }
+    return newValue;
+  }
 
   return (
     <div className="flex flex-row [@media(pointer:coarse)]:p-[8px] justify-between items-center [@media(pointer:coarse)]:rounded-[20px] [@media(pointer:coarse)]:bg-white [@media(pointer:coarse)]:dark:bg-[#212122]">
@@ -135,7 +162,8 @@ const ConnectionCard = ({
               text={
                 update
                   ? item?.text
-                  : item?.connectionsCount + getNoun(item?.connectionsCount)
+                  : abbreviateNumber(item?.connectionsCount) +
+                    getNoun(item?.connectionsCount)
               }
               style="font-medium text-[14px] leading-[18px] tracking-[-0.013em]"
             />
@@ -145,7 +173,8 @@ const ConnectionCard = ({
               text={
                 update
                   ? item?.text
-                  : item?.connectionsCount + getNoun2(item?.connectionsCount)
+                  : abbreviateNumber(item?.connectionsCount) +
+                    getNoun2(item?.connectionsCount)
               }
               style="font-medium text-[14px] leading-[18px] tracking-[-0.013em]"
             />

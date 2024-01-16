@@ -11,10 +11,37 @@ const CompanyCard = ({ item }) => {
   const location = [item.city || null, item.country || null];
 
   const getNoun = (dig) => {
-    if (dig === 0 || dig >= 5) return "вакансий";
-    if (dig > 1 && dig < 5) return "вакансии";
+    if (dig % 10 === 0 || dig % 10 >= 5 || dig > 999) return "вакансий";
+    if (dig % 10 > 1 && dig % 10 < 5) return "вакансии";
     else return "вакансия";
   };
+
+  function abbreviateNumber(value) {
+    var newValue = value;
+    if (value >= 1000) {
+      var suffixes = ["", "k", "m", "b", "t"];
+      var suffixNum = Math.floor(("" + value).length / 3);
+      var shortValue = "";
+      for (var precision = 2; precision >= 1; precision--) {
+        shortValue = parseFloat(
+          (suffixNum != 0
+            ? value / Math.pow(1000, suffixNum)
+            : value
+          ).toPrecision(precision)
+        );
+        var dotLessShortValue = (shortValue + "").replace(
+          /[^a-zA-Z 0-9]+/g,
+          ""
+        );
+        if (dotLessShortValue.length <= 2) {
+          break;
+        }
+      }
+      if (shortValue % 1 != 0) shortValue = shortValue.toFixed(1);
+      newValue = shortValue + suffixes[suffixNum];
+    }
+    return newValue;
+  }
 
   return (
     <div className="flex flex-row gap-[12px] bg-white dark:bg-[#212122] p-[12px] rounded-[20px]">
@@ -48,7 +75,9 @@ const CompanyCard = ({ item }) => {
           style="font-normal text-[14px] leading-[18px] tracking-[-0.182px]"
         />
         <TextSecondary
-          text={`${item.Vacancy.length} ${getNoun(item.Vacancy.length)}`}
+          text={`${abbreviateNumber(item.Vacancy.length)} ${getNoun(
+            item.Vacancy.length
+          )}`}
           style="font-medium text-[14px] leading-[18px] tracking-[-0.182px]"
         />
       </div>

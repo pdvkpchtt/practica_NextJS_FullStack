@@ -45,11 +45,43 @@ const CompanyLeft = ({
   console.log(data);
 
   const getNoun = (dig) => {
-    if (dig % 10 === 0 || dig % 10 >= 5) return " рекрутеров";
-    if (dig % 10 > 1 && dig % 10 < 5) return " рекрутера";
-    else return " рекрутер";
+    if (dig % 10 === 0 || dig % 10 >= 5 || dig > 999) return "рекрутеров";
+    if (dig % 10 > 1 && dig % 10 < 5) return "рекрутера";
+    else return "рекрутер";
   };
 
+  const getNoun2 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5 || dig > 999) return "подписок";
+    if (dig % 10 > 1 && dig % 10 < 5) return "подписки";
+    else return "подписка";
+  };
+
+  function abbreviateNumber(value) {
+    var newValue = value;
+    if (value >= 1000) {
+      var suffixes = ["", "k", "m", "b", "t"];
+      var suffixNum = Math.floor(("" + value).length / 3);
+      var shortValue = "";
+      for (var precision = 2; precision >= 1; precision--) {
+        shortValue = parseFloat(
+          (suffixNum != 0
+            ? value / Math.pow(1000, suffixNum)
+            : value
+          ).toPrecision(precision)
+        );
+        var dotLessShortValue = (shortValue + "").replace(
+          /[^a-zA-Z 0-9]+/g,
+          ""
+        );
+        if (dotLessShortValue.length <= 2) {
+          break;
+        }
+      }
+      if (shortValue % 1 != 0) shortValue = shortValue.toFixed(1);
+      newValue = shortValue + suffixes[suffixNum];
+    }
+    return newValue;
+  }
   // console.log(data);
   return (
     <>
@@ -189,11 +221,11 @@ const CompanyLeft = ({
                 onClick={() => setModalState2(true)}
               >
                 <TextMain
-                  text={data.followersCount}
+                  text={abbreviateNumber(data.followersCount)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
                 <TextSecondary
-                  text="подписчиков"
+                  text={getNoun2(data.followersCount)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>
@@ -212,7 +244,7 @@ const CompanyLeft = ({
                 onClick={() => setModalState(true)}
               >
                 <TextMain
-                  text={data.hrcount}
+                  text={abbreviateNumber(data.hrcount)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
                 <TextSecondary
