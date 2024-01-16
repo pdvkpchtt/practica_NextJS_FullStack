@@ -22,6 +22,7 @@ import Icon5 from "./icons/Icon5";
 import { Telega, TikTok, YouTube } from "./icons/Icon6";
 import Icon7 from "./icons/Icon7";
 import Icon8 from "./icons/Icon8";
+import Slider2 from "./Slider2";
 
 const roadmap = [
   {
@@ -49,7 +50,7 @@ const roadmap = [
             unoptimized
             width={276}
             height={210}
-            className="absolute bottom-0 z-[1] select-none"
+            className="absolute bottom-0 [@media(pointer:coarse)]:left-0 z-[1] select-none"
             src={roadmap1}
             alt="roadmap img"
           />
@@ -58,7 +59,7 @@ const roadmap = [
       {
         icon: [<Icon3 />],
         title: "iOS & Android",
-        text1: "Для вашего удобства мы созданим приложение на две платформы.",
+        text1: "Для вашего удобства мы создадим приложение на две платформы.",
         text2: "",
         done: false,
       },
@@ -69,7 +70,7 @@ const roadmap = [
     content: [
       {
         icon: [<Icon4 />],
-        title: "ии - рекрутинг",
+        title: "ии-рекрутинг",
         text1:
           "Онлайн-собеседования с применением современных технологий, чтобы облегчить и ускорить поиск лучшего кандидата.",
         text2: "",
@@ -319,49 +320,18 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* <div className="text-start w-full">
-          <p className="mt-[53px] [@media(hover)]:ml-[66px] text-[#5e5e5e] text-[16px] leading-[19px] trcking-[-0.32px] mb-[157px] [@media(hover)]:w-[538px]">
-            Каждый участник проекта пришел в команду через рекомендацию от
-            знакомых, поэтому мы верим, что связи — лучшая возможность
-            реализовать карьерные планы.
-          </p>
-        </div>
-
-        <div className="flex flex-row gap-[35px] flex-wrap justify-center mb-[58px]">
-          {users.map((item, key) => (
-            <div className="flex flex-col text-start gap-[16px]" key={key}>
-              <div className="overflow-hidden rounded-[20px] min-h-[194px] min-w-[194px] h-[194px] w-[194px]">
-                <Image
-                  src={item.img}
-                  width={194}
-                  height={194}
-                  unoptimized
-                  quality={100}
-                  alt="team picture"
-                  className="w-[194px] h-[194px]"
-                />
-              </div>
-              <p className="text-[20px] text-[#2c2c2c] font-medium leading-[24px] tracking-[-0.3px]">
-                @{item.name}
-              </p>
-              <div className="flex flex-col gap-[6px]">
-                <p className="text-[12px] text-[#6e6e6e] font-medium leading-[14px] tracking-[-0.18px]">
-                  {item.story}
-                </p>
-                <p className="text-[12px] text-[#2c2c2c] font-medium leading-[14px] tracking-[-0.18px]">
-                  {item.role}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div> */}
-
+        {/* роадмапа */}
         <p className="text-[#2D52E6] text-[38px] mt-[64px] mb-[15px] whitespace-pre-wrap text-center font-semibold leading-[38px] tracking-[-1.52px]">
           Roadmap
         </p>
 
+        <Slider2 roadmap={roadmap} />
+
         {roadmap.map((i, key) => (
-          <div className="flex flex-col gap-[32px]">
+          <div
+            className="flex flex-col [@media(pointer:coarse)]:hidden gap-[32px]"
+            key={key}
+          >
             <p className="text-[36px] text-start [@media(pointer:coarse)]:text-center text-[#2c2c2c] font-medium tracking-[-0.54px]">
               {i.title}
             </p>
@@ -381,7 +351,9 @@ const LandingPage = () => {
             </div>
           </div>
         ))}
+        {/* роадмапа */}
 
+        {/* bottom */}
         <div className="flex flex-col gap-[24px] text-start w-full [@media(hover)]:ml-[66px] mb-[83px] [@media(pointer:coarse)]:px-[12px]">
           <div className="flex flex-col gap-[5px]">
             <p className="text-[48px] font-bold leading-[58px] tracking-[-1.2px] text-[#5875e8]">
@@ -419,6 +391,7 @@ const LandingPage = () => {
             </p>
           </div>
         </div>
+        {/* bottom */}
 
         <div className="flex w-full min-h-[104px] text-start flex-row gap-[32px] [@media(hover)]:ml-[66px] mb-[80px] [@media(pointer:coarse)]:px-[12px]">
           <p className="text-[20px] font-medium cursor-pointer underline leading-[24px] tracking-[-0.3px] text-[#2c2c2c]">
