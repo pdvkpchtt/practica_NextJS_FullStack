@@ -9,12 +9,12 @@ const AuthLayout = async ({ children }) => {
   console.log(fullUrl);
   console.log(!["/auth/verify", "/auth"].includes(fullUrl));
 
-  if (!session && !["/auth/verify", "/auth"].includes(fullUrl)) {
+  if (!session && !["/auth/verify", "/auth", "/landing"].includes(fullUrl)) {
     return redirect("/auth");
   }
   if (
     !session?.user?.role &&
-    !["/auth/verify", "/auth", "/auth/role"].includes(fullUrl)
+    !["/auth/verify", "/auth", "/auth/role", "/landing"].includes(fullUrl)
   ) {
     return redirect("/auth/role");
   }
