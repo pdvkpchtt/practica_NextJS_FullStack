@@ -243,36 +243,30 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
 
         {/* hr */}
         {profileData.role.includes("hr") && (
-          <div className="p-[12px] rounded-[20px] items-center flex flex-row justify-between max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]">
-            <ButtonGhost
-              text={profileData.hrCompany.company.name}
-              onClick={() =>
-                router.push(
-                  `/companyprofile/${
-                    profileData.hrCompany.company.username.length > 0
-                      ? profileData.hrCompany.company.username
-                      : profileData.hrCompany.company.id
-                  }`
-                )
-              }
-            >
-              <div className="rounded-full overflow-hidden w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
-                {profileData.hrCompany.company.image ? (
-                  <Image
-                    src={profileData.hrCompany.company.image}
-                    alt="hr company photo"
-                    className="w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]"
-                    width={20}
-                    height={20}
-                    quality={100}
-                    priority={true}
-                  />
-                ) : (
-                  <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
-                )}
-              </div>
-            </ButtonGhost>
-          </div>
+          <CardOpacity
+            styled="w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer"
+            rounded={20}
+            onClick={() => router.push(`/companyprofile`)}
+          >
+            <div className="rounded-full overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
+              {profileData.hrCompany.company.image ? (
+                <Image
+                  src={profileData.hrCompany.company.image}
+                  alt="hr company photo"
+                  className="w-[20px] h-[20px] min-w-[20px] object-cover min-h-[20px] max-w-[20px] max-h-[20px]"
+                  width={20}
+                  height={20}
+                  quality={100}
+                  priority={true}
+                />
+              ) : (
+                <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
+              )}
+            </div>
+            <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
+              {profileData.hrCompany.company.name}
+            </p>
+          </CardOpacity>
         )}
         {/* hr */}
         {timer !== null ? (

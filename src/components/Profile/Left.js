@@ -35,6 +35,7 @@ import ContactsIcon from "shared/icons/ContactsIcon";
 import ContactsModal from "./ContactsModal";
 import SubscrModal from "./SubscrModal";
 import CopyIcon from "../../shared/icons/CopyIcon";
+import CardOpacity from "../../shared/ui/CardOpacity";
 
 const Left = ({
   navState,
@@ -315,24 +316,43 @@ const Left = ({
           </div>
         </Card>
 
-        <div className="p-[12px] rounded-[20px] items-center flex flex-row justify-between max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]">
-          <ButtonGhost text="Обновления" onClick={() => setModal2State(true)}>
-            <BellIcon />
-          </ButtonGhost>
+        <CardOpacity
+          styled="w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer"
+          rounded={20}
+          onClick={() => setModal2State(true)}
+        >
+          <BellIcon />
+
+          <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
+            Обновления
+          </p>
           {updatesState === null
             ? data.UpdatesToMe.length > 0 && (
-                <div className="w-[8px] h-[8px] bg-[#5875e8] rounded-full ml-[8px]" />
+                <div className="ml-auto w-[8px] h-[8px] bg-[#5875e8] rounded-full" />
               )
             : updatesState > 0 && (
-                <div className="w-[8px] h-[8px] bg-[#5875e8] rounded-full ml-[8px]" />
+                <div className="ml-auto w-[8px] h-[8px] bg-[#5875e8] rounded-full " />
               )}
-        </div>
+        </CardOpacity>
+
+        {/* <CardOpacity
+          styled="w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer"
+          rounded={20}
+          onClick={() => setModal2State(true)}
+        >
+          <BellIcon />
+
+          <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
+            Обновления
+          </p>
+        </CardOpacity> */}
 
         {/* hr */}
         {data.role.includes("hr") && (
-          <div className="p-[12px] rounded-[20px] items-center flex flex-row justify-between max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]">
-            <ButtonGhost
-              text={data.hrCompany.company.name}
+          <>
+            <CardOpacity
+              styled="w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer"
+              rounded={20}
               onClick={() => router.push(`/companyprofile`)}
             >
               <div className="rounded-full overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
@@ -350,20 +370,23 @@ const Left = ({
                   <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
                 )}
               </div>
-            </ButtonGhost>
-          </div>
+              <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
+                {data.hrCompany.company.name}
+              </p>
+            </CardOpacity>
+          </>
         )}
         {/* hr */}
 
         {/* contacts */}
         <div
-          className={` p-[12px] rounded-[20px] items-center flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+          className={` p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+          onClick={() => setContactsModalState(true)}
         >
           <button
             className={`group text-center h-[28px] w-fit whitespace-nowrap items-center flex-row gap-[8px] flex 
           font-medium leading-[20px] text-[16px] tracking-[-0.015em]
        cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
-            onClick={() => setContactsModalState(true)}
           >
             <ContactsIcon />
             {data.phoneVerified && data.phone
