@@ -145,19 +145,19 @@ const blocks = [
     title: "Нетворкинг за пределами обычных\nкарьерных платформ.",
     subtitle:
       "Найдете не только работу, но и ценные контакты для карьеры мечты.",
-    img: first,
+    img: "loopa.mov",
   },
   {
     title: "Доверие и эмоции важны молодым\nспециалистам.",
     subtitle:
       "Новый формат профиля повышает узнаваемость компании и привлекает больше внимания соискателей.",
-    img: second,
+    img: "loopa2.mov",
   },
   {
     title: "Выбирайте людей, а не резюме.",
     subtitle:
       "Получите полноценное представление о соискателе из профиля c опытом, достижениями и постами.",
-    img: third,
+    img: "loopa3.mov",
   },
 ];
 
@@ -224,17 +224,15 @@ const LandingPage = () => {
             <p className="text-[#5E5E5E] text-[16px] font-normal leading-[19px] mb-[24px] tracking-[-0.32px]">
               {item.subtitle}
             </p>
-            {key === 0 ? (
-              <video
-                className="rounded-[30px] shadow-2xl w-[963px] h-fit"
-                muted
-                autoPlay
-                loop
-              >
-                <source src="/loopa.mov" type="video/mp4" />
-              </video>
-            ) : (
-              <Image
+            <video
+              className="rounded-[30px] shadow-2xl w-[963px] h-fit"
+              muted
+              autoPlay
+              loop
+            >
+              <source src={item.img} type="video/mp4" />
+            </video>
+            {/* <Image
                 width={1300}
                 height={878}
                 src={item.img}
@@ -242,8 +240,7 @@ const LandingPage = () => {
                 priority
                 unoptimized
                 alt="landing first"
-              />
-            )}
+              /> */}
           </div>
         ))}
 
