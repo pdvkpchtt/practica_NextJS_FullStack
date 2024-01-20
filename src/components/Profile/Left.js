@@ -466,7 +466,6 @@ const Left = ({
             </div>
           </div>
         </Card>
-
         {/* pitches + superpitches */}
 
         <Card

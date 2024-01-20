@@ -69,8 +69,8 @@ const AuthForm = () => {
             target="_blank"
           >
             пользовательское соглашение
-          </Link>{" "}
-          и{" "}
+          </Link>
+          ,{" "}
           <Link
             href={
               "https://www.notion.so/practica-881c68c185544ef28b5c4571fedd6eac?pvs=4"
@@ -79,6 +79,14 @@ const AuthForm = () => {
             target="_blank"
           >
             обработку персональных данных
+          </Link>{" "}
+          и{" "}
+          <Link
+            href="https://worried-robin-41e.notion.site/f7d806ac13ae4e1ea402175edb00b331"
+            className="text-[#cdcdcd] hover:underline"
+            target="_blank"
+          >
+            оферту
           </Link>
         </p>
       </form>

@@ -10,7 +10,7 @@ const AuthLayout = async ({ children }) => {
   console.log(!["/auth/verify", "/auth"].includes(fullUrl));
 
   if (!session && !["/auth/verify", "/auth", "/landing"].includes(fullUrl)) {
-    return redirect("/auth");
+    return redirect("/landing");
   }
   if (
     !session?.user?.role &&
