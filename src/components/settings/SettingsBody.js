@@ -1,10 +1,13 @@
 "use client";
 
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import { ButtonAlert, MenuButton } from "../../shared/ui/Button";
 
 const SettingsBody = () => {
+  const router = useRouter();
+
   return (
     <>
       <div className="flex flex-col">
@@ -21,7 +24,13 @@ const SettingsBody = () => {
       </div>
 
       <div className="w-full [@media(pointer:coarse)]:flex [@media(pointer:coarse)]:justify-center [@media(pointer:coarse)]:mt-[16px] rounded-[8px] [@media(pointer:coarse)]:rounded-[20px] p-[16px]">
-        <ButtonAlert text="Выйти" onClick={signOut} />
+        <ButtonAlert
+          text="Выйти"
+          onClick={async () => {
+            await signOut();
+            router.push("/auth");
+          }}
+        />
       </div>
     </>
   );

@@ -21,6 +21,8 @@ export default async function RootLayout({ children }) {
   const headersList = headers();
   const fullUrl = headersList.get("x-invoke-path") || "";
 
+  console.log(fullUrl.includes("landing"), fullUrl, "testimland");
+
   return (
     <html>
       <Head>
@@ -58,10 +60,10 @@ export default async function RootLayout({ children }) {
 			</noscript> */}
 
       <body
-        className={`bg-[#f6f6f8] ${
+        className={` ${
           fullUrl.includes("landing")
-            ? "dark:bg-[#f6f6f8]"
-            : "dark:bg-[#141414]"
+            ? "bg-[#f6f6f8] dark:bg-[#f6f6f8]"
+            : "bg-[#f6f6f8] dark:bg-[#141414]"
         } hideScrollbarNav`}
       >
         <SessionProvider session={session}>

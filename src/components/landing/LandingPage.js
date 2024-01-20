@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 import WTF from "./WTF";
@@ -34,6 +36,8 @@ import seven2 from "./slides2/7.png";
 import eight2 from "./slides2/8.png";
 import nine2 from "./slides2/9.png";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const roadmap = [
   {
@@ -228,6 +232,11 @@ const users = [
 ];
 
 const LandingPage = () => {
+  const router = useRouter();
+  useEffect(() => {
+    router.refresh();
+  }, []);
+
   return (
     <div className="w-full h-full flex flex-col">
       <WTF />
@@ -410,13 +419,13 @@ const LandingPage = () => {
         </div>
         {/* bottom */}
 
-        <div className="flex w-full min-h-[104px] text-start flex-row gap-[32px] [@media(hover)]:ml-[66px] mb-[80px] [@media(pointer:coarse)]:px-[12px]">
+        <div className="flex w-full text-start flex-row gap-[32px] [@media(hover)]:ml-[66px] h-fit [@media(pointer:coarse)]:px-[12px]">
           <Link
             target={"_blank"}
             href={
               "https://worried-robin-41e.notion.site/practica-2f23d456a24a46c38b89982a2cdebce5"
             }
-            className="text-[20px] font-medium cursor-pointer underline leading-[24px] tracking-[-0.3px] text-[#2c2c2c]"
+            className="text-[20px] font-medium cursor-pointer underline leading-[24px] h-fit tracking-[-0.3px] text-[#2c2c2c]"
           >
             Пользовательское соглашение
           </Link>
@@ -425,7 +434,7 @@ const LandingPage = () => {
             href={
               "https://www.notion.so/practica-881c68c185544ef28b5c4571fedd6eac?pvs=4"
             }
-            className="text-[20px] font-medium cursor-pointer underline leading-[24px] tracking-[-0.3px] text-[#2c2c2c]"
+            className="text-[20px] font-medium cursor-pointer underline leading-[24px] h-fit tracking-[-0.3px] text-[#2c2c2c]"
           >
             Обработка персональных данных
           </Link>
@@ -434,10 +443,22 @@ const LandingPage = () => {
             href={
               "https://worried-robin-41e.notion.site/f7d806ac13ae4e1ea402175edb00b331"
             }
-            className="text-[20px] font-medium cursor-pointer underline leading-[24px] tracking-[-0.3px] text-[#2c2c2c]"
+            className="text-[20px] font-medium cursor-pointer underline leading-[24px] h-fit tracking-[-0.3px] text-[#2c2c2c]"
           >
             Оферта
           </Link>
+        </div>
+
+        <div className="flex flex-col gap-[6px] [@media(hover)]:ml-[66px] min-h-[104px]  w-full text-start">
+          <p className="text-[12px] font-medium text-[#8f8f8f]">
+            ООО «Практика»
+          </p>
+          <p className="text-[12px] font-medium text-[#8f8f8f]">
+            ОГРН 1237700851882
+          </p>
+          <p className="text-[12px] font-medium text-[#8f8f8f]">
+            ИНН 9731125749
+          </p>
         </div>
       </div>
     </div>

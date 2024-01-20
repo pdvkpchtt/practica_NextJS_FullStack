@@ -6,11 +6,17 @@ const AuthLayout = async ({ children }) => {
   const session = await getServSession();
   const headersList = headers();
   const fullUrl = headersList.get("x-invoke-path") || "";
-  console.log(fullUrl);
+
   console.log(!["/auth/verify", "/auth"].includes(fullUrl));
 
-  if (!session && !["/auth/verify", "/auth", "/landing"].includes(fullUrl)) {
+  if (!session?.user?.id && fullUrl === "/") {
     return redirect("/landing");
+  }
+  if (
+    !session?.user?.id &&
+    !["/auth/verify", "/auth", "/landing", "/"].includes(fullUrl)
+  ) {
+    return redirect("/auth");
   }
   if (
     !session?.user?.role &&
