@@ -45,7 +45,10 @@ const Slider2 = ({ roadmap }) => {
               className={`${"mt-[32px]"} h-fit z-[1]`}
             >
               {i.content.map((i, key) => (
-                <SwiperSlide key={key} className="h-fit">
+                <SwiperSlide
+                  key={key}
+                  className="h-fit  [@media(pointer:coarse)]:pb-[15px]"
+                >
                   <Image
                     src={i.subimg}
                     unoptimized
