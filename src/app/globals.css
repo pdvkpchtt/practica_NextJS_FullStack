@@ -163,11 +163,34 @@ input[type="number"] {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: Golos Text;
-  font-size: 38px;
+  font-size: 28px;
   font-style: normal;
   font-weight: 500;
-  line-height: 100%;
+  line-height: 28px;
   letter-spacing: -1.52px;
+}
+
+@media (hover: hover) {
+  .fancyText {
+    background: linear-gradient(
+      90deg,
+      #5875e8 43.65%,
+      #b072f4 52.95%,
+      #d76890 60.86%,
+      #80de7a 67.82%,
+      #fd8863 72.71%,
+      #ea9e13 79.35%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: Golos Text;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 36px;
+    letter-spacing: -1.52px;
+  }
 }
 
 .fancyBg1 {

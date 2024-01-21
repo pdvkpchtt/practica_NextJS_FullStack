@@ -12,12 +12,13 @@ import {
 import { degreesToRadians, progress, mix } from "popmotion";
 import Image from "next/image";
 import TextLogo from "./TextLogo";
-import EnterIcon from "shared/icons/EnterIcon";
+import EnterIcon from "../../shared/icons/EnterIcon";
 import { useMediaQuery } from "react-responsive";
 import { useEffect } from "react";
 import Gear from "./Gear";
 import noise from "./noise.png";
 import { useRouter } from "next/navigation";
+import CompAssIcon from "../../shared/icons/CompAssIcon";
 
 const color = "#5875e8";
 
@@ -87,15 +88,15 @@ function Scene({ numStars = 500 }) {
   );
 }
 
-export default function WTF() {
+export default function WTF({ roadmapRef = null }) {
   const [transit, setTransit] = useState(false);
   const [fixed, setFixed] = useState(false);
 
   const router = useRouter();
 
   const setFixedHandler = () => {
-    if (window.scrollY >= window.innerHeight - 74) setFixed(true);
-    if (window.scrollY < window.innerHeight - 74) setFixed(false);
+    if (window.scrollY >= window.innerHeight - 76) setFixed(true);
+    if (window.scrollY < window.innerHeight - 76) setFixed(false);
   };
 
   if (typeof window !== "undefined")
@@ -138,6 +139,21 @@ export default function WTF() {
           </AnimatePresence>
         </div>
 
+        <div
+          // onClick={() => setTransit(!transit)}
+          className={
+            fixed
+              ? "cursor-pointer fixed top-[15px] left-[3%] select-none [@media(pointer:coarse)]:w-[135px] z-[10] [@media(pointer:coarse)]:left-[5%] w-[150px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
+              : "cursor-pointer absolute bottom-[15px] select-none [@media(pointer:coarse)]:w-[135px] left-[3%] z-[70] [@media(pointer:coarse)]:left-[5%] w-[150px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
+          }
+          onClick={() => {
+            roadmapRef?.current?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          <CompAssIcon />
+          Roadmap
+        </div>
+
         <Gear
           style={
             fixed
@@ -150,8 +166,8 @@ export default function WTF() {
           // onClick={() => setTransit(!transit)}
           className={
             fixed
-              ? "cursor-pointer fixed top-[12px] right-[3%] z-[10] [@media(pointer:coarse)]:right-[5%] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
-              : "cursor-pointer absolute bottom-[15px] right-[3%] z-[70] [@media(pointer:coarse)]:right-[5%] [@media(hover)]:w-[118px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
+              ? "cursor-pointer fixed top-[15px] right-[3%] select-none [@media(pointer:coarse)]:w-[135px] z-[10] [@media(pointer:coarse)]:right-[5%] w-[150px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
+              : "cursor-pointer absolute bottom-[15px] select-none [@media(pointer:coarse)]:w-[135px] right-[3%] z-[70] [@media(pointer:coarse)]:right-[5%] w-[150px] text-[16px] font-medium px-[16px] py-[12px] leading-[19px] tracking-[-0.24px] text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] bg-[#fff] flex flex-row gap-[8px] items-center justify-center group rounded-[16px]"
           }
           onClick={() => {
             router.push("/auth");

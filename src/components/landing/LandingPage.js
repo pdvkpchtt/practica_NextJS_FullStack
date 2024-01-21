@@ -36,7 +36,7 @@ import seven2 from "./slides2/7.png";
 import eight2 from "./slides2/8.png";
 import nine2 from "./slides2/9.png";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 const roadmap = [
@@ -232,6 +232,7 @@ const users = [
 ];
 
 const LandingPage = () => {
+  const roadmapRef = useRef();
   const router = useRouter();
   useEffect(() => {
     router.refresh();
@@ -239,7 +240,7 @@ const LandingPage = () => {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <WTF />
+      <WTF roadmapRef={roadmapRef} />
       {/* <LandingGearsComponents /> */}
 
       <div className="h-full flex-col flex gap-[64px] mt-[calc(100vh+64px)] text-center items-center">
@@ -248,10 +249,13 @@ const LandingPage = () => {
             className="flex flex-col gap-[12px] text-center items-center [@media(pointer:coarse)]:px-[12px]"
             key={key}
           >
-            <p className="text-[#2D52E6] text-[38px] whitespace-pre-wrap text-center font-semibold leading-[38px] tracking-[-1.52px]">
+            <p className="text-[#2D52E6] text-[36px] [@media(hover)]:hidden [@media(pointer:coarse)]:text-[28px] [@media(pointer:coarse)]:leading-[28px] whitespace-pre-wrap text-center font-bold leading-[36px] tracking-[-1.14px]">
+              {item.title.replace("\n", " ")}
+            </p>
+            <p className="text-[#2D52E6] text-[36px] [@media(pointer:coarse)]:hidden [@media(pointer:coarse)]:text-[28px] [@media(pointer:coarse)]:leading-[28px] whitespace-pre-wrap text-center font-bold leading-[36px] tracking-[-1.52px]">
               {item.title}
             </p>
-            <p className="text-[#5E5E5E] text-[16px] font-normal leading-[19px] mb-[24px] tracking-[-0.32px]">
+            <p className="text-[#7d7d7d] text-[16px] font-medium leading-[19px] mb-[24px] tracking-[-0.32px]">
               {item.subtitle}
             </p>
             <video
@@ -274,7 +278,7 @@ const LandingPage = () => {
           </div>
         ))}
 
-        <p className="text-[#2D52E6] text-[38px] font-semibold whitespace-pre-wrap leading-[38px] tracking-[-1.52px] flex flex-wrap [@media(hover)]:w-[652px]  [@media(pointer:coarse)]:px-[12px]">
+        <p className="text-[#2D52E6] text-[36px] font-bold text-center [@media(pointer:coarse)]:text-[28px] [@media(pointer:coarse)]:leading-[28px] whitespace-pre-wrap leading-[36px] tracking-[-1.52px] flex flex-wrap  [@media(pointer:coarse)]:px-[12px]">
           practica <span className="fancyText">многогранна</span>
         </p>
 
@@ -347,8 +351,12 @@ const LandingPage = () => {
         </div>
 
         {/* роадмапа */}
-        <p className="text-[#2D52E6] text-[38px] mt-[64px] mb-[15px] whitespace-pre-wrap text-center font-semibold leading-[38px] tracking-[-1.52px]">
+        <p className="text-[#2D52E6] text-[36px] relative [@media(pointer:coarse)]:mb-[-32px] [@media(pointer:coarse)]:text-[28px] [@media(pointer:coarse)]:leading-[28px] mt-[64px] mb-[15px] whitespace-pre-wrap text-center font-semibold leading-[36px] tracking-[-1.52px]">
           Roadmap
+          <div
+            className="absolute w-[5px] h-[5px]  top-[-125px]"
+            ref={roadmapRef}
+          />
         </p>
 
         <Slider2 roadmap={roadmap} />
@@ -381,7 +389,7 @@ const LandingPage = () => {
 
         {/* bottom */}
         <div className="flex flex-col gap-[24px] text-start w-full [@media(hover)]:ml-[66px] mb-[83px] [@media(pointer:coarse)]:px-[12px]">
-          <div className="flex flex-col gap-[5px]">
+          <div className="flex flex-col gap-[5px] w-full">
             <p className="text-[48px] font-bold leading-[58px] tracking-[-1.2px] text-[#5875e8]">
               practica
             </p>
@@ -391,15 +399,15 @@ const LandingPage = () => {
           </div>
 
           <div className="flex flex-col gap-[5px]">
-            <p className="text-[20px] font-medium leading-[24px] tracking-[-1.2px] text-[#2c2c2c]">
+            <p className="text-[20px] font-medium leading-[24px] tracking-[-0.3px] text-[#2c2c2c]">
               Общая почта:
             </p>
-            <p className="text-[20px] cursor-pointer underline hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] font-medium leading-[24px] tracking-[-1.2px] text-[#5875e8]">
-              info@practica.com
+            <p className="text-[20px] cursor-pointer underline hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] font-medium leading-[24px] tracking-[-0.3px] text-[#5875e8]">
+              info@practicajobs.ru
             </p>
           </div>
 
-          <div className="flex flex-col gap-[5px]">
+          {/* <div className="flex flex-col gap-[5px]">
             <p className="text-[20px] font-medium leading-[24px] tracking-[-1.2px] text-[#2c2c2c]">
               Для коммерческого сотрудничества:
             </p>
@@ -415,11 +423,11 @@ const LandingPage = () => {
             <p className="text-[20px] cursor-pointer underline hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] font-medium leading-[24px] tracking-[-1.2px] text-[#5875e8]">
               press@practica.com
             </p>
-          </div>
+          </div> */}
         </div>
         {/* bottom */}
 
-        <div className="flex w-full text-start flex-row gap-[32px] [@media(hover)]:ml-[66px] h-fit [@media(pointer:coarse)]:px-[12px]">
+        <div className="flex w-full text-start flex-row [@media(pointer:coarse)]:flex-col gap-[32px] [@media(hover)]:ml-[66px] h-fit [@media(pointer:coarse)]:px-[12px]">
           <Link
             target={"_blank"}
             href={
@@ -449,7 +457,7 @@ const LandingPage = () => {
           </Link>
         </div>
 
-        <div className="flex flex-col gap-[6px] [@media(hover)]:ml-[66px] min-h-[104px]  w-full text-start">
+        <div className="flex flex-col gap-[6px] [@media(hover)]:ml-[66px] [@media(pointer:coarse)]:px-[12px] min-h-[104px]  w-full text-start">
           <p className="text-[12px] font-medium text-[#8f8f8f]">
             ООО «Практика»
           </p>
