@@ -260,11 +260,10 @@ const LandingPage = () => {
             </p>
             <video
               className="rounded-[30px] shadow-2xl w-[963px] h-fit"
-              muted
-              playsinline
-              preload="auto"
-              autoPlay
-              loop
+              autoPlay="autoplay"
+              playsInLine="playsinline"
+              loop="true"
+              muted="true"
             >
               <source src={item.img} type="video/mp4" />
             </video>
