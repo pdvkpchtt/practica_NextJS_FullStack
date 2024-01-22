@@ -170,19 +170,19 @@ const blocks = [
     title: "Нетворкинг за пределами обычных\nкарьерных платформ.",
     subtitle:
       "Найдете не только работу, но и ценные контакты для карьеры мечты.",
-    img: "loopa.mov",
+    img: "2loopa.mp4",
   },
   {
     title: "Доверие и эмоции важны молодым\nспециалистам.",
     subtitle:
       "Новый формат профиля повышает узнаваемость компании и привлекает больше внимания соискателей.",
-    img: "loopa2.mov",
+    img: "2loopa2.mp4",
   },
   {
     title: "Выбирайте людей, а не резюме.",
     subtitle:
       "Получите полноценное представление о соискателе из профиля c опытом, достижениями и постами.",
-    img: "loopa3.mov",
+    img: "2loopa3.mp4",
   },
 ];
 
@@ -261,6 +261,8 @@ const LandingPage = () => {
             <video
               className="rounded-[30px] shadow-2xl w-[963px] h-fit"
               muted
+              playsinline
+              preload="auto"
               autoPlay
               loop
             >
