@@ -350,30 +350,32 @@ const Left = ({
         {/* hr */}
         {data.role.includes("hr") && (
           <>
-            <CardOpacity
-              styled="w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer"
-              rounded={20}
-              onClick={() => router.push(`/companyprofile`)}
-            >
-              <div className="rounded-full overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
-                {data.hrCompany.company.image ? (
-                  <Image
-                    src={data.hrCompany.company.image}
-                    alt="hr company photo"
-                    className="w-[20px] h-[20px] min-w-[20px] object-cover min-h-[20px] max-w-[20px] max-h-[20px]"
-                    width={20}
-                    height={20}
-                    quality={100}
-                    priority={true}
-                  />
-                ) : (
-                  <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
-                )}
-              </div>
-              <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
-                {data.hrCompany.company.name}
-              </p>
-            </CardOpacity>
+            {data?.hrCompany?.company?.map((i, key) => (
+              <CardOpacity
+                styled="w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer"
+                rounded={20}
+                onClick={() => router.push(`/companyprofile/${i.username}`)}
+              >
+                <div className="rounded-full overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
+                  {i.image ? (
+                    <Image
+                      src={i.image}
+                      alt="hr company photo"
+                      className="w-[20px] h-[20px] min-w-[20px] object-cover min-h-[20px] max-w-[20px] max-h-[20px]"
+                      width={20}
+                      height={20}
+                      quality={100}
+                      priority={true}
+                    />
+                  ) : (
+                    <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
+                  )}
+                </div>
+                <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
+                  {i.name}
+                </p>
+              </CardOpacity>
+            ))}
           </>
         )}
         {/* hr */}

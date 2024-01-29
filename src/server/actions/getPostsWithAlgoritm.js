@@ -52,7 +52,6 @@ export const getPostsWithAlgoritm = async (id, cursor) => {
             select: {
               id: true,
               name: true,
-              userId: true,
               image: true,
               username: true,
             },

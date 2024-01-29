@@ -2,14 +2,13 @@
 import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../../db";
 
-export const getCompany = async ({ userId }) => {
+export const getCompany = async ({ companyId }) => {
   const session = await getServSession();
 
   const foundCompany = await prisma.company.findFirst({
-    where: { OR: [{ id: userId }, { username: userId }] },
+    where: { OR: [{ id: companyId }, { username: companyId }] },
     select: {
       id: true,
-      userId: true,
       name: true,
       username: true,
       image: true,
@@ -28,11 +27,9 @@ export const getCompany = async ({ userId }) => {
         select: {
           id: true,
           email: true,
-          _count: {
-            select: { myCompanyFolowers: true },
-          },
         },
       },
+      Following: { select: { id: true } },
       HR: true,
     },
     // include: {
@@ -64,7 +61,7 @@ export const getCompany = async ({ userId }) => {
       id: foundCompany?.user?.id,
       email: foundCompany?.user?.email,
     },
-    followersCount: foundCompany?.user?._count?.myCompanyFolowers,
+    followersCount: foundCompany?.Following?.length,
     imHr: foundCompany?.HR?.find((i) => i.userId === session?.user?.id)
       ? foundCompany?.HR?.find((i) => i.userId === session?.user?.id)
           ?.dataVerified !== null

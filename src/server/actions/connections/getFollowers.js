@@ -6,14 +6,16 @@ import { prisma } from "../../db";
 export const getFollowers = async (companyId, cursor, input) => {
   const session = await getServSession();
 
-  const followers = await prisma.user.findMany({
+  const followers = await prisma.Following.findMany({
     take: 11,
     where:
       input?.length === 0
-        ? { companiesIFollow: { some: { Company: { id: companyId } } } }
+        ? {
+            Company: { id: companyId },
+          }
         : {
-            companiesIFollow: { some: { Company: { id: companyId } } },
-            name: { contains: input, mode: "insensitive" },
+            Company: { id: companyId },
+            user: { name: { contains: input, mode: "insensitive" } },
           },
     // input?.length === 0
     //   ? { companyId: companyId, dataVerified: { not: null } }
@@ -24,28 +26,27 @@ export const getFollowers = async (companyId, cursor, input) => {
     //     },
     ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
     select: {
-      companiesIFollow: {
+      user: {
         select: {
           id: true,
-        },
-      },
-      id: true,
-      name: true,
-      lastname: true,
-      image: true,
-      username: true,
-      _count: {
-        select: {
-          connections: true,
-        },
-      },
-      chats: {
-        select: {
-          id: true,
-          participants: { select: { id: true } },
-        },
-        where: {
-          participants: { some: { id: session?.user?.id } },
+          name: true,
+          lastname: true,
+          image: true,
+          username: true,
+          _count: {
+            select: {
+              connections: true,
+            },
+          },
+          chats: {
+            select: {
+              id: true,
+              participants: { select: { id: true } },
+            },
+            where: {
+              participants: { some: { id: session?.user?.user?.id } },
+            },
+          },
         },
       },
     },
@@ -59,13 +60,13 @@ export const getFollowers = async (companyId, cursor, input) => {
   }
   const result = slicedFollowers.map((r) => {
     return {
-      lastname: r?.lastname,
-      name: r?.name,
-      image: r?.image,
-      id: r?.id,
-      username: r?.username,
-      connectionsCount: r?._count?.connections,
-      chats: r?.chats,
+      lastname: r?.user?.lastname,
+      name: r?.user?.name,
+      image: r?.user?.image,
+      id: r?.user?.id,
+      username: r?.user?.username,
+      connectionsCount: r?.user?._count?.connections,
+      chats: r?.user?.chats,
     };
   });
 

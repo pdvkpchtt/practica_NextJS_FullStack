@@ -6,43 +6,37 @@ import { prisma } from "../../db";
 export const getSubscrs = async (myId, cursor, input) => {
   const session = await getServSession();
 
-  const request = await prisma.user.findMany({
+  const request = await prisma.Following.findMany({
     take: 11,
     where: {
-      id: myId,
+      userId: myId,
+      Company: {
+        name: {
+          contains: input,
+          mode: "insensitive",
+        },
+      },
     },
 
     ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
     select: {
-      companiesIFollow: {
+      Company: {
         select: {
-          _count: { select: { myCompanyFolowers: true } },
-          Company: {
-            select: {
-              name: true,
-              image: true,
-              id: true,
-              username: true,
-            },
-          },
-        },
-        where: {
-          Company: {
-            name: {
-              contains: input,
-              mode: "insensitive",
-            },
-          },
+          _count: { select: { Following: true } },
+          name: true,
+          image: true,
+          id: true,
+          username: true,
         },
       },
     },
   });
 
-  const hasNextPage = request[0].companiesIFollow.length > 10;
+  const hasNextPage = request.length > 10;
 
-  let slicedPosts = request[0].companiesIFollow;
-  if (request[0].companiesIFollow.length > 10) {
-    slicedPosts = request[0].companiesIFollow?.slice(0, -1);
+  let slicedPosts = request;
+  if (request.length > 10) {
+    slicedPosts = request?.slice(0, -1);
   }
   const result = slicedPosts.map((r) => {
     return {
@@ -50,7 +44,7 @@ export const getSubscrs = async (myId, cursor, input) => {
       image: r?.Company?.image,
       id: r?.Company?.id,
       username: r?.Company?.username,
-      connectionsCount: r?._count?.myCompanyFolowers,
+      connectionsCount: r?.Company?._count?.Following,
     };
   });
 

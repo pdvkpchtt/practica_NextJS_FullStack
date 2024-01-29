@@ -69,15 +69,17 @@ const CompanyVacancies = ({ id, others = false, role, userId }) => {
               text={"У компании пока нет вакансий"}
               style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
             />
-            <Link href="/companyprofile/createvacancy">
-              <ButtonSecondary
-                rounded={16}
-                style="w-fit px-[12px] "
-                text="Добавить вакансию"
-              >
-                <AddVacancyIcon fill={"#5875e8"} />
-              </ButtonSecondary>
-            </Link>
+            {!others && (
+              <Link href="/companyprofile/createvacancy">
+                <ButtonSecondary
+                  rounded={16}
+                  style="w-fit px-[12px] "
+                  text="Добавить вакансию"
+                >
+                  <AddVacancyIcon fill={"#5875e8"} />
+                </ButtonSecondary>
+              </Link>
+            )}
           </div>
         </Card>
       ) : (

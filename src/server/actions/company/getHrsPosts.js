@@ -34,7 +34,6 @@ export const getHrsPosts = async (compid, cursor, yourId) => {
             select: {
               id: true,
               name: true,
-              userId: true,
               username: true,
               image: true,
             },

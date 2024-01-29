@@ -61,7 +61,6 @@ export const getVacancies = async (cursor, filters) => {
       Company: {
         select: {
           id: true,
-          userId: true,
           username: true,
           name: true,
           image: true,

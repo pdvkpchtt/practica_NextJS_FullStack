@@ -2,10 +2,9 @@
 import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../../db";
 
-export const unfollowCompany = async (id) => {
+export const unfollowCompany = async (companyId) => {
   const session = await getServSession();
-  await prisma.user.update({
-    where: { id: id },
-    data: { myCompanyFolowers: { disconnect: [{ id: session?.user?.id }] } },
+  await prisma.Following.deleteMany({
+    where: { AND: [{ userId: session?.user?.id }, { companyId: companyId }] },
   });
 };

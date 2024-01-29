@@ -20,7 +20,7 @@ export const updateEmail = async (data) => {
   return editedMail;
 };
 
-export const updateCompanyProfile = async ({ userId, data }) => {
+export const updateCompanyProfile = async ({ userId, data, companyId }) => {
   console.log(data, "server upd dat");
   // валидация
   const validate = z.object({
@@ -43,50 +43,16 @@ export const updateCompanyProfile = async ({ userId, data }) => {
     industry: data.industry?.label,
     about: data.about !== null ? data.about : "",
   });
-  const me = await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-    select: {
-      HR: { select: { company: { select: { id: true } } } },
-    },
-  });
 
-  const checkusername = await prisma.company.findFirst({
-    where: { username: data.username, id: { not: me.HR[0].company.id } },
-    select: { id: true },
-  });
-  const session = await getServSession();
-
-  if (
-    !validateRes.success ||
-    checkusername?.id ||
-    data.username === session.user.id
-  )
+  if (!validateRes.success)
     return {
       status: "error",
       message: validateRes.error?.errors?.map((i) => i?.message),
-      submsg: checkusername?.id
-        ? "inputUsername unique"
-        : data.username === session.user.id
-        ? "inputUsername change"
-        : null,
     };
   // валидация
 
-  if (data.username !== session.user.id) {
-    const editedMail = await prisma.user.update({
-      where: {
-        id: session?.user?.id,
-      },
-      data: {
-        role: "hr",
-      },
-    });
-  }
-
   const companyEdited = await prisma.company.update({
-    where: { id: me.HR[0].company.id },
+    where: { id: companyId },
     data: {
       name: data.name,
       username: data.username.split(" ").join(""),

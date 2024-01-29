@@ -28,7 +28,7 @@ const EditCompanyRight = ({
 }) => {
   const router = useRouter();
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
-  console.log(dataToUpdate);
+  console.log(dataToUpdate, "fuck");
 
   useEffect(() => {
     if (dataToUpdate.role === "hr_no_nickname") {
@@ -70,7 +70,9 @@ const EditCompanyRight = ({
         >
           <OneIconButton
             onClick={() =>
-              router.push(`/companyprofile`, { query: { data: "update" } })
+              router.push(`/companyprofile/${dataToCompare.username}`, {
+                query: { data: "update" },
+              })
             }
           >
             <ArrowLeftIcon />
@@ -109,7 +111,7 @@ const EditCompanyRight = ({
                   // } catch (err) {
                   // console.log("err");
                   // }
-                  window.location.reload();
+                  router.push(`/companyprofile/${dataToUpdate.username}/edit`);
                   setLittleLoader(false);
                 } else {
                   setLittleLoader(false);

@@ -78,6 +78,7 @@ model User {
   messages             Message[]
   BookMarks            Bookmarks[]
   VacancyViews         VacancyViews[]
+  Following            Following[]
   // This second "side" of the UserFriends relation exists solely 
   // to satisfy prisma's requirements; we won't access it directly.
   connections          User[]         @relation("UserConnections")
@@ -98,12 +99,9 @@ model User {
   // UpdatesToMe    Updates[] @relation("UpdatesToMe")
   // UpdatesFromWho Updates[] @relation("UpdatesFromWho")
 
-  myCompanyFolowers User[] @relation("FollowingSystem")
-  companiesIFollow  User[] @relation("FollowingSystem")
-
   Post     Post[]
   Reaction Reaction[]
-  Company  Company?
+  Company  Company[]
   HR       Hr[]
 
   extraPitches      Int            @default(0)
@@ -155,8 +153,7 @@ model Hr {
   id           String    @id @default(cuid())
   userId       String
   user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  companyId    String
-  company      Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  company      Company[]
   token        String
   dataVerified DateTime?
   Vacancy      Vacancy[]
@@ -185,7 +182,6 @@ model FriendRequests {
 
 model Company {
   id         String           @id @default(cuid())
-  userId     String           @unique
   username   String?          @unique
   name       String
   image      String?
@@ -194,7 +190,7 @@ model Company {
   country    String?          @db.Text
   city       String?          @db.Text
   direction  String?
-  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User[]
   createdAt  DateTime         @default(now())
   updatedAt  DateTime         @default(now())
   Vacancy    Vacancy[]
@@ -206,6 +202,15 @@ model Company {
   employeeId String?
   employee   CompanyEmployee? @relation(fields: [employeeId], references: [id])
   HR         Hr[]
+  Following  Following[]
+}
+
+model Following {
+  id         String           @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyId String
+  Company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 }
 
 model CompanyIndustry {

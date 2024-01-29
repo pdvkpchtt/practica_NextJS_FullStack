@@ -27,7 +27,6 @@ export const getRatedPosts = async (id, cursor, otherId) => {
             select: {
               id: true,
               name: true,
-              userId: true,
               image: true,
               username: true,
             },

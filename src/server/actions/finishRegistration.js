@@ -56,13 +56,8 @@ export const finishRegistration = async (inputRole) => {
 
   const compName = generateNames();
 
-  const company = await prisma.company.upsert({
-    where: { userId: session.user.id },
-    update: {
-      name: compName,
-      username: session.user.id,
-    },
-    create: {
+  const company = await prisma.company.create({
+    data: {
       name: compName,
       username: uniqueNamesGenerator({
         dictionaries: [

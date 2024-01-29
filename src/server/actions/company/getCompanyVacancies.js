@@ -76,7 +76,6 @@ export const getCompanyVacancies = async (id, cursor) => {
       Company: {
         select: {
           id: true,
-          userId: true,
           username: true,
           name: true,
           image: true,

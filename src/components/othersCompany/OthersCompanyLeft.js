@@ -62,7 +62,7 @@ const OthersCompanyLeft = ({
   const [loading, setloading] = useState(true);
 
   const checkIffollow = async () => {
-    const followInfo = await checkIfIFollowCompany(data.user.id);
+    const followInfo = await checkIfIFollowCompany(data.id);
     console.log(followInfo, "followInfo");
     setIfFollow(followInfo);
     setloading(false);
@@ -305,7 +305,7 @@ const OthersCompanyLeft = ({
             <ButtonGhost
               text="Редактировать"
               onClick={() =>
-                router.push("/companyprofile/edit", {
+                router.push(`/companyprofile/${data?.username}/edit`, {
                   query: { data: "update" },
                 })
               }
@@ -331,7 +331,7 @@ const OthersCompanyLeft = ({
               <ButtonGhost
                 text="Подписаться"
                 onClick={async () => {
-                  await followCompany(data.user.id);
+                  await followCompany(data.id);
                   toast(`🔔 Вы подписались`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 4000,
@@ -353,7 +353,7 @@ const OthersCompanyLeft = ({
               <ButtonGhost
                 text="Отписаться"
                 onClick={async () => {
-                  await unfollowCompany(data.user.id);
+                  await unfollowCompany(data.id);
                   toast(`🔕 Вы отписались`, {
                     position: isMobile ? "top-center" : "bottom-right",
                     autoClose: 4000,

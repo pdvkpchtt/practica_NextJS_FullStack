@@ -20,7 +20,6 @@ export const getPosts = async (id, cursor, category) => {
             select: {
               id: true,
               name: true,
-              userId: true,
               image: true,
               username: true,
             },

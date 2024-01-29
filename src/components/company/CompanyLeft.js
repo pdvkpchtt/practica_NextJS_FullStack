@@ -280,7 +280,7 @@ const CompanyLeft = ({
               <ButtonGhost
                 text="Редактировать"
                 onClick={() =>
-                  router.push("/companyprofile/edit", {
+                  router.push(`/companyprofile/${data?.username}/edit`, {
                     query: { data: "update" },
                   })
                 }
