@@ -11,8 +11,7 @@ const CompanyLayout = ({ children }) => {
       flex-row [@media(pointer:coarse)]:flex-col [@media(hover)]:mt-[62px] 
       h-full
       ${
-        pathname === "/companyprofile/createvacancy" ||
-        pathname === "/companyprofile/edit"
+        pathname.includes("/createvacancy") || pathname.includes("/edit")
           ? "[@media(pointer:coarse)]:mb-[0px] [@media(pointer:coarse)]:mt-[61px]"
           : "[@media(pointer:coarse)]:mb-[80px]  [@media(pointer:coarse)]:mt-[38px]"
       } [@media(pointer:coarse)]:p-[12px]
@@ -23,8 +22,7 @@ const CompanyLayout = ({ children }) => {
 
       <div
         className={`${
-          pathname !== "/companyprofile/edit" &&
-          pathname !== "/companyprofile/createvacancy"
+          pathname.includes("/edit") && pathname.includes("/createvacancy")
             ? "[@media(pointer:coarse)]:pb-[80px]"
             : "[@media(pointer:coarse)]:pb-[3px]"
         } [@media(hover)]:hidden`}

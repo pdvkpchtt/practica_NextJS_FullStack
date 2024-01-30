@@ -46,10 +46,7 @@ const ProfileIcon = ({ fill = "#000", size = 25, role }) => {
     );
   else if (role?.includes("hr") && !pathname.includes("/companyprofile"))
     return (
-      <Link
-        href={pathname === "/profile" ? "/companyprofile" : "/profile"}
-        className="group"
-      >
+      <Link href={"/profile"} className="group">
         <div className="w-[30px] h-[30px] ml-[-3px] flex items-center justify-center cursor-pointer bg-transparent group-hover:bg-[#74899B] group-hover:bg-opacity-[8%] transition duration-[250ms] rounded-[8px]">
           <svg
             width="25"

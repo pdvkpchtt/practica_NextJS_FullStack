@@ -1,7 +1,7 @@
 import { prisma } from "../../db";
 import { string, z } from "zod";
 
-export const createVacancy = async (id, data, role = "company") => {
+export const createVacancy = async (id, data, role = "company", companyId) => {
   // валидация
   const validate = z
     .object({
@@ -60,21 +60,13 @@ export const createVacancy = async (id, data, role = "company") => {
     };
   // валидация
 
-  let getHrId = "";
-  if (role.includes("hr")) {
-    getHrId = await prisma.Hr.findFirst({
-      where: { userId: id },
-      select: {
-        id: true,
-        company: { select: { userId: true } },
-      },
-    });
-  }
-
-  console.log(data, "nefor");
+  const hrCreator = await prisma.Hr.findFirst({
+    where: { userId: id },
+    select: { id: true },
+  });
 
   const company = await prisma.company.update({
-    where: { userId: getHrId?.company?.userId },
+    where: { id: companyId },
     data: {
       Vacancy: {
         create: {
@@ -126,7 +118,7 @@ export const createVacancy = async (id, data, role = "company") => {
                   },
                 }
               : {},
-          hrCreator: { connect: { id: getHrId.id } },
+          hrCreator: { connect: { id: hrCreator.id } },
         },
       },
     },

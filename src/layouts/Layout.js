@@ -28,14 +28,11 @@ const Layout = ({ children }) => {
         }
         ${pathname.includes("/search") ? "py-[0px]" : "py-[24px] "}
         ${
-          (pathname === "/companyprofile/createvacancy" ||
+          (pathname.includes("/createvacancy") ||
             pathname.includes("/vacancy/")) &&
           "h-full [@media(hover)]:py-[0px]"
         }
-        ${
-          pathname === "/companyprofile/edit" ||
-          (pathname === "/profile/edit" && "h-full")
-        }
+        ${pathname.includes("/edit") && "h-full"}
         [@media(pointer:coarse)]:h-[100vh]
         flex flex-col justify-start
         max-w-[1012px] [@media(hover)]:min-w-[1012px] [@media(pointer:coarse)]:max-w-[500px] mx-auto 

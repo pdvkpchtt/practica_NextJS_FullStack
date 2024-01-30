@@ -262,9 +262,12 @@ const CompanyLeft = ({
               <ButtonGhost
                 text="Добавить вакансию"
                 onClick={() =>
-                  router.push("/companyprofile/createvacancy", {
-                    query: { data: "update" },
-                  })
+                  router.push(
+                    `/companyprofile/${data?.username}/createvacancy`,
+                    {
+                      query: { data: "update" },
+                    }
+                  )
                 }
               >
                 <AddVacancyIcon fill={"#5875e8"} />

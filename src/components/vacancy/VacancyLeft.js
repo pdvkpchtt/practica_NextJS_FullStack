@@ -147,7 +147,7 @@ const VacancyLeft = ({ data, children }) => {
             style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
           />
         </div>
-        <div className="flex flex-row gap-[4px]">
+        {/* <div className="flex flex-row gap-[4px]">
           <TextMain
             text={0}
             style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
@@ -156,7 +156,7 @@ const VacancyLeft = ({ data, children }) => {
             text="сотрудников в practica"
             style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
           />
-        </div>
+        </div> */}
         <div className="flex flex-row gap-[4px]">
           <TextMain
             text={data?.hrcount}

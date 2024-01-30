@@ -35,7 +35,12 @@ const maskGenerator = getCurrencyMaskGenerator({
   thousandSeparator: " ",
 });
 
-const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
+const CreateVacancyRight = ({
+  dataToUpdate,
+  setDataToUpdate,
+  skills,
+  data,
+}) => {
   const router = useRouter();
 
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
@@ -77,17 +82,20 @@ const CreateVacancyRight = ({ dataToUpdate, setDataToUpdate, skills }) => {
           <div
             onClick={async () => {
               setLittleLoader(true);
-              const res = await createVacancyHandler({
-                ...dataToUpdate,
-                VacancySkills: dataToUpdate.VacancySkills.map(
-                  (item) =>
-                    true && {
-                      name: item?.name,
-                      type: item.type,
-                      area: item?.area?.label,
-                    }
-                ),
-              });
+              const res = await createVacancyHandler(
+                {
+                  ...dataToUpdate,
+                  VacancySkills: dataToUpdate.VacancySkills.map(
+                    (item) =>
+                      true && {
+                        name: item?.name,
+                        type: item.type,
+                        area: item?.area?.label,
+                      }
+                  ),
+                },
+                data.id
+              );
               console.log(res, "asswe");
               setStatus(res?.message);
               if (!res) {

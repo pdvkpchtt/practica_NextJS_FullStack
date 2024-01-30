@@ -79,7 +79,6 @@ export const getUsersBookmarks = async (userId, cursor) => {
           Company: {
             select: {
               id: true,
-              userId: true,
               username: true,
               name: true,
               image: true,

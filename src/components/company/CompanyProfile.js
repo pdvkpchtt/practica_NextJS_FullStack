@@ -46,7 +46,14 @@ const CompanyProfile = ({ data, getUserFeed, addReaction, role, userId }) => {
       id: 1,
       active: false,
       name: "Вакансии",
-      component: <CompanyVacancies role={role} id={data.id} userId={userId} />,
+      component: (
+        <CompanyVacancies
+          role={role}
+          id={data.id}
+          username={data.username}
+          userId={userId}
+        />
+      ),
     },
     {
       id: 2,

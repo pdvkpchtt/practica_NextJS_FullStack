@@ -49,7 +49,7 @@ const CompanyInfo = ({ data, others = false }) => {
               text={`Заполните профиль, чтобы здесь появилась информация о компании`}
               style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
             />
-            <Link href="/companyprofile/edit">
+            <Link href={`/companyprofile/${data.username}/edit`}>
               <ButtonSecondary
                 rounded={16}
                 style="w-fit px-[12px] "

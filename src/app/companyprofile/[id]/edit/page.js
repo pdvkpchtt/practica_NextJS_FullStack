@@ -8,6 +8,7 @@ import {
 } from "../../../../server/actions/company/getCompanyIndustries";
 import { getBigCities } from "../../../../server/actions/company/getBigCities";
 import { getCompany } from "../../../../server/actions/company/getCompany";
+import { redirect } from "next/navigation";
 
 const CompanyEditPage = async ({ params: { id } }) => {
   const session = await getServSession();
@@ -20,6 +21,8 @@ const CompanyEditPage = async ({ params: { id } }) => {
   const itemsForDD3 = await getBigCities();
 
   console.log("company", data);
+
+  if (!data?.id || !data?.imHr) return redirect("/profile");
 
   async function updateCompanyData(updData) {
     "use server";

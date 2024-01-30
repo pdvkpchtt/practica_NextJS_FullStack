@@ -54,7 +54,13 @@ const OthersCompanyWithNav = ({
       active: false,
       name: "Вакансии",
       component: (
-        <CompanyVacancies role={role} others id={data.id} userId={userId} />
+        <CompanyVacancies
+          role={role}
+          others
+          id={data.id}
+          username={data.username}
+          userId={userId}
+        />
       ),
     },
     {

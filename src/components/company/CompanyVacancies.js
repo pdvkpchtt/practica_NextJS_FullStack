@@ -14,7 +14,7 @@ import Link from "next/link";
 import { ButtonSecondary } from "../../shared/ui/Button";
 import AddVacancyIcon from "../../shared/icons/AddVacancyIcon";
 
-const CompanyVacancies = ({ id, others = false, role, userId }) => {
+const CompanyVacancies = ({ id, others = false, role, userId, username }) => {
   const [cursor, setCursor] = useState("");
   const [hasNextPage, setHasNextPage] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -70,7 +70,7 @@ const CompanyVacancies = ({ id, others = false, role, userId }) => {
               style="text-[16px] font-medium leading-[19px] tracking-[-0.24px]"
             />
             {!others && (
-              <Link href="/companyprofile/createvacancy">
+              <Link href={`/companyprofile/${username}/createvacancy`}>
                 <ButtonSecondary
                   rounded={16}
                   style="w-fit px-[12px] "

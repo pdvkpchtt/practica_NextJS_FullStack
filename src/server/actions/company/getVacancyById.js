@@ -54,7 +54,6 @@ export const getVacancyById = async (id) => {
       Company: {
         select: {
           id: true,
-          userId: true,
           username: true,
           about: true,
           name: true,
@@ -62,13 +61,13 @@ export const getVacancyById = async (id) => {
           Links: true,
           Cities: true,
           HR: true,
+          _count: {
+            select: { Following: true },
+          },
           user: {
             select: {
               id: true,
               email: true,
-              _count: {
-                select: { myCompanyFolowers: true },
-              },
             },
           },
         },
@@ -138,7 +137,7 @@ export const getVacancyById = async (id) => {
     amICreator: currentVacancy?.hrCreator?.user?.id === session?.user?.id,
     hrcount: currentVacancy?.Company?.HR?.filter((i) => i.dataVerified !== null)
       ?.length,
-    followersCount: currentVacancy?.Company?.user?._count?.myCompanyFolowers,
+    followersCount: currentVacancy?.Company?._count?.Following,
     hasMyReply: myReply,
     ifIHavePhone:
       ifIHavePhone?.phone !== null && ifIHavePhone?.phoneVerified !== null,

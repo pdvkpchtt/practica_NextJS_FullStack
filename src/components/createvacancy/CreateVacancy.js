@@ -33,6 +33,7 @@ const CreateVacancy = ({ data, skills }) => {
     <>
       <CompanyLeft data={data} withoutActions />
       <CreateVacancyRight
+        data={data}
         skills={skills}
         dataToUpdate={dataToUpdate}
         setDataToUpdate={setDataToUpdate}
