@@ -8,13 +8,14 @@ import { reactOnPost } from "../../../server/actions/reactOnPost";
 import { getServSession } from "../../api/auth/[...nextauth]/route";
 import { getPitchesCount } from "../../../server/actions/pitches/getPitchesCount";
 import { firstTime } from "../../../server/actions/profile/firstTime";
+import Profile from "../../../components/Profile/Profile";
 
 const OthersProfilePage = async ({ params: { id } }) => {
   const session = await getServSession();
 
-  if (session.user.id === id || session.user.username === id) {
-    redirect("/profile");
-  }
+  // if (session.user.id === id || session.user.username === id) {
+  //   redirect("/profile");
+  // }
 
   const data = await getProfile({
     userId: id,
@@ -58,17 +59,28 @@ const OthersProfilePage = async ({ params: { id } }) => {
         flex-row [@media(pointer:coarse)]:flex-col
       "
     >
-      <OthersProfileWithNav
-        ifChatExist={ifChatExist}
-        isFirstTime={isFirstTime}
-        otherId={data.id}
-        userId={session?.user?.id}
-        data={data}
-        getUserFeed={getUserFeed}
-        addReaction={addReaction}
-        pitchesFirst={pitchesFirst}
-        superPitchesFirst={superPitchesFirst}
-      />
+      {session.user.id === id || session.user.username === id ? (
+        <Profile
+          data={data}
+          getUserFeed={getUserFeed}
+          addReaction={addReaction}
+          userId={session.user.id}
+          pitchesFirst={pitchesFirst}
+          superPitchesFirst={superPitchesFirst}
+        />
+      ) : (
+        <OthersProfileWithNav
+          ifChatExist={ifChatExist}
+          isFirstTime={isFirstTime}
+          otherId={data.id}
+          userId={session?.user?.id}
+          data={data}
+          getUserFeed={getUserFeed}
+          addReaction={addReaction}
+          pitchesFirst={pitchesFirst}
+          superPitchesFirst={superPitchesFirst}
+        />
+      )}
     </div>
   );
 };
