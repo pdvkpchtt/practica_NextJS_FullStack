@@ -30,7 +30,6 @@ export default async function handler(req, res) {
 
     console.log("file_upload", file);
 
-    res.status(200).send({ error: "No file uploaded" });
     if (!file) {
       res.status(200).json({ error: "No file uploaded" });
     }
@@ -48,12 +47,10 @@ export default async function handler(req, res) {
     // await writeFile(path, buffer)
     console.log(`open ${path} to see the uploaded file`);
 
-    res
-      .status(200)
-      .json({
-        filePath:
-          "https://practica.team/file/" + id + p.extname(file.originalFilename),
-      });
+    res.status(200).json({
+      filePath:
+        "https://practica.team/file/" + id + p.extname(file.originalFilename),
+    });
   } else {
     res.status(200).json({ error: "method not allowed" });
   }
