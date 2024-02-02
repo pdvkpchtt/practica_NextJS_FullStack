@@ -26,12 +26,16 @@ const UpploadAvatarModal = ({
     if (company === false)
       res = await axios
         .post("/api/upload/avatar", formData)
-        .then(console.log)
+        .then((res) => {
+          return res?.data;
+        })
         .catch(console.log);
     else
       res = await axios
         .post("/api/upload/avatarComp", formData)
-        .then(console.log)
+        .then((res) => {
+          return res?.data;
+        })
         .catch(console.log);
     onDone(res?.filePath);
   };
