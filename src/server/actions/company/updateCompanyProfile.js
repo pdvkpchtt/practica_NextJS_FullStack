@@ -60,6 +60,7 @@ export const updateCompanyProfile = async ({ userId, data, companyId }) => {
   const companyEdited = await prisma.company.update({
     where: { id: companyId },
     data: {
+      image: data?.image,
       name: data.name,
       username: data.username.split(" ").join(""),
       slogan: data.slogan,

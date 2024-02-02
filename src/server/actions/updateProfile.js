@@ -78,6 +78,7 @@ export const updateProfile = async ({ userId, data }) => {
         id: userId,
       },
       data: {
+        image: data?.image,
         name: data.name,
         lastname: data.lastname,
         fullname: data.name + " " + data.lastname,
