@@ -30,6 +30,7 @@ export default async function handler(req, res) {
 
     console.log("file_upload", file);
 
+    // res.status(200).send({ error: "No file uploaded" });
     if (!file) {
       res.status(200).json({ error: "No file uploaded" });
     }

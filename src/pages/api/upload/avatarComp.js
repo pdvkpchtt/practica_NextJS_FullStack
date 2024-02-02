@@ -40,7 +40,7 @@ export default async function handler(req, res) {
     //   },
     //   size: 4849488
     // }
-    res.status(200).send({ error: "No file uploaded" });
+    // res.status(200).send({ error: "No file uploaded" });
     if (!file) {
       res.status(200).json({ error: "No file uploaded" });
     }

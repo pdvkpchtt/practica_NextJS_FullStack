@@ -280,16 +280,18 @@ const CreateCompanyLeft = ({
 
       <UpploadAvatarModalClient
         isOpen={bottomModal}
-        handleClose={(res) => {
+        handleClose={() => {
           setBottomModal(false);
-          console.log(res, "fuck");
-          setDataToUpdate({ ...dataToUpdate, image: res });
 
           // router.refresh();
           // router.refresh();
         }}
         company
-        // onDone={() => {}}
+        onDone={(res) => {
+          console.log(res, "fuck");
+
+          setDataToUpdate({ ...dataToUpdate, image: res });
+        }}
       />
     </div>
   );
