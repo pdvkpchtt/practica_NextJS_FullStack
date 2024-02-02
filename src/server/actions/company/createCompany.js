@@ -3,25 +3,11 @@
 import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 import { prisma } from "../../db";
 import { string, z } from "zod";
+import { uuid } from "uuidv4";
 
-export const updateEmail = async (data) => {
+export const createCompany = async ({ data }) => {
   const session = await getServSession();
 
-  const editedMail = await prisma.user.update({
-    where: {
-      id: session?.user?.id,
-    },
-    data: {
-      email: data,
-      emailVerified: null,
-    },
-  });
-
-  return editedMail;
-};
-
-export const updateCompanyProfile = async ({ userId, data, companyId }) => {
-  console.log(data, "server upd dat");
   // валидация
   const validate = z.object({
     name: z.string().min(1, { message: "inputName minlen" }),
@@ -45,7 +31,7 @@ export const updateCompanyProfile = async ({ userId, data, companyId }) => {
   });
 
   const checkusername = await prisma.Company.findFirst({
-    where: { username: data.username, id: { not: companyId } },
+    where: { username: data.username },
     select: { id: true },
   });
 
@@ -57,30 +43,37 @@ export const updateCompanyProfile = async ({ userId, data, companyId }) => {
     };
   // валидация
 
-  const companyEdited = await prisma.company.update({
-    where: { id: companyId },
+  const hr = await prisma.Hr.findFirst({
+    where: {
+      userId: session?.user?.id,
+    },
+    select: { id: true },
+  });
+
+  const companyEdited = await prisma.company.create({
     data: {
+      image: data.image,
       name: data.name,
       username: data.username.split(" ").join(""),
       slogan: data.slogan,
       about: data.about,
       isStartap: data.isStartap,
       Cities: {
-        deleteMany: {},
         createMany: { data: [...data.Cities] },
       },
       Links: {
-        deleteMany: {},
         createMany: { data: [...data.Links] },
       },
       industry:
         data.industry?.length === 0
           ? {}
           : { connect: { id: data.industry.id } },
-      employee:
-        data.employee?.length === 0
-          ? {}
-          : { connect: { id: data.employee.id } },
+      employee: data.employee ? {} : { connect: { id: data.employee.id } },
+      user: { connect: { id: session?.user?.id } },
+      HR: { connect: { id: hr.id } },
+    },
+    select: {
+      id: true,
     },
   });
 };

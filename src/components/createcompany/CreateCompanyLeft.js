@@ -28,17 +28,12 @@ const CreateCompanyLeft = ({
   status,
   setStatus,
 }) => {
-  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
-  const router = useRouter();
-
   const [state, setState] = useState(false);
   const [linkName, setLinkName] = useState("");
   const [linkLink, setLinkLink] = useState("");
   const [linkId, setLinkId] = useState("");
   const [bottomModal, setBottomModal] = useState(false);
-  const [error, setError] = useState(false);
   const [error2, setError2] = useState(false);
-  const [invalid, setInvalid] = useState(null);
 
   function isUrl(url) {
     return /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(
@@ -291,6 +286,7 @@ const CreateCompanyLeft = ({
           console.log(res, "fuck");
 
           setDataToUpdate({ ...dataToUpdate, image: res });
+          setBottomModal(false);
         }}
       />
     </div>

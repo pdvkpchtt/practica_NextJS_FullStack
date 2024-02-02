@@ -12,6 +12,7 @@ import { Input } from "../../shared/ui/Input";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import DropDownWithSearch from "../../shared/ui/DropDownWithSearch";
 import CheckBox from "../../shared/ui/CheckBox";
+import { createCompany } from "../../server/actions/company/createCompany";
 
 import CheckIcon from "../../shared/icons/CheckIcon";
 import ArrowLeftIcon from "../../shared/icons/ArrowLeftIcon";
@@ -20,7 +21,6 @@ const CreateCompanyRight = ({
   dataToCompare,
   setDataToUpdate,
   dataToUpdate,
-  updateCompanyData,
   itemsForDD,
   itemsForDD2,
   status,
@@ -56,54 +56,54 @@ const CreateCompanyRight = ({
           </OneIconButton>
           <div
             onClick={async () => {
-              //   if (isDataChanged) {
-              //     setLittleLoader(true);
-              //     // try {
-              //     const res = await updateCompanyData(dataToUpdate);
-              //     console.log(res, "ochko");
-              //     setStatus(res?.message);
-              //     if (res?.submsg)
-              //       setStatus(
-              //         res?.message
-              //           ? [...res?.message, res?.submsg]
-              //           : [res?.submsg]
-              //       );
-              //     console.log(res);
-              //     if (!res) {
-              //       toast(`💾 Изменения сохранены`, {
-              //         position: isMobile ? "top-center" : "bottom-right",
-              //         autoClose: 4000,
-              //         hideProgressBar: true,
-              //         closeOnClick: true,
-              //         pauseOnHover: false,
-              //         draggable: true,
-              //         progress: undefined,
-              //         // theme: "dark",
-              //         progressStyle: { background: "#5875e8" },
-              //         containerId: "forCopy",
-              //       });
-              //       // } catch (err) {
-              //       // console.log("err");
-              //       // }
-              //       router.push(`/companyprofile/${dataToUpdate.username}/edit`);
-              //       setLittleLoader(false);
-              //     } else {
-              //       setLittleLoader(false);
-              //       toast(`🙇 Cорри, что-то пропущено`, {
-              //         position: isMobile ? "top-center" : "bottom-right",
-              //         autoClose: 4000,
-              //         hideProgressBar: true,
-              //         closeOnClick: true,
-              //         pauseOnHover: false,
-              //         draggable: true,
-              //         progress: undefined,
-              //         // theme: "dark",
-              //         progressStyle: { background: "#5875e8" },
-              //         containerId: "forCopy",
-              //       });
-              //       setLittleLoader(false);
-              //     }
-              //   }
+              if (isDataChanged) {
+                setLittleLoader(true);
+                // try {
+                const res = await createCompany({ data: dataToUpdate });
+                console.log(res, "ochko");
+                setStatus(res?.message);
+                if (res?.submsg)
+                  setStatus(
+                    res?.message
+                      ? [...res?.message, res?.submsg]
+                      : [res?.submsg]
+                  );
+                console.log(res);
+                if (!res) {
+                  // toast(`💾 Изменения сохранены`, {
+                  //   position: isMobile ? "top-center" : "bottom-right",
+                  //   autoClose: 4000,
+                  //   hideProgressBar: true,
+                  //   closeOnClick: true,
+                  //   pauseOnHover: false,
+                  //   draggable: true,
+                  //   progress: undefined,
+                  //   // theme: "dark",
+                  //   progressStyle: { background: "#5875e8" },
+                  //   containerId: "forCopy",
+                  // });
+                  // // } catch (err) {
+                  // // console.log("err");
+                  // // }
+                  router.push(`/companyprofile/${dataToUpdate.username}`);
+                  setLittleLoader(false);
+                } else {
+                  setLittleLoader(false);
+                  toast(`🙇 Cорри, что-то пропущено`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  setLittleLoader(false);
+                }
+              }
             }}
             className={`
                 px-[12px] py-[8px] h-[36px] w-[44px] rounded-[16px]  transition duration-[250ms] select-none 
@@ -185,12 +185,14 @@ const CreateCompanyRight = ({
               console.log(val, "lll");
 
               if (status)
-                setStatus(status.filter((i) => !i.includes("Required")));
+                setStatus(
+                  status.filter((i) => !i.includes("inputIndustry minlen"))
+                );
             }}
             items={itemsForDD}
             placeholder="Выберите отрасль"
           />
-          {status && status?.includes("Required") && (
+          {status && status?.includes("inputIndustry minlen") && (
             <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
               Выберите отрасль
             </p>
