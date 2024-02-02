@@ -203,6 +203,7 @@ model Company {
   employee   CompanyEmployee? @relation(fields: [employeeId], references: [id])
   HR         Hr[]
   Following  Following[]
+  Post       Post[]
 }
 
 model Following {
@@ -379,8 +380,10 @@ model Post {
   userId           String
   user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   Reaction         Reaction[]
-  category         PostCategories? @relation(fields: [postCategoriesId], references: [id])
   postCategoriesId String?
+  category         PostCategories? @relation(fields: [postCategoriesId], references: [id])
+  companyId        String?
+  company          Company?        @relation(fields: [companyId], references: [id])
 }
 
 model PostCategories {

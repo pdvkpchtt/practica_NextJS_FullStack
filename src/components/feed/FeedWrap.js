@@ -9,7 +9,7 @@ import { ModalContext } from "./ModalContext";
 
 import PenIcon from "../../shared/icons/PenIcon";
 
-const FeedWrap = ({ children, sendPost }) => {
+const FeedWrap = ({ children, sendPost, isHr }) => {
   // const ref = useRef(null);
   const pathname = usePathname();
 
@@ -39,6 +39,7 @@ const FeedWrap = ({ children, sendPost }) => {
       </div>
 
       <CreatePostModal
+        isHr={isHr}
         open={modalCreatePost}
         setClose={setModalCreatePost}
         sendPost={sendPost}

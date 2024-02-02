@@ -44,6 +44,7 @@ import BlowMyMindBig from "../../shared/icons/reactions/BlowMyMindBig";
 import SmileBig from "../../shared/icons/reactions/SmileBig";
 import CryBig from "../../shared/icons/reactions/CryBig";
 import ClownBig from "../../shared/icons/reactions/ClownBig";
+import { getAllCompaniesId } from "../../server/actions/feed/getAllCompaniesId";
 
 const CreatePostModal = ({
   open = false,
@@ -54,6 +55,7 @@ const CreatePostModal = ({
   headerMax = 120,
   textMax = 500,
   onToastClick = () => {},
+  isHr = false,
 }) => {
   const router = useRouter();
 
@@ -66,6 +68,11 @@ const CreatePostModal = ({
     id: "clnxhc0ir00009rtwtmt5wy0z",
     name: "Без темы",
   });
+  const [dropDownState2, setDropDownState2] = useState({
+    id: null,
+    name: "Без компании",
+  });
+
   console.log("picked category", dropDownState);
   const [headState, setHeadState] = useState("");
   const [textState, setTextState] = useState("");
@@ -77,6 +84,7 @@ const CreatePostModal = ({
   const [slideToTopState, setSlideToTop] = useState(false);
 
   const [categories, setCategories] = useState([]);
+  const [companies, setCompanies] = useState([]);
 
   const [reactions, setReactitons] = useState([
     {
@@ -136,6 +144,19 @@ const CreatePostModal = ({
     setDropDownState(categories[0]);
   };
 
+  const getCompanies = async () => {
+    const data = await getAllCompaniesId();
+    setCompanies([
+      {
+        id: null,
+        name: "Без компании",
+      },
+      ...data,
+    ]);
+  };
+
+  console.log(categories, companies, "isHr");
+
   const [isBlinking, setIsBlinking] = useState(false);
 
   const handleClick = () => {
@@ -153,6 +174,8 @@ const CreatePostModal = ({
 
   useEffect(() => {
     getCategires();
+
+    if (isHr === true) getCompanies();
   }, []);
 
   return (
@@ -191,9 +214,15 @@ const CreatePostModal = ({
               size={18}
             />
             <PostDropDown
-              choise={dropDownState}
               items={categories}
+              choise={dropDownState}
               handleSetChoise={(val) => setDropDownState(val)}
+            />
+            <PostDropDown
+              widthStyle="min-w-[143px]"
+              items={companies}
+              choise={dropDownState2}
+              handleSetChoise={(val) => setDropDownState2(val)}
             />
           </div>
           <Cross2 onClick={() => setClose(false)} />
@@ -285,6 +314,7 @@ const CreatePostModal = ({
                       text: textState,
                       reactions: pickedReactions,
                       category: dropDownState,
+                      companies: dropDownState2,
                     });
                     if (dropDownState.name === "Офтоп")
                       router.push("/feed/offtop");
@@ -402,6 +432,7 @@ const CreatePostModal = ({
                         text: textState,
                         reactions: pickedReactions,
                         category: dropDownState,
+                        companies: dropDownState2,
                       });
                       if (dropDownState.name === "Офтоп")
                         router.push("/feed/offtop");
@@ -510,6 +541,12 @@ const CreatePostModal = ({
               choise={dropDownState}
               items={categories}
               handleSetChoise={(val) => setDropDownState(val)}
+            />
+            <PostDropDown
+              widthStyle="min-w-[143px]"
+              items={companies}
+              choise={dropDownState2}
+              handleSetChoise={(val) => setDropDownState2(val)}
             />
           </div>
 

@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import ArrowDown from "../icons/ArrowDown";
 
 const PostDropDown = ({
+  widthStyle = "w-[100px]",
   styled = "",
   choise = "",
   items = [],
@@ -70,7 +71,7 @@ const PostDropDown = ({
       <AnimatePresence>
         {openState && (
           <motion.div
-            className="absolute top-[calc(100%+8px)] left-[-7px] z-20 flex h-fit w-[100px] border-[1px] border-[#e7e7e7] dark:border-[#1a1a1a] flex-col rounded-[10px] bg-[#FFFFFF] dark:bg-[#2c2c2c] shadow-lg"
+            className={`${widthStyle} absolute top-[calc(100%+8px)] left-[-7px] z-20 flex h-fit border-[1px] border-[#e7e7e7] dark:border-[#1a1a1a] flex-col rounded-[10px] bg-[#FFFFFF] dark:bg-[#2c2c2c] shadow-lg`}
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.7 }}

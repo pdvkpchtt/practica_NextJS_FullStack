@@ -22,7 +22,6 @@ export const getRatedPosts = async (id, cursor, otherId) => {
           image: true,
           username: true,
           role: true,
-          HR: { select: { company: { select: { id: true, username: true } } } },
           Company: {
             select: {
               id: true,
@@ -40,6 +39,7 @@ export const getRatedPosts = async (id, cursor, otherId) => {
         },
       },
       Reaction: { select: { type: true, userId: true } },
+      company: { select: { id: true, username: true } },
       title: true,
       text: true,
     },
@@ -85,11 +85,10 @@ export const getRatedPosts = async (id, cursor, otherId) => {
       username: post.user.username,
       author_id: post.user.id,
       reactions,
-      hrCompanyId: post.user?.HR[0]?.company?.id,
-      hrCompanyUsername: post.user?.HR[0]?.company?.username,
-      isHrCompanyId: post.user?.HR[0]?.company?.username
-        ? post.user?.HR[0]?.company?.username
-        : post.user?.HR[0]?.company?.id,
+      hrCompanyId: post?.company?.username,
+      hrCompanyUsername: post?.company?.username,
+
+      isHrCompanyId: post?.company?.username,
       title: post.title,
       text: post.text,
       role: post.user.role,

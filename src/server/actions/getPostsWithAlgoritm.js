@@ -47,7 +47,6 @@ export const getPostsWithAlgoritm = async (id, cursor) => {
           image: true,
           username: true,
           role: true,
-          HR: { select: { company: { select: { id: true, username: true } } } },
           Company: {
             select: {
               id: true,
@@ -59,6 +58,7 @@ export const getPostsWithAlgoritm = async (id, cursor) => {
         },
       },
       Reaction: { select: { type: true, userId: true } },
+      company: { select: { id: true, username: true } },
       title: true,
       text: true,
       category: {
@@ -112,11 +112,10 @@ export const getPostsWithAlgoritm = async (id, cursor) => {
       reactions,
       title: post.title,
       text: post.text,
-      hrCompanyId: post.user?.HR[0]?.company?.id,
-      hrCompanyUsername: post.user?.HR[0]?.company?.username,
-      isHrCompanyId: post.user?.HR[0]?.company?.username
-        ? post.user?.HR[0]?.company?.username
-        : post.user?.HR[0]?.company?.id,
+      hrCompanyId: post?.company?.username,
+      hrCompanyUsername: post?.company?.username,
+
+      isHrCompanyId: post?.company?.username,
       role: post.user.role,
       category: post.category,
     };

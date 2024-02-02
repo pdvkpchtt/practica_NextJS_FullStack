@@ -3,18 +3,6 @@
 import { prisma } from "../../db";
 
 export const getHrsPosts = async (compid, cursor, yourId) => {
-  const hrs = await prisma.company.findUnique({
-    where: {
-      id: compid,
-    },
-    select: {
-      HR: { select: { userId: true, dataVerified: true } },
-    },
-  });
-
-  let listOfHrs = hrs.HR.map((i) => (!!i.dataVerified ? i.userId : "null"));
-  console.log(listOfHrs, "testing yeaa");
-
   const posts = await prisma.post.findMany({
     take: 11,
     ...(cursor && cursor.length > 0 && { cursor: { id: cursor }, skip: 1 }),
@@ -28,7 +16,6 @@ export const getHrsPosts = async (compid, cursor, yourId) => {
           id: true,
           username: true,
           image: true,
-          HR: { select: { company: { select: { username: true } } } },
           role: true,
           Company: {
             select: {
@@ -42,6 +29,7 @@ export const getHrsPosts = async (compid, cursor, yourId) => {
       },
       userId: true,
       Reaction: { select: { type: true, userId: true } },
+      company: { select: { id: true, username: true } },
       text: true,
       title: true,
     },
@@ -49,9 +37,7 @@ export const getHrsPosts = async (compid, cursor, yourId) => {
       createdAt: "desc",
     },
     where: {
-      userId: {
-        in: listOfHrs,
-      },
+      companyId: compid,
     },
   });
 
@@ -100,10 +86,10 @@ export const getHrsPosts = async (compid, cursor, yourId) => {
       reactions,
       text: post.text,
       role: post.user.role,
-      isHrCompanyId:
-        post.user?.HR[0]?.company?.username !== null
-          ? post.user?.HR[0]?.company?.username
-          : post.user?.HR[0]?.company?.id,
+      hrCompanyId: post?.company?.username,
+      hrCompanyUsername: post?.company?.username,
+
+      isHrCompanyId: post?.company?.username,
       role: post.user.role,
     };
   });
