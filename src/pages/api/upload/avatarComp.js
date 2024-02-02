@@ -58,7 +58,7 @@ export default async function handler(req, res) {
     console.log(`open ${path} to see the uploaded file`);
 
     const company = await prisma.Company.update({
-      where: { id: formData?.fields?.compId },
+      where: { id: formData?.fields?.compId[0] },
       data: {
         image:
           "https://practica.team/file/" + id + p.extname(file.originalFilename),
