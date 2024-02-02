@@ -369,7 +369,7 @@ transition-all duration-[250ms] ${
             {data?.hrCompany?.company?.map((i, key) => (
               <CardOpacity
                 styled={`w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer ${
-                  key === profile?.hrCompany?.company?.length - 1 && "mb-[8px]"
+                  key === data?.hrCompany?.company?.length - 1 && "mb-[8px]"
                 }`}
                 rounded={20}
                 onClick={() => router.push(`/companyprofile/${i.username}`)}
