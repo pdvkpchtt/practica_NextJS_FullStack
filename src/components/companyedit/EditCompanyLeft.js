@@ -325,7 +325,7 @@ const EditCompanyLeft = ({
       {/* изменить почту */}
 
       {/* добавить рекрутера */}
-      {dataToUpdate.role !== "hr_no_nickname" && (
+      {/* {dataToUpdate.role !== "hr_no_nickname" && (
         <Card
           style=" 
         [@media(hover)]:w-[260px] [@media(pointer:coarse)]:w-[100%] 
@@ -392,7 +392,7 @@ const EditCompanyLeft = ({
             Пригласить
           </p>
         </Card>
-      )}
+      )} */}
       {/* добавить рекрутера */}
       <Card
         padding={6}
