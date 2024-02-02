@@ -27,6 +27,8 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         birthDate: true,
         phone: true,
         phoneVerified: true,
+        ISendRequest: true,
+        IGetRequest: true,
         Education: {
           select: {
             id: true,
@@ -81,8 +83,6 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
             },
           },
         },
-        ISendRequest: true,
-        IGetRequest: true,
         UpdatesToMe: true,
       },
       // include: {
@@ -126,6 +126,23 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
       let arr3 = [];
       arr2?.map((i) => i?.id === session?.user?.id && arr3?.push(i?.id));
       return {
+        requestStatus:
+          user?.IGetRequest?.find(
+            (item) => item.userSendId === session?.user?.id
+          ) !== undefined
+            ? true
+            : false,
+        friendStatus:
+          user?.connections?.find((item) => item.id === session.user.id) !==
+          undefined
+            ? true
+            : false,
+        ifHeSentRequest:
+          user?.ISendRequest?.find(
+            (item) => item.userGetId === session.user.id
+          ) !== undefined
+            ? true
+            : false,
         id: user.id,
         name: user.name,
         lastname: user.lastname,
@@ -205,6 +222,23 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
       let arr3 = [];
       arr2?.map((i) => i?.id === session?.user?.id && arr3?.push(i?.id));
       return {
+        requestStatus:
+          user?.IGetRequest?.find(
+            (item) => item.userSendId === session?.user?.id
+          ) !== undefined
+            ? true
+            : false,
+        friendStatus:
+          user?.connections?.find((item) => item.id === session.user.id) !==
+          undefined
+            ? true
+            : false,
+        ifHeSentRequest:
+          user?.ISendRequest?.find(
+            (item) => item.userGetId === session.user.id
+          ) !== undefined
+            ? true
+            : false,
         id: user.id,
         name: user.name,
         lastname: user.lastname,
@@ -410,6 +444,23 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
       let arr3 = [];
       arr2?.map((i) => i?.id === session?.user?.id && arr3?.push(i?.id));
       return {
+        requestStatus:
+          user?.IGetRequest?.find(
+            (item) => item.userSendId === session?.user?.id
+          ) !== undefined
+            ? true
+            : false,
+        friendStatus:
+          user?.connections?.find((item) => item.id === session.user.id) !==
+          undefined
+            ? true
+            : false,
+        ifHeSentRequest:
+          user?.ISendRequest?.find(
+            (item) => item.userGetId === session.user.id
+          ) !== undefined
+            ? true
+            : false,
         id: user.id,
         name: user.name,
         lastname: user.lastname,
@@ -489,6 +540,23 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
       let arr3 = [];
       arr2?.map((i) => i?.id === session?.user?.id && arr3?.push(i?.id));
       return {
+        requestStatus:
+          user?.IGetRequest?.find(
+            (item) => item.userSendId === session?.user?.id
+          ) !== undefined
+            ? true
+            : false,
+        friendStatus:
+          user?.connections?.find((item) => item.id === session.user.id) !==
+          undefined
+            ? true
+            : false,
+        ifHeSentRequest:
+          user?.ISendRequest?.find(
+            (item) => item.userGetId === session.user.id
+          ) !== undefined
+            ? true
+            : false,
         id: user.id,
         name: user.name,
         lastname: user.lastname,
