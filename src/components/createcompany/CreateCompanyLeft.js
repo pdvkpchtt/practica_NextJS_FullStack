@@ -281,7 +281,6 @@ const CreateCompanyLeft = ({
           // router.refresh();
           // router.refresh();
         }}
-        company
         onDone={(res) => {
           console.log(res, "fuck");
 

@@ -32,7 +32,7 @@ const UpploadAvatarModalClient = ({
       .catch(console.log);
 
     console.log(res, "filepath");
-    onDone(res.filePath);
+    onDone(res?.filePath);
   };
 
   return (

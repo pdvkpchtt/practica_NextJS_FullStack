@@ -21,17 +21,19 @@ const UpploadAvatarModal = ({
     let formData = new FormData();
     formData.append("file", e.target.files[0]);
     // formData.append("avatar", e.target.files[0]);
+    let res = null;
+
     if (company === false)
-      await axios
+      res = await axios
         .post("/api/upload/avatar", formData)
         .then(console.log)
         .catch(console.log);
     else
-      await axios
+      res = await axios
         .post("/api/upload/avatarComp", formData)
         .then(console.log)
         .catch(console.log);
-    onDone();
+    onDone(res?.filePath);
   };
 
   return (

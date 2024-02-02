@@ -58,15 +58,18 @@ export default async function handler(req, res) {
     // await writeFile(path, buffer)
     console.log(`open ${path} to see the uploaded file`);
 
-    const user = await prisma.User.update({
-      where: { id: session.user.id },
-      data: {
-        image:
-          "https://practica.team/file/" + id + p.extname(file.originalFilename),
-      },
-    });
+    // const user = await prisma.User.update({
+    //   where: { id: session.user.id },
+    //   data: {
+    //     image:
+    //       "https://practica.team/file/" + id + p.extname(file.originalFilename),
+    //   },
+    // });
 
-    res.status(200).json({ status: "ok" });
+    res.status(200).json({
+      filePath:
+        "https://practica.team/file/" + id + p.extname(file.originalFilename),
+    });
   } else {
     res.status(200).json({ error: "method not allowed" });
   }
