@@ -9,7 +9,7 @@ const getMessages = async (
   searchInput,
   otherUserId
 ) => {
-  const circle = await checkCircles(otherUserId, chatId);
+  const circle = await checkCircles(null, chatId);
   const session = await getServSession();
   var d = new Date();
   d.setDate(d.getDate() - 4);

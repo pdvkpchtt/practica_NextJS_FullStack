@@ -13,14 +13,42 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         id: true,
         name: true,
         lastname: true,
+        fullname: true,
         username: true,
         role: true,
         image: true,
         about: true,
+        email: true,
         country: true,
         city: true,
         views: true,
+        isFirstTime: true,
+        inSearch: true,
         birthDate: true,
+        phone: true,
+        phoneVerified: true,
+        Education: {
+          select: {
+            id: true,
+            name: true,
+            degree: true,
+            startDate: true,
+            endDate: true,
+          },
+        },
+        educationLevel: true,
+        WorkExperience: {
+          select: {
+            id: true,
+            organization: true,
+            post: true,
+            start_year: true,
+            start_month: true,
+            end_month: true,
+            end_year: true,
+            isStill: true,
+          },
+        },
         Company: {
           select: {
             name: true,
@@ -32,8 +60,19 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
             direction: true,
           },
         },
+        UserSkills: {
+          select: {
+            skill: {
+              select: {
+                id: true,
+                name: true,
+                type: true,
+              },
+            },
+          },
+        },
         _count: {
-          select: { connections: true },
+          select: { connections: true, Following: true },
         },
         connections: {
           include: {
@@ -44,7 +83,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         },
         ISendRequest: true,
         IGetRequest: true,
-        plan: true,
+        UpdatesToMe: true,
       },
       // include: {
       //   Education: true,
@@ -74,27 +113,65 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         },
       });
 
-      const arr2 = [];
-      user.connections.map((i) =>
-        i.connections.map((i2) => i2.connections.map((i3) => arr2.push(i3)))
+      let arr2 = [];
+      user?.connections?.map((i) =>
+        i?.connections?.map((i2) =>
+          i2?.connections?.map((i3) => arr2?.push(i3))
+        )
       );
+      let arr1 = [];
+      user?.connections?.map(
+        (i) => i?.id === session?.user?.id && arr1?.push(i?.id)
+      );
+      let arr3 = [];
+      arr2?.map((i) => i?.id === session?.user?.id && arr3?.push(i?.id));
       return {
         id: user.id,
         name: user.name,
         lastname: user.lastname,
+        fullname: user.fullname,
         username: user.username,
         role: user.role,
         image: user.image,
         about: user.about,
         country: user.country,
+        email: user.email,
+        phone: user.phone,
+        phoneVerified: user.phoneVerified,
+        inSearch: user.inSearch,
         city: user.city,
+        isFirstTime: user.isFirstTime,
+
         views: JSON.stringify(user.views),
         birthDate: user.birthDate,
+        education: user.Education.map((education) => ({
+          id: education.id,
+          name: education.name,
+          degree: education.degree,
+          startDate: education.startDate,
+          endDate: education.endDate,
+        })),
+        educationLevel: user.educationLevel,
+        workExperience: user.WorkExperience.map((workExperience) => ({
+          id: workExperience.id,
+          organization: workExperience.organization,
+          post: workExperience.post,
+          start_year: workExperience.start_year,
+          start_month: workExperience.start_month,
+          end_month: workExperience.end_month,
+          end_year: workExperience.end_year,
+          isStill: workExperience.isStill,
+        })),
+        UserSkills: user.UserSkills.map((userSkill) => ({
+          id: userSkill.skill.id,
+          name: userSkill.skill.name,
+          type: userSkill.skill.type,
+        })),
         connections: user._count.connections,
+        companiesIFollow: user._count.Following,
         connectionsArr: user.connections,
         ISendRequest: user.ISendRequest,
         IGetRequest: user.IGetRequest,
-        plan: user.plan,
         Company: {
           name: user?.Company?.name,
           username: user?.Company?.username,
@@ -106,50 +183,72 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         },
         UpdatesToMe: user?.UpdatesToMe,
         hrCompany: comapny,
-        isFirstCircle: user.connections.find((i) => i.id === session.user.id),
-        isSecondCircle: user.connections
-          .map((i2) => i2.connections.map((i) => i.id === session.user.id))
-          .map((i) => i.find((i2) => i2 === true)),
-        isThirdCircle: arr2.find((i) => i.id === session.user.id),
-
-        requestStatus:
-          user?.IGetRequest?.find(
-            (item) => item.userSendId === session?.user?.id
-          ) !== undefined
-            ? true
-            : false,
-        friendStatus:
-          user?.connections?.find((item) => item.id === session.user.id) !==
-          undefined
-            ? true
-            : false,
-        ifHeSentRequest:
-          user?.ISendRequest?.find(
-            (item) => item.userGetId === session.user.id
-          ) !== undefined
-            ? true
-            : false,
+        isFirstCircle: arr1,
+        isSecondCircle: user?.connections
+          ?.map((i2) =>
+            i2?.connections?.map((i) => i?.id === session?.user?.id)
+          )
+          ?.map((i) => i?.find((i2) => i2 === true)),
+        isThirdCircle: arr3,
       };
     } else {
-      const arr2 = [];
-      user.connections.map((i) =>
-        i.connections.map((i2) => i2.connections.map((i3) => arr2.push(i3)))
+      let arr2 = [];
+      user?.connections?.map((i) =>
+        i?.connections?.map((i2) =>
+          i2?.connections?.map((i3) => arr2?.push(i3))
+        )
       );
+      let arr1 = [];
+      user?.connections?.map(
+        (i) => i?.id === session?.user?.id && arr1?.push(i?.id)
+      );
+      let arr3 = [];
+      arr2?.map((i) => i?.id === session?.user?.id && arr3?.push(i?.id));
       return {
         id: user.id,
         name: user.name,
         lastname: user.lastname,
+        fullname: user.fullname,
         username: user.username,
         role: user.role,
         image: user.image,
         about: user.about,
         country: user.country,
         city: user.city,
+        phone: user.phone,
+        phoneVerified: user.phoneVerified,
+        inSearch: user.inSearch,
+        isFirstTime: user.isFirstTime,
+
+        email: user.email,
         views: JSON.stringify(user.views),
         birthDate: user.birthDate,
+        education: user.Education.map((education) => ({
+          id: education.id,
+          name: education.name,
+          degree: education.degree,
+          startDate: education.startDate,
+          endDate: education.endDate,
+        })),
+        educationLevel: user.educationLevel,
+        workExperience: user.WorkExperience.map((workExperience) => ({
+          id: workExperience.id,
+          organization: workExperience.organization,
+          post: workExperience.post,
+          start_year: workExperience.start_year,
+          start_month: workExperience.start_month,
+          end_month: workExperience.end_month,
+          end_year: workExperience.end_year,
+          isStill: workExperience.isStill,
+        })),
+        UserSkills: user.UserSkills.map((userSkill) => ({
+          id: userSkill.skill.id,
+          name: userSkill.skill.name,
+          type: userSkill.skill.type,
+        })),
         connections: user._count.connections,
         connectionsArr: user.connections,
-        plan: user.plan,
+        companiesIFollow: user._count.Following,
         ISendRequest: user.ISendRequest,
         IGetRequest: user.IGetRequest,
         Company: {
@@ -161,88 +260,131 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
           city: user?.Company?.city,
           direction: user?.Company?.direction,
         },
-        isFirstCircle: user.connections.find((i) => i.id === session.user.id),
-        isSecondCircle: user.connections
-          .map((i2) => i2.connections.map((i) => i.id === session.user.id))
-          .map((i) => i.find((i2) => i2 === true)),
-        isThirdCircle: arr2.find((i) => i.id === session.user.id),
-
-        requestStatus:
-          user?.IGetRequest?.find(
-            (item) => item.userSendId === session?.user?.id
-          ) !== undefined
-            ? true
-            : false,
-        friendStatus:
-          user?.connections?.find((item) => item.id === session.user.id) !==
-          undefined
-            ? true
-            : false,
-        ifHeSentRequest:
-          user?.ISendRequest?.find(
-            (item) => item.userGetId === session.user.id
-          ) !== undefined
-            ? true
-            : false,
+        UpdatesToMe: user?.UpdatesToMe,
+        isFirstCircle: arr1,
+        isSecondCircle: user?.connections
+          ?.map((i2) =>
+            i2?.connections?.map((i) => i?.id === session?.user?.id)
+          )
+          ?.map((i) => i?.find((i2) => i2 === true)),
+        isThirdCircle: arr3,
       };
     }
   } else {
-    const user = await prisma.Chat.findUnique({
+    // есои неи гser id
+    const chat = await prisma.Chat.findUnique({
       where: { id: chatId },
       select: {
         participants: {
           select: {
             id: true,
-            name: true,
-            lastname: true,
-            username: true,
-            role: true,
-            image: true,
-            about: true,
-            country: true,
-            city: true,
-            views: true,
-            birthDate: true,
-            plan: true,
-            Company: {
-              select: {
-                name: true,
-                username: true,
-                slogan: true,
-                about: true,
-                country: true,
-                city: true,
-                direction: true,
-              },
-            },
-            _count: {
-              select: { connections: true },
-            },
-            connections: {
-              include: {
-                connections: {
-                  include: { connections: { include: { connections: true } } },
-                },
-              },
-            },
-            ISendRequest: true,
-            IGetRequest: true,
-            UpdatesToMe: true,
           },
           where: {
-            NOT: { id: session.user.id },
+            NOT: { id: session?.user?.id },
           },
         },
       },
+    });
+
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { id: chat?.participants[0].id },
+          { username: chat?.participants[0].id },
+        ],
+      },
+      select: {
+        id: true,
+        name: true,
+        lastname: true,
+        fullname: true,
+        username: true,
+        role: true,
+        image: true,
+        about: true,
+        email: true,
+        country: true,
+        city: true,
+        views: true,
+        isFirstTime: true,
+        inSearch: true,
+        birthDate: true,
+        phone: true,
+        phoneVerified: true,
+        Education: {
+          select: {
+            id: true,
+            name: true,
+            degree: true,
+            startDate: true,
+            endDate: true,
+          },
+        },
+        educationLevel: true,
+        WorkExperience: {
+          select: {
+            id: true,
+            organization: true,
+            post: true,
+            start_year: true,
+            start_month: true,
+            end_month: true,
+            end_year: true,
+            isStill: true,
+          },
+        },
+        Company: {
+          select: {
+            name: true,
+            username: true,
+            slogan: true,
+            about: true,
+            country: true,
+            city: true,
+            direction: true,
+          },
+        },
+        UserSkills: {
+          select: {
+            skill: {
+              select: {
+                id: true,
+                name: true,
+                type: true,
+              },
+            },
+          },
+        },
+        _count: {
+          select: { connections: true, Following: true },
+        },
+        connections: {
+          include: {
+            connections: {
+              include: { connections: { include: { connections: true } } },
+            },
+          },
+        },
+        ISendRequest: true,
+        IGetRequest: true,
+        UpdatesToMe: true,
+      },
+      // include: {
+      //   Education: true,
+      //   WorkExperience: true,
+      //   _count: {
+      //     select: { connections: true },
+      //   },
+      // },
     });
 
     BigInt.prototype["toJSON"] = function () {
       return parseInt(this.toString());
     };
 
-    if (user.participants[0].role.includes("hr")) {
+    if (user.role.includes("hr")) {
       const comapny = await prisma.Hr.findFirst({
-        where: { userId: user.participants[0].id },
+        where: { userId: user.id },
         select: {
           company: {
             select: {
@@ -255,124 +397,161 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
         },
       });
 
-      const arr2 = [];
-      user.participants[0].connections.map((i) =>
-        i.connections.map((i2) => i2.connections.map((i3) => arr2.push(i3)))
+      let arr2 = [];
+      user?.connections?.map((i) =>
+        i?.connections?.map((i2) =>
+          i2?.connections?.map((i3) => arr2?.push(i3))
+        )
       );
+      let arr1 = [];
+      user?.connections?.map(
+        (i) => i?.id === session?.user?.id && arr1?.push(i?.id)
+      );
+      let arr3 = [];
+      arr2?.map((i) => i?.id === session?.user?.id && arr3?.push(i?.id));
       return {
-        id: user?.participants[0].id,
-        name: user?.participants[0].name,
-        lastname: user?.participants[0].lastname,
-        username: user?.participants[0].username,
-        role: user?.participants[0].role,
-        image: user?.participants[0].image,
-        about: user?.participants[0].about,
-        country: user?.participants[0].country,
-        city: user?.participants[0].city,
-        views: JSON.stringify(user?.participants[0].views),
-        plan: user.participants[0].plan,
-        birthDate: user?.participants[0].birthDate,
-        connections: user?.participants[0]._count.connections,
-        connectionsArr: user?.participants[0].connections,
-        ISendRequest: user?.participants[0].ISendRequest,
-        IGetRequest: user?.participants[0].IGetRequest,
-        Company: {
-          name: user?.participants[0]?.Company?.name,
-          username: user?.participants[0]?.Company?.username,
-          slogan: user?.participants[0]?.Company?.slogan,
-          about: user?.participants[0]?.Company?.about,
-          country: user?.participants[0]?.Company?.country,
-          city: user?.participants[0]?.Company?.city,
-          direction: user?.participants[0]?.Company?.direction,
-        },
-        UpdatesToMe: user?.participants[0]?.UpdatesToMe,
-        hrCompany: comapny,
-        isFirstCircle: user?.participants[0].connections.find(
-          (i) => i.id === session.user.id
-        ),
-        isSecondCircle: user?.participants[0].connections
-          .map((i2) => i2.connections.map((i) => i.id === session.user.id))
-          .map((i) => i.find((i2) => i2 === true)),
-        isThirdCircle: arr2.find((i) => i.id === session.user.id),
+        id: user.id,
+        name: user.name,
+        lastname: user.lastname,
+        fullname: user.fullname,
+        username: user.username,
+        role: user.role,
+        image: user.image,
+        about: user.about,
+        country: user.country,
+        email: user.email,
+        phone: user.phone,
+        phoneVerified: user.phoneVerified,
+        inSearch: user.inSearch,
+        city: user.city,
+        isFirstTime: user.isFirstTime,
 
-        requestStatus:
-          user?.participants[0].IGetRequest?.find(
-            (item) => item.userSendId === session?.user?.id
-          ) !== undefined
-            ? true
-            : false,
-        friendStatus:
-          user?.participants[0].connections?.find(
-            (item) => item.id === session.user.id
-          ) !== undefined
-            ? true
-            : false,
-        ifHeSentRequest:
-          user?.participants[0].ISendRequest?.find(
-            (item) => item.userGetId === session.user.id
-          ) !== undefined
-            ? true
-            : false,
+        views: JSON.stringify(user.views),
+        birthDate: user.birthDate,
+        education: user.Education.map((education) => ({
+          id: education.id,
+          name: education.name,
+          degree: education.degree,
+          startDate: education.startDate,
+          endDate: education.endDate,
+        })),
+        educationLevel: user.educationLevel,
+        workExperience: user.WorkExperience.map((workExperience) => ({
+          id: workExperience.id,
+          organization: workExperience.organization,
+          post: workExperience.post,
+          start_year: workExperience.start_year,
+          start_month: workExperience.start_month,
+          end_month: workExperience.end_month,
+          end_year: workExperience.end_year,
+          isStill: workExperience.isStill,
+        })),
+        UserSkills: user.UserSkills.map((userSkill) => ({
+          id: userSkill.skill.id,
+          name: userSkill.skill.name,
+          type: userSkill.skill.type,
+        })),
+        connections: user._count.connections,
+        companiesIFollow: user._count.Following,
+        connectionsArr: user.connections,
+        ISendRequest: user.ISendRequest,
+        IGetRequest: user.IGetRequest,
+        Company: {
+          name: user?.Company?.name,
+          username: user?.Company?.username,
+          slogan: user?.Company?.slogan,
+          about: user?.Company?.about,
+          country: user?.Company?.country,
+          city: user?.Company?.city,
+          direction: user?.Company?.direction,
+        },
+        UpdatesToMe: user?.UpdatesToMe,
+        hrCompany: comapny,
+        isFirstCircle: arr1,
+        isSecondCircle: user?.connections
+          ?.map((i2) =>
+            i2?.connections?.map((i) => i?.id === session?.user?.id)
+          )
+          ?.map((i) => i?.find((i2) => i2 === true)),
+        isThirdCircle: arr3,
       };
     } else {
-      const arr2 = [];
-      user?.participants[0]?.connections.map((i) =>
-        i.connections.map((i2) => i2.connections.map((i3) => arr2.push(i3)))
+      let arr2 = [];
+      user?.connections?.map((i) =>
+        i?.connections?.map((i2) =>
+          i2?.connections?.map((i3) => arr2?.push(i3))
+        )
       );
+      let arr1 = [];
+      user?.connections?.map(
+        (i) => i?.id === session?.user?.id && arr1?.push(i?.id)
+      );
+      let arr3 = [];
+      arr2?.map((i) => i?.id === session?.user?.id && arr3?.push(i?.id));
       return {
-        id: user?.participants[0]?.id,
-        name: user?.participants[0]?.name,
-        username: user?.participants[0]?.username,
-        lastname: user?.participants[0].lastname,
-        role: user?.participants[0]?.role,
-        image: user?.participants[0]?.image,
-        about: user?.participants[0]?.about,
-        country: user?.participants[0]?.country,
-        city: user?.participants[0]?.city,
-        views: JSON.stringify(user?.participants[0]?.views),
-        birthDate: user?.participants[0]?.birthDate,
-        connections: user?.participants[0]?._count.connections,
-        connectionsArr: user?.participants[0]?.connections,
-        ISendRequest: user?.participants[0]?.ISendRequest,
-        IGetRequest: user?.participants[0]?.IGetRequest,
-        Company: {
-          name: user?.participants[0]?.Company?.name,
-          username: user?.participants[0]?.Company?.username,
-          slogan: user?.participants[0]?.Company?.slogan,
-          about: user?.participants[0]?.Company?.about,
-          country: user?.participants[0]?.Company?.country,
-          city: user?.participants[0]?.Company?.city,
-          direction: user?.participants[0]?.Company?.direction,
-        },
-        UpdatesToMe: user?.participants[0]?.UpdatesToMe,
-        isFirstCircle: user?.participants[0]?.connections.find(
-          (i) => i.id === session.user.id
-        ),
-        isSecondCircle: user?.participants[0]?.connections
-          .map((i2) => i2.connections.map((i) => i.id === session.user.id))
-          .map((i) => i.find((i2) => i2 === true)),
-        // isThirdCircle: user.connections
-        //   .map((i) => i.connections.map((i2) => i2.connections.find(i3 => i3.connections.)))
-        isThirdCircle: arr2.find((i) => i.id === session.user.id),
+        id: user.id,
+        name: user.name,
+        lastname: user.lastname,
+        fullname: user.fullname,
+        username: user.username,
+        role: user.role,
+        image: user.image,
+        about: user.about,
+        country: user.country,
+        city: user.city,
+        phone: user.phone,
+        phoneVerified: user.phoneVerified,
+        inSearch: user.inSearch,
+        isFirstTime: user.isFirstTime,
 
-        requestStatus:
-          user?.participants[0].IGetRequest?.find(
-            (item) => item.userSendId === session?.user?.id
-          ) !== undefined
-            ? true
-            : false,
-        friendStatus:
-          user?.participants[0].connections?.find(
-            (item) => item.id === session.user.id
-          ) !== undefined
-            ? true
-            : false,
-        ifHeSentRequest:
-          user?.participants[0].ISendRequest?.find(
-            (item) => item.userGetId === session.user.id
-          ) !== undefined
-            ? true
-            : false,
+        email: user.email,
+        views: JSON.stringify(user.views),
+        birthDate: user.birthDate,
+        education: user.Education.map((education) => ({
+          id: education.id,
+          name: education.name,
+          degree: education.degree,
+          startDate: education.startDate,
+          endDate: education.endDate,
+        })),
+        educationLevel: user.educationLevel,
+        workExperience: user.WorkExperience.map((workExperience) => ({
+          id: workExperience.id,
+          organization: workExperience.organization,
+          post: workExperience.post,
+          start_year: workExperience.start_year,
+          start_month: workExperience.start_month,
+          end_month: workExperience.end_month,
+          end_year: workExperience.end_year,
+          isStill: workExperience.isStill,
+        })),
+        UserSkills: user.UserSkills.map((userSkill) => ({
+          id: userSkill.skill.id,
+          name: userSkill.skill.name,
+          type: userSkill.skill.type,
+        })),
+        connections: user._count.connections,
+        connectionsArr: user.connections,
+        companiesIFollow: user._count.Following,
+        ISendRequest: user.ISendRequest,
+        IGetRequest: user.IGetRequest,
+        Company: {
+          name: user?.Company?.name,
+          username: user?.Company?.username,
+          slogan: user?.Company?.slogan,
+          about: user?.Company?.about,
+          country: user?.Company?.country,
+          city: user?.Company?.city,
+          direction: user?.Company?.direction,
+        },
+        UpdatesToMe: user?.UpdatesToMe,
+        isFirstCircle: arr1,
+        isSecondCircle: user?.connections
+          ?.map((i2) =>
+            i2?.connections?.map((i) => i?.id === session?.user?.id)
+          )
+          ?.map((i) => i?.find((i2) => i2 === true)),
+        isThirdCircle: arr3,
       };
     }
   }

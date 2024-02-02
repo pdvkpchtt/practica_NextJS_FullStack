@@ -179,7 +179,9 @@ transition-all duration-[250ms] ${
         ref={refElement}
       >
         <Card
-          style="[@media(hover)]:max-w-[260px] w-full flex flex-col gap-[12px]"
+          style={`[@media(hover)]:max-w-[260px] w-full flex flex-col gap-[12px] ${
+            data.role.includes("hr") && "mb-[8px]"
+          }`}
           padding={12}
         >
           <div className="rounded-[8px] overflow-hidden  aspect-square [@media(pointer:coarse)]:w-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
@@ -366,7 +368,9 @@ transition-all duration-[250ms] ${
           <>
             {data?.hrCompany?.company?.map((i, key) => (
               <CardOpacity
-                styled="w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer"
+                styled={`w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer ${
+                  key === profile?.hrCompany?.company?.length - 1 && "mb-[8px]"
+                }`}
                 rounded={20}
                 onClick={() => router.push(`/companyprofile/${i.username}`)}
               >

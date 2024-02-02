@@ -9,7 +9,8 @@ const updateMessages = async (
   searchInput,
   otherUserId
 ) => {
-  const circle = await checkCircles(otherUserId, chatId);
+  const circle = await checkCircles(null, chatId);
+  console.log(circle, "moda na hi");
   const session = await getServSession();
   var d = new Date();
   d.setDate(d.getDate() - 4);
