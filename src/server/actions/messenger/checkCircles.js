@@ -46,6 +46,14 @@ export const checkCircles = async (otherUserId = null, chatId = null) => {
           : isThirdCircle?.length > 0
           ? "superpitch"
           : "superpitch",
+      status:
+        isFirstCircle?.length > 0
+          ? "1-ый"
+          : isSecondCircle?.find((i2) => i2 === true)
+          ? "2-ой"
+          : isThirdCircle?.length > 0
+          ? "3-ий"
+          : "3-ий",
     };
   } else {
     const chat = await prisma.Chat.findUnique({
@@ -106,6 +114,14 @@ export const checkCircles = async (otherUserId = null, chatId = null) => {
           : isThirdCircle?.length > 0
           ? "superpitch"
           : "superpitch",
+      status:
+        isFirstCircle?.length > 0
+          ? "1-ый"
+          : isSecondCircle?.find((i2) => i2 === true)
+          ? "2-ой"
+          : isThirdCircle?.length > 0
+          ? "3-ий"
+          : "3-ий",
     };
   }
 };

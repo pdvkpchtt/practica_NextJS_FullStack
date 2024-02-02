@@ -17,16 +17,18 @@ const getMessages = async (
   var d2 = new Date();
   d2.setDate(d2.getDate() - 6);
 
-  const check = await prisma.message.findFirst({
-    where: {
-      AND: [
-        { chatId: chatId },
-        { type: circle.circle },
-        { createdAt: { gte: new Date(d.toString()).toISOString() } },
-      ],
-    },
-    select: { id: true, type: true, createdAt: true },
-  });
+  let check = null;
+  if (circle.circle !== "")
+    check = await prisma.message.findFirst({
+      where: {
+        AND: [
+          { chatId: chatId },
+          { type: circle.circle },
+          { createdAt: { gte: new Date(d.toString()).toISOString() } },
+        ],
+      },
+      select: { id: true, type: true, createdAt: true },
+    });
 
   const checkVacReply = await prisma.message.findMany({
     where: {

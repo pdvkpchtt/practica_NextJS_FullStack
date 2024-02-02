@@ -10,7 +10,7 @@ const sendMessage = async (input, chatId, emptyType = false) => {
   const session = await getServSession();
 
   const circle = await checkCircles(null, chatId);
-
+  console.log(circle, "fuck messenger");
   var d = new Date();
   d.setDate(d.getDate() - 4);
 
