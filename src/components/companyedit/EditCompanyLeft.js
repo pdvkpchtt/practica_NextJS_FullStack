@@ -400,6 +400,7 @@ const EditCompanyLeft = ({
       ></Card>
 
       <UpploadAvatarModal
+        compId={data?.id}
         isOpen={bottomModal}
         handleClose={() => {
           setBottomModal(false);

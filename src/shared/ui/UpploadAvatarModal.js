@@ -13,6 +13,7 @@ const UpploadAvatarModal = ({
   handleClose = () => {},
   onDone = () => {},
   company = false,
+  compId,
 }) => {
   const inputRef = useRef(null);
   const buttRef = useRef(null);
@@ -30,13 +31,15 @@ const UpploadAvatarModal = ({
           return res?.data;
         })
         .catch(console.log);
-    else
+    else {
+      formData.append("compId", compId);
       res = await axios
         .post("/api/upload/avatarComp", formData)
         .then((res) => {
           return res?.data;
         })
         .catch(console.log);
+    }
     onDone(res?.filePath);
   };
 
