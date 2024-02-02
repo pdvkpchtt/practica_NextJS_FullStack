@@ -19,6 +19,7 @@ import getCompanyNewAva from "../../server/actions/company/getCompanyNewAva";
 
 import AddCityIcon from "../../shared/icons/AddCityIcon";
 import ImageIcon from "../../shared/icons/ImageIcon";
+import UpploadAvatarModalClient from "shared/ui/UpploadAvatarModalClient";
 
 const CreateCompanyLeft = ({
   setDataToUpdate,
@@ -64,9 +65,9 @@ const CreateCompanyLeft = ({
               style="opacity-0 group-hover:opacity-100 object-cover scale-50 group-hover:scale-100 transition duration-[150ms]"
             />
           </div>
-          {/* {data.image ? (
+          {dataToUpdate.image ? (
             <Image
-              src={ava !== null ? ava : data.image}
+              src={dataToUpdate.image}
               alt="Profile photo"
               className="min-w-[110px] object-cover w-[110px] h-[110px] min-h-[110px]"
               width={110}
@@ -77,7 +78,7 @@ const CreateCompanyLeft = ({
             />
           ) : (
             <EmptyAvatar hungredAndTen />
-          )} */}
+          )}
         </div>
         <Input
           placeholder="Doofenshmirtz Corporation"
@@ -277,15 +278,18 @@ const CreateCompanyLeft = ({
         style={"invisible [@media(pointer:coarse)]:hidden"}
       ></Card>
 
-      <UpploadAvatarModal
+      <UpploadAvatarModalClient
         isOpen={bottomModal}
-        handleClose={() => {
+        handleClose={(res) => {
           setBottomModal(false);
-          router.refresh();
-          router.refresh();
+          console.log(res, "fuck");
+          setDataToUpdate({ ...dataToUpdate, image: res });
+
+          // router.refresh();
+          // router.refresh();
         }}
         company
-        onDone={() => {}}
+        // onDone={() => {}}
       />
     </div>
   );

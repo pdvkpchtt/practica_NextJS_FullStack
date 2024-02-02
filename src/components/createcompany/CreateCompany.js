@@ -6,6 +6,7 @@ import CreateCompanyRight from "./CreateCompanyRight";
 
 const CreateCompany = ({ itemsForDD, itemsForDD2, itemsForDD3 }) => {
   const [dataToUpdate, setDataToUpdate] = useState({
+    image: null,
     name: "",
     username: "",
     about: "",
@@ -17,6 +18,7 @@ const CreateCompany = ({ itemsForDD, itemsForDD2, itemsForDD3 }) => {
     isStartap: false,
   });
   const dataToCompare = {
+    image: null,
     name: "",
     username: "",
     about: "",
