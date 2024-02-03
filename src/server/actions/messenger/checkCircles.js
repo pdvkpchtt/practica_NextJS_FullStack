@@ -7,121 +7,184 @@ export const checkCircles = async (otherUserId = null, chatId = null) => {
   const session = await getServSession();
 
   if (otherUserId) {
-    const user = await prisma.user.findFirst({
-      where: { OR: [{ id: otherUserId }, { username: otherUserId }] },
+    const firstCircle = await prisma.User.findFirst({
       select: {
         connections: {
-          include: {
+          select: { id: true },
+          where: { id: otherUserId },
+        },
+      },
+      where: {
+        id: session.user.id,
+      },
+    });
+
+    const secondCircle = await prisma.User.findFirst({
+      select: {
+        connections: {
+          select: {
+            connections: { select: { id: true }, where: { id: otherUserId } },
+          },
+        },
+      },
+      where: {
+        id: session.user.id,
+      },
+    });
+
+    const thirdCircle = await prisma.User.findFirst({
+      select: {
+        connections: {
+          select: {
             connections: {
-              include: { connections: { include: { connections: true } } },
+              select: {
+                connections: {
+                  select: { id: true },
+                  where: { id: otherUserId },
+                },
+              },
             },
           },
         },
       },
+      where: {
+        id: session.user.id,
+      },
     });
 
     let arr2 = [];
-    user?.connections?.map((i) =>
-      i?.connections?.map((i2) => i2?.connections?.map((i3) => arr2?.push(i3)))
+    secondCircle.connections.map(
+      (i) => i.connections.length > 0 && arr2.push(i.connections)
     );
-    let arr1 = [];
-    user?.connections?.map(
-      (i) => i?.id === session?.user?.id && arr1?.push(i?.id)
-    );
-    let arr3 = [];
-    arr2?.map((i) => i?.id === session?.user?.id && arr3?.push(i?.id));
 
-    const isFirstCircle = arr1;
-    const isSecondCircle = user?.connections
-      ?.map((i2) => i2?.connections?.map((i) => i?.id === session?.user?.id))
-      ?.map((i) => i?.find((i2) => i2 === true));
-    const isThirdCircle = arr3;
+    let arr3 = [];
+    thirdCircle.connections.map((i) =>
+      i.connections.map(
+        (i2) => i2.connections.length > 0 && arr3.push(i2.connections)
+      )
+    );
 
     return {
-      circle:
-        isFirstCircle?.length > 0
-          ? ""
-          : isSecondCircle?.find((i2) => i2 === true)
-          ? "pitch"
-          : isThirdCircle?.length > 0
-          ? "superpitch"
-          : "superpitch",
-      status:
-        isFirstCircle?.length > 0
-          ? "1-ый"
-          : isSecondCircle?.find((i2) => i2 === true)
-          ? "2-ой"
-          : isThirdCircle?.length > 0
-          ? "3-ий"
-          : "3-ий",
+      firstCircle: firstCircle?.connections?.length
+        ? firstCircle?.connections[0]
+        : null,
+      secondCircle: arr2.length ? arr2[0][0] : null,
+      thirdCircle: arr3.length ? arr3[0][0] : null,
+      circle: firstCircle?.connections?.length
+        ? ""
+        : arr2.length
+        ? "pitch"
+        : arr3.length
+        ? "superpitch"
+        : "superpitch",
+      status: firstCircle?.connections?.length
+        ? "1-ый"
+        : arr2.length
+        ? "2-ой"
+        : arr3.length
+        ? "3-ий"
+        : "3+",
     };
   } else {
-    const chat = await prisma.Chat.findUnique({
+    const thisUser = await prisma.Chat.findUnique({
       where: { id: chatId },
       select: {
-        participants: {
-          select: {
-            id: true,
-          },
-          where: {
-            NOT: { id: session?.user?.id },
-          },
-        },
+        participants: { select: { id: true } },
       },
     });
 
-    const user = await prisma.user.findFirst({
-      where: {
-        OR: [
-          { id: chat?.participants[0].id },
-          { username: chat?.participants[0].id },
-        ],
-      },
+    const firstCircle = await prisma.User.findFirst({
       select: {
         connections: {
-          include: {
+          select: { id: true },
+          where: {
+            id: thisUser.participants.filter(
+              (i) => i.id !== session.user.id && i.id
+            )[0].id,
+          },
+        },
+      },
+      where: {
+        id: session.user.id,
+      },
+    });
+
+    const secondCircle = await prisma.User.findFirst({
+      select: {
+        connections: {
+          select: {
             connections: {
-              include: { connections: { include: { connections: true } } },
+              select: { id: true },
+              where: {
+                id: thisUser.participants.filter(
+                  (i) => i.id !== session.user.id && i.id
+                )[0].id,
+              },
             },
           },
         },
       },
+      where: {
+        id: session.user.id,
+      },
+    });
+
+    const thirdCircle = await prisma.User.findFirst({
+      select: {
+        connections: {
+          select: {
+            connections: {
+              select: {
+                connections: {
+                  select: { id: true },
+                  where: {
+                    id: thisUser.participants.filter(
+                      (i) => i.id !== session.user.id && i.id
+                    )[0].id,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      where: {
+        id: session.user.id,
+      },
     });
 
     let arr2 = [];
-    user?.connections?.map((i) =>
-      i?.connections?.map((i2) => i2?.connections?.map((i3) => arr2?.push(i3)))
+    secondCircle.connections.map(
+      (i) => i.connections.length > 0 && arr2.push(i.connections)
     );
-    let arr1 = [];
-    user?.connections?.map(
-      (i) => i?.id === session?.user?.id && arr1?.push(i?.id)
-    );
-    let arr3 = [];
-    arr2?.map((i) => i?.id === session?.user?.id && arr3?.push(i?.id));
 
-    const isFirstCircle = arr1;
-    const isSecondCircle = user?.connections
-      ?.map((i2) => i2?.connections?.map((i) => i?.id === session?.user?.id))
-      ?.map((i) => i?.find((i2) => i2 === true));
-    const isThirdCircle = arr3;
+    let arr3 = [];
+    thirdCircle.connections.map((i) =>
+      i.connections.map(
+        (i2) => i2.connections.length > 0 && arr3.push(i2.connections)
+      )
+    );
 
     return {
-      circle:
-        isFirstCircle?.length > 0
-          ? ""
-          : isSecondCircle?.find((i2) => i2 === true)
-          ? "pitch"
-          : isThirdCircle?.length > 0
-          ? "superpitch"
-          : "superpitch",
-      status:
-        isFirstCircle?.length > 0
-          ? "1-ый"
-          : isSecondCircle?.find((i2) => i2 === true)
-          ? "2-ой"
-          : isThirdCircle?.length > 0
-          ? "3-ий"
-          : "3-ий",
+      firstCircle: firstCircle?.connections?.length
+        ? firstCircle?.connections[0]
+        : null,
+      secondCircle: arr2.length ? arr2[0][0] : null,
+      thirdCircle: arr3.length ? arr3[0][0] : null,
+      circle: firstCircle?.connections?.length
+        ? ""
+        : arr2.length
+        ? "pitch"
+        : arr3.length
+        ? "superpitch"
+        : "superpitch",
+      status: firstCircle?.connections?.length
+        ? "1-ый"
+        : arr2.length
+        ? "2-ой"
+        : arr3.length
+        ? "3-ий"
+        : "3+",
     };
   }
 };

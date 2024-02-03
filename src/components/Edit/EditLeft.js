@@ -16,7 +16,6 @@ import ImageIcon from "../../shared/icons/ImageIcon";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import CircularProggressBar from "../../shared/ui/CircularProggressBar";
 import getNewAva from "../../server/actions/profile/getNewAva";
-import CustomLoader from "../../shared/ui/CustomLoader";
 
 const EditLeft = ({
   data,
@@ -35,14 +34,11 @@ const EditLeft = ({
   const [error, setError] = useState(false);
   const [ava, setAva] = useState(null);
   const [bottomModal, setBottomModal] = useState(false);
-  const [loadingImg, setLoadingImg] = useState(false);
 
   const getNewAvatar = async () => {
-    setLoadingImg(true);
     const ava = await getNewAva(data.id);
     setAva(ava);
     console.log(ava, "wow");
-    loadingImg(false);
   };
 
   function isValidEmail(email) {
@@ -80,22 +76,12 @@ const EditLeft = ({
           className="rounded-[8px] relative overflow-hidden aspect-square cursor-pointer [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]"
           onClick={() => setBottomModal(true)}
         >
-          {!loadingImg ? (
-            <div className="absolute flex items-center justify-center w-full h-full bg-transparent group hover:bg-black hover:bg-opacity-25 transition duration-[150ms]">
-              <ImageIcon style="opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition duration-[150ms]" />
-            </div>
-          ) : (
-            <div className="absolute cursor-default flex items-center justify-center w-full h-full group bg-black bg-opacity-25 transition duration-[150ms]">
-              <CustomLoader
-                diameter={50}
-                strokeWidth={5}
-                strokeWidthSecondary={5}
-              />
-            </div>
-          )}
-          {dataToUpdate.image ? (
+          <div className="absolute flex items-center justify-center w-full h-full bg-transparent group hover:bg-black hover:bg-opacity-25 transition duration-[150ms]">
+            <ImageIcon style="opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition duration-[150ms]" />
+          </div>
+          {data.image || ava !== null ? (
             <Image
-              src={dataToUpdate.image}
+              src={ava !== null ? ava : data.image}
               alt="Profile photo"
               unoptimized
               className="[@media(hover)]:min-w-[236px] object-cover [@media(hover)]:w-[236px] [@media(hover)]:h-[236px] [@media(hover)]:min-h-[236px] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full"
@@ -281,14 +267,9 @@ const EditLeft = ({
         isOpen={bottomModal}
         handleClose={() => {
           setBottomModal(false);
-          // router.refresh();
+          router.refresh();
         }}
-        onDone={(res) => {
-          console.log(res, "fuck");
-
-          setDataToUpdate({ ...dataToUpdate, image: res });
-          setBottomModal(false);
-        }}
+        onDone={getNewAvatar}
       />
     </div>
   );

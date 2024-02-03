@@ -7,17 +7,15 @@ import { getServSession } from "../../app/api/auth/[...nextauth]/route";
 import { getConnctionsCount } from "../../server/actions/connections/getConnctionsCount";
 
 const RootLayout = async ({ children }) => {
-  const session = await getServSession();
-
-  async function sendPost({ title, text, reactions, category, companies }) {
+  async function sendPost({ title, text, reactions, category }) {
     "use server";
+    const session = await getServSession();
     const data = await addPost({
-      id: session?.user?.id,
+      id: session.user.id,
       title: title,
       text: text,
       reactions: reactions,
       category: category,
-      companies: companies,
     });
     return data;
   }
@@ -31,12 +29,7 @@ const RootLayout = async ({ children }) => {
       <ModalContextWrap connectionsCount={connectionsCount}>
         <FeedNav />
         <FeedNavMobile />
-        <FeedWrap
-          isHr={session?.user?.role?.includes("hr")}
-          sendPost={sendPost}
-        >
-          {children}
-        </FeedWrap>
+        <FeedWrap sendPost={sendPost}>{children}</FeedWrap>
       </ModalContextWrap>
     </div>
   );

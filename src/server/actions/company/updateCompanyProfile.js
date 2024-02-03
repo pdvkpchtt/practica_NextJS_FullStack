@@ -44,23 +44,16 @@ export const updateCompanyProfile = async ({ userId, data, companyId }) => {
     about: data.about !== null ? data.about : "",
   });
 
-  const checkusername = await prisma.Company.findFirst({
-    where: { username: data.username, id: { not: companyId } },
-    select: { id: true },
-  });
-
   if (!validateRes.success)
     return {
       status: "error",
       message: validateRes.error?.errors?.map((i) => i?.message),
-      submsg: checkusername?.id ? "inputUsername unique" : null,
     };
   // валидация
 
   const companyEdited = await prisma.company.update({
     where: { id: companyId },
     data: {
-      image: data?.image,
       name: data.name,
       username: data.username.split(" ").join(""),
       slogan: data.slogan,

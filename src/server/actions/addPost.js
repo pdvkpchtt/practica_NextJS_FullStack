@@ -44,7 +44,7 @@ export const addPost = async (input) => {
           name: true,
           lastname: true,
           id: true,
-
+          HR: { select: { company: { select: { username: true } } } },
           image: true,
           Company: {
             select: {
@@ -64,26 +64,6 @@ export const addPost = async (input) => {
       },
     },
   });
-
-  let updatedPost = { company: { username: null } };
-  if (input?.companies?.id !== null)
-    updatedPost = await prisma.Post.update({
-      where: { id: post.id },
-      data: {
-        company: {
-          connect: {
-            id: input?.companies?.id,
-          },
-        },
-      },
-      select: {
-        company: {
-          select: {
-            username: true,
-          },
-        },
-      },
-    });
 
   console.log("post", post);
 
@@ -115,7 +95,7 @@ export const addPost = async (input) => {
     author_id: post.user.id,
     username: post.user.username,
     reactions,
-    isHrCompanyId: updatedPost?.company?.username,
+    isHrCompanyId: post.user?.HR[0]?.company?.username,
     title: post.title,
     text: post.text,
   };

@@ -19,7 +19,6 @@ import getCompanyNewAva from "../../server/actions/company/getCompanyNewAva";
 
 import AddCityIcon from "../../shared/icons/AddCityIcon";
 import ImageIcon from "../../shared/icons/ImageIcon";
-import CustomLoader from "../../shared/ui/CustomLoader";
 
 const EditCompanyLeft = ({
   data,
@@ -43,7 +42,12 @@ const EditCompanyLeft = ({
   const [error2, setError2] = useState(false);
   const [invalid, setInvalid] = useState(null);
   const [ava, setAva] = useState(null);
-  const [loadingImg, setLoadingImg] = useState(false);
+
+  const getNewAvatar = async () => {
+    const ava = await getCompanyNewAva(data.id);
+    setAva(ava);
+    console.log(ava, "wow");
+  };
 
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -55,6 +59,10 @@ const EditCompanyLeft = ({
     );
   }
 
+  const changeEmail = async () => {
+    await updateEmail(myMail);
+    signOut();
+  };
   // console.log(dataToUpdate.Links);
   return (
     <div className="flex flex-col gap-[16px] [@media(pointer:coarse)]:gap-[12px]">
@@ -69,26 +77,15 @@ const EditCompanyLeft = ({
           className="relative cursor-pointer overflow-hidden rounded-full [@media(hover)]:min-w-[110px] [@media(hover)]:min-h-[110px]  [@media(hover)]:w-[110px] [@media(hover)]:h-[110px] mx-auto"
           onClick={() => setBottomModal(true)}
         >
-          {!loadingImg ? (
-            <div className="absolute flex items-center aspect-square justify-center w-full h-full bg-transparent group hover:bg-black hover:bg-opacity-25 transition duration-[150ms]">
-              <ImageIcon
-                size={35}
-                style="opacity-0 group-hover:opacity-100 object-cover scale-50 group-hover:scale-100 transition duration-[150ms]"
-              />
-            </div>
-          ) : (
-            <div className="absolute cursor-default flex items-center justify-center w-full h-full group bg-black bg-opacity-25 transition duration-[150ms]">
-              <CustomLoader
-                diameter={35}
-                strokeWidth={5}
-                strokeWidthSecondary={5}
-              />
-            </div>
-          )}
-
-          {dataToUpdate.image ? (
+          <div className="absolute flex items-center aspect-square justify-center w-full h-full bg-transparent group hover:bg-black hover:bg-opacity-25 transition duration-[150ms]">
+            <ImageIcon
+              size={35}
+              style="opacity-0 group-hover:opacity-100 object-cover scale-50 group-hover:scale-100 transition duration-[150ms]"
+            />
+          </div>
+          {data.image || ava !== null ? (
             <Image
-              src={dataToUpdate.image}
+              src={ava !== null ? ava : data.image}
               alt="Profile photo"
               className="min-w-[110px] object-cover w-[110px] h-[110px] min-h-[110px]"
               width={110}
@@ -325,7 +322,7 @@ const EditCompanyLeft = ({
       {/* изменить почту */}
 
       {/* добавить рекрутера */}
-      {/* {dataToUpdate.role !== "hr_no_nickname" && (
+      {dataToUpdate.role !== "hr_no_nickname" && (
         <Card
           style=" 
         [@media(hover)]:w-[260px] [@media(pointer:coarse)]:w-[100%] 
@@ -392,7 +389,7 @@ const EditCompanyLeft = ({
             Пригласить
           </p>
         </Card>
-      )} */}
+      )}
       {/* добавить рекрутера */}
       <Card
         padding={6}
@@ -400,20 +397,14 @@ const EditCompanyLeft = ({
       ></Card>
 
       <UpploadAvatarModal
-        compId={data?.id}
         isOpen={bottomModal}
         handleClose={() => {
           setBottomModal(false);
-          // router.refresh();
-          // router.refresh();
+          router.refresh();
+          router.refresh();
         }}
         company
-        onDone={(res) => {
-          console.log(res, "fuck");
-
-          setDataToUpdate({ ...dataToUpdate, image: res });
-          setBottomModal(false);
-        }}
+        onDone={getNewAvatar}
       />
     </div>
   );

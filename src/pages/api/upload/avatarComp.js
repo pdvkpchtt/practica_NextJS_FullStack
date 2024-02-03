@@ -17,7 +17,7 @@ const p = require("path");
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    // const session = await getServerSession(req, res, authOptions);
+    const session = await getServerSession(req, res, authOptions);
     const form = new multiparty.Form();
     const formData = await new Promise((resolve, reject) => {
       form.parse(req, function (err, fields, files) {
@@ -25,6 +25,7 @@ export default async function handler(req, res) {
         resolve({ fields, files });
       });
     });
+    console.log("formData", formData);
 
     const file = formData.files.file[0];
 
@@ -39,7 +40,7 @@ export default async function handler(req, res) {
     //   },
     //   size: 4849488
     // }
-    // res.status(200).send({ error: "No file uploaded" });
+    res.status(200).send({ error: "No file uploaded" });
     if (!file) {
       res.status(200).json({ error: "No file uploaded" });
     }
@@ -57,18 +58,21 @@ export default async function handler(req, res) {
     // await writeFile(path, buffer)
     console.log(`open ${path} to see the uploaded file`);
 
+    const user = await prisma.Hr.findFirst({
+      where: { userId: session.user.id },
+      select: { companyId: true },
+    });
+    console.log(user, "jopa");
+
     const company = await prisma.Company.update({
-      where: { id: formData?.fields?.compId[0] },
+      where: { id: user.companyId },
       data: {
         image:
           "https://practica.team/file/" + id + p.extname(file.originalFilename),
       },
     });
 
-    res.status(200).json({
-      filePath:
-        "https://practica.team/file/" + id + p.extname(file.originalFilename),
-    });
+    res.status(200).json({ status: "ok" });
   } else {
     res.status(200).json({ error: "method not allowed" });
   }

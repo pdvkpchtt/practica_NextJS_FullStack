@@ -36,7 +36,6 @@ import ContactsModal from "./ContactsModal";
 import SubscrModal from "./SubscrModal";
 import CopyIcon from "../../shared/icons/CopyIcon";
 import CardOpacity from "../../shared/ui/CardOpacity";
-import OtherPlusIcon from "../../shared/icons/OtherPlusIcon";
 
 const Left = ({
   navState,
@@ -318,9 +317,7 @@ const Left = ({
         </Card>
 
         <CardOpacity
-          styled={`w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer ${
-            data.role.includes("hr") && "mb-[8px]"
-          }`}
+          styled="w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer"
           rounded={20}
           onClick={() => setModal2State(true)}
         >
@@ -380,18 +377,6 @@ const Left = ({
               </CardOpacity>
             ))}
           </>
-        )}
-        {data.role.includes("hr") && (
-          <CardOpacity
-            styled="w-full h-[52px] gap-[8px] mb-[8px] justify-start items-center cursor-pointer"
-            rounded={20}
-            onClick={() => router.push(`/profile/createcompany`)}
-          >
-            <OtherPlusIcon />
-            <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
-              Добавить организацию
-            </p>
-          </CardOpacity>
         )}
         {/* hr */}
 

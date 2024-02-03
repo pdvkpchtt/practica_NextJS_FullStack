@@ -14,7 +14,7 @@ const EditCompany = ({
   itemsForDD2,
   itemsForDD3,
 }) => {
-  // const router = useRouter();
+  const router = useRouter();
 
   const [dataToUpdate, setDataToUpdate] = useState(data);
   // validate

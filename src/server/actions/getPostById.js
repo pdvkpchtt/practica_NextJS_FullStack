@@ -17,7 +17,7 @@ export const getPostById = async (id, userId) => {
           image: true,
           username: true,
           role: true,
-
+          HR: { select: { company: { select: { id: true, username: true } } } },
           Company: {
             select: {
               id: true,
@@ -30,7 +30,6 @@ export const getPostById = async (id, userId) => {
         },
       },
       Reaction: { select: { type: true, userId: true } },
-      company: { select: { id: true, username: true } },
       title: true,
       text: true,
       category: {
@@ -78,10 +77,12 @@ export const getPostById = async (id, userId) => {
       reactions,
       title: currentPost.title,
       text: currentPost.text,
-      hrCompanyId: post?.company?.username,
-      hrCompanyUsername: post?.company?.username,
+      hrCompanyId: currentPost.user?.HR[0]?.company?.id,
+      hrCompanyUsername: currentPost.user?.HR[0]?.company?.username,
 
-      isHrCompanyId: post?.company?.username,
+      isHrCompanyId: currentPost.user?.HR[0]?.company?.username
+        ? currentPost.user?.HR[0]?.company?.username
+        : currentPost.user?.HR[0]?.company?.id,
       role: currentPost.user.role,
       category: currentPost.category,
     };

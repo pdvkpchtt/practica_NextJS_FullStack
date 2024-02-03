@@ -133,7 +133,7 @@ const ChatsPanel = ({ chatId, user_id, profileData, setTimer, timer }) => {
         setTimer({ time: data?.checkVacReply?.createdAt, multiply: 5 });
       }
     }
-    console.log(data, "fucking slave2");
+    console.log(circle, "fucking slave");
     console.log("messenges update", data);
     if (loadingMessages) return;
     setDataStateMessages(data?.data);
@@ -224,7 +224,7 @@ const ChatsPanel = ({ chatId, user_id, profileData, setTimer, timer }) => {
                   }${
                     profileData.isFirstCircle?.length > 0
                       ? " • 1"
-                      : profileData.isSecondCircle?.find((i2) => i2 === true)
+                      : profileData.isSecondCircle.find((i2) => i2 === true)
                       ? " • 2"
                       : profileData.isThirdCircle?.length > 0
                       ? " • 3"

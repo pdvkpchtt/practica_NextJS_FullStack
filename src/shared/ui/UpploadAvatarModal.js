@@ -13,7 +13,6 @@ const UpploadAvatarModal = ({
   handleClose = () => {},
   onDone = () => {},
   company = false,
-  compId,
 }) => {
   const inputRef = useRef(null);
   const buttRef = useRef(null);
@@ -22,25 +21,17 @@ const UpploadAvatarModal = ({
     let formData = new FormData();
     formData.append("file", e.target.files[0]);
     // formData.append("avatar", e.target.files[0]);
-    let res = null;
-
     if (company === false)
-      res = await axios
+      await axios
         .post("/api/upload/avatar", formData)
-        .then((res) => {
-          return res?.data;
-        })
+        .then(console.log)
         .catch(console.log);
-    else {
-      formData.append("compId", compId);
-      res = await axios
+    else
+      await axios
         .post("/api/upload/avatarComp", formData)
-        .then((res) => {
-          return res?.data;
-        })
+        .then(console.log)
         .catch(console.log);
-    }
-    onDone(res?.filePath);
+    onDone();
   };
 
   return (

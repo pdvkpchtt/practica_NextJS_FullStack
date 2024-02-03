@@ -17,6 +17,7 @@ export const getUserPosts = async (id, cursor, yourId) => {
           image: true,
           username: true,
           role: true,
+          HR: { select: { company: { select: { id: true, username: true } } } },
           Company: {
             select: {
               id: true,
@@ -34,7 +35,6 @@ export const getUserPosts = async (id, cursor, yourId) => {
         },
       },
       Reaction: { select: { type: true, userId: true } },
-      company: { select: { id: true, username: true } },
       text: true,
       title: true,
     },
@@ -90,11 +90,13 @@ export const getUserPosts = async (id, cursor, yourId) => {
       title: post.title,
       reactions,
       text: post.text,
+      hrCompanyId: post.user?.HR[0]?.company?.id,
+      hrCompanyUsername: post.user?.HR[0]?.company?.username,
       role: post.user.role,
-      hrCompanyId: post?.company?.username,
-      hrCompanyUsername: post?.company?.username,
-
-      isHrCompanyId: post?.company?.username,
+      isHrCompanyId:
+        post.user?.HR[0]?.company?.username !== null
+          ? post.user?.HR[0]?.company?.username
+          : post.user?.HR[0]?.company?.id,
       category: post.category,
     };
   });

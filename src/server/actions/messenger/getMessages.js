@@ -9,7 +9,7 @@ const getMessages = async (
   searchInput,
   otherUserId
 ) => {
-  const circle = await checkCircles(null, chatId);
+  const circle = await checkCircles(otherUserId, chatId);
   const session = await getServSession();
   var d = new Date();
   d.setDate(d.getDate() - 4);
@@ -17,18 +17,16 @@ const getMessages = async (
   var d2 = new Date();
   d2.setDate(d2.getDate() - 6);
 
-  let check = null;
-  if (circle.circle !== "")
-    check = await prisma.message.findFirst({
-      where: {
-        AND: [
-          { chatId: chatId },
-          { type: circle.circle },
-          { createdAt: { gte: new Date(d.toString()).toISOString() } },
-        ],
-      },
-      select: { id: true, type: true, createdAt: true },
-    });
+  const check = await prisma.message.findFirst({
+    where: {
+      AND: [
+        { chatId: chatId },
+        { type: circle.circle },
+        { createdAt: { gte: new Date(d.toString()).toISOString() } },
+      ],
+    },
+    select: { id: true, type: true, createdAt: true },
+  });
 
   const checkVacReply = await prisma.message.findMany({
     where: {

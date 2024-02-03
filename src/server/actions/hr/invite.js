@@ -63,6 +63,11 @@ export const invite = async (email, compId, compName) => {
 
   console.log(invitedUser, existingHr, "jiii");
 
+  if (existingHr[0]?.id && existingHr[0]?.dataVerified !== null)
+    return { status: "error", message: "userHr" };
+
+  // console.log(existingHr, "jopa2");
+
   if (invitedUser.length !== 0) {
     await transporter.sendMail(mailOptions);
 
