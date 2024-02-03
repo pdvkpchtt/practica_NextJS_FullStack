@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Oval } from "react-loader-spinner";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -16,8 +17,8 @@ import { addContacts } from "server/actions/contacts/addContacts";
 import Cross2 from "../../shared/icons/Cross2";
 import PitchIcon from "../../shared/icons/PitchIcon";
 import SuperpitchIcon from "../../shared/icons/SuperpitchIcon";
-import CheckIcon from "shared/icons/CheckIcon";
-import Image from "next/image";
+import CheckIcon from "../../shared/icons/CheckIcon";
+import sendVerificationCodeSMS from "../../app/api/sms/route";
 
 const ContactsModal = ({
   modalState = false,
@@ -32,6 +33,23 @@ const ContactsModal = ({
   const [phoneInput, setPhoneInput] = useState("");
   const [codeInput, setCodeInput] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+
+  const generateVerificationCode = async () => {
+    let token = "";
+    for (let i = 0; i < 5; i++) {
+      let digit = Math.floor(Math.random() * 10);
+      token += digit;
+    }
+    return token;
+  };
+
+  const sendVerCode = async () => {
+    if (phoneInput.length !== 0) {
+      let token = generateVerificationCode();
+      let res = await sendVerificationCodeSMS(phoneInput, token);
+      console.log(res);
+    }
+  };
 
   const handleSubmit = async () => {
     if (phoneInput.length !== 0 && codeInput.length !== 0) {
@@ -154,6 +172,7 @@ const ContactsModal = ({
                       )}
                     </InputMask>
                     <p
+                      onClick={() => sendVerCode()}
                       className={`${
                         phoneInput.length !== 18
                           ? "text-[#bfbfbf]"

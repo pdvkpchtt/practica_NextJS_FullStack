@@ -19,9 +19,9 @@ const MessengerIcon = ({ fill = "#000", size = 25, big = false }) => {
     setLastDate(data?.lastDate);
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   // useEffect(() => {
   //   console.log("message source");
@@ -40,12 +40,12 @@ const MessengerIcon = ({ fill = "#000", size = 25, big = false }) => {
   const [delay, setDelay] = useState(2000);
   const [isRunning, setIsRunning] = useState(true);
 
-  useInterval(
-    () => {
-      getData();
-    },
-    isRunning ? delay : null
-  );
+  // useInterval(
+  //   () => {
+  //     getData();
+  //   },
+  //   isRunning ? delay : null
+  // );
 
   return (
     <Link href={"/messenger"} className="group">
