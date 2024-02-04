@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "../db";
 
 export const getPostById = async (id, userId) => {
-  const currentPost = await prisma.post.findUnique({
+  const post = await prisma.post.findUnique({
     where: {
       id: id,
     },
@@ -17,12 +17,10 @@ export const getPostById = async (id, userId) => {
           image: true,
           username: true,
           role: true,
-
           Company: {
             select: {
               id: true,
               name: true,
-              userId: true,
               image: true,
               username: true,
             },
@@ -42,10 +40,10 @@ export const getPostById = async (id, userId) => {
     },
   });
 
-  if (!currentPost) redirect("_not_found");
+  if (!post) redirect("_not_found");
   else {
     const reactionsCount = {};
-    currentPost?.Reaction?.forEach((reaction) => {
+    post?.Reaction?.forEach((reaction) => {
       if (!reactionsCount[reaction.type]) {
         reactionsCount[reaction.type] = { count: 0, active: false };
       }
@@ -57,7 +55,7 @@ export const getPostById = async (id, userId) => {
         reactionsCount[reaction.type].active = true;
       }
 
-      reactionsCount[reaction.type].postId = currentPost.id;
+      reactionsCount[reaction.type].postId = post.id;
     });
     const reactions = Object.entries(reactionsCount).map(
       ([type, { count, active, postId }]) => ({
@@ -69,21 +67,21 @@ export const getPostById = async (id, userId) => {
     );
 
     return {
-      id: currentPost.id,
-      createdAt: currentPost.createdAt,
-      author_name: currentPost.user.name + " " + currentPost.user.lastname,
-      author_image: currentPost.user.image,
-      username: currentPost.user.username,
-      author_id: currentPost.user.id,
+      id: post.id,
+      createdAt: post.createdAt,
+      author_name: post.user.name + " " + post.user.lastname,
+      author_image: post.user.image,
+      username: post.user.username,
+      author_id: post.user.id,
       reactions,
-      title: currentPost.title,
-      text: currentPost.text,
+      title: post.title,
+      text: post.text,
       hrCompanyId: post?.company?.username,
       hrCompanyUsername: post?.company?.username,
 
       isHrCompanyId: post?.company?.username,
-      role: currentPost.user.role,
-      category: currentPost.category,
+      role: post.user.role,
+      category: post.category,
     };
   }
 };

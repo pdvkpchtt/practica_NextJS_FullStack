@@ -35,7 +35,7 @@ const AuthForm = () => {
             signIn("email", {
               redirect: false,
               callbackUrl: "/",
-              email: e.get("email")?.toString()?.toLowerCase(),
+              email: e.get("email")?.toString(),
             });
             router.push("/auth/verify?email=" + e.get("email")?.toString());
           } else setError(true);
