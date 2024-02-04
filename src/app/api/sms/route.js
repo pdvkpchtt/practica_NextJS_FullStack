@@ -6,8 +6,8 @@ export default async function sendVerificationCodeSMS(phone, code = null) {
   try {
     const data = await axios.post(
       "https://smsc.ru/sys/send.php", null, {params: {
-        login:'Nikolay_Third',
-        psw:'ps4VSxboxone',
+        login:process.env.SMSC_LOGIN,
+        psw:process.env.SMSC_PSW,
         phones:phone,
         mes:'Ваш ключ к успеху: ' + code
       }}

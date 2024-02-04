@@ -36,6 +36,7 @@ const ContactsModal = ({
   const [verCode, setVerCode] = useState("00000");
   const [errorVerCode, setErrorVerCode] = useState(false);
 
+
   const generateVerificationCode = async () => {
     let token = "";
     for (let i = 0; i < 5; i++) {
@@ -188,9 +189,9 @@ const ContactsModal = ({
                       )}
                     </InputMask>
                     <p
-                      onClick={() => sendVerCode()}
+                      onClick={phoneInput.length !== 18 || phone === phoneInput ? null : () => sendVerCode()}
                       className={`${
-                        phoneInput.length !== 18
+                        phoneInput.length !== 18 || phone === phoneInput
                           ? "text-[#bfbfbf]"
                           : "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
                       } transition duration-[250ms] absolute right-[12px] top-[12px] text-[14px] leading-[18px] select-none tracking-[-0.21px] font-normal`}
@@ -345,8 +346,9 @@ const ContactsModal = ({
                       )}
                     </InputMask>
                     <p
+                      onClick={phoneInput.length !== 18 || phone === phoneInput ? null : () => sendVerCode()}
                       className={`${
-                        phoneInput.length !== 18
+                        phoneInput.length !== 18 || phone === phoneInput
                           ? "text-[#bfbfbf]"
                           : "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
                       } transition duration-[250ms] absolute right-[12px] top-[12px] text-[14px] leading-[18px] select-none tracking-[-0.21px] font-normal`}
