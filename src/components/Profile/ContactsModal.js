@@ -33,6 +33,8 @@ const ContactsModal = ({
   const [phoneInput, setPhoneInput] = useState("");
   const [codeInput, setCodeInput] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+  const [verCode, setVerCode] = useState("00000");
+  const [errorVerCode, setErrorVerCode] = useState(false);
 
   const generateVerificationCode = async () => {
     let token = "";
@@ -40,26 +42,31 @@ const ContactsModal = ({
       let digit = Math.floor(Math.random() * 10);
       token += digit;
     }
+    setVerCode(token)
     return token;
   };
 
   const sendVerCode = async () => {
     if (phoneInput.length !== 0) {
-      let token = generateVerificationCode();
-      let res = await sendVerificationCodeSMS(phoneInput, token);
+      const token = await generateVerificationCode();
+      const res = await sendVerificationCodeSMS(phoneInput.replace(/[-+()\s]/g, ''), token);
       console.log(res);
     }
   };
 
   const handleSubmit = async () => {
     if (phoneInput.length !== 0 && codeInput.length !== 0) {
-      setLoading(true);
-      await addContacts(phoneInput);
-      setModalState();
-      setCodeInput("");
-      setIsEdit(false);
-      setLoading(false);
-      router.push("/profile");
+      if (codeInput === verCode) {
+        setLoading(true);
+        await addContacts(phoneInput);
+        setModalState();
+        setCodeInput("");
+        setIsEdit(false);
+        setLoading(false);
+        router.push("/profile");
+      } else {
+        setErrorVerCode(true);
+      }
     }
   };
 
@@ -112,9 +119,18 @@ const ContactsModal = ({
           {(!phone || !phoneVerified || (isEdit && phone && phoneVerified)) && (
             <>
               <TextMain
-                text={isEdit ? "Изменение номера телефорна" : "Контакты"}
+                text={isEdit ? "Изменение номера телефона" : "Контакты"}
                 style="text-[20px] font-medium leading-[22px] tracking-[-0.4px]"
               />
+              {errorVerCode ? (
+                <>
+                  <p
+                    className="text-red-500 select-none mt-[16px]"
+                  >
+                    Неверно набран код
+                  </p>
+                </>
+              ) : (<></>)}
               {isEdit ? (
                 <>
                   <p
@@ -189,7 +205,7 @@ const ContactsModal = ({
                     type="number"
                     placeholder="Введите код"
                     value={codeInput}
-                    onChange={(val) => setCodeInput(val)}
+                    onChange={(val) => {setCodeInput(val); setErrorVerCode(false)}}
                     label="Код подтверждения"
                   />
                   <div
@@ -345,7 +361,7 @@ const ContactsModal = ({
                     type="number"
                     placeholder="Введите код"
                     value={codeInput}
-                    onChange={(val) => setCodeInput(val)}
+                    onChange={(val) => {setCodeInput(val); setErrorVerCode(false)}}
                     label="Код подтверждения"
                   />
                   <div

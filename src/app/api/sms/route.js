@@ -5,7 +5,12 @@ import axios from "axios";
 export default async function sendVerificationCodeSMS(phone, code = null) {
   try {
     const data = await axios.post(
-      "https://smsc.ru/sys/send.php?login=Nikolay_Third&psw=ps4VSxboxone&phones=79173846451&mes=Привет"
+      "https://smsc.ru/sys/send.php", null, {params: {
+        login:'Nikolay_Third',
+        psw:'ps4VSxboxone',
+        phones:phone,
+        mes:'Ваш ключ к успеху: ' + code
+      }}
     );
 
     return data.data;
