@@ -100,7 +100,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
 
     if (user.role.includes("hr")) {
       const comapny = await prisma.Hr.findMany({
-        where: { userId: user.id },
+        where: { AND: [{ userId: user.id }, { dataVerified: { not: null } }] },
         select: {
           company: {
             select: {
@@ -112,7 +112,6 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
           },
         },
       });
-
       let arr2 = [];
       user?.connections?.map((i) =>
         i?.connections?.map((i2) =>
@@ -418,7 +417,7 @@ export const getProfileByChatId = async (userId = null, chatId = null) => {
 
     if (user.role.includes("hr")) {
       const comapny = await prisma.Hr.findMany({
-        where: { userId: user.id },
+        where: { AND: [{ userId: user.id }, { dataVerified: { not: null } }] },
         select: {
           company: {
             select: {

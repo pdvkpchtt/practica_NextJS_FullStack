@@ -31,7 +31,7 @@ export const invite = async (email, compId, compName) => {
 
   const mailOptions = {
     from: process.env.EMAIL_FROM,
-    to: email.toLowerCase(),
+    to: email,
     subject: "Приглашение",
     html: emailHtml,
   };
@@ -43,7 +43,7 @@ export const invite = async (email, compId, compName) => {
       id: true,
     },
     where: {
-      email: email.toLowerCase(),
+      email: email,
     },
   });
 
@@ -57,7 +57,14 @@ export const invite = async (email, compId, compName) => {
       dataVerified: true,
     },
     where: {
-      userId: invitedUser[0].id,
+      AND: [
+        {
+          userId: invitedUser[0].id,
+        },
+        {
+          companyId: compId,
+        },
+      ],
     },
   });
 
@@ -66,17 +73,8 @@ export const invite = async (email, compId, compName) => {
   if (invitedUser.length !== 0) {
     await transporter.sendMail(mailOptions);
 
-    if (existingHr[0]?.dataVerified === null) {
-      const data = await prisma.Hr.updateMany({
-        data: {
-          token: token,
-        },
-        where: {
-          userId: invitedUser[0].id,
-        },
-      });
-
-      return data?.token === token;
+    if (existingHr[0]?.userId) {
+      return { status: "error", message: "userAlready" };
     }
 
     const data = await prisma.Hr.create({

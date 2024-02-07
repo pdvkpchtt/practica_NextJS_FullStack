@@ -98,7 +98,7 @@ export const getProfile = async ({ userId }) => {
 
   if (user.role.includes("hr")) {
     const comapny = await prisma.Hr.findMany({
-      where: { userId: user.id },
+      where: { AND: [{ userId: user.id }, { dataVerified: { not: null } }] },
       select: {
         company: {
           select: {

@@ -7,7 +7,9 @@ export const getAllCompaniesId = async () => {
   const session = await getServSession();
 
   const complist = await prisma.Hr.findMany({
-    where: { userId: session?.user?.id },
+    where: {
+      AND: [{ userId: session?.user?.id }, { dataVerified: { not: null } }],
+    },
     select: {
       company: {
         select: {
