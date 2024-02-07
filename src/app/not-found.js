@@ -14,7 +14,7 @@ const E404Page = () => {
 
   return (
     <>
-      <div className="z-[202] flex flex-col justify-center h-full w-full [@media(pointer:coarse)]:p-[24px] mx-[12px]">
+      <div className="z-[202] flex flex-col justify-center h-full [@media(hover)]:h-screen w-full [@media(pointer:coarse)]:p-[24px] mx-[12px]">
         <p className="font-medium text-[#5875e8] text-[24px] leading-[29px] tracking-[-0.552px] [@media(pointer:coarse)]:font-normal [@media(pointer:coarse)]:text-[22px] [@media(pointer:coarse)]:leading-[26px] [@media(pointer:coarse)]:mt-0 [@media(pointer:coarse)]:tracking-[-0.506px]">
           Ошибка 404.
         </p>

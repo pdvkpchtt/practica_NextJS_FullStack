@@ -43,13 +43,6 @@ export const createCompany = async ({ data }) => {
     };
   // валидация
 
-  const hr = await prisma.Hr.findFirst({
-    where: {
-      userId: session?.user?.id,
-    },
-    select: { id: true },
-  });
-
   const companyEdited = await prisma.company.create({
     data: {
       image: data.image,
@@ -70,10 +63,28 @@ export const createCompany = async ({ data }) => {
           : { connect: { id: data.industry.id } },
       employee: data.employee ? {} : { connect: { id: data.employee.id } },
       user: { connect: { id: session?.user?.id } },
-      HR: { connect: { id: hr.id } },
     },
     select: {
       id: true,
+    },
+  });
+
+  const hr = await prisma.Hr.create({
+    data: {
+      user: {
+        connect: { id: session?.user?.id },
+      },
+      company: { connect: { id: companyEdited?.id } },
+      token: uuid(),
+      dataVerified: new Date(),
+    },
+    select: { id: true },
+  });
+
+  const company = await prisma.company.update({
+    where: { id: companyEdited?.id },
+    data: {
+      HR: { connect: { id: hr.id } },
     },
   });
 };

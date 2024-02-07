@@ -10,9 +10,9 @@ export const getRecruters = async (companyId, cursor, input) => {
     take: 11,
     where:
       input?.length === 0
-        ? { company: { some: { id: companyId } }, dataVerified: { not: null } }
+        ? { company: { id: companyId }, dataVerified: { not: null } }
         : {
-            company: { some: { id: companyId } },
+            company: { id: companyId },
             dataVerified: { not: null },
             user: { name: { contains: input, mode: "insensitive" } },
           },

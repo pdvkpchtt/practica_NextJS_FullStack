@@ -97,7 +97,7 @@ export const getProfile = async ({ userId }) => {
   };
 
   if (user.role.includes("hr")) {
-    const comapny = await prisma.Hr.findFirst({
+    const comapny = await prisma.Hr.findMany({
       where: { userId: user.id },
       select: {
         company: {
