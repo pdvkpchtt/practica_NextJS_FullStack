@@ -325,74 +325,72 @@ const EditCompanyLeft = ({
       {/* изменить почту */}
 
       {/* добавить рекрутера */}
-      {/* {dataToUpdate.role !== "hr_no_nickname" && (
-        <Card
-          style=" 
+      <Card
+        style=" 
         [@media(hover)]:w-[260px] [@media(pointer:coarse)]:w-[100%] 
               flex flex-col gap-[16px] 
               hideScrollbarNavMobile [@media(hover)]:h-fit"
-          padding={12}
-        >
-          <Input
-            type="email"
-            error={error}
-            placeholder="hr@recruter.com"
-            label="Почта рекрутера"
-            value={hrMail}
-            onChange={(val) => {
-              setHrMail(val);
-              setError(false);
-              setInvalid(false);
-            }}
-            caption={
-              invalid === "userExist"
-                ? "Пользователь с таким email не зарегстрирован в practica"
-                : invalid === "userHr"
-                ? "Этот пользователь уже HR"
-                : invalid === "userMe"
-                ? "Нельзя отправить приглашение себе"
-                : null
-            }
-          />
-          <p
-            onClick={async () => {
-              if (hrMail.length > 0) {
-                if (!isValidEmail(hrMail)) {
-                  setError(true);
-                } else {
-                  const res = await invite(hrMail, data.id, data.name);
+        padding={12}
+      >
+        <Input
+          type="email"
+          error={error}
+          placeholder="hr@recruter.com"
+          label="Почта рекрутера"
+          value={hrMail}
+          onChange={(val) => {
+            setHrMail(val);
+            setError(false);
+            setInvalid(false);
+          }}
+          caption={
+            invalid === "userExist"
+              ? "Пользователь с таким email не зарегстрирован в practica"
+              : invalid === "userHr"
+              ? "Этот пользователь уже HR"
+              : invalid === "userMe"
+              ? "Нельзя отправить приглашение себе"
+              : null
+          }
+        />
+        <p
+          onClick={async () => {
+            if (hrMail.length > 0) {
+              if (!isValidEmail(hrMail)) {
+                setError(true);
+              } else {
+                const res = await invite(hrMail, data.id, data.name);
 
-                  console.log(res, "lll");
-                  if (res?.status === "error") setInvalid(res.message);
-                  else {
-                    toast(`📧 Приглашение отправлено на email`, {
-                      position: isMobile ? "top-center" : "bottom-right",
-                      autoClose: 4000,
-                      hideProgressBar: true,
-                      closeOnClick: true,
-                      pauseOnHover: false,
-                      draggable: true,
-                      progress: undefined,
-                      // theme: "dark",
-                      progressStyle: { background: "#5875e8" },
-                      containerId: "forCopy",
-                    });
-                    setError(false);
-                    setHrMail("");
-                  }
+                console.log(res, "lll");
+                if (res?.status === "error") setInvalid(res.message);
+                else {
+                  toast(`📧 Приглашение отправлено на email`, {
+                    position: isMobile ? "top-center" : "bottom-right",
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    // theme: "dark",
+                    progressStyle: { background: "#5875e8" },
+                    containerId: "forCopy",
+                  });
+                  setError(false);
+                  setHrMail("");
                 }
               }
-            }}
-            className={`text-[16px] w-fit select-none font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms] ${
-              hrMail.length > 0 && !invalid
-                ? "cursor-pointer text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C]"
-                : "text-[#bfbfbf] cursor-default"
-            }`}
-          >
-            Пригласить
-          </p>
-        </Card>
-      )} */}
+            }
+          }}
+          className={`text-[16px] w-fit select-none font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms] ${
+            hrMail.length > 0 && !invalid
+              ? "cursor-pointer text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C]"
+              : "text-[#bfbfbf] cursor-default"
+          }`}
+        >
+          Пригласить
+        </p>
+      </Card>
       {/* добавить рекрутера */}
       <Card
         padding={6}

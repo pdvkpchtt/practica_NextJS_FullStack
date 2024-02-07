@@ -6,23 +6,27 @@ import { prisma } from "../../db";
 export const getAllCompaniesId = async () => {
   const session = await getServSession();
 
-  const complist = await prisma.user.findUnique({
-    where: { id: session?.user?.id },
+  const complist = await prisma.Hr.findMany({
+    where: { userId: session?.user?.id },
     select: {
-      HR: {
+      company: {
         select: {
-          company: {
-            select: {
-              id: true,
-              name: true,
-              image: true,
-              username: true,
-            },
-          },
+          id: true,
+          name: true,
+          image: true,
+          username: true,
         },
       },
     },
   });
 
-  return complist?.HR[0]?.company;
+  return complist.map(
+    (i) =>
+      true && {
+        id: i.company.id,
+        name: i.company.name,
+        username: i.company.username,
+        image: i?.company?.image,
+      }
+  );
 };

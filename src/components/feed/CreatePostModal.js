@@ -146,6 +146,7 @@ const CreatePostModal = ({
 
   const getCompanies = async () => {
     const data = await getAllCompaniesId();
+    console.log(data, "asss");
     setCompanies([
       {
         id: null,
@@ -155,7 +156,7 @@ const CreatePostModal = ({
     ]);
   };
 
-  console.log(categories, companies, "isHr");
+  console.log(categories, companies, isHr, "isHr");
 
   const [isBlinking, setIsBlinking] = useState(false);
 
@@ -218,12 +219,14 @@ const CreatePostModal = ({
               choise={dropDownState}
               handleSetChoise={(val) => setDropDownState(val)}
             />
-            <PostDropDown
-              widthStyle="min-w-[143px]"
-              items={companies}
-              choise={dropDownState2}
-              handleSetChoise={(val) => setDropDownState2(val)}
-            />
+            {isHr === true && (
+              <PostDropDown
+                widthStyle="min-w-[143px]"
+                items={companies}
+                choise={dropDownState2}
+                handleSetChoise={(val) => setDropDownState2(val)}
+              />
+            )}
           </div>
           <Cross2 onClick={() => setClose(false)} />
         </div>
@@ -542,12 +545,14 @@ const CreatePostModal = ({
               items={categories}
               handleSetChoise={(val) => setDropDownState(val)}
             />
-            <PostDropDown
-              widthStyle="min-w-[143px]"
-              items={companies}
-              choise={dropDownState2}
-              handleSetChoise={(val) => setDropDownState2(val)}
-            />
+            {isHr === true && (
+              <PostDropDown
+                widthStyle="min-w-[143px]"
+                items={companies}
+                choise={dropDownState2}
+                handleSetChoise={(val) => setDropDownState2(val)}
+              />
+            )}
           </div>
 
           <div className="w-full">
