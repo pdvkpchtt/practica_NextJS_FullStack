@@ -103,7 +103,9 @@ const Left = ({
   const [contactsModalState, setContactsModalState] = useState(searchParams);
   const [hoverModal, setHoverModal] = useState(false);
   const [contactsComp, contactsCompState] = useState(
-    data?.hrCompany?.length === 0 ? null : data?.hrCompany[0]
+    data?.hrCompany?.length === 0 || !data?.role?.includes("hr")
+      ? null
+      : data?.hrCompany[0]
   );
 
   console.log(hoverModal, "hoverModal");
