@@ -300,23 +300,11 @@ const Left = ({
                 }}
               >
                 <TextMain
-                  text={
-                    data.id === "clqwn78xm0044ojkcmlnrsjny"
-                      ? "21"
-                      : data.id === "clrdwe7920005oj9keblbqoqy"
-                      ? "41"
-                      : abbreviateNumber(data.companiesIFollow)
-                  }
+                  text={abbreviateNumber(data.companiesIFollow)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
                 <TextSecondary
-                  text={
-                    data.id === "clqwn78xm0044ojkcmlnrsjny"
-                      ? "подписка"
-                      : data.id === "clrdwe7920005oj9keblbqoqy"
-                      ? "подписчик"
-                      : getNoun3(data.companiesIFollow)
-                  }
+                  text={getNoun3(data.companiesIFollow)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>

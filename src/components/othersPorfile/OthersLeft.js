@@ -293,27 +293,11 @@ transition-all duration-[250ms] ${
                 onClick={() => setModalState(true)}
               >
                 <TextMain
-                  text={
-                    data.id === "clqwolvio004iojkccxez4dr7"
-                      ? "1.2k"
-                      : data.id === "clqwn78xm0044ojkcmlnrsjny"
-                      ? "8"
-                      : data.id === "clrdwe7920005oj9keblbqoqy"
-                      ? "252"
-                      : abbreviateNumber(data?.connections)
-                  }
+                  text={abbreviateNumber(data?.connections)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
                 <TextSecondary
-                  text={
-                    data.id === "clqwolvio004iojkccxez4dr7"
-                      ? "связей"
-                      : data.id === "clqwn78xm0044ojkcmlnrsjny"
-                      ? "связей"
-                      : data.id === "clrdwe7920005oj9keblbqoqy"
-                      ? "связи"
-                      : getNoun2(data?.connections)
-                  }
+                  text={getNoun2(data?.connections)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>
@@ -324,27 +308,11 @@ transition-all duration-[250ms] ${
                 }}
               >
                 <TextMain
-                  text={
-                    data.id === "clqwolvio004iojkccxez4dr7"
-                      ? "574"
-                      : data.id === "clqwn78xm0044ojkcmlnrsjny"
-                      ? "21"
-                      : data.id === "clrdwe7920005oj9keblbqoqy"
-                      ? "41"
-                      : abbreviateNumber(data?.companiesIFollow)
-                  }
+                  text={abbreviateNumber(data?.companiesIFollow)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
                 <TextSecondary
-                  text={
-                    data.id === "clqwolvio004iojkccxez4dr7"
-                      ? "подписки"
-                      : data.id === "clqwn78xm0044ojkcmlnrsjny"
-                      ? "подписка"
-                      : data.id === "clrdwe7920005oj9keblbqoqy"
-                      ? "подписчик"
-                      : getNoun3(data?.companiesIFollow)
-                  }
+                  text={getNoun3(data?.companiesIFollow)}
                   style="font-normal text-[14px] leading-[18px] tracking-[-0.015em]"
                 />
               </div>
