@@ -361,7 +361,11 @@ const EditCompanyLeft = ({
               if (!isValidEmail(hrMail)) {
                 setError(true);
               } else {
-                const res = await invite(hrMail, data.id, data.name);
+                const res = await invite(
+                  hrMail?.toLowerCase(),
+                  data.id,
+                  data.name
+                );
 
                 console.log(res, "lll");
                 if (res?.status === "error") setInvalid(res.message);

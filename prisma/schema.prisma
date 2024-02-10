@@ -74,6 +74,8 @@ model User {
   views          BigInt           @default(0)
   inSearch       Boolean          @default(false)
 
+  tokenForMail   String?          
+
   chats                Chat[]
   messages             Message[]
   BookMarks            Bookmarks[]

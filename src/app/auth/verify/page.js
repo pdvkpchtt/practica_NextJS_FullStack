@@ -21,7 +21,7 @@ const VerifyPage = () => {
           <div className="font-medium text-[32px] leading-[37.12px] tracking-[-1.44px] text-[#2c2c2c] dark:text-white w-full">
             отправили ключ к успеху на
             <div className="font-medium text-[26px] leading-[32.48px] tracking-[-0.025em] text-[#5875e8]">
-              {email}
+              {email?.toLowerCase()}
             </div>
           </div>
 
@@ -64,7 +64,7 @@ const VerifyPage = () => {
             onClick={() => {
               if (code.length > 0)
                 window.location.href = `/api/auth/callback/email?email=${encodeURIComponent(
-                  email
+                  email?.toLowerCase()
                 )}&token=${code}`;
               else setError(true);
             }}

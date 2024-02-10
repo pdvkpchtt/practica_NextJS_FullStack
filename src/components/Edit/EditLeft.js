@@ -12,11 +12,15 @@ import { uploadAvatar } from "../../server/actions/uploadAvatar";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 import { updateEmail } from "../../server/actions/company/updateCompanyProfile";
 import UpploadAvatarModal from "../../shared/ui/UpploadAvatarModal";
+import { useMediaQuery } from "react-responsive";
 import ImageIcon from "../../shared/icons/ImageIcon";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import CircularProggressBar from "../../shared/ui/CircularProggressBar";
 import getNewAva from "../../server/actions/profile/getNewAva";
 import CustomLoader from "../../shared/ui/CustomLoader";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { checkUnique } from "../../server/actions/changeEmail/checkUnique";
 
 const EditLeft = ({
   data,
@@ -25,14 +29,14 @@ const EditLeft = ({
   status,
   setStatus,
 }) => {
-  const router = useRouter();
-  const { update } = useSession();
+  const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
 
-  console.log(status?.includes("inputBirth"), status, "fuck this");
+  console.log(status?.includes("inputBirth"), status);
 
   const [birthValue, setBirthValue] = useState(data.birthDate || "");
   const [myMail, setMyMail] = useState(data.email);
   const [error, setError] = useState(false);
+  const [errorMail, setErrorMail] = useState(null);
   const [ava, setAva] = useState(null);
   const [bottomModal, setBottomModal] = useState(false);
   const [loadingImg, setLoadingImg] = useState(false);
@@ -51,12 +55,27 @@ const EditLeft = ({
 
   const changeEmail = async () => {
     console.log(myMail, error);
-    if (!isValidEmail(myMail)) {
+    if (!isValidEmail(myMail?.toLowerCase())) {
       setError(true);
     } else {
       if (myMail !== data.email) {
-        await updateEmail(myMail);
-        signOut();
+        // const res = await updateEmail(myMail?.toLowerCase());
+        const res = await checkUnique(myMail?.toLowerCase());
+        if (res?.status === "error") setErrorMail(res?.message);
+        else
+          toast(`📧 Подтверждение отправлено на email`, {
+            position: isMobile ? "top-center" : "bottom-right",
+            autoClose: 4000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            // theme: "dark",
+            progressStyle: { background: "#5875e8" },
+            containerId: "forCopy",
+          });
+        // await signOut();
       }
     }
   };
@@ -259,7 +278,13 @@ const EditLeft = ({
           placeholder="jeff@bezos.com"
           label="Ваша почта"
           value={myMail}
-          onChange={(val) => setMyMail(val)}
+          onChange={(val) => {
+            setMyMail(val);
+            if (errorMail !== null) setErrorMail(null);
+          }}
+          caption={
+            errorMail !== null && errorMail === "unique" && "Эта почта занята"
+          }
         />
         {myMail !== data.email && (
           <p
@@ -271,7 +296,7 @@ const EditLeft = ({
               // : "text-[#bfbfbf] cursor-default"
             } text-[16px] w-fit select-none font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms]`}
           >
-            Сохранить
+            Подтвердить
           </p>
         )}
       </Card>

@@ -7,15 +7,19 @@ import { string, z } from "zod";
 export const updateEmail = async (data) => {
   const session = await getServSession();
 
-  const editedMail = await prisma.user.update({
-    where: {
-      id: session?.user?.id,
-    },
-    data: {
-      email: data,
-      emailVerified: null,
-    },
-  });
+  try {
+    const editedMail = await prisma.user.update({
+      where: {
+        id: session?.user?.id,
+      },
+      data: {
+        email: data,
+        emailVerified: null,
+      },
+    });
+  } catch (err) {
+    return { status: "error", message: "unique", error: err };
+  }
 
   return editedMail;
 };
