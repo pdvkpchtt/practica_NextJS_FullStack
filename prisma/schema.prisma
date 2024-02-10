@@ -111,6 +111,14 @@ model User {
 
   planId String?
   plan   Plan?   @relation(fields: [planId], references: [id])
+  SentCode SentCode[]
+}
+
+model SentCode {
+  id         String @id @default(cuid())
+  createdAt  DateTime @default(now())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Plan {

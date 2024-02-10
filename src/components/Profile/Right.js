@@ -9,7 +9,7 @@ const Right = ({ handleClick, navState, opacity = false, trigger = false }) => {
         !trigger
           ? "[@media(hover)]:ml-[276px]"
           : opacity && "[@media(hover)]:ml-[276px]"
-      } [@media(pointer:coarse)]:gap-[12px] gap-[16px] w-full`}
+      } [@media(pointer:coarse)]:gap-[12px] gap-[16px] w-full `}
     >
       <NavigationPc
         useState={(value) => handleClick(value)}

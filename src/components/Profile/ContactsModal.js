@@ -36,21 +36,23 @@ const ContactsModal = ({
   const [verCode, setVerCode] = useState("00000");
   const [errorVerCode, setErrorVerCode] = useState(false);
 
-
   const generateVerificationCode = async () => {
     let token = "";
     for (let i = 0; i < 5; i++) {
       let digit = Math.floor(Math.random() * 10);
       token += digit;
     }
-    setVerCode(token)
+    setVerCode(token);
     return token;
   };
 
   const sendVerCode = async () => {
     if (phoneInput.length !== 0) {
       const token = await generateVerificationCode();
-      const res = await sendVerificationCodeSMS(phoneInput.replace(/[-+()\s]/g, ''), token);
+      const res = await sendVerificationCodeSMS(
+        phoneInput.replace(/[-+()\s]/g, ""),
+        token
+      );
       console.log(res);
     }
   };
@@ -123,15 +125,7 @@ const ContactsModal = ({
                 text={isEdit ? "Изменение номера телефона" : "Контакты"}
                 style="text-[20px] font-medium leading-[22px] tracking-[-0.4px]"
               />
-              {errorVerCode ? (
-                <>
-                  <p
-                    className="text-red-500 select-none mt-[16px]"
-                  >
-                    Неверно набран код
-                  </p>
-                </>
-              ) : (<></>)}
+
               {isEdit ? (
                 <>
                   <p
@@ -189,7 +183,11 @@ const ContactsModal = ({
                       )}
                     </InputMask>
                     <p
-                      onClick={phoneInput.length !== 18 || phone === phoneInput ? null : () => sendVerCode()}
+                      onClick={
+                        phoneInput.length !== 18 || phone === phoneInput
+                          ? null
+                          : () => sendVerCode()
+                      }
                       className={`${
                         phoneInput.length !== 18 || phone === phoneInput
                           ? "text-[#bfbfbf]"
@@ -206,9 +204,14 @@ const ContactsModal = ({
                     type="number"
                     placeholder="Введите код"
                     value={codeInput}
-                    onChange={(val) => {setCodeInput(val); setErrorVerCode(false)}}
+                    onChange={(val) => {
+                      setCodeInput(val);
+                      setErrorVerCode(false);
+                    }}
                     label="Код подтверждения"
+                    caption={errorVerCode && "Неверно набран код"}
                   />
+
                   <div
                     onClick={() => handleSubmit()}
                     className={`${
@@ -346,7 +349,11 @@ const ContactsModal = ({
                       )}
                     </InputMask>
                     <p
-                      onClick={phoneInput.length !== 18 || phone === phoneInput ? null : () => sendVerCode()}
+                      onClick={
+                        phoneInput.length !== 18 || phone === phoneInput
+                          ? null
+                          : () => sendVerCode()
+                      }
                       className={`${
                         phoneInput.length !== 18 || phone === phoneInput
                           ? "text-[#bfbfbf]"
@@ -363,7 +370,10 @@ const ContactsModal = ({
                     type="number"
                     placeholder="Введите код"
                     value={codeInput}
-                    onChange={(val) => {setCodeInput(val); setErrorVerCode(false)}}
+                    onChange={(val) => {
+                      setCodeInput(val);
+                      setErrorVerCode(false);
+                    }}
                     label="Код подтверждения"
                   />
                   <div

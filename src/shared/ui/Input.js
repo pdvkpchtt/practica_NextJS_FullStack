@@ -47,7 +47,7 @@ export const Input = ({
                 size={18}
               />
             </div>
-          ) : null}{" "}
+          ) : null}
         </div>
       )}
 

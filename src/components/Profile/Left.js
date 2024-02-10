@@ -101,6 +101,9 @@ const Left = ({
   const [modal3State, setModal3State] = useState(false);
   const [pitchesModalState, setPitchesModalState] = useState(false);
   const [contactsModalState, setContactsModalState] = useState(searchParams);
+  const [contactsComp, contactsCompState] = useState(
+    data?.hrCompany?.length === 0 ? null : data?.hrCompany[0]
+  );
 
   const [updatesState, setUpdatesState] = useState(null);
   const clipboard = useClipboard();
@@ -403,14 +406,34 @@ const Left = ({
           onClick={() => setContactsModalState(true)}
         >
           <button
-            className={`group text-center h-[28px] w-fit whitespace-nowrap items-center flex-row gap-[8px] flex 
-          font-medium leading-[20px] text-[16px] tracking-[-0.015em]
+            className={`group text-center h-[28px] whitespace-nowrap items-center flex-row gap-[8px] flex 
+          font-medium justify-between w-full leading-[20px] text-[16px] tracking-[-0.015em]
        cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
           >
-            <ContactsIcon />
-            {data.phoneVerified && data.phone
-              ? "Контакты"
-              : "Контакты отсутсвуют"}
+            <div className="items-center flex-row gap-[8px] flex">
+              <ContactsIcon />
+              {data.phoneVerified && data.phone
+                ? "Контакты"
+                : "Контакты отсутсвуют"}
+            </div>
+
+            {contactsComp !== null && (
+              <div className="rounded-full overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
+                {contactsComp?.company?.image ? (
+                  <Image
+                    src={contactsComp?.company?.image}
+                    alt="hr company photo"
+                    className="w-[20px] h-[20px] min-w-[20px] object-cover min-h-[20px] max-w-[20px] max-h-[20px]"
+                    width={20}
+                    height={20}
+                    quality={100}
+                    priority={true}
+                  />
+                ) : (
+                  <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
+                )}
+              </div>
+            )}
           </button>
         </div>
         {/* contacts */}
@@ -454,7 +477,6 @@ const Left = ({
                   ? pitchesFirst + " " + getNoun(pitchesFirst)
                   : pitchesState + " " + getNoun(pitchesState)}
               </>
-              {/* )} */}
             </div>
           </div>
 

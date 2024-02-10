@@ -25,7 +25,7 @@ const CompanyProfile = ({ data, getUserFeed, addReaction, role, userId }) => {
 
   const changeOpacity = () => {
     if (
-      window.scrollY > ref?.current?.clientHeight - height + 24 + 86 &&
+      window.scrollY > ref?.current?.clientHeight - height + 24 + 87 &&
       trigger === true
     )
       setOpacity(true);
