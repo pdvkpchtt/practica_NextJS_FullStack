@@ -113,7 +113,7 @@ export default function WTF({ roadmapRef = null }) {
       <div
         className={`absolute top-0 bg-[#5875e8] transition-all duration-500 ${
           transit
-            ? " px-[3%] [@media(pointer:coarse)]:px-[5%] pt-[3%] [@media(pointer:coarse)]:pt-[5%] pb-[124px]"
+            ? " px-[1.5%] [@media(pointer:coarse)]:px-[3%] pt-[1.5%] [@media(pointer:coarse)]:pt-[3%] pb-[108px]"
             : " px-[0%] [@media(pointer:coarse)]:px-[0%] pt-[0%] [@media(pointer:coarse)]:pt-[0%] pb-[0px]"
         } left-0 w-full h-full z-[80]`}
       >

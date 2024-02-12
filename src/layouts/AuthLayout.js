@@ -49,19 +49,21 @@ const AuthLayout = async ({ children }) => {
   // if (session?.user?.role === "company" && fullUrl === "/profile") {
   //   return redirect("/companyprofile");
   // }
-  if (session?.user?.role === "company" && fullUrl === "/profile/edit") {
-    return redirect("/companyprofile/edit");
-  }
-  if (session?.user?.role === "student" && fullUrl === "/companyprofile") {
-    return redirect("/profile");
-  }
-  if (session?.user?.role === "student" && fullUrl === "/companyprofile/edit") {
-    return redirect("/profile/edit");
-  }
+  // if (session?.user?.role === "company" && fullUrl === "/profile/edit") {
+  //   return redirect("/companyprofile/edit");
+  // }
+  // if (session?.user?.role === "student" && fullUrl === "/companyprofile") {
+  //   return redirect("/profile");
+  // }
+
   if (
     session?.user?.role === "student" &&
-    fullUrl === "/companyprofile/createvacancy"
+    fullUrl.includes("/companyprofile") &&
+    fullUrl.includes("/edit")
   ) {
+    return redirect("/profile/edit");
+  }
+  if (session?.user?.role === "student" && fullUrl.includes("/createvacancy")) {
     return redirect("/profile");
   }
   if (fullUrl === "/search") {

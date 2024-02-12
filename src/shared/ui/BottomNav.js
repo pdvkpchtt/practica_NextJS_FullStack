@@ -21,8 +21,8 @@ const BottomNav = ({ role }) => {
   return (
     <>
       {isHideBottomNav ? null : (
-        <div className="flex justify-center items-center max-w-[500px] mx-auto">
-          <div className="max-w-[500px] px-[12px] border-t-[#e7e7e7] dark:border-t-[#282828] [@media(pointer:coarse)]:fixed bottom-[20px] [@media(hover)]:hidden h-[49px] z-10 w-full">
+        <div className="flex justify-center z-[500] items-center max-w-[500px] mx-auto">
+          <div className="max-w-[500px] z-[500] px-[12px] border-t-[#e7e7e7] dark:border-t-[#282828] [@media(pointer:coarse)]:fixed bottom-[20px] [@media(hover)]:hidden h-[49px]  w-full">
             <div className="mx-auto w-full grid grid-cols-4 bg-[#ECEDF1] dark:bg-[#1A1A1A] dark:bg-opacity-[70%] dark:backdrop-blur-sm bg-opacity-[70%] backdrop-blur-sm rounded-[50px] h-[49px] pt-[10px] pb-[20px]">
               <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
                 <HomeIconBig />

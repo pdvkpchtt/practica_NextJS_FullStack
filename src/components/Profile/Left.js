@@ -37,7 +37,7 @@ import SubscrModal from "./SubscrModal";
 import CopyIcon from "../../shared/icons/CopyIcon";
 import CardOpacity from "../../shared/ui/CardOpacity";
 import OtherPlusIcon from "../../shared/icons/OtherPlusIcon";
-import HrHoverModal from "./hrHoverModal";
+import HrHoverModal from "./HrHoverModal";
 
 const Left = ({
   navState,

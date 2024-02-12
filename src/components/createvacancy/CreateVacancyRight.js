@@ -73,7 +73,7 @@ const CreateVacancyRight = ({
   return (
     <div className="w-full flex flex-col [@media(hover)]:ml-[276px] [@media(hover)]:mt-[24px] hideScrollbarNavMobile">
       {/* header */}
-      <div className="[@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:left-0 [@media(pointer:coarse)]:rounded-t-[0px] border-b-[0.7px] border-b-[#E7E7E7] bg-white dark:bg-[#212122] dark:border-b-[#2f2f2f] rounded-t-[20px] p-[12px]">
+      <div className="[@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:z-[500] [@media(pointer:coarse)]:top-0 [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:left-0 [@media(pointer:coarse)]:rounded-t-[0px] border-b-[0.7px] border-b-[#E7E7E7] bg-white dark:bg-[#212122] dark:border-b-[#2f2f2f] rounded-t-[20px] p-[12px]">
         <div className="w-full flex flex-row  justify-between [@media(pointer:coarse)]:max-w-[476px] [@media(pointer:coarse)]:mx-auto">
           <OneIconButton onClick={() => router.back()}>
             <ArrowLeftIcon />
@@ -825,6 +825,9 @@ const CreateVacancyRight = ({
               </div>
               {/* prisceByTalk */}
             </Card>
+            <div
+              className={`[@media(pointer:coarse)]:pb-[80px] [@media(hover)]:hidden`}
+            />
           </>
         ) : (
           <div className="h-full w-full mt-[24px] flex items-center justify-center">

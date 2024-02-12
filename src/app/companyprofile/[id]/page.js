@@ -69,6 +69,9 @@ const OthersCompanyPage = async ({ params: { id } }) => {
           />
         </div>
       )}
+      <div
+        className={`[@media(pointer:coarse)]:pb-[80px] [@media(hover)]:hidden`}
+      />
     </>
   );
 };

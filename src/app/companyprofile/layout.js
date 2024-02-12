@@ -12,7 +12,7 @@ const CompanyLayout = ({ children }) => {
       h-full
       ${
         pathname.includes("/createvacancy") || pathname.includes("/edit")
-          ? "[@media(pointer:coarse)]:mb-[0px] [@media(pointer:coarse)]:mt-[61px]"
+          ? "[@media(pointer:coarse)]:mb-[80px] [@media(pointer:coarse)]:mt-[61px]"
           : "[@media(pointer:coarse)]:mb-[80px]  [@media(pointer:coarse)]:mt-[38px]"
       } [@media(pointer:coarse)]:p-[12px]
       

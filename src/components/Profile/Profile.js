@@ -19,6 +19,7 @@ const Profile = ({
   userId,
   pitchesFirst,
   superPitchesFirst,
+  role
 }) => {
   const searchParams = useSearchParams();
   const { height, width } = useWindowDimensions();

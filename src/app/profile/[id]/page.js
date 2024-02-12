@@ -64,7 +64,8 @@ const OthersProfilePage = async ({ params: { id } }) => {
           data={data}
           getUserFeed={getUserFeed}
           addReaction={addReaction}
-          userId={session.user.id}
+          userId={session?.user?.id}
+          role={session?.user?.role}
           pitchesFirst={pitchesFirst}
           superPitchesFirst={superPitchesFirst}
         />
@@ -74,6 +75,7 @@ const OthersProfilePage = async ({ params: { id } }) => {
           isFirstTime={isFirstTime}
           otherId={data.id}
           userId={session?.user?.id}
+          role={session?.user?.role}
           data={data}
           getUserFeed={getUserFeed}
           addReaction={addReaction}
