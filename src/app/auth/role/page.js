@@ -16,7 +16,7 @@ const RolePage = async () => {
         practica
       </div>
 
-      <div className="flex flex-col gap-[16px] z-10 mt-[15vh] [@media(pointer:coarse)]:mt-[30vh] w-full [@media(hover)]:max-w-[503px]">
+      <div className="flex flex-col [@media(hover)]:fixed top-0 items-center justify-center gap-[16px] z-10 h-full [@media(pointer:coarse)]:px-[12px] [@media(pointer:coarse)]:my-auto w-full [@media(hover)]:max-w-[503px]">
         <RoleButton
           text="Я специалист"
           subtext="Хочу достойный оффер в крутой компании"

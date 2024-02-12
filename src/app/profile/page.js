@@ -6,7 +6,7 @@ import Profile from "../../components/Profile/Profile";
 import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 import { redirect } from "next/navigation";
 
-const ProfiePage = async ({}) => {
+const ProfiePage = async ({ searchParams }) => {
   const session = await getServSession();
 
   const data = await getProfile({
@@ -17,7 +17,11 @@ const ProfiePage = async ({}) => {
     return redirect("/not-found");
   }
 
-  return redirect(`/profile/${data?.username}`);
+  return redirect(
+    `/profile/${data?.username}${
+      searchParams?.contacts !== null && "?contacts=true"
+    }`
+  );
 
   // console.log("profile", data);
 
