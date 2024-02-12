@@ -111,7 +111,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
           }`}
           padding={12}
         >
-          <div className="rounded-[8px] overflow-hidden aspect-square [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
+          <div className="rounded-[8px] overflow-hidden aspect-square bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
             {profileData?.image ? (
               <Image
                 src={profileData?.image}
@@ -256,7 +256,7 @@ transition duration-[250ms] [@media(hover)]:mt-[63px] [@media(hover)]:w-[260px]`
                   router.push(`/companyprofile/${i?.company?.username}`)
                 }
               >
-                <div className="rounded-full overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
+                <div className="rounded-full bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
                   {i.image ? (
                     <Image
                       src={i?.company?.image}

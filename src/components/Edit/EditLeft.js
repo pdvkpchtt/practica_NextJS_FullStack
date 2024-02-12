@@ -96,7 +96,7 @@ const EditLeft = ({
         padding={12}
       >
         <div
-          className="rounded-[8px] relative overflow-hidden aspect-square cursor-pointer [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]"
+          className="rounded-[8px] relative overflow-hidden bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 aspect-square cursor-pointer [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]"
           onClick={() => setBottomModal(true)}
         >
           {!loadingImg ? (

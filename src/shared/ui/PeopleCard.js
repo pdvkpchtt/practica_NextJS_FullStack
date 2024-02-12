@@ -18,7 +18,7 @@ const PeopleCard = ({ item }) => {
       {/* image name time */}
       <div className="flex flex-row gap-[8px]">
         <div
-          className="h-[67px] w-[67px] max-h-[67px] cursor-pointer max-w-[67px] min-h-[67px] min-w-[67px] aspect-square overflow-hidden  rounded-[8px]"
+          className="h-[67px] w-[67px] max-h-[67px] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 cursor-pointer max-w-[67px] min-h-[67px] min-w-[67px] aspect-square overflow-hidden  rounded-[8px]"
           onClick={() => router.push(`/profile/${item.username || item.id}`)}
         >
           {item.image ? (

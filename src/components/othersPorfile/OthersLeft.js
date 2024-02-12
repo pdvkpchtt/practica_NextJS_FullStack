@@ -344,7 +344,7 @@ transition-all duration-[250ms] ${
                   router.push(`/companyprofile/${i?.company?.username}`)
                 }
               >
-                <div className="rounded-full overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
+                <div className="rounded-full bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
                   {i.image ? (
                     <Image
                       src={i?.company?.image}

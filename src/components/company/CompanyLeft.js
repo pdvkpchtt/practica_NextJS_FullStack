@@ -105,7 +105,7 @@ const CompanyLeft = ({
           style="[@media(hover)]:w-[260px] [@media(pointer:coarse)]:w-full flex flex-col gap-[12px]"
           padding={12}
         >
-          <div className="relative overflow-hidden rounded-full aspect-square [@media(hover)]:min-w-[110px] [@media(hover)]:min-h-[110px]  [@media(hover)]:w-[110px] [@media(hover)]:h-[110px] mx-auto">
+          <div className="relative overflow-hidden bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50  rounded-full aspect-square [@media(hover)]:min-w-[110px] [@media(hover)]:min-h-[110px]  [@media(hover)]:w-[110px] [@media(hover)]:h-[110px] mx-auto">
             {data.image ? (
               <Image
                 src={data.image}

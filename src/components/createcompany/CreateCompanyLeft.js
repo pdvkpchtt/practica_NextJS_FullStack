@@ -51,7 +51,7 @@ const CreateCompanyLeft = ({
         padding={12}
       >
         <div
-          className="relative cursor-pointer overflow-hidden rounded-full [@media(hover)]:min-w-[110px] [@media(hover)]:min-h-[110px]  [@media(hover)]:w-[110px] [@media(hover)]:h-[110px] mx-auto"
+          className="relative cursor-pointer bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 overflow-hidden rounded-full [@media(hover)]:min-w-[110px] [@media(hover)]:min-h-[110px]  [@media(hover)]:w-[110px] [@media(hover)]:h-[110px] mx-auto"
           onClick={() => setBottomModal(true)}
         >
           <div className="absolute flex items-center aspect-square justify-center w-full h-full bg-transparent group hover:bg-black hover:bg-opacity-25 transition duration-[150ms]">

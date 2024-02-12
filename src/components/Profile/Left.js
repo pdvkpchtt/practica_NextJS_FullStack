@@ -358,7 +358,7 @@ const Left = ({
                   router.push(`/companyprofile/${i?.company?.username}`)
                 }
               >
-                <div className="rounded-full overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
+                <div className="rounded-full bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
                   {i?.company?.image ? (
                     <Image
                       src={i?.company?.image}
@@ -413,7 +413,7 @@ const Left = ({
 
             {contactsComp !== null && (
               <div
-                className="rounded-full overflow-hidden z-[21] aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]"
+                className="rounded-full overflow-hidden z-[21] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]"
                 // onClick={() => setContactsModalState(true)}
                 onMouseEnter={() => setHoverModal(true)}
                 onMouseLeave={() => setHoverModal(false)}

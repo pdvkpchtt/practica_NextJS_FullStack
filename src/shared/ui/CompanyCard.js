@@ -45,7 +45,7 @@ const CompanyCard = ({ item }) => {
 
   return (
     <div className="flex flex-row gap-[12px] bg-white dark:bg-[#212122] p-[12px] rounded-[20px]">
-      <div className="min-w-[67px] aspect-square h-[67px] w-[67px] min-h-[67px] max-w-[67px] max-h-[67px] overflow-hidden rounded-full">
+      <div className="min-w-[67px] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 aspect-square h-[67px] w-[67px] min-h-[67px] max-w-[67px] max-h-[67px] overflow-hidden rounded-full">
         {item.image ? (
           <Image
             src={item.image}

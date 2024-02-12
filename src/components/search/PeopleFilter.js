@@ -97,7 +97,7 @@ const PeopleFilters = ({
         />
       </div>
 
-      <div className="flex flex-col w-full">
+      {/* <div className="flex flex-col w-full">
         <TextSecondary
           text={"Опыт работы"}
           style="font-medium text-[14px] select-none leading-[16.8px] tracking-[-0.013em] mb-[6px]"
@@ -113,7 +113,7 @@ const PeopleFilters = ({
           items={[{ label: "Есть" }, { label: "Нет" }]}
           placeholder={"Не выбрано"}
         />
-      </div>
+      </div> */}
 
       {/* skills */}
       <div className="flex flex-col relative">

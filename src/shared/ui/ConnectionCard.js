@@ -77,7 +77,7 @@ const ConnectionCard = ({
       <div className="flex flex-row overflow-hidden [@media(pointer:coarse)]:gap-[8px] gap-[10px]">
         {/* image */}
         <div
-          className={`min-w-[50px] cursor-pointer overflow-hidden h-[50px] aspect-square [@media(pointer:coarse)]:min-w-[40px] [@media(pointer:coarse)]:h-[40px] ${
+          className={`min-w-[50px] cursor-pointer bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 overflow-hidden h-[50px] aspect-square [@media(pointer:coarse)]:min-w-[40px] [@media(pointer:coarse)]:h-[40px] ${
             company
               ? "rounded-full"
               : "rounded-[10px]  [@media(pointer:coarse)]:rounded-[12px]"

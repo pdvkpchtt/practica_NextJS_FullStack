@@ -110,7 +110,7 @@ const Post = ({
             <div className="flex flex-row gap-[12px] mt-[12px] mx-[12px]">
               {item?.author_image ? (
                 <div
-                  className="overflow-hidden aspect-square rounded-[8px] h-[40px] min-w-[40px] cursor-pointer"
+                  className="overflow-hidden aspect-square rounded-[8px] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 h-[40px] min-w-[40px] cursor-pointer"
                   onClick={() => router.push(`/profile/${item.username}`)}
                 >
                   <Image
