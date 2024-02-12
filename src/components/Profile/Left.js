@@ -37,6 +37,7 @@ import SubscrModal from "./SubscrModal";
 import CopyIcon from "../../shared/icons/CopyIcon";
 import CardOpacity from "../../shared/ui/CardOpacity";
 import OtherPlusIcon from "../../shared/icons/OtherPlusIcon";
+import HrHoverModal from "./hrHoverModal";
 
 const Left = ({
   navState,
@@ -395,17 +396,14 @@ const Left = ({
 
         {/* contacts */}
         <div
-          className={` p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+          className={`relative p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
         >
           <button
             className={`group text-center h-[28px] whitespace-nowrap items-center flex-row gap-[8px] flex 
           font-medium justify-between w-full leading-[20px] text-[16px] tracking-[-0.015em]
-       cursor-pointer select-none transition relative duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
+       cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
+            onClick={() => setContactsModalState(true)}
           >
-            <div
-              className="absolute w-full h-full z-[20]"
-              onClick={() => setContactsModalState(true)}
-            />
             <div className="items-center flex-row gap-[8px] flex w-fit">
               <ContactsIcon />
               {data.phoneVerified && data.phone
@@ -416,7 +414,7 @@ const Left = ({
             {contactsComp !== null && (
               <div
                 className="rounded-full overflow-hidden z-[21] aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]"
-                onClick={() => setContactsModalState(true)}
+                // onClick={() => setContactsModalState(true)}
                 onMouseEnter={() => setHoverModal(true)}
                 onMouseLeave={() => setHoverModal(false)}
               >
@@ -433,18 +431,10 @@ const Left = ({
                 ) : (
                   <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
                 )}
-                {hoverModal && (
-                  <div
-                    className="absolute pt-[33px] top-[4px] right-[-12px] w-[50px] h-[50px]"
-                    onMouseEnter={() => setHoverModal(true)}
-                    onMouseLeave={() => setHoverModal(false)}
-                  >
-                    <div className="w-full h-full bg-[#FFFFFF] dark:bg-[#2c2c2c] rounded-[12px]"></div>
-                  </div>
-                )}
               </div>
             )}
           </button>
+          <HrHoverModal setHoverModal={setHoverModal} hoverModal={hoverModal} />
         </div>
         {/* contacts */}
 
