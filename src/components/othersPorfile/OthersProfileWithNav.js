@@ -20,6 +20,7 @@ const OthersProfileWithNav = ({
   ifChatExist,
   pitchesFirst,
   superPitchesFirst,
+  role
 }) => {
   const { height, width } = useWindowDimensions();
   const ref = useRef(null);
