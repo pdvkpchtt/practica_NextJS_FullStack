@@ -9,6 +9,8 @@ import { redirect } from "next/navigation";
 const ProfiePage = async ({ searchParams }) => {
   const session = await getServSession();
 
+  console.log(searchParams, "suka");
+
   const data = await getProfile({
     userId: session.user.id,
   });
@@ -19,7 +21,7 @@ const ProfiePage = async ({ searchParams }) => {
 
   return redirect(
     `/profile/${data?.username}${
-      searchParams?.contacts !== null && "?contacts=true"
+      searchParams?.contacts ? "?contacts=true" : ""
     }`
   );
 
