@@ -31,6 +31,7 @@ export const getCompany = async ({ companyId }) => {
       },
       Following: { select: { id: true } },
       HR: true,
+      contactsCount: true,
     },
     // include: {
     //   Education: true,
@@ -66,6 +67,7 @@ export const getCompany = async ({ companyId }) => {
       ? foundCompany?.HR?.find((i) => i.userId === session?.user?.id)
           ?.dataVerified !== null
       : false,
+    contactsCount: foundCompany?.contactsCount,
     hrcount: foundCompany?.HR?.filter((i) => i.dataVerified !== null)?.length,
   };
 };

@@ -38,6 +38,7 @@ import CopyIcon from "../../shared/icons/CopyIcon";
 import CardOpacity from "../../shared/ui/CardOpacity";
 import OtherPlusIcon from "../../shared/icons/OtherPlusIcon";
 import HrHoverModal from "./HrHoverModal";
+import HrContactsModal from "./HrContactsModal";
 
 const Left = ({
   navState,
@@ -68,6 +69,11 @@ const Left = ({
     if (dig % 10 === 0 || dig % 10 >= 5 || dig > 999) return "Подписок";
     if (dig % 10 > 1 && dig % 10 < 5) return "Подписки";
     else return "Подписка";
+  };
+  const getNoun4 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5 || dig > 999) return " контактов";
+    if (dig % 10 > 1 && dig % 10 < 5) return " контакта";
+    else return " контакт";
   };
 
   function abbreviateNumber(value) {
@@ -100,6 +106,7 @@ const Left = ({
   const [modalState, setModalState] = useState(false);
   const [modal2State, setModal2State] = useState(false);
   const [modal3State, setModal3State] = useState(false);
+  const [modal4State, setModal4State] = useState(false);
   const [pitchesModalState, setPitchesModalState] = useState(false);
   const [contactsModalState, setContactsModalState] = useState(searchParams);
   const [hoverModal, setHoverModal] = useState(false);
@@ -395,47 +402,72 @@ const Left = ({
         {/* hr */}
 
         {/* contacts */}
-        <div
-          className={`relative p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
-        >
-          <button
-            className={`group text-center h-[28px] whitespace-nowrap items-center flex-row gap-[8px] flex 
+        {!data?.role?.includes("hr") ? (
+          <div
+            className={`relative p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+          >
+            <button
+              className={`group text-center h-[28px] whitespace-nowrap items-center flex-row gap-[8px] flex 
           font-medium justify-between w-full leading-[20px] text-[16px] tracking-[-0.015em]
        cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
-            onClick={() => setContactsModalState(true)}
-          >
-            <div className="items-center flex-row gap-[8px] flex w-fit">
-              <ContactsIcon />
-              {data.phoneVerified && data.phone
-                ? "Контакты"
-                : "Контакты отсутсвуют"}
-            </div>
-
-            {contactsComp !== null && (
-              <div
-                className="rounded-full overflow-hidden z-[21] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]"
-                // onClick={() => setContactsModalState(true)}
-                onMouseEnter={() => setHoverModal(true)}
-                onMouseLeave={() => setHoverModal(false)}
-              >
-                {contactsComp?.company?.image ? (
-                  <Image
-                    src={contactsComp?.company?.image}
-                    alt="hr company photo"
-                    className="w-[20px] h-[20px] min-w-[20px] object-cover min-h-[20px] max-w-[20px] max-h-[20px]"
-                    width={20}
-                    height={20}
-                    quality={100}
-                    priority={true}
-                  />
-                ) : (
-                  <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
-                )}
+              onClick={() => setContactsModalState(true)}
+            >
+              <div className="items-center flex-row gap-[8px] flex w-fit">
+                <ContactsIcon />
+                {data.phoneVerified && data.phone
+                  ? "Контакты"
+                  : "Контакты отсутсвуют"}
               </div>
-            )}
-          </button>
-          <HrHoverModal setHoverModal={setHoverModal} hoverModal={hoverModal} />
-        </div>
+            </button>
+          </div>
+        ) : (
+          <div
+            className={`relative p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+          >
+            <button
+              className={`group text-center h-[28px] whitespace-nowrap items-center flex-row gap-[8px] flex 
+          font-medium justify-between w-full leading-[20px] text-[16px] tracking-[-0.015em]
+       cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
+              onClick={() => setModal4State(true)}
+            >
+              <div className="items-center flex-row gap-[8px] flex w-fit">
+                <ContactsIcon />
+                {contactsComp?.company?.contactsCount +
+                  getNoun4(contactsComp?.company?.contactsCount)}
+              </div>
+
+              {contactsComp !== null && (
+                <div
+                  className="rounded-full overflow-hidden z-[21] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]"
+                  // onClick={() => setContactsModalState(true)}
+                  onMouseEnter={() => setHoverModal(true)}
+                  onMouseLeave={() => setHoverModal(false)}
+                >
+                  {contactsComp?.company?.image ? (
+                    <Image
+                      src={contactsComp?.company?.image}
+                      alt="hr company photo"
+                      className="w-[20px] h-[20px] min-w-[20px] object-cover min-h-[20px] max-w-[20px] max-h-[20px]"
+                      width={20}
+                      height={20}
+                      quality={100}
+                      priority={true}
+                    />
+                  ) : (
+                    <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
+                  )}
+                </div>
+              )}
+            </button>
+            <HrHoverModal
+              setHoverModal={setHoverModal}
+              hoverModal={hoverModal}
+              contactsComp={contactsComp}
+              contactsCompState={contactsCompState}
+              compsList={data?.hrCompany}
+            />
+          </div>
+        )}
         {/* contacts */}
 
         {/* pitches + superpitches */}
@@ -571,6 +603,13 @@ const Left = ({
         setModalState={setModal3State}
       />
       {/* subscr modal */}
+
+      {/* hr by contacts */}
+      <HrContactsModal
+        modalState={modal4State}
+        setModalState={setModal4State}
+      />
+      {/* hr by contacts */}
     </>
   );
 };

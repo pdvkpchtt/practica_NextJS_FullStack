@@ -44,14 +44,16 @@ const MessageItem = ({ item, style, last = false }) => {
     >
       {!item.myMessage &&
         (item.user.image ? (
-          <Image
-            src={item.user.image}
-            alt="person image"
-            height={30}
-            width={30}
-            quality={100}
-            className={`h-[30px] w-[30px] select-none object-cover rounded-[12px] [@media(pointer:coarse)]:hidden`}
-          />
+          <div className="w-[30px] min-w-[30px] h-[30px] aspect-square min-h-[30px] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 overflow-hidden rounded-[12px] [@media(pointer:coarse)]:hidden">
+            <Image
+              src={item.user.image}
+              alt="person image"
+              height={30}
+              width={30}
+              quality={100}
+              className={`h-[30px] w-[30px] select-none object-cover [@media(pointer:coarse)]:hidden`}
+            />
+          </div>
         ) : (
           <EmptyAvatar thirty />
         ))}

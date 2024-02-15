@@ -14,7 +14,7 @@ const BottomNav = ({ role }) => {
   const isHideBottomNav =
     pathname.includes("/auth") ||
     pathname.includes("/edit") ||
-    pathname.includes("/companyprofile/createvacancy") ||
+    pathname.includes("/createvacancy") ||
     pathname.includes("/messenger/") ||
     pathname === "/landing";
 

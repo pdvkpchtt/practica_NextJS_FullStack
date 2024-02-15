@@ -47,7 +47,7 @@ const MessageCart = ({ item, onClick, active = false, last = false }) => {
           [@media(hover)]:pt-[12px] [@media(hover)]:border-b-[0.7px] border-b-[#e7e7e7] [@media(hover)]:dark:border-b-[#282828]`}
         onClick={() => (onClick ? onClick() : {})}
       >
-        <div className="relative z-0 rounded-[8px] mr-[8px] overflow-hidden">
+        <div className="relative z-0 bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 rounded-[8px] mr-[8px] overflow-hidden">
           {item.chatImage ? (
             <Image
               src={item.chatImage}

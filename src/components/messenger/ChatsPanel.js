@@ -241,7 +241,7 @@ const ChatsPanel = ({ chatId, user_id, profileData, setTimer, timer }) => {
             /> */}
               </div>
 
-              <div className="min-w-[40px] min-h-[40px] w-[40px] h-[40px] aspect-square rounded-full overflow-hidden ml-[16px]">
+              <div className="min-w-[40px] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 min-h-[40px] w-[40px] h-[40px] aspect-square rounded-full overflow-hidden ml-[16px]">
                 {profileData?.image ? (
                   <Image
                     src={profileData?.image}
