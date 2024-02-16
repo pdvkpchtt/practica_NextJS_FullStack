@@ -21,7 +21,7 @@ const OthersProfilePage = async ({ params: { id } }) => {
     userId: id,
   });
 
-  console.log(data, "hjhjhj");
+  console.log(data, id, "hjhjhj");
 
   if (!data) {
     redirect("/not-found");

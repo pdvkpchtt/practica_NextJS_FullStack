@@ -20,7 +20,7 @@ const OthersProfileWithNav = ({
   ifChatExist,
   pitchesFirst,
   superPitchesFirst,
-  role
+  role,
 }) => {
   const { height, width } = useWindowDimensions();
   const ref = useRef(null);
@@ -93,6 +93,7 @@ const OthersProfileWithNav = ({
         layoutId="mobileothers"
       />
       <OthersLeft
+        role={role}
         trigger={trigger}
         refElement={ref}
         opacity={opacity}

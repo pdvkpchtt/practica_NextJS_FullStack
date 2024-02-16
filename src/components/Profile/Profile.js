@@ -19,7 +19,7 @@ const Profile = ({
   userId,
   pitchesFirst,
   superPitchesFirst,
-  role
+  role,
 }) => {
   const searchParams = useSearchParams();
   const { height, width } = useWindowDimensions();
@@ -104,6 +104,7 @@ const Profile = ({
         data={data}
         pitchesFirst={pitchesFirst}
         superPitchesFirst={superPitchesFirst}
+        role={role}
       />
       <Right
         trigger={trigger}
