@@ -22,6 +22,7 @@ import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 import CustomLoader from "../../shared/ui/CustomLoader";
 import Helper from "../../shared/ui/Helper";
 import { getMyProfileInfoTimer } from "../../server/actions/profileTimer/getMyProfileInfoTimer";
+import storage from "../../storage/storage";
 
 import LocationIcon from "../../shared/icons/LocationIcon";
 import CalendarIcon from "../../shared/icons/CalendarIcon";
@@ -39,6 +40,8 @@ import CardOpacity from "../../shared/ui/CardOpacity";
 import OtherPlusIcon from "../../shared/icons/OtherPlusIcon";
 import HrHoverModal from "./HrHoverModal";
 import HrContactsModal from "./HrContactsModal";
+import useStore from "../../storage/zustand";
+import EmptyMiniAva from "../../shared/ui/EmptyMiniAva";
 
 const Left = ({
   navState,
@@ -50,6 +53,9 @@ const Left = ({
   opacity = false,
   trigger = false,
 }) => {
+  const contactsComp = useStore((state) => state.contactsComp);
+  const contactsCompState = useStore((state) => state.contactsCompState);
+
   // console.log(data, "saasassaasas2");
   const router = useRouter();
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
@@ -103,6 +109,8 @@ const Left = ({
     return newValue;
   }
 
+  const contactsCompStorage = storage.get("hrComps");
+
   const [modalState, setModalState] = useState(false);
   const [modal2State, setModal2State] = useState(false);
   const [modal3State, setModal3State] = useState(false);
@@ -110,13 +118,20 @@ const Left = ({
   const [pitchesModalState, setPitchesModalState] = useState(false);
   const [contactsModalState, setContactsModalState] = useState(searchParams);
   const [hoverModal, setHoverModal] = useState(false);
-  const [contactsComp, contactsCompState] = useState(
-    data?.hrCompany?.length === 0 || !data?.role?.includes("hr")
-      ? null
-      : data?.hrCompany[0]
-  );
 
-  console.log(hoverModal, "hoverModal");
+  useEffect(() => {
+    contactsCompState(
+      !data?.role?.includes("hr")
+        ? null
+        : contactsCompStorage === null
+        ? data?.hrCompany[0]
+        : contactsCompStorage
+    );
+  }, []);
+
+  // console.log(contactsComp, "fiiii", contactsCompStorage);
+
+  // console.log(hoverModal, "hoverModal");
 
   const [updatesState, setUpdatesState] = useState(null);
   const clipboard = useClipboard();
@@ -190,7 +205,12 @@ const Left = ({
           style="[@media(hover)]:max-w-[260px] w-full flex flex-col gap-[12px]"
           padding={12}
         >
-          <div className="rounded-[8px] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 overflow-hidden aspect-square [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
+          <div
+            // onClick={() => {
+            //   console.log("asas");
+            // }}
+            className="rounded-[8px] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 overflow-hidden aspect-square [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]"
+          >
             {data.image ? (
               <Image
                 src={data.image}
@@ -377,7 +397,7 @@ const Left = ({
                       priority={true}
                     />
                   ) : (
-                    <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
+                    <EmptyMiniAva text={i?.company?.name[0]} />
                   )}
                 </div>
                 <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
@@ -454,7 +474,7 @@ const Left = ({
                       priority={true}
                     />
                   ) : (
-                    <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
+                    <EmptyMiniAva text={contactsComp?.company?.name[0]} />
                   )}
                 </div>
               )}
@@ -463,7 +483,10 @@ const Left = ({
               setHoverModal={setHoverModal}
               hoverModal={hoverModal}
               contactsComp={contactsComp}
-              contactsCompState={contactsCompState}
+              contactsCompState={(val) => {
+                storage.set("hrComps", val);
+                contactsCompState(val);
+              }}
               compsList={data?.hrCompany}
             />
           </div>

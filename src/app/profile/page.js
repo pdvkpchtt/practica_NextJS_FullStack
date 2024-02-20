@@ -10,16 +10,8 @@ import CustomLoader from "../../shared/ui/CustomLoader";
 const ProfiePage = async ({ searchParams }) => {
   const session = await getServSession();
 
-  const data = await getProfile({
-    userId: session.user.id,
-  });
-
-  if (!data) {
-    return redirect("/not-found");
-  }
-
   return redirect(
-    `/profile/${data?.username}${
+    `/profile/${session?.user?.username}${
       searchParams?.contacts ? "?contacts=true" : ""
     }`
   );

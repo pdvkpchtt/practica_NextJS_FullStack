@@ -2,10 +2,78 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getFastHrCompany } from "../../server/actions/profile/getFastHrCompany";
+import storage from "../../storage/storage";
+import useStore from "../../storage/zustand";
+import CustomLoader from "../../shared/ui/CustomLoader";
+import Image from "next/image";
+import EmptyMiniAva from "../../shared/ui/EmptyMiniAva";
 
 const ProfileIcon = ({ fill = "#000", size = 25, role }) => {
   const pathname = usePathname();
-  // "/companyprofile"
+
+  const contactsComp = useStore((state) => state.contactsComp);
+  const contactsCompState = useStore((state) => state.contactsCompState);
+
+  const [loading, setLoading] = useState(true);
+
+  const getHrComp = async () => {
+    const hrComp = await getFastHrCompany();
+
+    contactsCompState(hrComp[0]);
+    storage.set("hrComps", hrComp[0]);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (role?.includes("hr")) {
+      setLoading(true);
+      const hrCompFromStorage = storage.get("hrComps");
+      contactsCompState(hrCompFromStorage);
+
+      if (hrCompFromStorage === null) getHrComp();
+      else setLoading(false);
+    } else setLoading(false);
+  }, []);
+
+  // console.log(storage.get("hrComps"), "fuck america");
+
+  if (role?.includes("hr") && loading === true)
+    return (
+      <Link href={"/profile"}>
+        <div className="w-[30px] h-[30px] flex items-center justify-center cursor-pointer">
+          <CustomLoader
+            diameter={20}
+            strokeWidth={5}
+            strokeWidthSecondary={5}
+          />
+        </div>
+      </Link>
+    );
+
+  if (role?.includes("hr") && loading === false && !!contactsComp?.company)
+    return (
+      <Link href={"/profile"}>
+        <div className="w-[30px] h-[30px] flex items-center justify-center cursor-pointer">
+          <div className="rounded-full overflow-hidden z-[21] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
+            {contactsComp?.company?.image ? (
+              <Image
+                src={contactsComp?.company?.image}
+                alt="hr company photo"
+                className="w-[20px] h-[20px] min-w-[20px] object-cover min-h-[20px] max-w-[20px] max-h-[20px]"
+                width={20}
+                height={20}
+                quality={100}
+                priority={true}
+              />
+            ) : (
+              <EmptyMiniAva text={contactsComp?.company?.name[0]} />
+            )}
+          </div>
+        </div>
+      </Link>
+    );
 
   if (role === "student")
     return (
@@ -44,7 +112,12 @@ const ProfileIcon = ({ fill = "#000", size = 25, role }) => {
         </div>
       </Link>
     );
-  else if (role?.includes("hr") && !pathname.includes("/companyprofile"))
+  else if (
+    role?.includes("hr") &&
+    !pathname.includes("/companyprofile") &&
+    !contactsComp?.company &&
+    loading === false
+  )
     return (
       <Link href={"/profile"} className="group">
         <div className="w-[30px] h-[30px] ml-[-3px] flex items-center justify-center cursor-pointer bg-transparent group-hover:bg-[#74899B] group-hover:bg-opacity-[8%] transition duration-[250ms] rounded-[8px]">
@@ -67,7 +140,12 @@ const ProfileIcon = ({ fill = "#000", size = 25, role }) => {
         </div>
       </Link>
     );
-  else if (role?.includes("hr") && pathname.includes("/companyprofile"))
+  else if (
+    role?.includes("hr") &&
+    pathname.includes("/companyprofile") &&
+    !contactsComp?.company &&
+    loading === false
+  )
     return (
       <Link href={"/profile"} className="group">
         <div className="w-[30px] h-[30px] flex items-center justify-center cursor-pointer bg-transparent group-hover:bg-[#74899B] group-hover:bg-opacity-[8%] transition duration-[250ms] rounded-[8px]">
