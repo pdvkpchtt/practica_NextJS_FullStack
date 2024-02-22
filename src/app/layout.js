@@ -8,6 +8,7 @@ import Layout from "../layouts/Layout";
 import Header from "../shared/ui/Header";
 import BottomNav from "../shared/ui/BottomNav";
 import Head from "next/head";
+import { getFastHrCompany } from "../server/actions/profile/getFastHrCompany";
 // import Script from 'next/script'
 
 export const metadata = {
@@ -22,6 +23,8 @@ export default async function RootLayout({ children }) {
   const fullUrl = headersList.get("x-invoke-path") || "";
 
   console.log(fullUrl.includes("landing"), fullUrl, "testimland");
+
+  // console.log(hrComp, 'wow')
 
   return (
     <html>

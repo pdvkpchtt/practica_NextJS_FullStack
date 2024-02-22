@@ -22,6 +22,7 @@ import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 import CustomLoader from "../../shared/ui/CustomLoader";
 import Helper from "../../shared/ui/Helper";
 import { getMyProfileInfoTimer } from "../../server/actions/profileTimer/getMyProfileInfoTimer";
+import storage from "../../storage/storage";
 
 import LocationIcon from "../../shared/icons/LocationIcon";
 import CalendarIcon from "../../shared/icons/CalendarIcon";
@@ -38,6 +39,9 @@ import CopyIcon from "../../shared/icons/CopyIcon";
 import CardOpacity from "../../shared/ui/CardOpacity";
 import OtherPlusIcon from "../../shared/icons/OtherPlusIcon";
 import HrHoverModal from "./HrHoverModal";
+import HrContactsModal from "./HrContactsModal";
+import useStore from "../../storage/zustand";
+import EmptyMiniAva from "../../shared/ui/EmptyMiniAva";
 
 const Left = ({
   navState,
@@ -49,6 +53,9 @@ const Left = ({
   opacity = false,
   trigger = false,
 }) => {
+  const contactsComp = useStore((state) => state.contactsComp);
+  const contactsCompState = useStore((state) => state.contactsCompState);
+
   // console.log(data, "saasassaasas2");
   const router = useRouter();
   const isMobile = useMediaQuery({ query: "(pointer:coarse)" });
@@ -68,6 +75,11 @@ const Left = ({
     if (dig % 10 === 0 || dig % 10 >= 5 || dig > 999) return "Подписок";
     if (dig % 10 > 1 && dig % 10 < 5) return "Подписки";
     else return "Подписка";
+  };
+  const getNoun4 = (dig) => {
+    if (dig % 10 === 0 || dig % 10 >= 5 || dig > 999) return " контактов";
+    if (dig % 10 > 1 && dig % 10 < 5) return " контакта";
+    else return " контакт";
   };
 
   function abbreviateNumber(value) {
@@ -97,19 +109,29 @@ const Left = ({
     return newValue;
   }
 
+  const contactsCompStorage = storage.get("hrComps");
+
   const [modalState, setModalState] = useState(false);
   const [modal2State, setModal2State] = useState(false);
   const [modal3State, setModal3State] = useState(false);
+  const [modal4State, setModal4State] = useState(false);
   const [pitchesModalState, setPitchesModalState] = useState(false);
   const [contactsModalState, setContactsModalState] = useState(searchParams);
   const [hoverModal, setHoverModal] = useState(false);
-  const [contactsComp, contactsCompState] = useState(
-    data?.hrCompany?.length === 0 || !data?.role?.includes("hr")
-      ? null
-      : data?.hrCompany[0]
-  );
 
-  console.log(hoverModal, "hoverModal");
+  useEffect(() => {
+    contactsCompState(
+      !data?.role?.includes("hr")
+        ? null
+        : contactsCompStorage === null
+        ? data?.hrCompany[0]
+        : contactsCompStorage
+    );
+  }, []);
+
+  // console.log(contactsComp, "fiiii", contactsCompStorage);
+
+  // console.log(hoverModal, "hoverModal");
 
   const [updatesState, setUpdatesState] = useState(null);
   const clipboard = useClipboard();
@@ -183,7 +205,12 @@ const Left = ({
           style="[@media(hover)]:max-w-[260px] w-full flex flex-col gap-[12px]"
           padding={12}
         >
-          <div className="rounded-[8px] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 overflow-hidden aspect-square [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]">
+          <div
+            // onClick={() => {
+            //   console.log("asas");
+            // }}
+            className="rounded-[8px] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 overflow-hidden aspect-square [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:h-full [@media(hover)]:min-w-[236px] [@media(hover)]:min-h-[236px]  [@media(hover)]:w-[236px] [@media(hover)]:h-[236px]"
+          >
             {data.image ? (
               <Image
                 src={data.image}
@@ -370,7 +397,7 @@ const Left = ({
                       priority={true}
                     />
                   ) : (
-                    <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
+                    <EmptyMiniAva text={i?.company?.name[0]} />
                   )}
                 </div>
                 <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
@@ -395,47 +422,75 @@ const Left = ({
         {/* hr */}
 
         {/* contacts */}
-        <div
-          className={`relative p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
-        >
-          <button
-            className={`group text-center h-[28px] whitespace-nowrap items-center flex-row gap-[8px] flex 
+        {!data?.role?.includes("hr") ? (
+          <div
+            className={`relative p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+          >
+            <button
+              className={`group text-center h-[28px] whitespace-nowrap items-center flex-row gap-[8px] flex 
           font-medium justify-between w-full leading-[20px] text-[16px] tracking-[-0.015em]
        cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
-            onClick={() => setContactsModalState(true)}
-          >
-            <div className="items-center flex-row gap-[8px] flex w-fit">
-              <ContactsIcon />
-              {data.phoneVerified && data.phone
-                ? "Контакты"
-                : "Контакты отсутсвуют"}
-            </div>
-
-            {contactsComp !== null && (
-              <div
-                className="rounded-full overflow-hidden z-[21] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]"
-                // onClick={() => setContactsModalState(true)}
-                onMouseEnter={() => setHoverModal(true)}
-                onMouseLeave={() => setHoverModal(false)}
-              >
-                {contactsComp?.company?.image ? (
-                  <Image
-                    src={contactsComp?.company?.image}
-                    alt="hr company photo"
-                    className="w-[20px] h-[20px] min-w-[20px] object-cover min-h-[20px] max-w-[20px] max-h-[20px]"
-                    width={20}
-                    height={20}
-                    quality={100}
-                    priority={true}
-                  />
-                ) : (
-                  <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
-                )}
+              onClick={() => setContactsModalState(true)}
+            >
+              <div className="items-center flex-row gap-[8px] flex w-fit">
+                <ContactsIcon />
+                {data.phoneVerified && data.phone
+                  ? "Контакты"
+                  : "Контакты отсутсвуют"}
               </div>
-            )}
-          </button>
-          <HrHoverModal setHoverModal={setHoverModal} hoverModal={hoverModal} />
-        </div>
+            </button>
+          </div>
+        ) : (
+          <div
+            className={`relative p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+          >
+            <button
+              className={`group text-center h-[28px] whitespace-nowrap items-center flex-row gap-[8px] flex 
+          font-medium justify-between w-full leading-[20px] text-[16px] tracking-[-0.015em]
+       cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
+              onClick={() => setModal4State(true)}
+            >
+              <div className="items-center flex-row gap-[8px] flex w-fit">
+                <ContactsIcon />
+                {contactsComp?.company?.contactsCount +
+                  getNoun4(contactsComp?.company?.contactsCount)}
+              </div>
+
+              {contactsComp !== null && (
+                <div
+                  className="rounded-full overflow-hidden z-[21] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]"
+                  // onClick={() => setContactsModalState(true)}
+                  onMouseEnter={() => setHoverModal(true)}
+                  onMouseLeave={() => setHoverModal(false)}
+                >
+                  {contactsComp?.company?.image ? (
+                    <Image
+                      src={contactsComp?.company?.image}
+                      alt="hr company photo"
+                      className="w-[20px] h-[20px] min-w-[20px] object-cover min-h-[20px] max-w-[20px] max-h-[20px]"
+                      width={20}
+                      height={20}
+                      quality={100}
+                      priority={true}
+                    />
+                  ) : (
+                    <EmptyMiniAva text={contactsComp?.company?.name[0]} />
+                  )}
+                </div>
+              )}
+            </button>
+            <HrHoverModal
+              setHoverModal={setHoverModal}
+              hoverModal={hoverModal}
+              contactsComp={contactsComp}
+              contactsCompState={(val) => {
+                storage.set("hrComps", val);
+                contactsCompState(val);
+              }}
+              compsList={data?.hrCompany}
+            />
+          </div>
+        )}
         {/* contacts */}
 
         {/* pitches + superpitches */}
@@ -571,6 +626,13 @@ const Left = ({
         setModalState={setModal3State}
       />
       {/* subscr modal */}
+
+      {/* hr by contacts */}
+      <HrContactsModal
+        modalState={modal4State}
+        setModalState={setModal4State}
+      />
+      {/* hr by contacts */}
     </>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import CustomLoader from "../shared/ui/CustomLoader";
+import CustomLoader from "../../shared/ui/CustomLoader";
 
 const Loading = () => {
   return (

@@ -74,7 +74,7 @@ model User {
   views          BigInt           @default(0)
   inSearch       Boolean          @default(false)
 
-  tokenForMail   String?          
+  tokenForMail String?
 
   chats                Chat[]
   messages             Message[]
@@ -111,16 +111,16 @@ model User {
   VacancyReply      VacancyReply[]
   File              File[]
 
-  planId String?
-  plan   Plan?   @relation(fields: [planId], references: [id])
+  planId   String?
+  plan     Plan?      @relation(fields: [planId], references: [id])
   SentCode SentCode[]
 }
 
 model SentCode {
-  id         String @id @default(cuid())
-  createdAt  DateTime @default(now())
-  userId     String
-  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Plan {
@@ -215,12 +215,14 @@ model Company {
   HR         Hr[]
   Following  Following[]
   Post       Post[]
+
+  contactsCount Int @default(3)
 }
 
 model Following {
-  id         String           @id @default(cuid())
-  userId       String
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String  @id @default(cuid())
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   companyId String
   Company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 }

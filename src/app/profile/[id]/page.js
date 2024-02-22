@@ -21,12 +21,13 @@ const OthersProfilePage = async ({ params: { id } }) => {
     userId: id,
   });
 
+  console.log(data, id, "hjhjhj");
+
   if (!data) {
     redirect("/not-found");
   }
 
   const ifChatExist = await chechIfChatExist(data.id);
-  console.log(ifChatExist, "ifChatExist");
   const isFirstTime = await firstTime();
 
   // console.log("profile", data, isFirstTime);

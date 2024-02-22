@@ -825,9 +825,9 @@ const CreateVacancyRight = ({
               </div>
               {/* prisceByTalk */}
             </Card>
-            <div
+            {/* <div
               className={`[@media(pointer:coarse)]:pb-[80px] [@media(hover)]:hidden`}
-            />
+            /> */}
           </>
         ) : (
           <div className="h-full w-full mt-[24px] flex items-center justify-center">

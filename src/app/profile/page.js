@@ -5,22 +5,13 @@ import { reactOnPost } from "../../server/actions/reactOnPost";
 import Profile from "../../components/Profile/Profile";
 import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 import { redirect } from "next/navigation";
+import CustomLoader from "../../shared/ui/CustomLoader";
 
 const ProfiePage = async ({ searchParams }) => {
   const session = await getServSession();
 
-  console.log(searchParams, "suka");
-
-  const data = await getProfile({
-    userId: session.user.id,
-  });
-
-  if (!data) {
-    return redirect("/not-found");
-  }
-
   return redirect(
-    `/profile/${data?.username}${
+    `/profile/${session?.user?.username}${
       searchParams?.contacts ? "?contacts=true" : ""
     }`
   );
@@ -49,16 +40,11 @@ const ProfiePage = async ({ searchParams }) => {
   // const pitchesFirst = await getPitchesCount();
   // const superPitchesFirst = await getPitchesCount("superpitch");
 
-  // return (
-  //   <Profile
-  //     data={data}
-  //     getUserFeed={getUserFeed}
-  //     addReaction={addReaction}
-  //     userId={session.user.id}
-  //     pitchesFirst={pitchesFirst}
-  //     superPitchesFirst={superPitchesFirst}
-  //   />
-  // );
+  return (
+    <div className="[@media(hover)]:absolute [@media(pointer:coarse)]:max-w-[500px] [@media(pointer:coarse)]:mx-auto top-[50%] z-[203] [@media(hover)]:mt-[-27px] [@media(pointer:coarse)]:my-auto [@media(hover)]:left-[calc(50%-24px)] [@media(pointer:coarse)]:w-full [@media(pointer:coarse)]:flex [@media(pointer:coarse)]:justify-center">
+      <CustomLoader />
+    </div>
+  );
 };
 
 export default ProfiePage;
