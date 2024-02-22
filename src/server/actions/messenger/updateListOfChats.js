@@ -83,6 +83,15 @@ export const updateListOfChats = async (
             unRead: true,
             userId: true,
             type: true,
+            vacancyReply: {
+              select: {
+                vacancy: {
+                  select: {
+                    Company: { select: { id: true, name: true, image: true } },
+                  },
+                },
+              },
+            },
           },
           orderBy: { createdAt: "desc" },
         },

@@ -31,9 +31,13 @@ import TextSecondary from "../../shared/Text/TextSecondary";
 import EmptyAvatar from "shared/ui/EmptyAvatar";
 import LittlePitchIcon from "../../shared/icons/LittlePitchIcon";
 import LittleSuperPitchIcon from "../../shared/icons/LittleSuperPitchIcon";
+import EmptyMiniAva from "shared/ui/EmptyMiniAva";
 
 const MessageCart = ({ item, onClick, active = false, last = false }) => {
   const pathname = usePathname();
+
+  const isReply = item?.messages?.find((i) => i.vacancyReply !== null);
+  console.log(isReply, "suck my cock");
 
   return (
     <>
@@ -149,7 +153,31 @@ const MessageCart = ({ item, onClick, active = false, last = false }) => {
           )}
         </div>
 
-        <div className={`ml-[8px] my-auto`}>
+        <div className={`ml-[8px] h-full flex items-center relative`}>
+          {isReply?.vacancyReply?.vacancy?.Company?.id && (
+            <div
+              className="rounded-full absolute top-[5px] right-0 overflow-hidden z-[21] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 aspect-square w-[12px] h-[12px] min-w-[12px] min-h-[12px] max-w-[12px] max-h-[12px]"
+              // onClick={() => setContactsModalState(true)}
+            >
+              {isReply?.vacancyReply?.vacancy?.Company?.image ? (
+                <Image
+                  src={isReply?.vacancyReply?.vacancy?.Company?.image}
+                  alt="hr company photo"
+                  className="w-[12px] h-[12px] min-w-[12px] object-cover min-h-[12px] max-w-[12px] max-h-[12px]"
+                  width={12}
+                  height={12}
+                  quality={100}
+                  priority={true}
+                />
+              ) : (
+                <EmptyMiniAva
+                  text={isReply?.vacancyReply?.vacancy?.Company?.name[0]}
+                  mini
+                />
+              )}
+            </div>
+          )}
+
           {item.chatIsUnread && item.myMessageIsLast ? (
             <ChatReadStatus fill={"#5875e8"} />
           ) : null}
