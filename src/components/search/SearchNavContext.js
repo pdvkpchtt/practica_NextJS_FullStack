@@ -9,7 +9,7 @@ const SearchNavContextWrap = ({ children }) => {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname === "/search") redirect("/search/vacancies");
+    if (pathname === "/search") return redirect("/search/vacancies");
   }, [pathname]);
 
   const [showFilters, setShowFilters] = useState(false);

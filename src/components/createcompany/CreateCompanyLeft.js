@@ -42,7 +42,7 @@ const CreateCompanyLeft = ({
   }
 
   return (
-    <div className="flex flex-col gap-[16px] [@media(pointer:coarse)]:gap-[12px]">
+    <div className="flex flex-col gap-[16px] [@media(pointer:coarse)]:gap-[12px] [@media(pointer:coarse)]:mt-[24px]">
       <Card
         style=" 
         [@media(hover)]:w-[260px] [@media(pointer:coarse)]:w-[100%] 

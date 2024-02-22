@@ -4,9 +4,8 @@ import { usePathname } from "next/navigation";
 import MessengerIcon from "shared/icons/MessengerIcon";
 
 import HomeIconBig from "../icons/HomeIconBig";
-import MessengerIconBig from "../icons/MessengerIconBig";
-import ProfileIconBig from "../icons/ProfileIconBig";
 import SearchIconBig from "../icons/SearchIconBig";
+import ProfileIcon from "../icons/ProfileIcon";
 
 const BottomNav = ({ role }) => {
   const pathname = usePathname();
@@ -36,7 +35,7 @@ const BottomNav = ({ role }) => {
               </div>
 
               <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
-                <ProfileIconBig role={role} />
+                <ProfileIcon role={role} big />
               </div>
             </div>
           </div>

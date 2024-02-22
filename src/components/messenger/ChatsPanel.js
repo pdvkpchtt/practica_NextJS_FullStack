@@ -241,7 +241,7 @@ const ChatsPanel = ({ chatId, user_id, profileData, setTimer, timer }) => {
             /> */}
               </div>
 
-              <div className="min-w-[40px] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 min-h-[40px] w-[40px] h-[40px] aspect-square rounded-full overflow-hidden ml-[16px]">
+              <div className="min-w-[40px] flex items-center justify-center bg-white dark:bg-[#212122] dark:bg-opacity-50 min-h-[40px] w-[40px] h-[40px] aspect-square rounded-full overflow-hidden ml-[16px]">
                 {profileData?.image ? (
                   <Image
                     src={profileData?.image}
@@ -582,7 +582,32 @@ const ChatsPanel = ({ chatId, user_id, profileData, setTimer, timer }) => {
             {dataStateMessages?.length > 0 &&
             dataStateMessages[0]?.type === "vacancyReply" &&
             dataStateMessages[0]?.vacancyReply !== null ? (
-              <HRsBottomButtons myMessage={dataStateMessages[0]?.myMessage} />
+              <HRsBottomButtons
+                myMessage={dataStateMessages[0]?.myMessage}
+                onLeftClick={async () => {
+                  await changeReplyStatus(
+                    currentVacReply?.vacancyReply?.id,
+                    "accepted"
+                  );
+                  await sendMessage(
+                    "Ура! Вам назначили собеседование, успех в ваших руках.\n\nСвяжитесь с рекрутером в удобном мессенджере. Успешного собеседования. 🤝",
+                    chatId,
+                    true
+                  );
+                }}
+                onRightClick={async () => {
+                  await changeReplyStatus(
+                    currentVacReply?.vacancyReply?.id,
+                    "declined",
+                    currentVacReply?.id
+                  );
+                  await sendMessage(
+                    "Благодарим за уделенное время и интерес к вакансии. К сожалению, пока что мы не готовы взять вас в нашу компанию.",
+                    chatId,
+                    true
+                  );
+                }}
+              />
             ) : (
               <>
                 <MessengerSearchInput
@@ -686,7 +711,7 @@ const HRsBottomButtons = ({
           onClick={onLeftClick}
         >
           <ConfirmReplyIcon />
-          <p className="text-[16px] text-[#5875e8] group-hover:text-[#3A56C5] group-active:text-[#2C429C] font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms]">
+          <p className="[@media(pointer:coarse)]:text-[14px] text-[16px] text-[#5875e8] group-hover:text-[#3A56C5] group-active:text-[#2C429C] font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms]">
             Назначить собес
           </p>
         </CardOpacity>
@@ -696,7 +721,7 @@ const HRsBottomButtons = ({
           onClick={onRightClick}
         >
           <DeclineReplyIcon />
-          <p className="text-[16px] text-[#F04646] group-hover:text-[#C92121] group-active:text-[#8a3838] font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms]">
+          <p className="[@media(pointer:coarse)]:text-[14px] text-[16px] text-[#F04646] group-hover:text-[#C92121] group-active:text-[#8a3838] font-medium leading-[20px] tracking-[-0.24px] transition duration-[250ms]">
             Не ваш вариант
           </p>
         </CardOpacity>

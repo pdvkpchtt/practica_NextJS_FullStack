@@ -100,7 +100,7 @@ const VacancyFilter = ({
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className={`min-w-[24px] min-h-[24px] h-[24px] w-[24px]`}
+          className={`min-w-[24px] min-h-[24px] h-[24px] w-[24px] cursor-pointer`}
           onClick={() =>
             setUpdateVacancies({
               ...updateVacancies,
