@@ -13,6 +13,7 @@ export const ButtonPrimary = ({
   onClick = () => {},
   children,
   withoutHover = false,
+  borderRadius = 16,
 }) => {
   const [loaderState, setLoaderState] = useState(false);
 
@@ -25,10 +26,11 @@ export const ButtonPrimary = ({
   return (
     <button
       type={type ? type : null}
-      className={`${style} font-medium outline-none [@media(pointer:coarse)]:rounded-[20px] rounded-[16px] h-[43px] leading-[20px] text-[16px] tracking-[-0.015em] text-center select-none text-white items-center flex justify-center transition duration-[250ms] bg-[#5875e8] ${
+      className={`${style} font-medium outline-none [@media(pointer:coarse)]:rounded-[20px] h-[43px] leading-[20px] text-[16px] tracking-[-0.015em] text-center select-none text-white items-center flex justify-center transition duration-[250ms] bg-[#5875e8] ${
         !withoutHover && `cursor-pointer hover:bg-[#3A56C5] active:bg-[#2C429C]`
       }`}
       onClick={() => clickHandler()}
+      style={{ borderRadius: borderRadius }}
     >
       {children ? <div className="mr-[8px]">{children}</div> : null}
       {!loaderState ? (
