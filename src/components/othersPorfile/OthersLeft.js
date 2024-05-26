@@ -372,8 +372,9 @@ transition-all duration-[250ms] ${
           !data?.role?.includes("hr") && ( // если я HR и он не HR
             <>
               {/* contacts */}
-              {data?.phone !== null &&
-                data?.phoneVerified !== null &&
+              {
+                // data?.phone !== null &&
+                //   data?.phoneVerified !== null &&
                 data?.inSearch === true && (
                   <div className="p-[12px] rounded-[20px] items-center flex flex-row justify-between max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]">
                     <ButtonGhost
@@ -387,7 +388,8 @@ transition-all duration-[250ms] ${
                       />
                     </ButtonGhost>
                   </div>
-                )}
+                )
+              }
               {/* contacts */}
             </>
           )}
@@ -692,6 +694,15 @@ transition-all duration-[250ms] ${
 
       {/* contactsModal */}
       <OthersContactsModal
+        circle={
+          data?.isFirstCircle?.length > 0
+            ? " • 1"
+            : data?.isSecondCircle?.find((i2) => i2 === true)
+            ? " • 2"
+            : data?.isThirdCircle?.length > 0
+            ? " • 3"
+            : " • 3+"
+        }
         name={data?.username}
         phone={data?.phone}
         modalState={contactsModalState}

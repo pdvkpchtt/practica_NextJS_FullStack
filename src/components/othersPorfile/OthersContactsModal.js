@@ -21,6 +21,7 @@ import CheckIcon from "shared/icons/CheckIcon";
 import CustomLoader from "shared/ui/CustomLoader";
 
 const OthersContactsModal = ({
+  circle,
   modalState = false,
   setModalState = () => {},
   phone,
@@ -30,19 +31,25 @@ const OthersContactsModal = ({
 
   const [plan, setPlan] = useState(null);
 
-  const getPlan = async () => {
-    const data = await getPlanInfo();
-    console.log("client plan :)", data);
-    setPlan(data);
-  };
+  // const getPlan = async () => {
+  //   const data = await getPlanInfo();
+  //   console.log("client plan :)", data);
+  //   setPlan(data);
+  // };
 
-  useEffect(() => {
-    getPlan();
-  }, [modalState]);
+  // useEffect(() => {
+  //   getPlan();
+  // }, [modalState]);
+
+  console.log(phone);
 
   return (
     <>
-      <Modal isOpen={modalState} handleClose={() => setModalState(false)}>
+      <Modal
+        width={498}
+        isOpen={modalState}
+        handleClose={() => setModalState(false)}
+      >
         {/* header */}
         <div className="flex flex-row justify-end pb-[12px] relative">
           <Cross2 onClick={() => setModalState(false)} />
@@ -52,39 +59,27 @@ const OthersContactsModal = ({
 
         {/* body */}
         <div className="h-fit mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] px-[12px] mb-[-12px] pb-[12px]">
-          {plan === null ? (
-            <div className="w-full h-[578px] flex items-center justify-center">
-              <CustomLoader diameter={36} />
+          {phone === null || phone === "" ? (
+            <div className="w-full h-[250px] flex items-center justify-center">
+              <TextMain text="Пользователь не указал контакные данные" />
             </div>
-          ) : (
+          ) : circle?.includes("1") ? (
             <>
               <TextMain
                 text={"Контакт @" + name}
                 style="text-[20px] font-medium leading-[22px] mb-[16px] tracking-[-0.4px] text-[#2c2c2c] dark:text-white"
               />
               <TextMain
-                text="+7 (9**) *** ** **"
+                text={phone}
                 style={
                   "text-[16px] font-normal w-full leading-[19px] mb-[8px] tracking-[-0.24px]"
                 }
               />
-              <p className="text-[16px] font-normal mb-[24px] leading-[19px] tracking-[-0.24px] text-[#2c2c2c] dark:text-white flex flex-row">
-                <TextSecondary
-                  text={"Доступно контактов"}
-                  style="text-[16px] font-normal mb-[24px] leading-[19px] tracking-[-0.24px] "
-                />
-                &nbsp;{plan.contacts}
-              </p>
-
-              <div
-                onClick={() => {
-                  if (plan.contacts === 0) router.push("/subscriptions");
-                }}
-                className="bg-[#5875e8] hover:bg-[#3A56C5] cursor-pointer w-[192px] select-none rounded-[16px] active:bg-[#2C429C] py-[12px] font-medium leading-[19px] tracking-[-0.24px] text-[16px] text-center flex items-center text-white transition duration-[250ms] justify-center"
-              >
-                {plan.contacts === 0 ? "К подпискам" : "Открыть контакт"}
-              </div>
             </>
+          ) : (
+            <div className="w-full h-[250px] flex items-center justify-center">
+              <TextMain text="Пользователь не 1 круг" />
+            </div>
           )}
         </div>
         {/* body */}

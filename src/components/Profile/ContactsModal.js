@@ -58,24 +58,31 @@ const ContactsModal = ({
   };
 
   const handleSubmit = async () => {
-    if (phoneInput.length !== 0 && codeInput.length !== 0) {
-      if (codeInput === verCode) {
-        setLoading(true);
-        await addContacts(phoneInput);
-        setModalState();
-        setCodeInput("");
-        setIsEdit(false);
-        setLoading(false);
-        router.push("/profile");
-      } else {
-        setErrorVerCode(true);
-      }
+    if (
+      phoneInput.length !== 0
+      // && codeInput.length !== 0
+    ) {
+      // if (codeInput === verCode) {
+      setLoading(true);
+      await addContacts(phoneInput);
+      setModalState();
+      setCodeInput("");
+      setIsEdit(false);
+      setLoading(false);
+      router.push("/profile");
+      // } else {
+      //   setErrorVerCode(true);
+      // }
     }
   };
 
   return (
     <>
-      <Modal isOpen={modalState} handleClose={() => setModalState(false)}>
+      <Modal
+        width={498}
+        isOpen={modalState}
+        handleClose={() => setModalState(false)}
+      >
         {/* header */}
         <div className="flex flex-row justify-end [@media(pointer:coarse)]:hidden pb-[24px] relative h-[180px]">
           <Cross2 onClick={() => setModalState(false)} />
@@ -186,7 +193,8 @@ const ContactsModal = ({
                       onClick={
                         phoneInput.length !== 18 || phone === phoneInput
                           ? null
-                          : () => sendVerCode()
+                          : // : () => sendVerCode()
+                            () => handleSubmit()
                       }
                       className={`${
                         phoneInput.length !== 18 || phone === phoneInput
@@ -194,12 +202,12 @@ const ContactsModal = ({
                           : "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
                       } transition duration-[250ms] absolute right-[12px] top-[12px] text-[14px] leading-[18px] select-none tracking-[-0.21px] font-normal`}
                     >
-                      Отправить
+                      {/* Отправить */} Сохранить
                     </p>
                   </div>
                 </div>
 
-                <div className="flex flex-row gap-[17px] w-full">
+                {/* <div className="flex flex-row gap-[17px] w-full">
                   <Input
                     type="number"
                     placeholder="Введите код"
@@ -237,7 +245,7 @@ const ContactsModal = ({
                       <CheckIcon fill="#fff" />
                     )}
                   </div>
-                </div>
+                </div> */}
               </div>
             </>
           )}
@@ -352,7 +360,8 @@ const ContactsModal = ({
                       onClick={
                         phoneInput.length !== 18 || phone === phoneInput
                           ? null
-                          : () => sendVerCode()
+                          : // : () => sendVerCode()
+                            () => handleSubmit()
                       }
                       className={`${
                         phoneInput.length !== 18 || phone === phoneInput
@@ -360,12 +369,12 @@ const ContactsModal = ({
                           : "text-[#5875e8] hover:text-[#3A56C5] active:text-[#2C429C] cursor-pointer"
                       } transition duration-[250ms] absolute right-[12px] top-[12px] text-[14px] leading-[18px] select-none tracking-[-0.21px] font-normal`}
                     >
-                      Отправить
+                      {/* Отправить */} Сохранить
                     </p>
                   </div>
                 </div>
 
-                <div className="flex flex-row gap-[17px] w-full">
+                {/* <div className="flex flex-row gap-[17px] w-full">
                   <Input
                     type="number"
                     placeholder="Введите код"
@@ -401,7 +410,7 @@ const ContactsModal = ({
                       <CheckIcon fill="#fff" />
                     )}
                   </div>
-                </div>
+                </div> */}
               </div>
             </>
           )}

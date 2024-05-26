@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 
 const Modal = ({
+  width = 630,
   isOpen = false,
   handleClose = () => {},
   children,
@@ -49,14 +50,14 @@ const Modal = ({
             onClick={handleClose}
           ></motion.div>
           <motion.div
-            className={`w-[630px] [@media(pointer:coarse)]:hidden [@media(pointer:coarse)]:h-[0px] [@media(pointer:coarse)]:w-[0px] [@media(pointer:coarse)]:p-[0px] h-fit [@media(hover)]:fixed dark:bg-[#141414] bg-[#fff] z-[200] bottom-0 left-[50%] ${
+            className={`[@media(pointer:coarse)]:hidden [@media(pointer:coarse)]:h-[0px] [@media(pointer:coarse)]:w-[0px] [@media(pointer:coarse)]:p-[0px] h-fit [@media(hover)]:fixed dark:bg-[#141414] bg-[#fff] z-[200] bottom-0 left-[50%] ${
               withScroll ? "px-[12px] pt-[12px]" : "p-[12px]"
             } rounded-[20px]`}
             initial={"initial"}
             animate={"isOpen"}
             exit={"exit"}
             variants={containerVariant}
-            style={{ transform: translate }}
+            style={{ transform: translate, width: width }}
           >
             {children}
           </motion.div>

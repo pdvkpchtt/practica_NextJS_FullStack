@@ -342,9 +342,7 @@ const Left = ({
         </Card>
 
         <CardOpacity
-          styled={`w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer ${
-            data.role.includes("hr") && "mb-[8px]"
-          }`}
+          styled={`w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer `}
           rounded={20}
           onClick={() => setModal2State(true)}
         >
@@ -362,25 +360,19 @@ const Left = ({
               )}
         </CardOpacity>
 
-        {/* <CardOpacity
-          styled="w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer"
-          rounded={20}
-          onClick={() => setModal2State(true)}
-        >
-          <BellIcon />
-
-          <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
-            Обновления
-          </p>
-        </CardOpacity> */}
-
         {/* hr */}
         {data.role.includes("hr") && (
-          <>
+          <Card rounded={20} padding={10} style={"flex flex-col gap-[8px]"}>
+            <TextMain
+              text="Мои компании"
+              style={
+                "text-[18px] font-medium leading-[22px] mb-[2px] tracking-[-0.45px] flex-1"
+              }
+            />
             {data?.hrCompany?.map((i, key) => (
               <CardOpacity
-                styled="w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer"
-                rounded={20}
+                styled="w-full h-[44px] gap-[8px] justify-start items-center cursor-pointer"
+                rounded={16}
                 onClick={() =>
                   router.push(`/companyprofile/${i?.company?.username}`)
                 }
@@ -400,28 +392,26 @@ const Left = ({
                     <EmptyMiniAva text={i?.company?.name[0]} />
                   )}
                 </div>
-                <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
+                <p className="font-medium leading-[20px] text-[16px] tracking-[-1,5%] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
                   {i?.company?.name}
                 </p>
               </CardOpacity>
             ))}
-          </>
-        )}
-        {data.role.includes("hr") && (
-          <CardOpacity
-            styled="w-full h-[52px] gap-[8px] mb-[8px] justify-start items-center cursor-pointer"
-            rounded={20}
-            onClick={() => router.push(`/profile/createcompany`)}
-          >
-            <OtherPlusIcon />
-            <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
-              Добавить организацию
-            </p>
-          </CardOpacity>
+            <CardOpacity
+              styled="w-full h-[44px] gap-[8px] justify-start items-center cursor-pointer"
+              rounded={16}
+              onClick={() => router.push(`/profile/createcompany`)}
+            >
+              <OtherPlusIcon />
+              <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
+                Добавить организацию
+              </p>
+            </CardOpacity>
+          </Card>
         )}
         {/* hr */}
 
-        {/* contacts */}
+        {/* contacts  -  НЕ УДАЛЯТЬ!!!!! */}
         {!data?.role?.includes("hr") ? (
           <div
             className={`relative p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
@@ -441,55 +431,57 @@ const Left = ({
             </button>
           </div>
         ) : (
-          <div
-            className={`relative p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
-          >
-            <button
-              className={`group text-center h-[28px] whitespace-nowrap items-center flex-row gap-[8px] flex 
-          font-medium justify-between w-full leading-[20px] text-[16px] tracking-[-0.015em]
-       cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
-              onClick={() => setModal4State(true)}
-            >
-              <div className="items-center flex-row gap-[8px] flex w-fit">
-                <ContactsIcon />
-                {contactsComp?.company?.contactsCount +
-                  getNoun4(contactsComp?.company?.contactsCount)}
-              </div>
+          <>
+            {/* //     <div
+      //       className={`relative p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+      //     >
+      //       <button
+      //         className={`group text-center h-[28px] whitespace-nowrap items-center flex-row gap-[8px] flex 
+      //     font-medium justify-between w-full leading-[20px] text-[16px] tracking-[-0.015em]
+      //  cursor-pointer select-none transition duration-[250ms] text-[#2с2с2с] dark:text-[#fff]`}
+      //         onClick={() => setModal4State(true)}
+      //       >
+      //         <div className="items-center flex-row gap-[8px] flex w-fit">
+      //           <ContactsIcon />
+      //           {contactsComp?.company?.contactsCount +
+      //             getNoun4(contactsComp?.company?.contactsCount)}
+      //         </div>
 
-              {contactsComp !== null && (
-                <div
-                  className="rounded-full overflow-hidden z-[21] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]"
-                  // onClick={() => setContactsModalState(true)}
-                  onMouseEnter={() => setHoverModal(true)}
-                  onMouseLeave={() => setHoverModal(false)}
-                >
-                  {contactsComp?.company?.image ? (
-                    <Image
-                      src={contactsComp?.company?.image}
-                      alt="hr company photo"
-                      className="w-[20px] h-[20px] min-w-[20px] object-cover min-h-[20px] max-w-[20px] max-h-[20px]"
-                      width={20}
-                      height={20}
-                      quality={100}
-                      priority={true}
-                    />
-                  ) : (
-                    <EmptyMiniAva text={contactsComp?.company?.name[0]} />
-                  )}
-                </div>
-              )}
-            </button>
-            <HrHoverModal
-              setHoverModal={setHoverModal}
-              hoverModal={hoverModal}
-              contactsComp={contactsComp}
-              contactsCompState={(val) => {
-                storage.set("hrComps", val);
-                contactsCompState(val);
-              }}
-              compsList={data?.hrCompany}
-            />
-          </div>
+      //         {contactsComp !== null && (
+      //           <div
+      //             className="rounded-full overflow-hidden z-[21] bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]"
+      //             // onClick={() => setContactsModalState(true)}
+      //             onMouseEnter={() => setHoverModal(true)}
+      //             onMouseLeave={() => setHoverModal(false)}
+      //           >
+      //             {contactsComp?.company?.image ? (
+      //               <Image
+      //                 src={contactsComp?.company?.image}
+      //                 alt="hr company photo"
+      //                 className="w-[20px] h-[20px] min-w-[20px] object-cover min-h-[20px] max-w-[20px] max-h-[20px]"
+      //                 width={20}
+      //                 height={20}
+      //                 quality={100}
+      //                 priority={true}
+      //               />
+      //             ) : (
+      //               <EmptyMiniAva text={contactsComp?.company?.name[0]} />
+      //             )}
+      //           </div>
+      //         )}
+      //       </button>
+      //       <HrHoverModal
+      //         setHoverModal={setHoverModal}
+      //         hoverModal={hoverModal}
+      //         contactsComp={contactsComp}
+      //         contactsCompState={(val) => {
+      //           storage.set("hrComps", val);
+      //           contactsCompState(val);
+      //         }}
+      //         compsList={data?.hrCompany}
+      //       />
+      //     </div> */}
+          </>
         )}
         {/* contacts */}
 
