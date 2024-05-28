@@ -1,11 +1,19 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { getServSession } from "../app/api/auth/[...nextauth]/route";
+import { finishRegistration } from "server/actions/finishRegistration";
 
 const AuthLayout = async ({ children }) => {
   const session = await getServSession();
   const headersList = headers();
   const fullUrl = headersList.get("x-invoke-path") || "";
+
+  const urlForParams = headersList?.get("referer") || "http://testhr/";
+  console.log(urlForParams, "asasasassasawwww");
+  const { searchParams } = new URL(urlForParams);
+  const company = searchParams.get("company");
+  const hrtoken = searchParams.get("hrtoken");
+  console.log(company, hrtoken, "fa2ag");
 
   console.log(!["/auth/verify", "/auth"].includes(fullUrl));
 
@@ -22,7 +30,11 @@ const AuthLayout = async ({ children }) => {
     !session?.user?.role &&
     !["/auth/verify", "/auth", "/auth/role", "/landing"].includes(fullUrl)
   ) {
-    return redirect("/auth/role");
+    if (company === null) return redirect("/auth/role");
+    else {
+      await finishRegistration("new_hr", company);
+      return redirect("profile");
+    }
   }
 
   // if (

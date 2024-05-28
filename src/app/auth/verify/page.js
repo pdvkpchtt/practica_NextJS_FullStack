@@ -11,6 +11,9 @@ const VerifyPage = () => {
   const searchParams = useSearchParams();
 
   const email = searchParams.get("email");
+  const hrtoken = searchParams.get("hrtoken");
+  const company = searchParams.get("company");
+
   const router = useRouter();
   const [code, setCode] = useState("");
   const [error, setError] = useState(false);
@@ -62,11 +65,16 @@ const VerifyPage = () => {
             text="Присоединиться к комьюнити"
             style="mt-[24px] w-full"
             onClick={() => {
-              if (code.length > 0)
-                window.location.href = `/api/auth/callback/email?email=${encodeURIComponent(
-                  email?.toLowerCase()
-                )}&token=${code}`;
-              else setError(true);
+              if (code.length > 0) {
+                if (!company || !hrtoken)
+                  window.location.href = `/api/auth/callback/email?email=${encodeURIComponent(
+                    email?.toLowerCase()
+                  )}&token=${code}`;
+                else
+                  window.location.href = `/api/auth/callback/email?email=${encodeURIComponent(
+                    email?.toLowerCase()
+                  )}&token=${code}&hrtoken=${hrtoken}&company=${company}`;
+              } else setError(true);
             }}
           />
           <div

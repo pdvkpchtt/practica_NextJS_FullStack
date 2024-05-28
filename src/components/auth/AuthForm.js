@@ -10,7 +10,7 @@ import Card from "../../shared/ui/Card";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import Link from "next/link";
 
-const AuthForm = () => {
+const AuthForm = ({ company, hrtoken }) => {
   const router = useRouter();
   const [error, setError] = useState(false);
 
@@ -37,9 +37,20 @@ const AuthForm = () => {
               callbackUrl: "/",
               email: e.get("email")?.toString()?.toLowerCase(),
             });
-            router.push(
-              "/auth/verify?email=" + e.get("email")?.toString()?.toLowerCase()
-            );
+            if (!company || !hrtoken)
+              router.push(
+                "/auth/verify?email=" +
+                  e.get("email")?.toString()?.toLowerCase()
+              );
+            else
+              router.push(
+                "/auth/verify?email=" +
+                  e.get("email")?.toString()?.toLowerCase() +
+                  "&company=" +
+                  company +
+                  "&hrtoken" +
+                  hrtoken
+              );
           } else setError(true);
         }}
       >
