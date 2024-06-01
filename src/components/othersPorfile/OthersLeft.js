@@ -34,6 +34,8 @@ import SubscrModal from "../../components/Profile/SubscrModal";
 import { getPitchesCount } from "../../server/actions/pitches/getPitchesCount";
 import { getOtherProfileWithTimer } from "../../server/actions/profileTimer/getOtherProfileWithTimer";
 import NoPitchesModal from "../../components/messenger/NoPitchesModal";
+import CardOpacity from "../../shared/ui/CardOpacity";
+import EmptyMiniAva from "../../shared/ui/EmptyMiniAva";
 
 import AddFriendIcon from "../../shared/icons/AddFriendIcon";
 import ClockIcon from "../../shared/icons/ClockIcon";
@@ -46,7 +48,6 @@ import ContactsIcon from "../../shared/icons/ContactsIcon";
 import PitchesModalOthers from "./PitchesModalOthers";
 import Helper from "../../shared/ui/Helper";
 import CopyIcon from "../../shared/icons/CopyIcon";
-import CardOpacity from "../../shared/ui/CardOpacity";
 
 const OthersLeft = ({
   navState,
@@ -333,20 +334,25 @@ transition-all duration-[250ms] ${
         </Card>
 
         {/* hr */}
+
         {data.role.includes("hr") && (
-          <>
+          <Card rounded={20} padding={10} style={"flex flex-col gap-[8px]"}>
+            <TextMain
+              text={`Компании`}
+              style={
+                "text-[18px] font-medium leading-[22px] mb-[2px] tracking-[-0.45px] flex-1"
+              }
+            />
             {data?.hrCompany?.map((i, key) => (
               <CardOpacity
-                styled={`w-full h-[52px] gap-[8px] justify-start items-center cursor-pointer ${
-                  key === data?.hrCompany?.length - 1 && "mb-[8px]"
-                }`}
-                rounded={20}
+                styled="w-full h-[44px] gap-[8px] justify-start items-center cursor-pointer"
+                rounded={16}
                 onClick={() =>
                   router.push(`/companyprofile/${i?.company?.username}`)
                 }
               >
                 <div className="rounded-full bg-[#f6f6f8] dark:bg-[#141414] dark:bg-opacity-50 overflow-hidden aspect-square w-[20px] h-[20px] min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
-                  {i.image ? (
+                  {i?.company?.image ? (
                     <Image
                       src={i?.company?.image}
                       alt="hr company photo"
@@ -357,15 +363,15 @@ transition-all duration-[250ms] ${
                       priority={true}
                     />
                   ) : (
-                    <div className="rounded-full h-[20px] w-[20px] bg-[#f6f6f8] dark:bg-[#141414]" />
+                    <EmptyMiniAva text={i?.company?.name[0]} />
                   )}
                 </div>
-                <p className="font-medium leading-[20px] text-[16px] tracking-[-0.015em] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
+                <p className="font-medium leading-[20px] text-[16px] tracking-[-1,5%] text-[#5875e8] select-none cursor-pointer group-hover:text-[#3A56C5] group-active:text-[#2C429C] transition duration-[250ms]">
                   {i?.company?.name}
                 </p>
               </CardOpacity>
             ))}
-          </>
+          </Card>
         )}
         {/* hr */}
         {role?.includes("hr") &&

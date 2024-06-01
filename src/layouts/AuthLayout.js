@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { getServSession } from "../app/api/auth/[...nextauth]/route";
-import { finishRegistration } from "server/actions/finishRegistration";
+import { finishRegistration } from "../server/actions/finishRegistration";
+import { checkInvite } from "../server/actions/hr/checkInvite";
 
 const AuthLayout = async ({ children }) => {
   const session = await getServSession();
@@ -9,13 +10,12 @@ const AuthLayout = async ({ children }) => {
   const fullUrl = headersList.get("x-invoke-path") || "";
 
   const urlForParams = headersList?.get("referer") || "http://testhr/";
-  console.log(urlForParams, "asasasassasawwww");
   const { searchParams } = new URL(urlForParams);
-  const company = searchParams.get("company");
-  const hrtoken = searchParams.get("hrtoken");
-  console.log(company, hrtoken, "fa2ag");
+  const paramsEmail = searchParams.get("email");
+  const paramsToken = searchParams.get("hrtoken");
+  console.log(urlForParams, paramsEmail, paramsToken, "asasasassasawwww");
 
-  console.log(!["/auth/verify", "/auth"].includes(fullUrl));
+  if (paramsEmail) console.log(!["/auth/verify", "/auth"].includes(fullUrl));
 
   if (!session?.user?.id && fullUrl === "/") {
     return redirect("/landing");
@@ -30,9 +30,12 @@ const AuthLayout = async ({ children }) => {
     !session?.user?.role &&
     !["/auth/verify", "/auth", "/auth/role", "/landing"].includes(fullUrl)
   ) {
-    if (company === null) return redirect("/auth/role");
+    if (!paramsEmail || !paramsToken) return redirect("/auth/role");
     else {
-      await finishRegistration("new_hr", company);
+      const res = await checkInvite(paramsToken, paramsEmail);
+      if (res.status === false) return redirect("/auth/role");
+
+      await finishRegistration("new_hr", res.company);
       return redirect("profile");
     }
   }

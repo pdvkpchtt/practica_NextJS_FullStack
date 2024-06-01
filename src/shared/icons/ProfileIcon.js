@@ -16,6 +16,8 @@ const ProfileIcon = ({ big = false, role }) => {
   const contactsComp = useStore((state) => state.contactsComp);
   const contactsCompState = useStore((state) => state.contactsCompState);
 
+  console.log(contactsComp, contactsCompState, "asas");
+
   const [loading, setLoading] = useState(true);
 
   const getHrComp = async () => {

@@ -19,12 +19,6 @@ export const invite = async (email, compId, compName) => {
       compName={compName}
     />
   );
-  const new_hr_emailHtml = render(
-    <Email
-      url={`${process.env.NEXTAUTH_URL}/auth?hrtoken=${token}&company=${compId}`}
-      compName={compName}
-    />
-  );
 
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_SERVER_HOST,
@@ -55,18 +49,37 @@ export const invite = async (email, compId, compName) => {
 
   // если пользователь не зареган
   if (!invitedUser[0]?.id) {
+    const data = await prisma.Invite.create({
+      data: {
+        company: {
+          connect: {
+            id: compId,
+          },
+        },
+        email: email,
+      },
+      select: { id: true },
+    });
+
+    const new_hr_emailHtml = render(
+      <Email
+        url={`${process.env.NEXTAUTH_URL}/auth?email=${email}&hrtoken=${data.id}`}
+        compName={compName}
+      />
+    );
+
     const new_hr_mailOptions = {
       from: process.env.EMAIL_FROM,
       to: email,
       subject: "Приглашение",
       html: new_hr_emailHtml,
     };
-    console.log(email);
     await transporter.sendMail(new_hr_mailOptions);
 
     return "good";
   }
   // если пользователь не зареган
+
   if (invitedUser[0]?.id === session?.user?.id)
     return { status: "error", message: "userMe" };
 

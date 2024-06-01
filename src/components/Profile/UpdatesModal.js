@@ -52,7 +52,7 @@ const UpdatesModal = ({ modalState = false, setModalState = () => {} }) => {
         handleClose={() => setModalState(false)}
       >
         {/* header */}
-        <div className="flex flex-row justify-end pb-[12px] relative">
+        <div className="flex [@media(pointer:coarse)]:hidden flex-row justify-end pb-[12px] relative">
           <Cross2 onClick={() => setModalState(false)} />
 
           <div className="h-[0.5px] w-[calc(100%+24px)] bg-[#e7e7e7] dark:bg-[#2f2f2f] absolute top-[30px] left-[-12px]" />
@@ -60,7 +60,7 @@ const UpdatesModal = ({ modalState = false, setModalState = () => {} }) => {
         {/* header */}
 
         {/* body */}
-        <div className="h-[371px] mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] mx-[-12px] px-[12px] mb-[-12px] pb-[12px] gap-[12px]">
+        <div className="h-[371px] [@media(pointer:coarse)]:hidden mt-[12px] flex flex-col overflow-y-auto rounded-b-[20px] mx-[-12px] px-[12px] mb-[-12px] pb-[12px] gap-[12px]">
           <>
             {!users ? (
               <div className="w-full flex justify-center items-center h-full">

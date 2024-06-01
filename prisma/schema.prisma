@@ -215,8 +215,16 @@ model Company {
   HR         Hr[]
   Following  Following[]
   Post       Post[]
+  Invite     Invite[]
 
   contactsCount Int @default(3)
+}
+
+model Invite {
+  id        String  @id @default(cuid())
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  email     String
 }
 
 model Following {
