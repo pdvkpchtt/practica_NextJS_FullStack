@@ -114,6 +114,18 @@ model User {
   planId   String?
   plan     Plan?      @relation(fields: [planId], references: [id])
   SentCode SentCode[]
+
+  invited              ReferCredit?     @relation("invited_user")
+  owner_of_link        ReferCredit[]    @relation("owner_of_link_user")
+}
+
+model ReferCredit {
+  id                              String         @id @default(cuid())
+  owner_of_link_id                String        
+  invited_id                      String        @unique
+  invited                         User          @relation("invited_user", fields: [invited_id], references: [id])
+  owner_of_link                   User          @relation("owner_of_link_user", fields: [owner_of_link_id], references: [id])
+  type                            String
 }
 
 model SentCode {
@@ -132,6 +144,13 @@ model Plan {
   durationDays      Int    @default(0)
   price             Int    @default(0)
   User              User[]
+}
+
+model ReferalPlan {
+  id                String @id @default(cuid())
+  name              String
+  pitchesCount      Int
+  superPitchesCount Int
 }
 
 model VacancyReply {

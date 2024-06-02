@@ -225,3 +225,10 @@ input[type="number"] {
 .spaceforletter {
   letter-spacing: 24px;
 }
+
+.clampLine {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
