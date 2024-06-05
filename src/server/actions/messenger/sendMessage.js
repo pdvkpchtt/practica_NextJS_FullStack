@@ -17,6 +17,14 @@ const sendMessage = async (input, chatId, emptyType = false) => {
   var d2 = new Date();
   d2.setDate(d2.getDate() - 6);
 
+  const userBonuses = await prisma.user.findUnique({
+    where: { id: session?.user?.id },
+    select: {
+      bonusPitch: true,
+      bonusSuperPitch: true,
+    },
+  });
+
   const check = await prisma.message.findFirst({
     where: {
       AND: [
@@ -39,14 +47,29 @@ const sendMessage = async (input, chatId, emptyType = false) => {
     select: { id: true, type: true },
   });
 
-  const count = await getPitchesCount(circle.circle);
+  const count = await getPitchesCount(circle.circle, false);
   if (
     count < 1 &&
     !check?.id &&
     !checkVacReply?.id &&
     circle?.status !== "1-ый"
-  )
-    return { status: "error", type: circle.circle };
+  ) {
+    if (circle.circle === "pitch" && userBonuses.bonusPitch < 1)
+      return { status: "error", type: circle.circle };
+    else if (circle.circle === "superpitch" && userBonuses.bonusSuperPitch < 1)
+      return { status: "error", type: circle.circle };
+    else if (circle.circle === "pitch" && userBonuses.bonusPitch >= 1)
+      await prisma.user.update({
+        where: { id: session?.user?.id },
+        data: { bonusPitch: { increment: -1 } },
+      });
+    else if (circle.circle === "superpitch" && userBonuses.bonusSuperPitch >= 1)
+      await prisma.user.update({
+        where: { id: session?.user?.id },
+        data: { bonusSuperPitch: { increment: -1 } },
+      });
+    else return { status: "error", type: circle.circle };
+  }
 
   if (check?.id || checkVacReply?.id) {
     // :)

@@ -504,7 +504,7 @@ const ChatsPanel = ({ chatId, user_id, profileData, setTimer, timer }) => {
                       setWait(true);
                       setInput("");
                       const chatId = await createChat(user_id, input);
-                      console.log(chatId?.status);
+                      console.log(chatId?.status, chatId, "asseewewewaeaw");
                       if (chatId?.status === "error") {
                         setNoModal(true);
                         setWait(false);

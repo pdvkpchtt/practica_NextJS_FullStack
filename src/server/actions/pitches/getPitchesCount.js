@@ -7,7 +7,7 @@ import { getServSession } from "../../../app/api/auth/[...nextauth]/route";
 // лучше не передавать план в функцию, а тянуть его из юзера по session.user.id
 // надо хранить план юзера в юзере
 
-export const getPitchesCount = async (type = "pitch") => {
+export const getPitchesCount = async (type = "pitch", withBonuses = true) => {
   const session = await getServSession();
 
   const user = await prisma.user.findUnique({
@@ -46,14 +46,14 @@ export const getPitchesCount = async (type = "pitch") => {
   });
 
   if (type === "pitch")
-    return (
-      pitchesByPlan[0].pitchesCount - todayMessages.length + user.bonusPitch
-    );
+    return pitchesByPlan[0].pitchesCount - todayMessages.length + withBonuses
+      ? user.bonusPitch
+      : 0;
   else if (type === "superpitch")
-    return (
-      pitchesByPlan[0].superPitchesCount -
+    return pitchesByPlan[0].superPitchesCount -
       todayMessages.length +
-      user.bonusSuperPitch
-    );
+      withBonuses
+      ? user.bonusSuperPitch
+      : 0;
   else return -100;
 };
