@@ -11,6 +11,8 @@ const VerifyPage = () => {
   const searchParams = useSearchParams();
 
   const email = searchParams.get("email");
+  const referal = searchParams.get("referal");
+  const type = searchParams.get("type");
 
   const router = useRouter();
   const [code, setCode] = useState("");
@@ -64,6 +66,9 @@ const VerifyPage = () => {
             style="mt-[24px] w-full"
             onClick={() => {
               if (code.length > 0) {
+                if (!!referal) {
+                }
+
                 window.location.href = `/api/auth/callback/email?email=${encodeURIComponent(
                   email?.toLowerCase()
                 )}&token=${code}`;
@@ -71,7 +76,7 @@ const VerifyPage = () => {
             }}
           />
           <div
-            onClick={() => router.push("/auth")}
+            onClick={() => router.back()}
             className="dark:bg-[#8f8f8f] bg-[#acacac] w-full mt-[10px] text-[#fff] text-[16px] leading-[19px] select-none font-medium tracking-[-0.24px] flex items-center justify-center p-[12px] rounded-[16px] cursor-pointer"
           >
             Назад

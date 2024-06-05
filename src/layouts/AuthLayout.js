@@ -13,6 +13,8 @@ const AuthLayout = async ({ children }) => {
   const { searchParams } = new URL(urlForParams);
   const paramsEmail = searchParams.get("email");
   const paramsToken = searchParams.get("hrtoken");
+  const referal = searchParams.get("referal");
+  const type = searchParams.get("type");
   console.log(urlForParams, paramsEmail, paramsToken, "asasasassasawwww");
 
   if (paramsEmail) console.log(!["/auth/verify", "/auth"].includes(fullUrl));
@@ -30,8 +32,12 @@ const AuthLayout = async ({ children }) => {
     !session?.user?.role &&
     !["/auth/verify", "/auth", "/auth/role", "/landing"].includes(fullUrl)
   ) {
-    if (!paramsEmail || !paramsToken) return redirect("/auth/role");
-    else {
+    // если чел не инвайтнут в компанию как HR
+    if (!paramsEmail || !paramsToken) {
+      if (!referal) return redirect("/auth/role");
+      else return redirect(`/auth/role?referal=${referal}&type=${type}`);
+    } else {
+      // смотрим, реально ли есть инвайт для этого чела
       const res = await checkInvite(paramsToken, paramsEmail);
       if (res.status === false) return redirect("/auth/role");
 

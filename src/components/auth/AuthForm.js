@@ -11,7 +11,7 @@ import TextSecondary from "../../shared/Text/TextSecondary";
 import Link from "next/link";
 import { checkInvite } from "../../server/actions/hr/checkInvite";
 
-const AuthForm = ({ email, hrtoken }) => {
+const AuthForm = ({ email, hrtoken, referal, type }) => {
   const router = useRouter();
   const [error, setError] = useState(false);
   const [error2, setError2] = useState(false);
@@ -57,6 +57,23 @@ const AuthForm = ({ email, hrtoken }) => {
                   e.get("email")?.toString()?.toLowerCase() +
                   "&hrtoken=" +
                   hrtoken
+              );
+              return;
+            }
+            if (!!referal) {
+              console.log("whatthefuck");
+              signIn("email", {
+                redirect: false,
+                callbackUrl: "/",
+                email: e.get("email")?.toString()?.toLowerCase(),
+              });
+              router.push(
+                "/auth/verify?email=" +
+                  e.get("email")?.toString()?.toLowerCase() +
+                  "&referal=" +
+                  referal +
+                  "&type=" +
+                  type
               );
               return;
             }

@@ -120,7 +120,7 @@ const Referal = ({ data, link, id }) => {
               </Card>
 
               <TextSecondary
-                text={`${link}/auth?referal=${id}?type=${
+                text={`${link}/auth?referal=${id}&type=${
                   i.name.includes("Starter") ? "starter" : "advanced"
                 }`}
                 style={
@@ -143,7 +143,7 @@ const Referal = ({ data, link, id }) => {
                     containerId: "forCopy",
                   });
                   clipboard.copy(
-                    `${link}/auth?referal=${id}?type=${
+                    `${link}/auth?referal=${id}&type=${
                       i.name.includes("Starter") ? "starter" : "advanced"
                     }`
                   );

@@ -125,7 +125,7 @@ model ReferCredit {
   invited_id                      String        @unique
   invited                         User          @relation("invited_user", fields: [invited_id], references: [id])
   owner_of_link                   User          @relation("owner_of_link_user", fields: [owner_of_link_id], references: [id])
-  type                            String
+  type                            String        @default("")
 }
 
 model SentCode {
