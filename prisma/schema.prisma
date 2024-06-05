@@ -115,17 +115,20 @@ model User {
   plan     Plan?      @relation(fields: [planId], references: [id])
   SentCode SentCode[]
 
-  invited              ReferCredit?     @relation("invited_user")
-  owner_of_link        ReferCredit[]    @relation("owner_of_link_user")
+  invited       ReferCredit?  @relation("invited_user")
+  owner_of_link ReferCredit[] @relation("owner_of_link_user")
+
+  bonusPitch      Int @default(0)
+  bonusSuperPitch Int @default(0)
 }
 
 model ReferCredit {
-  id                              String         @id @default(cuid())
-  owner_of_link_id                String        
-  invited_id                      String        @unique
-  invited                         User          @relation("invited_user", fields: [invited_id], references: [id])
-  owner_of_link                   User          @relation("owner_of_link_user", fields: [owner_of_link_id], references: [id])
-  type                            String        @default("")
+  id               String @id @default(cuid())
+  owner_of_link_id String
+  invited_id       String @unique
+  invited          User   @relation("invited_user", fields: [invited_id], references: [id])
+  owner_of_link    User   @relation("owner_of_link_user", fields: [owner_of_link_id], references: [id])
+  type             String @default("")
 }
 
 model SentCode {

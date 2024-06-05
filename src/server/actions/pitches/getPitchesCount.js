@@ -12,7 +12,7 @@ export const getPitchesCount = async (type = "pitch") => {
 
   const user = await prisma.user.findUnique({
     where: { id: session?.user.id },
-    select: { planId: true },
+    select: { planId: true, bonusPitch: true, bonusSuperPitch: true },
   });
 
   let lastDay = new Date(new Date().setHours(0, 0, 0, 0));
@@ -46,8 +46,14 @@ export const getPitchesCount = async (type = "pitch") => {
   });
 
   if (type === "pitch")
-    return pitchesByPlan[0].pitchesCount - todayMessages.length;
+    return (
+      pitchesByPlan[0].pitchesCount - todayMessages.length + user.bonusPitch
+    );
   else if (type === "superpitch")
-    return pitchesByPlan[0].superPitchesCount - todayMessages.length;
+    return (
+      pitchesByPlan[0].superPitchesCount -
+      todayMessages.length +
+      user.bonusSuperPitch
+    );
   else return -100;
 };
