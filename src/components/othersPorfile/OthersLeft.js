@@ -232,7 +232,7 @@ transition-all duration-[250ms] ${
                   style="font-medium text-[18px] leading-[21.6px] tracking-[-0.025em]"
                 />
               </Helper>
-              <Helper text="Скопировать ссылку на профиль" styled="">
+              <Helper text="Скопировать username" styled="">
                 <div
                   className="flex flex-row gap-[2px] items-center cursor-pointer"
                   onClick={() => {
@@ -248,9 +248,7 @@ transition-all duration-[250ms] ${
                       progressStyle: { background: "#5875e8" },
                       containerId: "forCopy",
                     });
-                    clipboard.copy(
-                      "https://practica.team/profile/" + data.username
-                    );
+                    clipboard.copy("@" + data.username);
                   }}
                 >
                   <TextSecondary

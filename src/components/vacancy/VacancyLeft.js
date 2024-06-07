@@ -47,7 +47,7 @@ const VacancyLeft = ({ data, children }) => {
             }
             style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] cursor-pointer`}
           />
-          <Helper text="Скопировать ссылку на профиль" styled="mx-auto">
+          <Helper text="Скопировать username" styled="mx-auto">
             <div
               className="flex flex-row gap-[2px] items-center cursor-pointer"
               onClick={() => {
@@ -63,10 +63,7 @@ const VacancyLeft = ({ data, children }) => {
                   progressStyle: { background: "#5875e8" },
                   containerId: "forCopy",
                 });
-                clipboard.copy(
-                  "https://practica.team/companyprofile/" +
-                    data.Company.username
-                );
+                clipboard.copy("@" + data.Company.username);
               }}
             >
               <TextSecondary

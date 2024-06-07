@@ -130,7 +130,7 @@ const CompanyLeft = ({
                 onClick && "cursor-pointer"
               }`}
             />
-            <Helper text="Скопировать ссылку на профиль" styled="mx-auto">
+            <Helper text="Скопировать username" styled="mx-auto">
               <div
                 className="flex flex-row gap-[2px] items-center cursor-pointer"
                 onClick={() => {
@@ -146,9 +146,7 @@ const CompanyLeft = ({
                     progressStyle: { background: "#5875e8" },
                     containerId: "forCopy",
                   });
-                  clipboard.copy(
-                    "https://practica.team/companyprofile/" + data.username
-                  );
+                  clipboard.copy("@" + data.username);
                 }}
               >
                 <TextSecondary

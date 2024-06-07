@@ -236,7 +236,7 @@ const Left = ({
                 }`}
                 style="font-medium text-[18px] leading-[21.6px] tracking-[-0.025em]"
               />
-              <Helper text="Скопировать ссылку на профиль" styled="">
+              <Helper text="Скопировать username" styled="">
                 <div
                   className="flex flex-row gap-[2px] items-center cursor-pointer"
                   onClick={() => {
@@ -252,9 +252,7 @@ const Left = ({
                       progressStyle: { background: "#5875e8" },
                       containerId: "forCopy",
                     });
-                    clipboard.copy(
-                      "https://practica.team/profile/" + data.username
-                    );
+                    clipboard.copy("@" + data.username);
                   }}
                 >
                   <TextSecondary
