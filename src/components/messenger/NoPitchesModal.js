@@ -55,10 +55,10 @@ const NoPitchesModal = ({
             Каждый день вам начисляется 3 питч-сообщения и 1 суперпитч-сообщение
           </p>
           <button
-            onClick={() => router.push("/subscriptions")}
+            onClick={() => router.push("/referal")}
             className="bg-[#5875e8] px-[16px] py-[12px] w-fit hover:bg-[#3A56C5] cursor-pointer mt-[12px] rounded-[16px] active:bg-[#2C429C] transition duration-[250ms] text-[#fff] font-medium text-[16px] tracking-[-0.24px] leading-[19px]"
           >
-            Получить больше
+            Бесплатные питчи
           </button>
         </div>
         {/* body */}
@@ -92,10 +92,10 @@ const NoPitchesModal = ({
             Каждый день вам начисляется 3 питч-сообщения и 1 суперпитч-сообщение
           </p>
           <button
-            onClick={() => router.push("/subscriptions")}
+            onClick={() => router.push("/referal")}
             className="bg-[#5875e8] px-[16px] py-[12px] w-fit mt-[12px] hover:bg-[#3A56C5] cursor-pointer rounded-[16px] active:bg-[#2C429C] transition duration-[250ms] text-[#fff] font-medium text-[16px] tracking-[-0.24px] leading-[19px]"
           >
-            Получить больше
+            Бесплатные питчи
           </button>
         </div>
         {/* body */}

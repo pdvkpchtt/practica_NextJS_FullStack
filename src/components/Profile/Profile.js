@@ -24,6 +24,7 @@ const Profile = ({
   const searchParams = useSearchParams();
   const { height, width } = useWindowDimensions();
   const ref = useRef(null);
+  const rightRef = useRef(null);
 
   const [opacity, setOpacity] = useState(false);
   const [trigger, setTrigger] = useState(false);
@@ -35,8 +36,9 @@ const Profile = ({
 
   const changeOpacity = () => {
     if (
-      window.scrollY > ref?.current?.clientHeight - height + 24 + 87 &&
-      trigger === true
+      window.scrollY > ref?.current?.clientHeight - height + 24 + 86 &&
+      trigger === true &&
+      rightRef?.current?.clientHeight > ref?.current?.clientHeight
     )
       setOpacity(true);
     else setOpacity(false);
@@ -111,6 +113,7 @@ const Profile = ({
         opacity={opacity}
         handleClick={(value) => handleClick(value)}
         navState={navState}
+        rightRef={rightRef}
       />
     </>
   );

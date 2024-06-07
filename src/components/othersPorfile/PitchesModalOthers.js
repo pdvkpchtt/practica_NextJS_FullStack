@@ -119,10 +119,10 @@ const PitchesModalOthers = ({
           <div className="flex flex-col gap-[16px]">
             <div className="w-full h-[1px] bg-[#e7e7e7] dark:bg-[#282828]" />
             <p
-              onClick={() => router.push("/subscriptions")}
+              onClick={() => router.push("/referal")}
               className="text-[#5875e8] hover:text-[#3A56C5] cursor-pointer mb-[15px] active:text-[#2C429C] transition duration-[250ms] font-normal text-[16px] tracking-[-0.24px] leading-[19px]"
             >
-              Как получить больше?
+              Бесплатные питчи
             </p>
           </div>
         </div>
@@ -220,10 +220,10 @@ const PitchesModalOthers = ({
           <div className="flex px-[12px] mb-[12px] flex-col gap-[16px]">
             <div className="w-full h-[1px] bg-[#e7e7e7] dark:bg-[#282828]" />
             <p
-              onClick={() => router.push("/subscriptions")}
+              onClick={() => router.push("/referal")}
               className="text-[#5875e8] hover:text-[#3A56C5] cursor-pointer  active:text-[#2C429C] transition duration-[250ms] font-normal text-[16px] tracking-[-0.24px] leading-[19px]"
             >
-              Как получить больше?
+              Бесплатные питчи
             </p>
           </div>
         </div>

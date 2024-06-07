@@ -16,28 +16,28 @@ const ProfileIcon = ({ big = false, role }) => {
   const contactsComp = useStore((state) => state.contactsComp);
   const contactsCompState = useStore((state) => state.contactsCompState);
 
-  console.log(contactsComp, contactsCompState, "asas");
+  // console.log(contactsComp, contactsCompState, "asas");
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const getHrComp = async () => {
-    const hrComp = await getFastHrCompany();
+  // const getHrComp = async () => {
+  //   const hrComp = await getFastHrCompany();
 
-    contactsCompState(hrComp[0]);
-    storage.set("hrComps", hrComp[0]);
-    setLoading(false);
-  };
+  //   contactsCompState(hrComp[0]);
+  //   storage.set("hrComps", hrComp[0]);
+  //   setLoading(false);
+  // };
 
-  useEffect(() => {
-    if (role?.includes("hr")) {
-      setLoading(true);
-      const hrCompFromStorage = storage.get("hrComps");
-      contactsCompState(hrCompFromStorage);
+  // useEffect(() => {
+  //   if (role?.includes("hr")) {
+  //     setLoading(true);
+  //     const hrCompFromStorage = storage.get("hrComps");
+  //     contactsCompState(hrCompFromStorage);
 
-      if (hrCompFromStorage === null) getHrComp();
-      else setLoading(false);
-    } else setLoading(false);
-  }, []);
+  //     if (hrCompFromStorage === null) getHrComp();
+  //     else setLoading(false);
+  //   } else setLoading(false);
+  // }, []);
 
   // console.log(storage.get("hrComps"), "fuck america");
 
@@ -66,7 +66,8 @@ const ProfileIcon = ({ big = false, role }) => {
       </>
     );
 
-  if (role?.includes("hr") && loading === false && !!contactsComp?.company)
+  // if (role?.includes("hr") && loading === false && !!contactsComp?.company)
+  if (false)
     return (
       <>
         {!big ? (
@@ -188,7 +189,7 @@ const ProfileIcon = ({ big = false, role }) => {
   else if (
     role?.includes("hr") &&
     !pathname.includes("/companyprofile") &&
-    !contactsComp?.company &&
+    // !contactsComp?.company &&
     loading === false
   )
     return (
@@ -250,7 +251,7 @@ const ProfileIcon = ({ big = false, role }) => {
   else if (
     role?.includes("hr") &&
     pathname.includes("/companyprofile") &&
-    !contactsComp?.company &&
+    // !contactsComp?.company &&
     loading === false
   )
     return (
