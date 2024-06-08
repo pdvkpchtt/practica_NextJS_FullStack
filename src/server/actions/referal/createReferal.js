@@ -2,7 +2,7 @@
 
 import { prisma } from "../../db";
 
-export const createReferal = async (id, type = "standart", invitedId) => {
+export const createReferal = async (id, type = "starter", invitedId) => {
   await prisma.ReferCredit.create({
     data: {
       owner_of_link: { connect: { id: id } },
@@ -11,7 +11,7 @@ export const createReferal = async (id, type = "standart", invitedId) => {
     },
   });
 
-  if (type === "standart")
+  if (type === "starter")
     await prisma.user.update({
       where: { id: id },
       data: {
