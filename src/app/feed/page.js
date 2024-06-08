@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { getConnctionsCount } from "../../server/actions/connections/getConnctionsCount";
 import CustomLoader from "../../shared/ui/CustomLoader";
 
-const FeedPage = async () => {
+const FeedPage = () => {
   const router = useRouter();
 
   const sync = async () => {

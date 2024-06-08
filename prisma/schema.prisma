@@ -126,8 +126,8 @@ model ReferCredit {
   id               String @id @default(cuid())
   owner_of_link_id String
   invited_id       String @unique
-  invited          User   @relation("invited_user", fields: [invited_id], references: [id])
-  owner_of_link    User   @relation("owner_of_link_user", fields: [owner_of_link_id], references: [id])
+  invited          User   @relation("invited_user", fields: [invited_id], references: [id], onDelete: Cascade)
+  owner_of_link    User   @relation("owner_of_link_user", fields: [owner_of_link_id], references: [id], onDelete: Cascade)
   type             String @default("")
 }
 

@@ -54,6 +54,18 @@ const VerifyPage = () => {
               setCode(e.target.value);
               setError(false);
             }}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                if (code.length > 0) {
+                  if (!!referal) {
+                  }
+
+                  window.location.href = `/api/auth/callback/email?email=${encodeURIComponent(
+                    email?.toLowerCase()
+                  )}&token=${code}`;
+                } else setError(true);
+              }
+            }}
           />
           {error && (
             <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">

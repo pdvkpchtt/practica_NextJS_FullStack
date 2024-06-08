@@ -11,11 +11,20 @@ export const createReferal = async (id, type = "standart", invitedId) => {
     },
   });
 
-  await await prisma.user.update({
-    where: { id: id },
-    data: {
-      bonusPitch: { increment: type === "standart" ? 20 : 40 },
-      bonusSuperPitch: { increment: type === "standart" ? 40 : 10 },
-    },
-  });
+  if (type === "standart")
+    await prisma.user.update({
+      where: { id: id },
+      data: {
+        bonusPitch: { increment: 20 },
+        bonusSuperPitch: { increment: 40 },
+      },
+    });
+  else
+    await prisma.user.update({
+      where: { id: id },
+      data: {
+        bonusPitch: { increment: 40 },
+        bonusSuperPitch: { increment: 10 },
+      },
+    });
 };

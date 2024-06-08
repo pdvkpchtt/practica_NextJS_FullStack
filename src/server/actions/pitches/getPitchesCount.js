@@ -45,15 +45,23 @@ export const getPitchesCount = async (type = "pitch", withBonuses = true) => {
     },
   });
 
-  if (type === "pitch")
-    return pitchesByPlan[0].pitchesCount - todayMessages.length + withBonuses
-      ? user.bonusPitch
-      : 0;
-  else if (type === "superpitch")
-    return pitchesByPlan[0].superPitchesCount -
-      todayMessages.length +
-      withBonuses
-      ? user.bonusSuperPitch
-      : 0;
-  else return -100;
+  if (withBonuses === true) {
+    if (type === "pitch")
+      return (
+        pitchesByPlan[0].pitchesCount - todayMessages.length + user.bonusPitch
+      );
+    else if (type === "superpitch")
+      return (
+        pitchesByPlan[0].superPitchesCount -
+        todayMessages.length +
+        user.bonusSuperPitch
+      );
+    else return -100;
+  } else {
+    if (type === "pitch")
+      return pitchesByPlan[0].pitchesCount - todayMessages.length;
+    else if (type === "superpitch")
+      return pitchesByPlan[0].superPitchesCount - todayMessages.length;
+    else return -100;
+  }
 };
