@@ -410,7 +410,7 @@ const Left = ({
         {/* hr */}
 
         {/* contacts  -  НЕ УДАЛЯТЬ!!!!! */}
-        {/* {!data?.role?.includes("hr") ? (
+        {!data?.role?.includes("hr") ? (
           <div
             className={`relative p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
           >
@@ -430,7 +430,7 @@ const Left = ({
           </div>
         ) : (
           <>
-            <div
+            {/* <div
               className={`relative p-[12px] rounded-[20px] items-center cursor-pointer flex flex-row max-w-[260px] w-full [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
             >
               <button
@@ -478,9 +478,9 @@ const Left = ({
                 }}
                 compsList={data?.hrCompany}
               />
-            </div>
+            </div> */}
           </>
-        )} */}
+        )}
         {/* contacts */}
 
         {/* pitches + superpitches */}

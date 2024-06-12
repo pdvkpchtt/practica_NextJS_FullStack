@@ -69,7 +69,7 @@ const ContactsModal = ({
       setCodeInput("");
       setIsEdit(false);
       setLoading(false);
-      router.push("/profile");
+      window.location.reload();
       // } else {
       //   setErrorVerCode(true);
       // }
@@ -84,17 +84,17 @@ const ContactsModal = ({
         handleClose={() => setModalState(false)}
       >
         {/* header */}
-        <div className="flex flex-row justify-end [@media(pointer:coarse)]:hidden pb-[24px] relative h-[180px]">
+        <div className="flex flex-row justify-end [@media(pointer:coarse)]:hidden mb-[75px] relative h-[92.6px]">
           <Cross2 onClick={() => setModalState(false)} />
 
           <Image
             src={"/phoneArt.png"}
             alt={"pitch art"}
-            width={630}
-            height={180}
+            width={498}
+            height={92.6}
             quality={100}
             unoptimized
-            className="absolute top-[-12px] left-[-12px] min-w-[630px] min-h-[180px] z-[-1]  rounded-t-[20px]"
+            className="absolute top-[-12px] left-[-12px] min-w-[498px] min-h-[92.6px] z-[-1]  rounded-t-[20px]"
           />
           {/* <div className="h-[0.5px] w-[calc(100%+24px)] bg-[#e7e7e7] dark:bg-[#2f2f2f] absolute top-[30px] left-[-12px]" /> */}
         </div>
