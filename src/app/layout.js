@@ -52,7 +52,7 @@ export default async function RootLayout({ children }) {
         trackHash:true
    });`}
       </Script>
-      <noscript>
+      {/* <noscript>
         <div>
           <img
             src="https://mc.yandex.ru/watch/96032500"
@@ -60,7 +60,7 @@ export default async function RootLayout({ children }) {
             alt=""
           />
         </div>
-      </noscript>
+      </noscript> */}
 
       <body
         className={` ${

@@ -1,7 +1,7 @@
 import AuthForm from "../../components/auth/AuthForm";
 import AuthText from "../../components/auth/AuthText";
 
-const AuthPage = (req) => {
+const AuthPage = async (req) => {
   const email = req.searchParams?.email;
   const hrtoken = req.searchParams?.hrtoken;
   const referal = req.searchParams?.referal;

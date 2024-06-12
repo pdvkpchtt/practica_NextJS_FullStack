@@ -17,8 +17,6 @@ const AuthLayout = async ({ children }) => {
   const type = searchParams.get("type");
   console.log(urlForParams, paramsEmail, paramsToken, "asasasassasawwww");
 
-  if (paramsEmail) console.log(!["/auth/verify", "/auth"].includes(fullUrl));
-
   if (!session?.user?.id && fullUrl === "/") {
     return redirect("/landing");
   }
