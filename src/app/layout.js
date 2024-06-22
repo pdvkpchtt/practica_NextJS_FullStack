@@ -12,15 +12,10 @@ import { getFastHrCompany } from "../server/actions/profile/getFastHrCompany";
 import Script from "next/script";
 
 export const metadata = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fff" },
-    { media: "(prefers-color-scheme: dark)", color: "#212122" },
-  ],
+  themeColor: "#000",
   manifest: "/manifest.json",
   title: "Practica",
   description: "На связи с лучшими",
-  initialScale: 1,
-  width: "device-width",
 };
 
 export default async function RootLayout({ children }) {
