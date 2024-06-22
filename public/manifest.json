@@ -1,6 +1,6 @@
 {
-  "name": "prectica",
-  "short_name": "prectica",
+  "name": "practica",
+  "short_name": "practica",
   "icons": [
     {
       "src": "/icons/android-chrome-192x192.png",
@@ -19,7 +19,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#FFFFFF",
+  "theme_color": "#141414",
   "background_color": "#FFFFFF",
   "start_url": "/feed",
   "display": "standalone",
