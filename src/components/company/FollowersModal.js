@@ -61,20 +61,25 @@ const FollowersModal = ({
         handleClose={() => setModalState(false)}
       >
         {/* header */}
-        <div className="flex flex-row justify-end pb-[12px] relative">
+        <div className="flex flex-row justify-end pb-[12px] relative [@media(pointer:coarse)]:hidden">
           <Cross2 onClick={() => setModalState(false)} />
 
-          <div className="h-[0.5px] w-[calc(100%+24px)] bg-[#e7e7e7] dark:bg-[#2f2f2f] absolute top-[30px] left-[-12px]" />
+          <div className="h-[0.5px] [@media(pointer:coarse)]:hidden w-[calc(100%+24px)] bg-[#e7e7e7] dark:bg-[#2f2f2f] absolute top-[30px] left-[-12px]" />
         </div>
         {/* header */}
 
         {/* body */}
-        <div className="h-[371px] mt-[12px] flex flex-col gap-[12px]">
-          <SearchInput placeholder="Поиск" value={input} onChange={setInput} />
+        <div className="h-[371px] [@media(pointer:coarse)]:hidden mt-[12px] flex flex-col gap-[12px]">
+          <SearchInput
+            placeholder="Поиск"
+            value={input}
+            onChange={setInput}
+            moreStyle="[@media(pointer:coarse)]:hidden"
+          />
 
           <>
             {!users ? (
-              <div className="w-full flex justify-center items-center h-full">
+              <div className="w-full [@media(pointer:coarse)]:hidden flex justify-center items-center h-full">
                 <CustomLoader diameter={36} />
               </div>
             ) : users?.length === 0 ? (

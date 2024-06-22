@@ -81,6 +81,7 @@ export const Input = ({
 
 export const SearchInput = ({
   placeholder = "",
+  moreStyle = "",
   value,
   onChange = () => {},
 }) => {
@@ -88,7 +89,7 @@ export const SearchInput = ({
 
   return (
     <div
-      className="[@media(pointer:coarse)]:rounded-[20px] bg-[#f6f6f8] dark:bg-[#2c2c2c] dark:placeholder:text-[#8f8f8f] dark:text-white px-[12px] rounded-[8px] w-full cursor-text flex items-center flex-row gap-[8px] transition duration-[250ms] hover:inner-border-[1px] hover:inner-border-[#5875e8]"
+      className={`${moreStyle} [@media(pointer:coarse)]:rounded-[20px] bg-[#f6f6f8] dark:bg-[#2c2c2c] dark:placeholder:text-[#8f8f8f] dark:text-white px-[12px] rounded-[8px] w-full cursor-text flex items-center flex-row gap-[8px] transition duration-[250ms] hover:inner-border-[1px] hover:inner-border-[#5875e8]`}
       onClick={() => ref.current.focus()}
     >
       <div className="[@media(pointer:coarse)]:hidden">
