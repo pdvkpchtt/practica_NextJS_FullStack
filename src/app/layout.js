@@ -12,6 +12,7 @@ import { getFastHrCompany } from "../server/actions/profile/getFastHrCompany";
 import Script from "next/script";
 
 export const metadata = {
+  manifest: "/manifest.json",
   title: "Practica",
   description: "На связи с лучшими",
 };

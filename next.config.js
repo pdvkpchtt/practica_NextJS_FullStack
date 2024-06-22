@@ -1,3 +1,8 @@
+const withPWA = require("next-pwa")({
+  dest: "public",
+  cacheOnFrontEndNav: true,
+});
+
 /** @type {import('next').NextConfig} */
 var path = require("path");
 const nextConfig = {
@@ -56,4 +61,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withPWA(nextConfig);
