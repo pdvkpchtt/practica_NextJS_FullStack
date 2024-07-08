@@ -9,6 +9,7 @@ import TextMain from "../../shared/Text/TextMain ";
 import TextSecondary from "../../shared/Text/TextSecondary";
 import Card from "../../shared/ui/Card";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
+import { VerifyIconFilled } from "../../shared/icons/VerifyIcon";
 
 const VacancyLeft = ({ data, children }) => {
   const router = useRouter();
@@ -40,13 +41,18 @@ const VacancyLeft = ({ data, children }) => {
 
         {/* name and username */}
         <div className="flex flex-col gap-[8px]">
-          <TextMain
-            text={data.Company.name}
-            onClick={() =>
-              router.push(`/companyprofile/${data.Company.username}`)
-            }
-            style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] cursor-pointer`}
-          />
+          <div className="flex flex-row gap-[3.5px] items-center">
+            <TextMain
+              text={data.Company.name}
+              onClick={() =>
+                router.push(`/companyprofile/${data.Company.username}`)
+              }
+              style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] cursor-pointer`}
+            />
+
+            {data.Company.virified === true && <VerifyIconFilled />}
+          </div>
+
           <Helper text="Скопировать username" styled="mx-auto">
             <div
               className="flex flex-row gap-[2px] items-center cursor-pointer"

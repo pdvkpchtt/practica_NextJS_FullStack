@@ -60,6 +60,8 @@ export const getVacancyById = async (id) => {
           image: true,
           Links: true,
           Cities: true,
+          virified: true,
+
           HR: true,
           _count: {
             select: { Following: true },
@@ -132,6 +134,7 @@ export const getVacancyById = async (id) => {
     waitings: currentVacancy.waitings,
     Bookmarks: currentVacancy.Bookmarks,
     Company: currentVacancy.Company,
+
     distantWork: currentVacancy.distantWork,
     hrCreator: currentVacancy?.hrCreator?.user,
     amICreator: currentVacancy?.hrCreator?.user?.id === session?.user?.id,

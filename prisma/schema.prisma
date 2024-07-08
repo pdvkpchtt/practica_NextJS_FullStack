@@ -181,6 +181,14 @@ model File {
   vacancy        Vacancy?      @relation(fields: [vacancyId], references: [id])
 }
 
+model VerifyFile {
+  id        String  @id @default(cuid())
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  path      String
+  name      String
+}
+
 model Hr {
   id           String    @id @default(cuid())
   userId       String
@@ -239,7 +247,11 @@ model Company {
   Post       Post[]
   Invite     Invite[]
 
+  VerifyFile VerifyFile[]
+
   contactsCount Int @default(3)
+
+  virified Boolean @default(false)
 }
 
 model Invite {

@@ -17,13 +17,15 @@ import useWindowDimensions from "../../components/Profile/useWindowDimensions";
 import EmptyAvatar from "../../shared/ui/EmptyAvatar";
 import RecrutersModal from "./RecrutersModal";
 import FollowersModal from "./FollowersModal";
+import VerifyModal from "./VerifyModal";
+import Helper from "../../shared/ui/Helper";
 
 import PenIcon from "../../shared/icons/PenIcon";
 import SettingsIcon from "../../shared/icons/SettingsIcon";
 import AddVacancyIcon from "../../shared/icons/AddVacancyIcon";
 import RecruterIcon from "../../shared/icons/RecruterIcon";
 import CopyIcon from "../../shared/icons/CopyIcon";
-import Helper from "../../shared/ui/Helper";
+import { VerifyIcon, VerifyIconFilled } from "../../shared/icons/VerifyIcon";
 
 const CompanyLeft = ({
   navState,
@@ -41,8 +43,9 @@ const CompanyLeft = ({
 
   const [modalState, setModalState] = useState(false);
   const [modalState2, setModalState2] = useState(false);
+  const [verifyModal, setVerifyModal] = useState(false);
 
-  console.log(data);
+  console.log(data, "company");
 
   const getNoun = (dig) => {
     if (dig % 10 === 0 || dig % 10 >= 5 || dig > 999) return "рекрутеров";
@@ -123,13 +126,17 @@ const CompanyLeft = ({
 
           {/* name and username */}
           <div className="flex flex-col gap-[8px]">
-            <TextMain
-              text={data.name}
-              onClick={onClick}
-              style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] ${
-                onClick && "cursor-pointer"
-              }`}
-            />
+            <div className="flex flex-row gap-[3.5px] items-center">
+              <TextMain
+                text={data.name}
+                onClick={onClick}
+                style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] ${
+                  onClick && "cursor-pointer"
+                }`}
+              />
+
+              {data.virified === true && <VerifyIconFilled />}
+            </div>
             <Helper text="Скопировать username" styled="mx-auto">
               <div
                 className="flex flex-row gap-[2px] items-center cursor-pointer"
@@ -279,6 +286,13 @@ const CompanyLeft = ({
             </ButtonGhost> */}
 
               <ButtonGhost
+                text="Подтвердить организацию"
+                onClick={() => setVerifyModal(true)}
+              >
+                <VerifyIcon />
+              </ButtonGhost>
+
+              <ButtonGhost
                 text="Редактировать"
                 onClick={() =>
                   router.push(`/companyprofile/${data?.username}/edit`, {
@@ -308,6 +322,11 @@ const CompanyLeft = ({
         comapnyId={data.id}
         modalState={modalState2}
         setModalState={setModalState2}
+      />
+      <VerifyModal
+        modalState={verifyModal}
+        setModalState={setVerifyModal}
+        compId={data.id}
       />
     </>
   );
