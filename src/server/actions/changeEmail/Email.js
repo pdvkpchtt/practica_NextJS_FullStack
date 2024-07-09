@@ -42,7 +42,7 @@ const Letter = ({ url = "" }) => {
           </Button>
 
           <Text className="text-[14px] text-[#8f8f8f] font-normal leading-[19px] mt-[40px]">
-            Если сообщение отправлено по ошибке,то не отвечайте на него
+            Если сообщение отправлено по ошибке, то не отвечайте на него
           </Text>
         </Body>
       </Body>

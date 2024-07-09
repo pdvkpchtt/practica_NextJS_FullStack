@@ -41,13 +41,13 @@ const VacancyLeft = ({ data, children }) => {
 
         {/* name and username */}
         <div className="flex flex-col gap-[8px]">
-          <div className="flex flex-row gap-[3.5px] items-center">
+          <div className="flex flex-row gap-[3.5px] items-center justify-center">
             <TextMain
               text={data.Company.name}
               onClick={() =>
                 router.push(`/companyprofile/${data.Company.username}`)
               }
-              style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] cursor-pointer`}
+              style={`font-medium text-[18px] w-fit leading-[21.6px] tracking-[-0.45px] cursor-pointer`}
             />
 
             {data.Company.virified === true && <VerifyIconFilled />}

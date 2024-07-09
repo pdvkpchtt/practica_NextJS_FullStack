@@ -152,10 +152,12 @@ const OthersCompanyLeft = ({
 
           {/* name and username */}
           <div className="flex flex-col gap-[8px]">
-            <div className="flex flex-row gap-[3.5px] items-center">
+            <div className="flex flex-row gap-[3.5px] items-center w-full justify-center">
               <TextMain
                 text={data.name}
-                style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] `}
+                style={`font-medium text-[18px] w-fit leading-[21.6px] tracking-[-0.45px] ${
+                  onClick && "cursor-pointer"
+                }`}
               />
 
               {data.virified === true && <VerifyIconFilled />}

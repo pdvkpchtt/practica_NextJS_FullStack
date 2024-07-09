@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Waypoint } from "react-waypoint";
+import { useRef } from "react";
+import { Oval } from "react-loader-spinner";
 
 import Modal from "../../shared/ui/Modal";
 import CustomLoader from "../../shared/ui/CustomLoader";
@@ -9,21 +11,30 @@ import TextCaption from "../../shared/Text/TextCaption";
 import MobileModal from "../../shared/ui/MobileModal";
 import MobileHeader from "../../shared/ui/MobileHeader";
 import TextMain from "../../shared/Text/TextMain ";
+import { upploadVerifyFile } from "../../server/actions/company/upploadVerifyFile";
+import { deleteVerifyFile } from "../../server/actions/company/deleteVerifyFile";
+import { fetchVerifyFiles } from "../../server/actions/company/fetchVerifyFiles";
+import { sendFeedBack } from "../../server/actions/company/sendFeedBack";
 
 import Cross2 from "../../shared/icons/Cross2";
-import { useRef } from "react";
-import { Oval } from "react-loader-spinner";
-import { upploadVerifyFile } from "../../server/actions/company/upploadVerifyFile";
+import TrashIcon from "../../shared/icons/TrashIcon";
+import storage from "../../storage/storage";
 
 const VerifyModal = ({
   modalState = false,
   setModalState = () => {},
   compId,
+  compName,
+  compUserName,
 }) => {
+  const [isSent, setIsSent] = useState(storage.get("verifyModal") || false);
   const [drag, setDrag] = useState(false);
   const [filesState, setFilesState] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [loadingButton, setLoadingButton] = useState(false);
 
   // validate
+  const [status, setStatus] = useState(null);
   const [status2, setStatus2] = useState(null);
   // validate
 
@@ -31,13 +42,41 @@ const VerifyModal = ({
   const inputRef = useRef(null);
 
   const somethingHapeningFunc = async (something) => {
-    const res = await upploadVerifyFile(something, compId);
-    if (res?.status) {
-      setStatus2(res.message);
-      console.log(res);
+    if (filesState.length < 5) {
+      setStatus(null);
+      const res = await upploadVerifyFile(something, compId);
+      if (res?.status) {
+        setStatus2(res.message);
+        console.log(res);
+      } else {
+        setStatus2(null);
+      }
     } else {
-      setStatus2(null);
+      setStatus("files maxlen");
     }
+  };
+
+  const fetchHandler = async () => {
+    if (loading) return;
+
+    setLoading(true);
+    const files = await fetchVerifyFiles(compId);
+    setFilesState(files);
+    console.log("modal files", files);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (!isSent) fetchHandler();
+  }, [upploadVerifyFile, modalState, deleteVerifyFile, drag, isSent]);
+
+  const handleDone = async () => {
+    setLoadingButton(true);
+    await sendFeedBack(compName, compId, compUserName);
+
+    storage.set("verifyModal", true);
+    setIsSent(true);
+    setLoadingButton(false);
   };
 
   return (
@@ -58,15 +97,55 @@ const VerifyModal = ({
 
         {/* body */}
         <div className="h-fit [@media(pointer:coarse)]:hidden mt-[12px] px-[12px] flex flex-col gap-[12px]">
-          <InnerComponent
-            buttRef={buttRef}
-            status2={status2}
-            setStatus2={setStatus2}
-            somethingHapeningFunc={somethingHapeningFunc}
-            drag={drag}
-            setDrag={setDrag}
-            inputRef={inputRef}
-          />
+          {isSent ? (
+            <div className="flex flex-col gap-[16px]">
+              <TextMain
+                text="Документы проверяются"
+                style={"text-[20px] font-medium leading-[22px]"}
+              />
+              <TextMain
+                text="— примерный срок 2-3 рабочих дня"
+                style={"text-[14px]"}
+              />
+              <div
+                className={` rounded-[30px] mt-[8px] w-[96px] mb-[32px] mx-auto h-[33px] transition duration-[250ms] px-[8px] py-[7.5px] flex items-center justify-center font-medium text-[14px] leading-[16px] tracking-[-0.015em] select-none
+    ${
+      // filesState.length !== 0
+      // ?
+      "active:bg-[#2C429C] hover:bg-[#3A56C5] bg-[#5875e8] text-white  cursor-pointer"
+      // : "bg-[#74899b] bg-opacity-[8%] text-[#bfbfbf] cursor-default"
+    }
+  `}
+                onClick={() => {
+                  storage.set("verifyModal", false);
+                  setIsSent(false);
+                }}
+              >
+                Изменить
+              </div>
+            </div>
+          ) : (
+            <InnerComponent
+              buttRef={buttRef}
+              status2={status2}
+              setStatus2={setStatus2}
+              somethingHapeningFunc={somethingHapeningFunc}
+              drag={drag}
+              setDrag={setDrag}
+              inputRef={inputRef}
+              compId={compId}
+              loading={loading}
+              setLoading={setLoading}
+              loadingButton={loadingButton}
+              setLoadingButton={setLoadingButton}
+              fetchHandler={fetchHandler}
+              filesState={filesState}
+              setFilesState={setFilesState}
+              handleDone={handleDone}
+              status={status}
+              setStatus={setStatus}
+            />
+          )}
         </div>
         {/* body */}
       </Modal>
@@ -80,15 +159,55 @@ const VerifyModal = ({
 
         {/* body */}
         <div className="mt-[113px] flex flex-col gap-[6px] p-[12px] overflow-y-scroll h-[100vh]">
-          <InnerComponent
-            buttRef={buttRef}
-            status2={status2}
-            setStatus2={setStatus2}
-            somethingHapeningFunc={somethingHapeningFunc}
-            drag={drag}
-            setDrag={setDrag}
-            inputRef={inputRef}
-          />
+          {isSent ? (
+            <div className="flex flex-col gap-[16px]">
+              <TextMain
+                text="Документы проверяются"
+                style={"text-[20px] font-medium leading-[22px]"}
+              />
+              <TextMain
+                text="— примерный срок 2-3 рабочих дня"
+                style={"text-[14px]"}
+              />
+              <div
+                className={` rounded-[30px] mt-[8px] w-[96px] mb-[32px] mx-auto h-[33px] transition duration-[250ms] px-[8px] py-[7.5px] flex items-center justify-center font-medium text-[14px] leading-[16px] tracking-[-0.015em] select-none
+    ${
+      // filesState.length !== 0
+      // ?
+      "active:bg-[#2C429C] hover:bg-[#3A56C5] bg-[#5875e8] text-white  cursor-pointer"
+      // : "bg-[#74899b] bg-opacity-[8%] text-[#bfbfbf] cursor-default"
+    }
+  `}
+                onClick={() => {
+                  storage.set("verifyModal", false);
+                  setIsSent(false);
+                }}
+              >
+                Изменить
+              </div>
+            </div>
+          ) : (
+            <InnerComponent
+              buttRef={buttRef}
+              status2={status2}
+              setStatus2={setStatus2}
+              somethingHapeningFunc={somethingHapeningFunc}
+              drag={drag}
+              setDrag={setDrag}
+              inputRef={inputRef}
+              compId={compId}
+              loading={loading}
+              setLoading={setLoading}
+              loadingButton={loadingButton}
+              setLoadingButton={setLoadingButton}
+              fetchHandler={fetchHandler}
+              filesState={filesState}
+              setFilesState={setFilesState}
+              handleDone={handleDone}
+              status={status}
+              setStatus={setStatus}
+            />
+          )}
         </div>
         {/* body */}
       </MobileModal>
@@ -106,6 +225,17 @@ const InnerComponent = ({
   somethingHapeningFunc,
   inputRef,
   buttRef,
+  compId,
+  loading,
+  setLoading,
+  loadingButton,
+  setLoadingButton,
+  fetchHandler,
+  filesState,
+  setFilesState,
+  handleDone,
+  status,
+  setStatus,
 }) => {
   return (
     <>
@@ -151,19 +281,24 @@ const InnerComponent = ({
           setDrag(true);
         }}
         onDrop={async (e) => {
-          e.preventDefault();
-          let files = [...e.dataTransfer.files];
-          const formData = new FormData();
-          formData.append("file", files[0]);
-          formData.append("compId", compId);
-          const res = await upploadVerifyFile(formData, compId);
-          setDrag(false);
+          if (filesState.length < 5) {
+            setStatus(null);
+            e.preventDefault();
+            let files = [...e.dataTransfer.files];
+            const formData = new FormData();
+            formData.append("file", files[0]);
+            formData.append("compId", compId);
+            const res = await upploadVerifyFile(formData, compId);
+            setDrag(false);
 
-          if (res?.status) {
-            setStatus2(res.message);
-            console.log(res);
+            if (res?.status) {
+              setStatus2(res.message);
+              console.log(res);
+            } else {
+              setStatus2(null);
+            }
           } else {
-            setStatus2(null);
+            setStatus("files maxlen");
           }
         }}
         onClick={() => !drag && inputRef.current.click()}
@@ -179,7 +314,7 @@ const InnerComponent = ({
           ref={inputRef}
           onChange={() => {
             buttRef.current.click();
-            // fetchHandler();
+            fetchHandler();
           }}
         />
         <input type="submit" value="Upload" ref={buttRef} className="hidden" />
@@ -205,21 +340,65 @@ const InnerComponent = ({
       </form>
       {/* input for files */}
 
+      {loading ? (
+        <div className="w-full flex items-center justify-center">
+          <CustomLoader diameter={25} strokeWidth={5} />
+        </div>
+      ) : (
+        filesState?.length !== 0 && (
+          <>
+            <TextMain
+              text="Загруженные файлы"
+              style={
+                "text-[14px] mt-[4px] text-start w-full font-medium mx-auto leading-[18px] tracking-[-0.182px]"
+              }
+            />
+
+            {filesState?.map((i, key) => (
+              <div
+                className="flex flex-row justify-between items-center"
+                key={key}
+              >
+                <a
+                  href={i.path}
+                  target="_blank"
+                  className="text-[#5875e8] flex-1 truncate hover:text-[#3A56C5] active:text-[#2C429C] transition duration-[250ms] text-[16px] font-normal leading-[19px] tracking-[-0.24px] underline cursor-pointer"
+                >
+                  {i.name}
+                </a>
+
+                <TrashIcon
+                  gray
+                  onClick={() => {
+                    deleteVerifyFile(i.id);
+                    setStatus(null);
+                    fetchHandler();
+                  }}
+                />
+              </div>
+            ))}
+            {status && status?.includes("files maxlen") && (
+              <p className="text-[13px] leading-[16px] tracking-[-0.351px] mt-[3px] text-[#F0BB31]">
+                Максимум 5 файлов
+              </p>
+            )}
+          </>
+        )
+      )}
+
       <div
         className={` rounded-[30px] mt-[8px] w-[96px] mb-[32px] mx-auto h-[33px] transition duration-[250ms] px-[8px] py-[7.5px] flex items-center justify-center font-medium text-[14px] leading-[16px] tracking-[-0.015em] select-none
     ${
-      // headState != "" && textState != ""
-      // ?
-      "active:bg-[#2C429C] hover:bg-[#3A56C5] bg-[#5875e8] text-white  cursor-pointer"
-      // : "bg-[#74899b] bg-opacity-[8%] text-[#bfbfbf] cursor-default"
+      filesState.length !== 0
+        ? "active:bg-[#2C429C] hover:bg-[#3A56C5] bg-[#5875e8] text-white  cursor-pointer"
+        : "bg-[#74899b] bg-opacity-[8%] text-[#bfbfbf] cursor-default"
     }
   `}
         onClick={() => {
-          // if (headState != "" && textState != "") onClick();
-          // else handleClick();
+          if (filesState.length !== 0) handleDone();
         }}
       >
-        {!false ? (
+        {!loadingButton ? (
           <div>Отправить</div>
         ) : (
           <Oval

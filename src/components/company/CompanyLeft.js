@@ -126,11 +126,11 @@ const CompanyLeft = ({
 
           {/* name and username */}
           <div className="flex flex-col gap-[8px]">
-            <div className="flex flex-row gap-[3.5px] items-center">
+            <div className="flex flex-row gap-[3.5px] items-center w-full justify-center">
               <TextMain
                 text={data.name}
                 onClick={onClick}
-                style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] ${
+                style={`font-medium text-[18px] w-fit leading-[21.6px] tracking-[-0.45px] ${
                   onClick && "cursor-pointer"
                 }`}
               />
@@ -284,13 +284,14 @@ const CompanyLeft = ({
             >
               <RecruterIcon />
             </ButtonGhost> */}
-
-              <ButtonGhost
-                text="Подтвердить организацию"
-                onClick={() => setVerifyModal(true)}
-              >
-                <VerifyIcon />
-              </ButtonGhost>
+              {!data?.virified && (
+                <ButtonGhost
+                  text="Подтвердить организацию"
+                  onClick={() => setVerifyModal(true)}
+                >
+                  <VerifyIcon />
+                </ButtonGhost>
+              )}
 
               <ButtonGhost
                 text="Редактировать"
@@ -327,6 +328,8 @@ const CompanyLeft = ({
         modalState={verifyModal}
         setModalState={setVerifyModal}
         compId={data.id}
+        compName={data.name}
+        compUserName={data.username}
       />
     </>
   );
