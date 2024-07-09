@@ -8,7 +8,7 @@ import SearchIcon from "../icons/SearchIcon";
 import MessengerIcon from "../icons/MessengerIcon";
 import ProfileIcon from "../icons/ProfileIcon";
 
-const Header = ({ role }) => {
+const Header = ({ role, userId }) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -29,7 +29,7 @@ const Header = ({ role }) => {
           <div className="flex flex-row gap-[64px] mt-[17px] mb-[20px]">
             <HomeIcon />
             <SearchIcon />
-            <MessengerIcon />
+            <MessengerIcon userId={userId} />
             <ProfileIcon role={role} />
           </div>
 

@@ -7,7 +7,7 @@ import HomeIconBig from "../icons/HomeIconBig";
 import SearchIconBig from "../icons/SearchIconBig";
 import ProfileIcon from "../icons/ProfileIcon";
 
-const BottomNav = ({ role }) => {
+const BottomNav = ({ role, userId }) => {
   const pathname = usePathname();
 
   const isHideBottomNav =
@@ -31,7 +31,7 @@ const BottomNav = ({ role }) => {
               </div>
 
               <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">
-                <MessengerIcon big />
+                <MessengerIcon big userId={userId} />
               </div>
 
               <div className="flex cursor-pointer flex-col items-center gap-[1px] text-center">

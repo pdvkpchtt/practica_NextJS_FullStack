@@ -73,11 +73,11 @@ export default async function RootLayout({ children }) {
       >
         <SessionProvider session={session}>
           <AuthLayout>
-            <Header role={session?.user?.role} />
+            <Header role={session?.user?.role} userId={session?.user?.id} />
             <main>
               <Layout>{children}</Layout>
             </main>
-            <BottomNav role={session?.user?.role} />
+            <BottomNav role={session?.user?.role} userId={session?.user?.id} />
           </AuthLayout>
         </SessionProvider>
       </body>
