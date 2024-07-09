@@ -155,9 +155,7 @@ const OthersCompanyLeft = ({
             <div className="flex flex-row gap-[3.5px] items-center w-full justify-center">
               <TextMain
                 text={data.name}
-                style={`font-medium text-[18px] w-fit leading-[21.6px] tracking-[-0.45px] ${
-                  onClick && "cursor-pointer"
-                }`}
+                style={`font-medium text-[18px] w-fit leading-[21.6px] tracking-[-0.45px] `}
               />
 
               {data.virified === true && <VerifyIconFilled />}
