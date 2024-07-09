@@ -14,6 +14,7 @@ export const getCompanies = async (cursor, filters) => {
       employee: true,
       Vacancy: true,
       isStartap: true,
+      virified: true,
     },
     where: filters?.startFiltering
       ? filters?.input.length > 0
@@ -102,6 +103,7 @@ export const getCompanies = async (cursor, filters) => {
       Vacancy: users.Vacancy,
       about: users.about,
       isStartap: users.isStartap,
+      virified: users.virified,
     };
   });
 

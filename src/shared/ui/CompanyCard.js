@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { VerifyIconFilled } from "../../shared/icons/VerifyIcon";
 
 import TextMain from "../Text/TextMain ";
 import TextSecondary from "../Text/TextSecondary";
@@ -61,15 +62,18 @@ const CompanyCard = ({ item }) => {
       </div>
 
       <div className="flex flex-col gap-[4px]">
-        <TextMain
-          text={item.name}
-          style="font-medium text-[16px] cursor-pointer leading-[19.2px] tracking-[-0.015em]"
-          onClick={() =>
-            router.push(
-              `/companyprofile/${item.username ? item.username : item.id}`
-            )
-          }
-        />
+        <div className="flex flex-row items-center gap-[3.5px]">
+          <TextMain
+            text={item.name}
+            style="font-medium text-[16px] w-fit cursor-pointer leading-[19.2px] tracking-[-0.015em]"
+            onClick={() =>
+              router.push(
+                `/companyprofile/${item.username ? item.username : item.id}`
+              )
+            }
+          />
+          {item.virified === true && <VerifyIconFilled />}
+        </div>
         <TextSecondary
           text={item.about}
           style="font-normal text-[14px] leading-[18px] tracking-[-0.182px]"
