@@ -18,6 +18,7 @@ export const getCompany = async ({ companyId }) => {
       about: true,
       direction: true,
       isStartap: true,
+      virified: true,
 
       industry: { select: { label: true, id: true } },
       employee: { select: { label: true, id: true } },
@@ -62,6 +63,7 @@ export const getCompany = async ({ companyId }) => {
       id: foundCompany?.user?.id,
       email: foundCompany?.user?.email,
     },
+    virified: foundCompany?.virified,
     followersCount: foundCompany?.Following?.length,
     imHr: foundCompany?.HR?.find((i) => i.userId === session?.user?.id)
       ? foundCompany?.HR?.find((i) => i.userId === session?.user?.id)

@@ -31,6 +31,7 @@ import AddVacancyIcon from "../../shared/icons/AddVacancyIcon";
 import useInterval from "use-interval";
 import Helper from "../../shared/ui/Helper";
 import CopyIcon from "../../shared/icons/CopyIcon";
+import { VerifyIconFilled } from "../../shared/icons/VerifyIcon";
 
 const OthersCompanyLeft = ({
   navState,
@@ -151,10 +152,15 @@ const OthersCompanyLeft = ({
 
           {/* name and username */}
           <div className="flex flex-col gap-[8px]">
-            <TextMain
-              text={data.name}
-              style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] `}
-            />
+            <div className="flex flex-row gap-[3.5px] items-center">
+              <TextMain
+                text={data.name}
+                style={`font-medium text-[18px] w-full text-center leading-[21.6px] tracking-[-0.45px] `}
+              />
+
+              {data.virified === true && <VerifyIconFilled />}
+            </div>
+
             <Helper text="Скопировать username" styled="mx-auto">
               <div
                 className="flex flex-row gap-[2px] items-center cursor-pointer"
